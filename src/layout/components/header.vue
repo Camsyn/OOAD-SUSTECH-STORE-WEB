@@ -1,62 +1,64 @@
 <template>
-  <v-app-bar>
-    <v-container style="margin: 0" fluid>
-      <v-row>
-        <v-col cols="9" class="pt-8">
-          <v-row justify="start" cols="12">
-            <v-col>
-              <v-btn text>
-                <span>首页</span>
-                <v-icon>mdi-open-in-new</v-icon>
-              </v-btn>
-            </v-col>
+  <v-app-bar
+      app
+      color="white"
+      flat
+  >
+    <v-container class="py-0 fill-height">
+      <v-avatar
+          class="mr-10"
+          color="grey darken-1"
+          size="32"
+      ></v-avatar>
 
-            <v-col>
-              <v-btn text>
-                <span>广场</span>
-                <v-icon>mdi-open-in-new</v-icon>
-              </v-btn>
-            </v-col>
-            <v-col>
-              <v-btn text>
-                <span>发布</span>
-                <v-icon>mdi-open-in-new</v-icon>
-              </v-btn>
-            </v-col>
-            <v-col>
-              <v-btn text>
-                <span>消息</span>
-                <v-icon>mdi-open-in-new</v-icon>
-              </v-btn>
-            </v-col>
-            <v-col>
-              <v-btn text>
-                <span>我的</span>
-                <v-icon>mdi-open-in-new</v-icon>
-              </v-btn>
-            </v-col>
-            <v-col cols="4">
-              <v-text-field label="Search"></v-text-field>
-            </v-col>
-          </v-row>
-        </v-col>
-        <v-spacer/>
-        <v-col  class="pt-6">
-          <v-row>
-            <v-col cols="2" offset="7">
-              <v-avatar
-                  size="50"
-                  @click="info"
-              >
-                <img
-                    src="https://cdn.vuetifyjs.com/images/john.jpg"
-                    alt="John"
-                >
-              </v-avatar>
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
+      <v-btn text>
+        主页
+      </v-btn>
+
+      <v-btn text>
+        圈子
+      </v-btn>
+      <v-btn
+          icon
+      >
+        <v-icon>mdi-forum</v-icon>
+      </v-btn>
+
+      <v-menu offset-y :close-on-content-click="false">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+              icon
+              v-bind="attrs"
+              v-on="on"
+          >
+            <v-icon>mdi-notifications</v-icon>
+          </v-btn>
+        </template>
+        <v-list two-line>
+          <v-list-item-group
+              active-class="grey--text"
+          >
+            <template v-for="(item, index) in items">
+              <v-list-item :key="item.title">
+                <template v-slot:default>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.title"></v-list-item-title>
+                    <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+                  </v-list-item-content>
+
+                  <v-list-item-action>
+                    <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
+                  </v-list-item-action>
+                </template>
+              </v-list-item>
+              <v-divider
+                  v-if="index < items.length - 1"
+                  :key="index"
+              ></v-divider>
+            </template>
+          </v-list-item-group>
+        </v-list>
+      </v-menu>
     </v-container>
   </v-app-bar>
 </template>
@@ -64,9 +66,41 @@
 <script>
 export default {
   name: "header",
-  data(){
-
-  },
+  data: () => ({
+    selected: [2],
+    items: [
+      {
+        action: '15 min',
+        headline: 'Brunch this weekend?',
+        subtitle: `I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`,
+        title: 'Ali Connors',
+      },
+      {
+        action: '2 hr',
+        headline: 'Summer BBQ',
+        subtitle: `Wish I could come, but I'm out of town this weekend.`,
+        title: 'me, Scrott, Jennifer',
+      },
+      {
+        action: '6 hr',
+        headline: 'Oui oui',
+        subtitle: 'Do you have Paris recommendations? Have you ever been?',
+        title: 'Sandra Adams',
+      },
+      {
+        action: '12 hr',
+        headline: 'Birthday gift',
+        subtitle: 'Have any ideas about what we should get Heidi for her birthday?',
+        title: 'Trevor Hansen',
+      },
+      {
+        action: '18hr',
+        headline: 'Recipe to try',
+        subtitle: 'We should eat this: Grate, Squash, Corn, and tomatillo Tacos.',
+        title: 'Britta Holt',
+      },
+    ],
+  }),
   methods: {
     info(){
 

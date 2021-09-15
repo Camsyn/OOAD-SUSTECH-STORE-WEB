@@ -1,8 +1,16 @@
 <template>
-  <div>
+  <v-app>
     <Header></Header>
-    <router-view></router-view>
-  </div>
+    <v-main class="grey lighten-3 py-0">
+      <v-container>
+        <v-row>
+          <v-col>
+            <router-view></router-view>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>

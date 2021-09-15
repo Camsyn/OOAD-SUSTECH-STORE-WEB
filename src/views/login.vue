@@ -1,23 +1,56 @@
 <template>
-  <v-form class="offset-4 col-4" style="position: absolute; top: 200px">
-      <div class="offset-3">
-        <h2>SUSTECH STORE LOGIN</h2>
+
+  <v-card id="board" >
+<!--    <iframe src="../static/vector/default-monochrome.svg" width="600" height="200"></iframe>-->
+    <v-form id="reg" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
+      <div>
+        <h2 style="text-align: center">SUSTECH STORE REGISTER</h2>
       </div>
-          <v-text-field
-              v-model="Username"
-              label="Username"
-              clearable
-          ></v-text-field>
+      <v-text-field
+          v-model="Username"
+          label="Usrename"
+          clearable
+      ></v-text-field>
 
-          <v-text-field
-              v-model="Password"
-              label="Password"
-              clearable
-          ></v-text-field>
+      <v-text-field
+          v-model="Password"
+          label="Password"
+          clearable
+      ></v-text-field>
 
-        <v-btn @click="login" class="px-7 offset-3">login</v-btn>
-        <v-btn @click="regist" class="ml-4">register</v-btn>
-  </v-form>
+      <v-text-field
+          v-model="Email"
+          label="Email Adress"
+          clearable
+      ></v-text-field>
+
+      <v-row justify="center">
+        <v-btn plain @click="trans(false)" class="px-0">已有账号?</v-btn>
+        <v-btn plain @click="trans(false)" class="ml-4">注册</v-btn>
+      </v-row>
+    </v-form>
+    <v-form id="log" class="offset-4 col-4" style="background: white; position: absolute; top: 200px;">
+        <div>
+          <h2 style="text-align: center">SUSTECH STORE LOGIN</h2>
+        </div>
+        <v-text-field
+            v-model="Username"
+            label="Username"
+            clearable
+        ></v-text-field>
+
+        <v-text-field
+            v-model="Password"
+            label="Password"
+            clearable
+        ></v-text-field>
+
+        <v-row justify="center">
+          <v-btn plain @click="login" class="px-0">登录</v-btn>
+          <v-btn plain @click="trans(true)" class="ml-4">注册</v-btn>
+        </v-row>
+      </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -25,13 +58,40 @@ export default {
   name: "login",
   data () {
     return {
+      cls: "offset-4 col-4",
       Username: '',
       Password: '',
+      Email: '',
+      info: null,
     }
   },
   methods: {
+    trans(n){
+      console.log(document.getElementById("board").class)
+      if(n){
+        document.getElementById("board").style.transform='rotateY(180deg)'
+        document.getElementById("reg").style.display=''
+        document.getElementById("log").style.display='none'
+      }else {
+        document.getElementById("board").style.transform='rotateY(0deg)'
+        document.getElementById("reg").style.display='none'
+        document.getElementById("log").style.display=''
+      }
+    },
     login(){
-      // this.$store.
+      // document.getElementById("board").style.transform='rotateY(180deg)'
+      // this.axios({
+      //   method: 'get',
+      //   url: '/test',
+      // })
+          this.axios.get('/test').then(response =>
+      {
+        this.info=response.data
+        console.log(this.info)
+      }).catch(error =>
+      {
+        console.log(error);
+      });
     },
 
     regist(){
@@ -44,11 +104,9 @@ export default {
 </script>
 
 <style scoped>
-.lgin{
-  height: auto;
-  width: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  padding: 0;
+#board{
+  transition: 1.5s;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transform-style: preserve-3d;
 }
 </style>
