@@ -4,8 +4,7 @@ module.exports = {
     port: 8081,
     proxy: {
       '/api': {
-        // 此处的写法，目的是为了 将 /api 替换成 https://www.baidu.com/
-        target: 'http://10.17.121.232:8080',
+        target: 'http://camsyn.top:8000',
         // 允许跨域
         changeOrigin: true,
         ws: true,

@@ -2,10 +2,13 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/login.vue";
 import Layout from "../layout/layout";
-import Test from "../components/test";
-import Commodity from "../components/commodity/commodity";
 import Upload from "../components/upload";
 import Home from "@/views/Home";
+
+import Test from "../components/test";
+import Commodity from "../components/commodity/commodity";
+import Messageall from "../views/message/message_all";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -37,6 +40,10 @@ const routes = [
       {
         path: "up",
         component: Upload,
+      },
+      {
+        path: "msg",
+        component: Messageall,
       }
     ],
   },

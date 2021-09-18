@@ -24,47 +24,15 @@
         <v-icon>mdi-forum</v-icon>
       </v-btn>
 
-      <v-menu offset-y :close-on-content-click="false">
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-              icon
-              v-bind="attrs"
-              v-on="on"
-          >
-            <v-icon>mdi-notifications</v-icon>
-          </v-btn>
-        </template>
-        <v-list two-line>
-          <v-list-item-group
-              active-class="grey--text"
-          >
-            <template v-for="(item, index) in items">
-              <v-list-item :key="item.title">
-                <template v-slot:default>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item.title"></v-list-item-title>
-                    <v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
-                  </v-list-item-content>
-
-                  <v-list-item-action>
-                    <v-list-item-action-text v-text="item.action"></v-list-item-action-text>
-                  </v-list-item-action>
-                </template>
-              </v-list-item>
-              <v-divider
-                  v-if="index < items.length - 1"
-                  :key="index"
-              ></v-divider>
-            </template>
-          </v-list-item-group>
-        </v-list>
-      </v-menu>
+      <menu-btn icon="mdi-forum"></menu-btn>
     </v-container>
   </v-app-bar>
 </template>
 
 <script>
+import menuBtn from "@/layout/components/menuBtn";
 export default {
+  components:{menuBtn,},
   name: "header",
   data: () => ({
     selected: [2],

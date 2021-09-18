@@ -84,7 +84,7 @@ export default {
       //   method: 'get',
       //   url: '/test',
       // })
-          this.axios.get('/test').then(response =>
+          this.axios.get('').then(response =>
       {
         this.info=response.data
         console.log(this.info)
