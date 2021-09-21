@@ -5,10 +5,150 @@
         <v-col class="col-1">
           <v-btn outlined fab color="black" @click="buySellChange()"> {{buySell}} </v-btn>
         </v-col>
-        <v-col> </v-col>
-        <v-col>
+        <v-col cols="5">
           <v-text-field flat hide-details rounded solo-inverted></v-text-field>
         </v-col>
+        <v-spacer></v-spacer>
+        <v-btn-toggle
+            v-model="srt"
+            tile
+            group
+        >
+          <v-btn>
+            信誉
+          </v-btn>
+          <v-btn>
+            时间
+          </v-btn>
+          <v-btn>
+            价格升序
+          </v-btn>
+          <v-btn>
+            价格降序
+          </v-btn>
+        </v-btn-toggle>
+        <v-spacer></v-spacer>
+        <v-dialog
+            v-model="dialog"
+            persistent
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+                class="mt-1 py-6"
+                text
+                v-bind="attrs"
+                v-on="on"
+            >
+              筛选
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>
+              <span class="text-h5 mx-auto" >全部筛选</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container fluid>
+                  <v-row>
+                    <span class="text-h6">按标签</span>
+                  </v-row>
+                  <v-row>
+                    <span>预设标签</span>
+                  </v-row>
+                  <v-row>
+                    <v-col
+                          v-for="label in label_all"
+                          :key="label"
+                          cols="1"
+                    >
+                      <v-checkbox
+                            :value=label
+                            :label=label
+                            v-model="label_selected"
+                      ></v-checkbox>
+                    </v-col>
+                  </v-row>
+                <v-row>
+                  <span>自定义标签</span>
+                </v-row>
+                <v-row class="flex-row row--dense mt-3">
+                  <v-col cols="3">
+                    <v-text-field
+                        v-model="label_to_add"
+                        :append-outer-icon="'mdi-send'"
+                        filled
+                        clear-icon="mdi-close-circle"
+                        clearable
+                        type="text"
+                        @click:append-outer="add_label"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="7" offset="1" class="mt-3">
+                    <v-row>
+                      <v-col
+                          v-for="(label, index) in user_defined_label"
+                          :key="label"
+                          class="px-0 mx-0"
+                          cols="1"
+                      >
+                        <v-chip
+                            close
+                            outlined
+                            color="black"
+                            @click:close="del_label(index)"
+                        >
+                          {{label}}
+                        </v-chip>
+                      </v-col>
+                    </v-row>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <span>价格区间</span>
+                </v-row>
+                <v-row class="justify-center">
+                  <v-col>
+                    <v-text-field
+                        v-model="price_from"
+                        filled
+                        clear-icon="mdi-close-circle"
+                        clearable
+                        type="text"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="1" class="my-3">
+                    <p class="text-center text-h5">到</p>
+                  </v-col>
+                  <v-col>
+                    <v-text-field
+                        v-model="price_to"
+                        filled
+                        clear-icon="mdi-close-circle"
+                        clearable
+                        type="text"
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="dialog = false"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="dialog = false"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-row>
     </v-container>
 
@@ -28,6 +168,14 @@ export default {
   name: "Home",
   data() {
     return {
+      price_from: null,
+      price_to: null,
+      label_to_add: "",
+      user_defined_label: ["ab", "bc", "cd", "de", "ef", "fg", "gh"],
+      label_all: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+      label_selected: [],
+      dialog: false,
+      srt: [],
       buySell: "收",
       amount: 9,
       height: 0,
@@ -42,6 +190,15 @@ export default {
     window.addEventListener("scroll", this.addMore);
   },
   methods: {
+    del_label(index){
+      this.user_defined_label.splice(index, 1);
+    },
+    add_label(){
+      if(this.label_to_add!=""){
+        this.user_defined_label.push(this.label_to_add)
+        this.label_to_add=""
+      }
+    },
     addMore() {
       let windowRelativeBottom =
         document.documentElement.getBoundingClientRect().bottom;
