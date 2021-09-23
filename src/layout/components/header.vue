@@ -32,7 +32,7 @@
 <script>
 import menuBtn from "@/layout/components/menuBtn";
 export default {
-  components:{menuBtn,},
+  components: { menuBtn, },
   name: "header",
   data: () => ({
     selected: [2],

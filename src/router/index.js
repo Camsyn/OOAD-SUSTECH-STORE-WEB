@@ -25,6 +25,10 @@ const routes = [
       {
         path: "home",
         component: Home
+      },
+      {
+        path: "message",
+        component: Messageall
       }
     ]
   },

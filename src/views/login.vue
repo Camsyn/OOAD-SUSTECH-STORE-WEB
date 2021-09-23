@@ -79,19 +79,21 @@ export default {
       }
     },
     login(){
-      // document.getElementById("board").style.transform='rotateY(180deg)'
       // this.axios({
       //   method: 'get',
       //   url: '/test',
       // })
-          this.axios.get('').then(response =>
-      {
-        this.info=response.data
-        console.log(this.info)
-      }).catch(error =>
-      {
-        console.log(error);
-      });
+      this.$store.commit('SET_NAME', 'emm')
+      console.log(this.$store.getters.name)
+      console.log(this.$store.state.user.name)
+      //     this.axios.get('').then(response =>
+      // {
+      //   this.info=response.data
+      //   console.log(this.info)
+      // }).catch(error =>
+      // {
+      //   console.log(error);
+      // });
     },
 
     regist(){

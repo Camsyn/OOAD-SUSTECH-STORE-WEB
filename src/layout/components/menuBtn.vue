@@ -45,7 +45,7 @@
         </template>
       </v-list-item-group>
       <v-list-item-subtitle class="d-flex flex-row-reverse my-0 py-0">
-        <v-btn text class="mt-2" plain small>
+        <v-btn text class="mt-2" plain small @click="toMsgAll">
           <p
             class="
               font-weight-medium font-weight-bold
@@ -105,7 +105,11 @@ export default {
       },
     ],
   }),
-  methods: {},
+  methods: {
+    toMsgAll(){
+      this.$router.push({ path: "message" });
+    },
+  },
 };
 </script>
 

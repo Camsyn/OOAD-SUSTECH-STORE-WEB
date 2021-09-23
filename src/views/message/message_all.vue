@@ -1,6 +1,6 @@
 <template>
-  <v-sheet class="mx-auto" width="80%" height="100%" elevation="0">
-    <v-container fluid style="height: 100%">
+  <v-sheet class="mx-auto mt-3" width="80%" style="height: 100%" elevation="0">
+    <v-container fluid style="height: 100%" class="py-0 my-0">
       <v-row style="height: 100%">
         <v-col class="elevation-1" cols="3" style="height: 100%">
           <v-text-field flat hide-details rounded solo-inverted></v-text-field>
@@ -61,10 +61,9 @@
           <v-divider></v-divider>
           <v-row>
             <v-textarea
-                solo
+                outlined
                 class="ml-3 mt-6 py-0"
                 auto-grow
-                label="Message"
                 append-outer-icon="mdi-close-circle"
             ></v-textarea>
           </v-row>

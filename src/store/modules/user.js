@@ -6,7 +6,6 @@ const user = {
     token: getToken(),
     name: "",
     avatar: "",
-    roles: [],
   },
 
   mutations: {
@@ -18,9 +17,6 @@ const user = {
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar;
-    },
-    SET_ROLES: (state, roles) => {
-      state.roles = roles;
     },
   },
 
