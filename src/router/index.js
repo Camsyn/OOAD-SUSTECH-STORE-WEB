@@ -8,6 +8,7 @@ import Home from "@/views/Home";
 import Test from "../components/test";
 import Commodity from "../components/commodity/commodity";
 import Messageall from "../views/message/message_all";
+import Notifications from "../views/notifications";
 
 Vue.use(VueRouter);
 
@@ -24,13 +25,17 @@ const routes = [
     children: [
       {
         path: "home",
-        component: Home
+        component: Home,
       },
       {
         path: "message",
-        component: Messageall
-      }
-    ]
+        component: Messageall,
+      },
+      {
+        path: "notification",
+        component: Notifications,
+      },
+    ],
   },
   {
     path: "/test",
@@ -46,9 +51,9 @@ const routes = [
         component: Upload,
       },
       {
-        path: "msg",
-        component: Messageall,
-      }
+        path: "not",
+        component: Notifications,
+      },
     ],
   },
 ];

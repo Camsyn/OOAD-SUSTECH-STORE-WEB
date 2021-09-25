@@ -12,37 +12,22 @@
     </template>
     <v-list two-line>
       <v-list-item-group active-class="grey--text">
-        <template v-for="(item, index) in items">
-          <v-dialog
-            :key="item.title"
-            transition="dialog-bottom-transition"
-            width="50%"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-list-item v-bind="attrs" v-on="on">
-                <template v-slot:default>
-                  <v-list-item-content>
-                    <v-list-item-title v-text="item.title"></v-list-item-title>
-                    <v-list-item-subtitle
-                      v-text="item.subtitle"
-                    ></v-list-item-subtitle>
-                  </v-list-item-content>
-                  <v-list-item-action>
-                    <v-list-item-action-text
-                      v-text="item.action"
-                    ></v-list-item-action-text>
-                  </v-list-item-action>
-                </template>
-              </v-list-item>
-            </template>
+          <v-list-item v-for="(item, index) in items" :key="index">
             <template v-slot:default>
-              <v-card>
-                <messages></messages>
-              </v-card>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title"></v-list-item-title>
+                <v-list-item-subtitle
+                    v-text="item.subtitle"
+                ></v-list-item-subtitle>
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-list-item-action-text
+                    v-text="item.action"
+                ></v-list-item-action-text>
+              </v-list-item-action>
             </template>
-          </v-dialog>
+          </v-list-item>
           <v-divider v-if="index < items.length - 1" :key="index"></v-divider>
-        </template>
       </v-list-item-group>
       <v-list-item-subtitle class="d-flex flex-row-reverse my-0 py-0">
         <v-btn text class="mt-2" plain small @click="toMsgAll">
@@ -54,7 +39,7 @@
               pa-0
             "
           >
-            全部私信
+            全部通知
           </p>
         </v-btn>
       </v-list-item-subtitle>
@@ -63,10 +48,8 @@
 </template>
 
 <script>
-import messages from "@/views/message/messages";
 export default {
-  name: "menuBtn",
-  components: { messages },
+  name: "notifBtn",
   props: ["icon"],
   data: () => ({
     selected: [2],
@@ -106,8 +89,8 @@ export default {
     ],
   }),
   methods: {
-    toMsgAll(){
-      this.$router.push({ path: "message" });
+    toMsgAll() {
+      this.$router.push({ path: "notification" });
     },
   },
 };

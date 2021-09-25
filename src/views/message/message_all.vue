@@ -52,7 +52,7 @@
                       class="d-flex"
                       color="grey lighten-3"
                   >
-                    <v-card-text>emmemmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</v-card-text>
+                    <v-card-text>emmemmmmmmemmemmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</v-card-text>
                   </v-sheet>
                 </v-col>
               </v-card>
