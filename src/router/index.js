@@ -8,6 +8,7 @@ import Home from "@/views/Home";
 import Test from "../components/test";
 import Commodity from "../components/commodity/commodity";
 import Messageall from "../views/message/message_all";
+import MySpace from "@/components/MySpace";
 
 Vue.use(VueRouter);
 
@@ -24,13 +25,17 @@ const routes = [
     children: [
       {
         path: "home",
-        component: Home
+        component: Home,
       },
       {
         path: "message",
-        component: Messageall
-      }
-    ]
+        component: Messageall,
+      },
+    ],
+  },
+  {
+    path: "/myspace",
+    component: MySpace,
   },
   {
     path: "/test",
@@ -48,7 +53,7 @@ const routes = [
       {
         path: "msg",
         component: Messageall,
-      }
+      },
     ],
   },
 ];
