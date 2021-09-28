@@ -3,6 +3,11 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
+import "./assets/CSS/Global.css";
+
 import axios from "axios";
 Vue.prototype.axios = axios;
 // axios.defaults.baseURL = "/api";
@@ -16,6 +21,8 @@ Vue.prototype.axios = axios;
 
 // Vue.use(service)
 Vue.config.productionTip = false;
+
+Vue.use(ElementUI);
 
 new Vue({
   router,

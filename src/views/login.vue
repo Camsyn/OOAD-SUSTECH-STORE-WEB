@@ -1,7 +1,6 @@
 <template>
 
   <v-card id="board" >
-<!--    <iframe src="../static/vector/default-monochrome.svg" width="600" height="200"></iframe>-->
     <v-form id="reg" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
       <div>
         <h2 style="text-align: center">SUSTECH STORE REGISTER</h2>
@@ -47,9 +46,27 @@
 
         <v-row justify="center">
           <v-btn plain @click="login" class="px-0">登录</v-btn>
-          <v-btn plain @click="trans(true)" class="ml-4">注册</v-btn>
+          <v-btn plain @click="trans(1)" class="ml-4">注册</v-btn>
+          <v-btn plain @click="trans(2)" class="ml-4">忘记密码？</v-btn>
         </v-row>
       </v-form>
+
+    <v-form id="mima" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
+      <div>
+        <h2 style="text-align: center">找回密码</h2>
+      </div>
+
+      <v-text-field
+          v-model="Email"
+          label="Email Adress"
+          clearable
+      ></v-text-field>
+
+      <v-row justify="center">
+        <v-btn plain @click="trans(0)" class="px-0">取消</v-btn>
+        <v-btn plain @click="trans(0)" class="ml-4">确认</v-btn>
+      </v-row>
+    </v-form>
   </v-card>
 </template>
 
@@ -68,11 +85,11 @@ export default {
   methods: {
     trans(n){
       console.log(document.getElementById("board").class)
-      if(n){
+      if(n==1){
         document.getElementById("board").style.transform='rotateY(180deg)'
         document.getElementById("reg").style.display=''
         document.getElementById("log").style.display='none'
-      }else {
+      }else if(n==0) {
         document.getElementById("board").style.transform='rotateY(0deg)'
         document.getElementById("reg").style.display='none'
         document.getElementById("log").style.display=''
