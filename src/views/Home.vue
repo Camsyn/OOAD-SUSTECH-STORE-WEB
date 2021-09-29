@@ -1,7 +1,15 @@
 <template>
   <v-sheet min-height="70vh" rounded="lg">
-    <v-container style="position: sticky; top: 8%; z-index: 1; background-color: white;
-    border-bottom-left-radius: 40px; border-bottom-right-radius: 40px">
+    <v-container
+      style="
+        position: sticky;
+        top: 8%;
+        z-index: 1;
+        background-color: white;
+        border-bottom-left-radius: 40px;
+        border-bottom-right-radius: 40px;
+      "
+    >
       <v-row>
         <v-col class="col-1">
           <v-btn outlined fab color="black" @click="buySellChange()">
@@ -19,7 +27,7 @@
           <v-btn> 价格降序 </v-btn>
         </v-btn-toggle>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" persistent >
+        <v-dialog v-model="dialog" persistent>
           <template v-slot:activator="{ on, attrs }">
             <v-btn class="mt-4 py-6" text v-bind="attrs" v-on="on">
               筛选
@@ -61,11 +69,7 @@
                       @click:append-outer="add_label"
                     ></v-text-field>
                   </v-col>
-                  <v-col
-                    cols="7"
-
-                    class="ml-7 pt-6 flow-row justify-start"
-                  >
+                  <v-col cols="7" class="ml-7 pt-6 flow-row justify-start">
                     <v-row>
                       <v-chip
                         v-for="(label, index) in user_defined_label"
@@ -173,8 +177,11 @@ export default {
     addMore() {
       let windowRelativeBottom =
         document.documentElement.getBoundingClientRect().bottom;
+      console.log(windowRelativeBottom);
+      console.log(this.height);
       // 如果用户将页面滚动的距离不够远（文档末端距窗口底部 >100px）
       if (windowRelativeBottom > this.height + 100) return;
+      console.log("add")
       // 添加更多数据
       this.amount += 9;
     },
@@ -185,4 +192,6 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+
+</style>

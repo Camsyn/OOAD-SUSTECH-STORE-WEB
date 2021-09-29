@@ -1,6 +1,21 @@
 <template>
 
   <v-card id="board" >
+    <v-form id="mima" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
+      <div>
+        <h2 style="text-align: center">重设密码</h2>
+      </div>
+      <v-text-field
+          v-model="Email"
+          label="Email Adress"
+          clearable
+      ></v-text-field>
+
+      <v-row justify="center">
+        <v-btn plain @click="trans(false)" class="px-0">已有账号?</v-btn>
+        <v-btn plain @click="trans(false)" class="ml-4">注册</v-btn>
+      </v-row>
+    </v-form>
     <v-form id="reg" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
       <div>
         <h2 style="text-align: center">SUSTECH STORE REGISTER</h2>
@@ -24,10 +39,11 @@
       ></v-text-field>
 
       <v-row justify="center">
-        <v-btn plain @click="trans(false)" class="px-0">已有账号?</v-btn>
-        <v-btn plain @click="trans(false)" class="ml-4">注册</v-btn>
+        <v-btn plain @click="trans(0)" class="px-0">已有账号?</v-btn>
+        <v-btn plain @click="trans(0)" class="ml-4">注册</v-btn>
       </v-row>
     </v-form>
+
     <v-form id="log" class="offset-4 col-4" style="background: white; position: absolute; top: 200px;">
         <div>
           <h2 style="text-align: center">SUSTECH STORE LOGIN</h2>
@@ -50,23 +66,6 @@
           <v-btn plain @click="trans(2)" class="ml-4">忘记密码？</v-btn>
         </v-row>
       </v-form>
-
-    <v-form id="mima" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
-      <div>
-        <h2 style="text-align: center">找回密码</h2>
-      </div>
-
-      <v-text-field
-          v-model="Email"
-          label="Email Adress"
-          clearable
-      ></v-text-field>
-
-      <v-row justify="center">
-        <v-btn plain @click="trans(0)" class="px-0">取消</v-btn>
-        <v-btn plain @click="trans(0)" class="ml-4">确认</v-btn>
-      </v-row>
-    </v-form>
   </v-card>
 </template>
 
@@ -89,10 +88,17 @@ export default {
         document.getElementById("board").style.transform='rotateY(180deg)'
         document.getElementById("reg").style.display=''
         document.getElementById("log").style.display='none'
+        document.getElementById("mima").style.display='none'
       }else if(n==0) {
         document.getElementById("board").style.transform='rotateY(0deg)'
         document.getElementById("reg").style.display='none'
         document.getElementById("log").style.display=''
+        document.getElementById("mima").style.display='none'
+      }else if(n==2) {
+        document.getElementById("board").style.transform='rotateY(0deg)'
+        document.getElementById("reg").style.display='none'
+        document.getElementById("log").style.display='none'
+        document.getElementById("mima").style.display=''
       }
     },
     login(){

@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <Header></Header>
-    <v-main class="grey lighten-3 py-0 my-0" style="height: 100%">
-      <v-container style="height: 100%" class="py-0">
-        <v-row style="height: 100%" class="my-0 my-0">
-          <v-col style="height: 100%" class="pb-0 mb-0">
+    <v-main class="grey lighten-3 py-0 my-0" style="top: 10%">
+      <v-container class="py-0" style="height: 100%">
+        <v-row class="my-0 my-0" style="height: 100%">
+          <v-col class="pb-0 mb-0">
             <router-view></router-view>
           </v-col>
         </v-row>

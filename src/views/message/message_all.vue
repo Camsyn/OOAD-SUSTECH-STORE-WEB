@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto mt-3" width="80%" style="height: 100%" elevation="0">
+  <v-sheet class="mx-auto mt-3" width="80%" style="height: 90%" elevation="0">
     <v-container fluid style="height: 100%" class="py-0 my-0">
       <v-row style="height: 100%">
         <v-col class="elevation-1" cols="3" style="height: 100%">
@@ -106,7 +106,7 @@ export default {
 </script>
 
 <style scoped>
-html, body{
-  height: 100%;
-}
+/*html, body{*/
+/*  height: 100%;*/
+/*}*/
 </style>

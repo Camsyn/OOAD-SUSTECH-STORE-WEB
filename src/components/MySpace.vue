@@ -35,7 +35,7 @@
       </v-list>
     </v-navigation-drawer>
     <!--右边main区域-->
-    <v-main>
+    <v-main style="padding-left: 0">
       <v-container class="py-8 px-6" fluid>
         <!--描述列表-->
         <el-descriptions title="用户信息">

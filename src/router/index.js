@@ -9,6 +9,7 @@ import Test from "../components/test";
 import Commodity from "../components/commodity/commodity";
 import Messageall from "../views/message/message_all";
 import Notifications from "../views/notifications";
+import MySpace from "@/components/MySpace";
 
 Vue.use(VueRouter);
 
@@ -17,6 +18,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/my",
+    name: "Myspace",
+    component: MySpace
   },
   {
     path: "/",
