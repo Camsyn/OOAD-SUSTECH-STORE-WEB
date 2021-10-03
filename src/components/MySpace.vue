@@ -1,6 +1,6 @@
 <template>
-  <v-app id="inspire">
-    <v-system-bar app>
+  <div id="inspire">
+    <v-system-bar>
       <v-spacer></v-spacer>
 
       <v-icon>mdi-square</v-icon>
@@ -35,7 +35,7 @@
       </v-list>
     </v-navigation-drawer>
     <!--右边main区域-->
-    <v-main style="padding-left: 0">
+    <div style="padding-left: 0">
       <v-container class="py-8 px-6" fluid>
         <!--描述列表-->
         <el-descriptions title="用户信息">
@@ -136,8 +136,8 @@
         <!--To be continued-->
         <el-empty description="描述文字"></el-empty>
       </v-container>
-    </v-main>
-  </v-app>
+    </div>
+  </div>
 </template>
 
 <script>
