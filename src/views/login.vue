@@ -1,61 +1,80 @@
 <template>
-
   <v-card id="board" >
-    <v-form id="mima" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
-      <div>
-        <h2 style="text-align: center">重设密码</h2>
+    <v-form  id="reg" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
+      <div v-if="st === 2">
+        <div>
+          <h2 style="text-align: center">RESET PASSWORD</h2>
+        </div>
+        <v-text-field
+            v-model="reset.Email"
+            label="Email Adress"
+            clearable
+        ></v-text-field>
+
+        <v-text-field
+            v-model="reset.Password"
+            label="new password"
+            clearable
+        ></v-text-field>
+
+        <v-text-field
+            v-model="reset.PasswordConfirm"
+            label="new password confirm"
+            clearable
+        ></v-text-field>
+
+        <v-text-field
+            v-model="reset.Vcode"
+            label="verification code"
+            clearable
+        ></v-text-field>
+
+        <v-row justify="center">
+          <v-btn plain @click="resetPwd" class="px-0">重置</v-btn>
+          <v-btn plain @click="trans(0)" class="ml-4">取消</v-btn>
+        </v-row>
       </div>
-      <v-text-field
-          v-model="Email"
-          label="Email Adress"
-          clearable
-      ></v-text-field>
 
-      <v-row justify="center">
-        <v-btn plain @click="trans(false)" class="px-0">已有账号?</v-btn>
-        <v-btn plain @click="trans(false)" class="ml-4">注册</v-btn>
-      </v-row>
-    </v-form>
-    <v-form id="reg" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
-      <div>
-        <h2 style="text-align: center">SUSTECH STORE REGISTER</h2>
+      <div v-else>
+        <div>
+          <h2 style="text-align: center">SUSTECH STORE REGISTER</h2>
+        </div>
+        <v-text-field
+            v-model="register.Email"
+            label="Email Adress"
+            clearable
+        ></v-text-field>
+
+        <v-text-field
+            v-model="register.Password"
+            label="Password"
+            clearable
+        ></v-text-field>
+
+        <v-text-field
+            v-model="register.Vcode"
+            label="verification code"
+            clearable
+        ></v-text-field>
+
+        <v-row justify="center">
+          <v-btn plain @click="trans(0)" class="px-0">已有账号?</v-btn>
+          <v-btn plain @click="regist" class="ml-4">注册</v-btn>
+        </v-row>
       </div>
-      <v-text-field
-          v-model="Username"
-          label="Usrename"
-          clearable
-      ></v-text-field>
-
-      <v-text-field
-          v-model="Password"
-          label="Password"
-          clearable
-      ></v-text-field>
-
-      <v-text-field
-          v-model="Email"
-          label="Email Adress"
-          clearable
-      ></v-text-field>
-
-      <v-row justify="center">
-        <v-btn plain @click="trans(0)" class="px-0">已有账号?</v-btn>
-        <v-btn plain @click="trans(0)" class="ml-4">注册</v-btn>
-      </v-row>
     </v-form>
-
     <v-form id="log" class="offset-4 col-4" style="background: white; position: absolute; top: 200px;">
         <div>
           <h2 style="text-align: center">SUSTECH STORE LOGIN</h2>
         </div>
         <v-text-field
-            v-model="Username"
-            label="Username"
+            v-model="login.Email"
+            label="Email Adress"
             clearable
         ></v-text-field>
 
         <v-text-field
-            v-model="Password"
+            v-model="login.Password"
             label="Password"
             clearable
         ></v-text-field>
@@ -74,31 +93,36 @@ export default {
   name: "login",
   data () {
     return {
-      cls: "offset-4 col-4",
-      Username: '',
-      Password: '',
-      Email: '',
+      st: 0,
       info: null,
+      login: {
+        Email: '',
+        Password: ''
+      },
+      register: {
+        Email: '',
+        Password: '',
+        Vcode: ''
+      },
+      reset: {
+        Email: '',
+        Password: '',
+        PasswordConfirm: '',
+        Vcode: ''
+      }
     }
   },
   methods: {
     trans(n){
-      console.log(document.getElementById("board").class)
-      if(n==1){
-        document.getElementById("board").style.transform='rotateY(180deg)'
-        document.getElementById("reg").style.display=''
-        document.getElementById("log").style.display='none'
-        document.getElementById("mima").style.display='none'
-      }else if(n==0) {
+      this.st = n
+      if(n==0){
         document.getElementById("board").style.transform='rotateY(0deg)'
         document.getElementById("reg").style.display='none'
         document.getElementById("log").style.display=''
-        document.getElementById("mima").style.display='none'
-      }else if(n==2) {
-        document.getElementById("board").style.transform='rotateY(0deg)'
-        document.getElementById("reg").style.display='none'
-        document.getElementById("log").style.display='none'
-        document.getElementById("mima").style.display=''
+      }else {
+        document.getElementById("board").style.transform = 'rotateY(180deg)'
+        document.getElementById("reg").style.display = ''
+        document.getElementById("log").style.display = 'none'
       }
     },
     login(){
@@ -124,6 +148,10 @@ export default {
         name:"Register",
       });
     },
+
+    resetPwd(){
+
+    }
   },
 }
 </script>
