@@ -10,12 +10,9 @@ export function login(username, password) {
   });
 }
 
-export function logout(Token) {
+export function logout() {
   return request({
     url: "/uaa/account",
     method: "post",
-    data:{
-      Token
-    }
   });
 }
