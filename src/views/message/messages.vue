@@ -9,9 +9,7 @@
           <v-col cols="10">
             <v-sheet class="d-flex" color="grey lighten-3">
               <v-card-text>
-                emmemmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmm
-                mmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmm
-                memmemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmememmmememmem
+                hello!
               </v-card-text>
             </v-sheet>
           </v-col>

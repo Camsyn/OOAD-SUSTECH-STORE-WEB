@@ -20,7 +20,7 @@ export default {
   name: "message_single",
   data: () => {
     return {
-      te: "emmmmmmmmmmmmmmmmsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssmmmmmmmmmmmmmmmmmmmmm",
+      // te: "emmmmmmmmmmmmmmmmsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssmmmmmmmmmmmmmmmmmmmmm",
     };
   },
 };

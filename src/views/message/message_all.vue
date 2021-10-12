@@ -42,11 +42,8 @@
             <v-container justify="start">
               <v-row>
                 <v-col cols="12" class="py-0">
-<!--                  <div style="max-width: max-content; word-wrap: break-word"-->
-<!--                  >aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>-->
-
-                  <message_single
-                    text="emmmmmmmmmmmmmmmmsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssmmmmmmmmmmmmmmmmmmmmm"
+                <message_single
+                    text="hello!"
                   ></message_single>
                 </v-col>
               </v-row>
@@ -54,7 +51,7 @@
               <v-row>
                 <v-col cols="12">
                   <message_single
-                    text="emmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+                    text="world!"
                   ></message_single>
                 </v-col>
               </v-row>
