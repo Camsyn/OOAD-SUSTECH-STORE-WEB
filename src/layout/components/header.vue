@@ -18,7 +18,7 @@ import menuBtn from "@/layout/components/menuBtn";
 import NotifBtn from "@/layout/components/notifBtn";
 export default {
   components: { NotifBtn, menuBtn },
-  name: "header",
+  name: "myHeader",
   data: () => ({
     selected: [2],
   }),

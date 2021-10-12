@@ -1,5 +1,5 @@
 <template>
-  <v-sheet class="mx-auto mt-3" width="80%" style="height: 90%" elevation="0">
+  <v-sheet class="mx-auto mt-3" width="80%" style="height: 100%" elevation="0">
     <v-container fluid style="height: 100%" class="py-0 my-0">
       <v-row style="height: 100%">
         <v-col class="elevation-1" cols="3" style="height: 100%">
@@ -39,35 +39,38 @@
           </v-row>
           <v-divider></v-divider>
           <v-row style="height: 70%">
-            <v-col cols="12">
-              <v-card class="d-flex" elevation="0">
-                <v-col cols="1" class="ml-0 mr-1">
-                  <v-avatar
-                      color="grey darken-1"
-                      size="60"
-                  ></v-avatar>
+            <v-container justify="start">
+              <v-row>
+                <v-col cols="12" class="py-0">
+<!--                  <div style="max-width: max-content; word-wrap: break-word"-->
+<!--                  >aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</div>-->
+
+                  <message_single
+                    text="emmmmmmmmmmmmmmmmsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssmmmmmmmmmmmmmmmmmmmmm"
+                  ></message_single>
                 </v-col>
-                <v-col cols="10">
-                  <v-sheet
-                      class="d-flex"
-                      color="grey lighten-3"
-                  >
-                    <v-card-text>emmemmmmmmemmemmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmemmemmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</v-card-text>
-                  </v-sheet>
+              </v-row>
+
+              <v-row>
+                <v-col cols="12">
+                  <message_single
+                    text="emmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
+                  ></message_single>
                 </v-col>
-              </v-card>
-            </v-col>
+              </v-row>
+            </v-container>
           </v-row>
           <v-divider></v-divider>
           <v-row>
             <v-textarea
-                outlined
-                class="ml-3 mt-6 py-0"
-                auto-grow
-                append-outer-icon="mdi-close-circle"
+              outlined
+              class="ml-3 mt-6 py-0"
+              auto-grow
+              append-outer-icon="mdi-close-circle"
+              hide-details="true"
             ></v-textarea>
           </v-row>
-          <v-row class="flex-row-reverse mt-0">
+          <v-row class="flex-row-reverse mt-5">
             <v-btn class="primary mr-3">发送</v-btn>
           </v-row>
         </v-col>
@@ -77,7 +80,9 @@
 </template>
 
 <script>
+import message_single from "@/views/message/message_single";
 export default {
+  components: { message_single },
   name: "message_all",
   data: () => ({
     items: [

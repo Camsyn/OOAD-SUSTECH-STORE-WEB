@@ -1,7 +1,8 @@
 <template>
   <v-app>
-    <Header></Header>
-    <v-main class="grey lighten-3 py-0 my-0" style="top: 10%">
+    <my-header app></my-header>
+<!--    <v-app-bar app></v-app-bar>-->
+    <v-main class="grey lighten-3" style="top: 10%">
       <v-container class="py-0" style="height: 100%">
         <v-row class="my-0 my-0" style="height: 100%">
           <v-col class="pb-0 mb-0">
@@ -14,12 +15,11 @@
 </template>
 
 <script>
-import Header from "./components/header";
+import myHeader from "./components/header";
 export default {
   name: "Layout",
-
   components: {
-    Header,
+    myHeader,
   },
 };
 </script>

@@ -21,9 +21,10 @@ service.interceptors.request.use(
 
 //发送请求后
 service.interceptors.response.use(
-   (response) => {
+  (response) => {
     const res = response.data;
-    if (res.code !== 0) { // 判断错误码
+    if (res.code !== 0) {
+      // 判断错误码
       return Promise.reject(res.code); //直接返回错误码
     } else {
       return response.data; // 请求成功 返回数据

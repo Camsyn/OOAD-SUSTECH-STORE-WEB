@@ -1,5 +1,5 @@
 import { login, logout } from "@/api/login";
-import {  removeToken } from "@/utils/auth";
+import { removeToken } from "@/utils/auth";
 
 const user = {
   state: {
@@ -21,10 +21,11 @@ const user = {
       const username = userInfo.username.trim();
       return new Promise((resolve, reject) => {
         login(username, userInfo.password.trim())
-          .then((response) => {//登录成功，更新用户信息
+          .then((response) => {
+            //登录成功，更新用户信息
             const data = response.data;
-            commit("SET_NAME",data.name)
-            commit("SET_AVATAR",data.avatar)
+            commit("SET_NAME", data.name);
+            commit("SET_AVATAR", data.avatar);
             resolve();
           })
           .catch((error) => {
@@ -35,7 +36,8 @@ const user = {
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token)
-          .then(() => { // 等出成功，清楚用户信息
+          .then(() => {
+            // 等出成功，清楚用户信息
             commit("SET_NAME", "");
             commit("SET_AVATAR", "");
             removeToken();
@@ -46,7 +48,6 @@ const user = {
           });
       });
     },
-
   },
 };
 

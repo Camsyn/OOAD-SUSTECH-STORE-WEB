@@ -10,10 +10,16 @@ import Commodity from "../components/commodity/commodity";
 import Messageall from "../views/message/message_all";
 import Notifications from "../views/notifications";
 import MySpace from "@/components/MySpace";
+import bought from "@/bought";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/hw",
+    name: "hw",
+    component: bought,
+  },
   {
     path: "/login",
     name: "Login",

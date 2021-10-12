@@ -1,5 +1,6 @@
 <template>
   <v-card id="board" >
+
     <v-form  id="reg" class="offset-4 col-4" style="display: none; height: 350px; background: white; position: absolute; top: 200px; transform: rotateY(180deg);">
       <div v-if="st === 2">
         <div>
@@ -68,13 +69,13 @@
           <h2 style="text-align: center">SUSTECH STORE LOGIN</h2>
         </div>
         <v-text-field
-            v-model="login.Email"
-            label="Email Adress"
+            v-model="loginn.username"
+            label="Username"
             clearable
         ></v-text-field>
 
         <v-text-field
-            v-model="login.Password"
+            v-model="loginn.password"
             label="Password"
             clearable
         ></v-text-field>
@@ -95,9 +96,10 @@ export default {
     return {
       st: 0,
       info: null,
-      login: {
+      loginn: {
+        username:'',
         Email: '',
-        Password: ''
+        password: ''
       },
       register: {
         Email: '',
@@ -130,17 +132,11 @@ export default {
       //   method: 'get',
       //   url: '/test',
       // })
+      this.$store.dispatch(this.loginn)
       this.$store.commit('SET_NAME', 'emm')
       console.log(this.$store.getters.name)
       console.log(this.$store.state.user.name)
-      //     this.axios.get('').then(response =>
-      // {
-      //   this.info=response.data
-      //   console.log(this.info)
-      // }).catch(error =>
-      // {
-      //   console.log(error);
-      // });
+
     },
 
     regist(){
