@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>菜鸟教程(runoob.com)</title>
+    <style>
+        .front {
+            position: absolute;
+            width: 200px;
+            height: 300px;
+            background-color: darkorange;
+        }
+        .back {
+            position: absolute;
+            width: 200px;
+            height: 300px;
+            background-color: darkseagreen;
+            transform: rotateY(180deg);
+        }
+        .card {
+            width: 200px;
+            height: 300px;
+            transition: 1.5s;
+            transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+            transform-style: preserve-3d;//不加上显示不出背面
+        }
+        /*.card:hover {*/
+        /*    transform: rotateY(180deg);*/
+        /*}*/
+    </style>
+</head>
+<body>
+<div class="card" id="card" onclick="ro()">
+    <div class="back">back</div>
+    <div class="front">front</div>
+</div>
+
+</body>
+<script>
+    function ro(){
+        // alert(document.getElementById("te").style.color)
+        // document.getElementById("te").style.transform='rotateY(180deg)'
+        // document.getElementById("bk").style.transform='rotateY(0deg)'
+        document.getElementById("card").style.transform='rotateY(180deg)'
+    }
+</script>
+</html>
