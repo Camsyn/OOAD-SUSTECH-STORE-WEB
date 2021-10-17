@@ -89,11 +89,6 @@ const routes = [
     component: Login,
   },
   {
-    path: "/my",
-    name: "Myspace",
-    component: MySpace,
-  },
-  {
     path: "/",
     name: "Layout",
     component: Layout,

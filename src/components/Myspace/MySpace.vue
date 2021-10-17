@@ -63,6 +63,7 @@ export default {
       { icon: "mdi-heart-plus", title: "关注", route: "/myspace/concerns" },
       { icon: "mdi-human-greeting-variant", title: "粉丝", route: "/myspace/fans" },
       { icon: "mdi-wrench", title: "设置", route: "/myspace/settings" },
+      { icon: "mdi-home", title: "首页", route: "/" },
     ],
   }),
   // methods: {
