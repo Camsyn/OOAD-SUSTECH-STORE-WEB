@@ -6,6 +6,9 @@
       <v-btn text @click="toHome"> 主页 </v-btn>
 
       <v-btn text> 圈子 </v-btn>
+      <v-btn text @click="toMySpace">
+        MySpace
+      </v-btn>
       <notif-btn icon="mdi-mail"></notif-btn>
       <menu-btn icon="mdi-forum"></menu-btn>
     </v-container>
@@ -26,6 +29,9 @@ export default {
     toHome() {
       this.$router.push("home");
     },
+    toMySpace(){
+      this.$router.push("myspace")
+    }
   },
 };
 </script>
