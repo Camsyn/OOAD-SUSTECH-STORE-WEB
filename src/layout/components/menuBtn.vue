@@ -41,7 +41,7 @@
               </v-card>
             </template>
           </v-dialog>
-          <v-divider v-if="index < items.length - 1" :key="index"></v-divider>
+          <v-divider v-if="index < items.length - 1" :key=index></v-divider>
         </template>
       </v-list-item-group>
       <v-list-item-subtitle class="d-flex flex-row-reverse my-0 py-0">

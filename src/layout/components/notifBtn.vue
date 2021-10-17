@@ -12,7 +12,7 @@
     </template>
     <v-list two-line>
       <v-list-item-group active-class="grey--text">
-        <v-list-item v-for="(item, index) in items" :key="index">
+        <v-list-item v-for="(item, index) in items" :key=index>
           <template v-slot:default>
             <v-list-item-content>
               <v-list-item-title v-text="item.title"></v-list-item-title>
@@ -27,7 +27,7 @@
             </v-list-item-action>
           </template>
         </v-list-item>
-        <v-divider v-if="index < items.length - 1" :key="index"></v-divider>
+        <v-divider v-if="index < items.length - 1" :key=index></v-divider>
       </v-list-item-group>
       <v-list-item-subtitle class="d-flex flex-row-reverse my-0 py-0">
         <v-btn text class="mt-2" plain small @click="toMsgAll">

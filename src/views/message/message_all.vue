@@ -14,7 +14,7 @@
 
               <v-divider
                 v-else-if="item.divider"
-                :key="index"
+                :key=index
                 :inset="item.inset"
               ></v-divider>
 
