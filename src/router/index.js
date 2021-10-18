@@ -22,10 +22,24 @@ import concerns from "@/components/Myspace/components/concerns";
 import bought from "@/components/Myspace/components/bought";
 import testdialog from "@/components/Myspace/components/testdialog";
 
+import Demo from "../components/Business/Demo";
+import Pay from "../components/Business/Pay";
+
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path:"/Demo",
+    name:"Demo",
+    component: Demo
+
+  },
+  {
+    path:"/Pay",
+    name:"Pay",
+    component: Pay
+  },
   {
     path: "/testdialog",
     name: "testdialog",

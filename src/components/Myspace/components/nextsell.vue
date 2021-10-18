@@ -1,47 +1,40 @@
 <template>
-  <div>
-  <div style="text-align: center; padding: 10px">
-    <el-button type="primary" round @click.native="myFunction">Add</el-button>
+  <div class="l-container">
+    <div class="b-game-card">
+      <div class="b-game-card__cover" style="background-image: url(https://andrewhawkes.github.io/codepen-assets/steam-game-cards/game_1.jpg);"></div>
+    </div>
+    <div class="b-game-card">
+      <div class="b-game-card__cover" style="background-image: url(https://andrewhawkes.github.io/codepen-assets/steam-game-cards/game_2.jpg);"></div>
+    </div>
+    <div class="b-game-card">
+      <div class="b-game-card__cover" style="background-image: url(https://andrewhawkes.github.io/codepen-assets/steam-game-cards/game_3.jpg);"></div>
+    </div>
+    <div class="b-game-card">
+      <div class="b-game-card__cover" style="background-image: url(https://andrewhawkes.github.io/codepen-assets/steam-game-cards/game_4.jpg);"></div>
+    </div>
   </div>
-  <div id="myDIV" style="display: none">
-      <p>TO TO TO</p>
-  </div>
-  </div>
+
 </template>
 
 <script>
+// Image credits
+// 1. https://pixabay.com/vectors/boxing-ring-wrestling-wrestler-149840/
+// 2. https://pixabay.com/illustrations/retro-background-the-consignment-4237850/
+// 3. https://pixabay.com/illustrations/fractals-environment-chess-1728594/
+// 4. https://pixabay.com/photos/car-racing-motorsport-racing-car-4394450/
 export default {
   name: "nextsell",
   data: () => ({
-    drawer: null,
-    items: [
-      { icon: "mdi-purse-outline", title: "我发布的", route: "publish" },
-      { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "sold" },
-      { icon: "mdi-cart-arrow-down", title: "我买到的", route: "bought" },
-      { icon: "mdi-cart-variant", title: "我可转卖的", route: "nextsell" },
-      { icon: "mdi-star", title: "收藏", route: "collection" },
-      { icon: "mdi-walk", title: "足迹", route: "trail" },
-      { icon: "mdi-heart-plus", title: "关注", route: "concerns" },
-      { icon: "mdi-human-greeting-variant", title: "粉丝", route: "fans" },
-      { icon: "mdi-wrench", title: "设置", route: "settings" },
-    ],
-
   }),
+
   methods:{
-    myFunction: function (){
-      const x = document.getElementById("myDIV");
-      if (x.style.display === "none") {
-        x.style.display = "block";
-      } else {
-        x.style.display = "none";
-      }
-    }
+
   }
 
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .avatar-uploader .el-upload {
   border: 1px dashed #d9d9d9;
   border-radius: 6px;
@@ -52,33 +45,123 @@ export default {
 .avatar-uploader .el-upload:hover {
   border-color: #409eff;
 }
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-
 .el-tag + .el-tag {
   margin-left: 10px;
 }
-.button-new-tag {
-  margin-left: 10px;
-  height: 32px;
-  line-height: 30px;
-  padding-top: 0;
-  padding-bottom: 0;
+
+// Settings
+
+$c_0: #000000;
+$c_1: #353540;
+
+// Basic reset
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-.input-new-tag {
-  width: 90px;
-  margin-left: 10px;
-  vertical-align: bottom;
+
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: $c_1;
 }
+
+
+.l-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 30px;
+  width: 100%;
+  max-width: 1200px;
+  padding: 30px;
+
+  @media screen and (max-width: 760px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+.b-game-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding-bottom: 150%;
+  perspective: 1000px;
+
+  &__cover {
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: linear-gradient(120deg, #f6d365 0%, #fda085 100%);
+    background-size: cover;
+    perspective-origin: 50% 50%;
+    transform-style: preserve-3d;
+    transform-origin: top center;
+    will-change: transform;
+    transform: skewX(.001deg);
+    transition: transform .35s ease-in-out;
+
+    // Gloss
+
+    &::after {
+      display: block;
+      content: '';
+      position: absolute;
+      z-index: 100;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background: linear-gradient(226deg, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.4) 35%, rgba(255,255,255,0.2) 42%, rgba(255,255,255,0) 60%);
+      transform: translateY(-20%);
+      will-change: transform;
+      transition: transform .65s cubic-bezier(0.18, 0.9, 0.58, 1);
+    }
+
+  }
+
+  &:hover &__cover {
+    transform: rotateX(7deg) translateY(-6px);
+
+    &::after {
+      transform: translateY(0%);
+    }
+
+  }
+
+  // Shadows
+
+  &::before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    background: rgba($c_0, 0.5);
+    box-shadow: 0 6px 12px 12px rgba($c_0, 0.4);
+    will-change: opacity;
+    transform-origin: top center;
+    transform: skewX(.001deg);
+    transition: transform .35s ease-in-out, opacity .5s ease-in-out;
+  }
+
+  &:hover::before {
+    opacity: 0.6;
+    transform: rotateX(7deg) translateY(-6px) scale(1.05);
+  }
+
+
+}
+
 </style>

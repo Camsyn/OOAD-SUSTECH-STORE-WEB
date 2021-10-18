@@ -10,14 +10,14 @@
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
 
-    <v-navigation-drawer v-model="drawer" app>
-      <v-sheet color="grey lighten-4" class="pa-4">
+    <v-navigation-drawer v-model="drawer" color="deep-orange lighten-5" app>
+      <v-sheet color="deep-orange lighten-3" class="pa-4">
         <!--用户头像-->
         <v-avatar>
-          <img src="../../assets/King.png" alt="King" />
+          <img src="../../assets/CC.png" alt="CC" />
         </v-avatar>
 
-        <div>King@sustech.edu.cn</div>
+        <div>CC@sustech.edu.cn</div>
       </v-sheet>
 
       <v-divider></v-divider>
