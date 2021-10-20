@@ -2,18 +2,18 @@
   <v-container class="px-6">
     <v-row>
       <v-col cols="12">
-        <v-card class="d-flex" elevation="0">
-          <v-col cols="1" class="ml-0 mr-4">
-            <v-avatar color="grey darken-1" size="60"></v-avatar>
-          </v-col>
-          <v-col cols="10">
-            <v-sheet class="d-flex" color="grey lighten-3">
-              <v-card-text>
-                hello!
-              </v-card-text>
-            </v-sheet>
-          </v-col>
-        </v-card>
+        <message_single
+            text="hello!"
+        >
+        </message_single>
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col cols="12">
+        <message_single
+            text="hello!"
+        >
+        </message_single>
       </v-col>
     </v-row>
     <v-divider></v-divider>
@@ -34,8 +34,10 @@
 </template>
 
 <script>
+import Message_single from "@/views/message/message_single";
 export default {
   name: "messages",
+  components: {Message_single},
   data: () => {
     return {
       msg: "",

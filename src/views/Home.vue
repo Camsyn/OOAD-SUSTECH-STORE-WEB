@@ -177,8 +177,6 @@ export default {
     addMore() {
       let windowRelativeBottom =
         document.documentElement.getBoundingClientRect().bottom;
-      console.log(windowRelativeBottom);
-      console.log(this.height);
       // 如果用户将页面滚动的距离不够远（文档末端距窗口底部 >100px）
       if (windowRelativeBottom > this.height + 100) return;
       console.log("add")
