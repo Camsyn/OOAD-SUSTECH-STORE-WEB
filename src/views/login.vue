@@ -14,24 +14,28 @@
                 v-model="reset.Email"
                 label="Email Adress"
                 clearable
+                :rules="[rules.required, rules.email]"
             ></v-text-field>
 
             <v-text-field
                 v-model="reset.Password"
                 label="new password"
                 clearable
+                :rules="[rules.required, rules.counter]"
             ></v-text-field>
 
             <v-text-field
                 v-model="reset.PasswordConfirm"
                 label="new password confirm"
                 clearable
+                :rules="[rules.required, rules.pwdConfirm]"
             ></v-text-field>
 
             <v-text-field
                 v-model="reset.Vcode"
                 label="verification code"
                 clearable
+                :rules="[rules.required]"
             ></v-text-field>
 
             <v-row justify="center">
@@ -45,21 +49,24 @@
               <h2 style="text-align: center">SUSTECH STORE REGISTER</h2>
             </div>
             <v-text-field
-                v-model="register.Email"
-                label="Email Adress"
+                v-model="register.sid"
+                label="User ID"
                 clearable
+                :rules="[rules.required]"
             ></v-text-field>
 
             <v-text-field
-                v-model="register.Password"
+                v-model="register.email"
+                label="Email Address"
+                clearable
+                :rules="[rules.required, rules.email]"
+            ></v-text-field>
+
+            <v-text-field
+                v-model="register.password"
                 label="Password"
                 clearable
-            ></v-text-field>
-
-            <v-text-field
-                v-model="register.Vcode"
-                label="verification code"
-                clearable
+                :rules="[rules.required]"
             ></v-text-field>
 
             <v-row justify="center">
@@ -76,12 +83,14 @@
               v-model="loginn.username"
               label="Username"
               clearable
+              :rules="[rules.required]"
           ></v-text-field>
 
           <v-text-field
               v-model="loginn.password"
               label="Password"
               clearable
+              :rules="[rules.required]"
           ></v-text-field>
 
           <v-row justify="center">
@@ -104,26 +113,36 @@ export default {
       info: null,
       loginn: {
         username:'',
-        Email: '',
+        email: '',
         password: ''
       },
       register: {
-        Email: '',
-        Password: '',
-        Vcode: ''
+        sid: '',
+        email: '',
+        password: '',
       },
       reset: {
-        Email: '',
-        Password: '',
-        PasswordConfirm: '',
+        email: '',
+        password: '',
+        passwordConfirm: '',
         Vcode: ''
+      },
+
+      rules: {
+        required: value => !!value || 'Required',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          return pattern.test(value) || 'Invalid e-mail'
+        },
+        pwdConfirm: value => this.reset.PasswordConfirm !== this.reset.Password || 'Passwords does not match'
       }
     }
   },
   methods: {
     trans(n){
       this.st = n
-      if(n==0){
+      if(n===0){
         document.getElementById("board").style.transform='rotateY(0deg)'
         document.getElementById("reg").style.display='none'
         document.getElementById("log").style.display=''
@@ -134,21 +153,29 @@ export default {
       }
     },
     login(){
-      // this.axios({
-      //   method: 'get',
-      //   url: '/test',
-      // })
-      this.$store.dispatch(this.loginn)
-      this.$store.commit('SET_NAME', 'emm')
-      console.log(this.$store.getters.name)
-      console.log(this.$store.state.user.name)
-
+      this.$store.dispatch("Login", this.loginn).then(
+          () => {
+            console.log("login success!")
+            localStorage.setItem("sid", this.loginn.username)
+            localStorage.setItem("email", this.loginn.email)
+            this.$router.push({name: "Layout"})
+          }).catch(
+          (err) => {
+            console.log(err)
+          })
     },
 
     regist(){
-      this.$router.push({
-        name:"Register",
-      });
+      this.$store.dispatch("Register", this.register).then(
+          () => {
+            console.log("register success!")
+            localStorage.setItem("sid", this.register.sid)
+            localStorage.setItem("email", this.register.email)
+            this.$router.push({name: "Layout"})
+          }).catch(
+          (err) => {
+            console.log(err)
+          })
     },
 
     resetPwd(){

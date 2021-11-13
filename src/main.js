@@ -9,7 +9,6 @@ import "element-ui/lib/theme-chalk/index.css";
 
 import axios from "axios";
 Vue.prototype.axios = axios;
-// axios.defaults.baseURL = "/api";
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);

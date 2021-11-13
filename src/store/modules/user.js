@@ -1,10 +1,12 @@
-import { login, logout } from "@/api/login";
-import { removeToken } from "@/utils/auth";
+import { login, logout } from "../../api/login";
+import {register, exist} from "../../api/register";
+import { removeToken } from "../../utils/auth";
 
 const user = {
   state: {
     name: "",
     avatar: "",
+    JSESSIONID: "",
   },
   mutations: {
     SET_NAME: (state, name) => {
@@ -13,6 +15,9 @@ const user = {
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar;
     },
+    SET_TOKEN: (state, token) => {
+      state.JSESSIONID = token;
+    }
   },
 
   actions: {
@@ -33,6 +38,7 @@ const user = {
           });
       });
     },
+
     LogOut({ commit, state }) {
       return new Promise((resolve, reject) => {
         logout(state.token)
@@ -48,6 +54,18 @@ const user = {
           });
       });
     },
+    Register({commit}, userInfo) {
+      return new Promise((resolve, reject) => {
+        const sid = userInfo.sid.trim();
+        const password = userInfo.password.trim();
+        const email = userInfo.email.trim();
+        register(sid, password, email)
+            .then((response) => {
+              const data = response.data;
+
+            })
+      })
+    }
   },
 };
 

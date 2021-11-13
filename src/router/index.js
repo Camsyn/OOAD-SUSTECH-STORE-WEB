@@ -2,25 +2,25 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Login from "../views/login.vue";
 import Layout from "../layout/layout";
-import Upload from "../components/Myspace/upload";
-import Home from "@/views/Home";
+import Upload from "../components/upload";
+import Home from "../views/Home";
 
-import Test from "../components/Myspace/test";
+import Test from "../components/test";
 import Commodity from "../components/commodity/commodity";
 import Messageall from "../views/message/message_all";
 import Notifications from "../views/notifications";
 
-import MySpace from "@/components/Myspace/MySpace";
-import settings from "@/components/Myspace/components/settings";
-import collection from "@/components/Myspace/components/collection";
-import fans from "@/components/Myspace/components/fans";
-import nextsell from "@/components/Myspace/components/nextsell";
-import publish from "@/components/Myspace/components/publish";
-import sold from "@/components/Myspace/components/sold";
-import trail from "@/components/Myspace/components/trail";
-import concerns from "@/components/Myspace/components/concerns";
-import bought from "@/components/Myspace/components/bought";
-import testdialog from "@/components/Myspace/components/testdialog";
+import MySpace from "../components/Myspace/MySpace";
+import settings from "../components/Myspace/components/settings";
+import collection from "../components/Myspace/components/collection";
+import fans from "../components/Myspace/components/fans";
+import nextsell from "../components/Myspace/components/nextsell";
+import publish from "../components/Myspace/components/publish";
+import sold from "../components/Myspace/components/sold";
+import trail from "../components/Myspace/components/trail";
+import concerns from "../components/Myspace/components/concerns";
+import bought from "../components/Myspace/components/bought";
+import testdialog from "../components/Myspace/components/testdialog";
 
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
@@ -119,6 +119,7 @@ const routes = [
         path: "notification",
         component: Notifications,
       },
+
     ],
   },
   {

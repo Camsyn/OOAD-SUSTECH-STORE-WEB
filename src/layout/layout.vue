@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <my-header app></my-header>
-<!--    <v-app-bar app></v-app-bar>-->
     <v-main class="grey lighten-3" style="top: 10%;height: 100%">
       <v-container class="py-0" style="height: 100%">
         <v-row class="my-0 my-0" style="height: 100%">

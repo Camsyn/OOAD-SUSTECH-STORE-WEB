@@ -1,9 +1,9 @@
-import request from "@/utils/request";
+import request from "../utils/request";
 export function login(username, password) {
   return request({
-    url: "/uaa/login",
+    url: "/auth/uaa/login",
     method: "post",
-    data: {
+    params: {
       username,
       password,
     },
@@ -12,7 +12,7 @@ export function login(username, password) {
 
 export function logout() {
   return request({
-    url: "/uaa/account",
+    url: "/auth/uaa/account",
     method: "post",
   });
 }
