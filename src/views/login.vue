@@ -179,7 +179,7 @@ export default {
     },
 
     resetPwd(){
-
+      // console.log(this.$store.getters.tk)
     }
   },
 }
