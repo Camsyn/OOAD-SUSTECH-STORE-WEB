@@ -1,4 +1,4 @@
-import chat from "@/utils/chat";
+import chat from "../../utils/chat";
 
 const chatter = {
     state:{
@@ -27,6 +27,22 @@ const chatter = {
         setupChat(context, sid){
             context.state.chat = new chat();
             context.state.chat.setup(context, sid);
+        },
+
+        renew(context){
+            
+        },
+
+        sendMsg({state}, recvId, msg){
+          state.chat.sendTo(recvId, msg, 0);
+        },
+
+        sendPicture({state}, recvId, url){
+            state.chat.sendTo(recvId, url, 1)
+        },
+
+        sendFile({state}, recvId, url){
+            state.chat.sendTo(recvId, url, 2)
         },
 
         test(context){

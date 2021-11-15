@@ -2,6 +2,7 @@ class chat{
     constructor() {
         this.socket = null;
         this.messages=new Map();
+        this.unConfirmed = new Map();
         this.context = null;
         this.sid = "";
     }
@@ -20,29 +21,30 @@ class chat{
             console.log(`[message] Data received: ${event.data}`);
             this.revMsg(event.data);
         };
-
-
     }
 
     sendTo(recvId, msg, type){
-        this.socket.send(
-            {
-                sendId:　this.sid,
-                content: msg,
-                type: type,
-            }
-        )
+        return new Promise((resolve, reject)=>{
+            this.socket.send(
+                {
+                    recvId: recvId,
+                    content: msg,
+                    type: type,
+                }
+            )
+
+        })
+
     }
 
     revMsg(ChatRecord){
         this.context.state.tacker+=1;
-        let {id, type, content} = ChatRecord;
-        if (this.messages.has(id)){
-            this.messages.get(id).push(ChatRecord);
+        let {sendId, sendTime, recvTime, type, content} = ChatRecord;
+        if (this.messages.has(sendId)){
+            this.messages.get(sendId).push(ChatRecord);
         }else {
-            this.messages.set(id, [ChatRecord]);
+            this.messages.set(sendId, [ChatRecord]);
         }
-
     }
 
     test(){

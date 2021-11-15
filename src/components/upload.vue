@@ -21,6 +21,7 @@
             v-for="(image, ind) in this.imageUrls"
             :key="ind"
             v-slot="{ active, toggle }"
+            class="mx-2"
         >
           <v-img
               contain
@@ -58,7 +59,7 @@
             single-line
         ></v-textarea>
       <div class="d-flex justify-center">
-        <v-btn class="mb-3 mx-4" @click="upload">
+        <v-btn class="mb-3 mx-4" @click="addFile">
           <span>上传</span>
         </v-btn>
 
@@ -79,25 +80,26 @@ export default {
       model: null,
       images: [],
       imageUrls: [],
-      width: window.innerWidth/6
     };
   },
   methods: {
-    addFile(file) {
-      this.images += file;
+    addFile() {
+      console.log(this.images.length, this.description);
+      this.images.forEach((item)=>{
+        this.$store.dispatch("upload", this.images).then((data)=>{
+          data.forEach((fl)=>{
+            this.imageUrls.push(fl.fileDownloadUri.replace("/downloadFile", ""));
+          })
+        });
+      })
+      this.images=[];
     },
     upload() {
 
-      console.log(this.images.length, this.description);
-      this.images.forEach((item)=>{
-        this.imageUrls.push(URL.createObjectURL(item))
-      })
-      this.images=[]
     },
   },
 
   created() {
-    console.log(this.width)
   }
 };
 </script>

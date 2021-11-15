@@ -156,8 +156,8 @@ export default {
       this.$store.dispatch("Login", this.loginn).then(
           () => {
             console.log("login success!")
-            localStorage.setItem("sid", this.loginn.username)
-            localStorage.setItem("email", this.loginn.email)
+            this.$store.commit("SET_NAME", this.loginn.username);
+
             this.$router.push({name: "Layout"})
           }).catch(
           (err) => {
@@ -169,8 +169,7 @@ export default {
       this.$store.dispatch("Register", this.register).then(
           () => {
             console.log("register success!")
-            localStorage.setItem("sid", this.register.sid)
-            localStorage.setItem("email", this.register.email)
+            this.$store.commit("SET_NAME", this.register.username);
             this.$router.push({name: "Layout"})
           }).catch(
           (err) => {

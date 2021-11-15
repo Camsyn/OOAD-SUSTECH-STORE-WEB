@@ -47,12 +47,11 @@ const user = {
 
     LogOut(context) {
       return new Promise((resolve, reject) => {
-        logout(state.token)
+        logout(context.state.token)
           .then(() => {
             // 等出成功，清楚用户信息
               context.commit("SET_NAME", "");
               context.commit("SET_AVATAR", "");
-
             removeToken();
             resolve();
           })
@@ -71,6 +70,7 @@ const user = {
               const data = response.data;
                 // context.commit("SET_CHAT",sid);
             })
+          resolve();
       })
     },
   },

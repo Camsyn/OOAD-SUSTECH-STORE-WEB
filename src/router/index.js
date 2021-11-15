@@ -24,7 +24,7 @@ import testdialog from "../components/Myspace/components/testdialog";
 
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
-import testStore from "@/test/testStore";
+import testStore from "../test/testStore";
 
 
 Vue.use(VueRouter);

@@ -400,12 +400,12 @@ $font-small: 14px;
 $font-medium: 16px;
 $font-large: 24px;
 
-body, html {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  width: 100%;
-}
+//body, html {
+//  margin: 0;
+//  padding: 0;
+//  height: 100%;
+//  width: 100%;
+//}
 
 body {
   overflow: hidden;
