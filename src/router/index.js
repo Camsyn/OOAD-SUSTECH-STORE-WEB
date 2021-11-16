@@ -22,19 +22,22 @@ import concerns from "../components/Myspace/components/concerns";
 import bought from "../components/Myspace/components/bought";
 import testdialog from "../components/Myspace/components/testdialog";
 
-import Circle from "../components/Circle/Circle";
-
-
-
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
+import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
+import Pay_out from "../components/Pay/Pay_out";
 
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path:"/GoodsDetails",
+    name:"GoodsDetails",
+    component: GoodsDetails_Out
+  },
   {
     path:"/Demo",
     name:"Demo",
@@ -44,17 +47,12 @@ const routes = [
   {
     path:"/Pay",
     name:"Pay",
-    component: Pay
+    component: Pay_out
   },
   {
     path: "/testdialog",
     name: "testdialog",
     component: testdialog,
-  },
-  {
-    path: "/circle",
-    name: "Circle",
-    component: Circle,
   },
   {
     path: "/myspace",
