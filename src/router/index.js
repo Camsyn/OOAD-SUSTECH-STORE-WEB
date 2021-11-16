@@ -25,11 +25,17 @@ import testdialog from "../components/Myspace/components/testdialog";
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
-
+import Details2 from "@/components/GoodsDetails/components/Details2";
+import Out from "@/components/GoodsDetails/Out";
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/GoodsDetails",
+    name:"GoodsDetails",
+    component: Out,
+  },
   {
     path:"/Demo",
     name:"Demo",
