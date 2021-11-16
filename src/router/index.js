@@ -22,6 +22,10 @@ import concerns from "../components/Myspace/components/concerns";
 import bought from "../components/Myspace/components/bought";
 import testdialog from "../components/Myspace/components/testdialog";
 
+import Circle from "../components/Circle/Circle";
+
+
+
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
@@ -46,6 +50,11 @@ const routes = [
     path: "/testdialog",
     name: "testdialog",
     component: testdialog,
+  },
+  {
+    path: "/circle",
+    name: "Circle",
+    component: Circle,
   },
   {
     path: "/myspace",
