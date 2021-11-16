@@ -5,16 +5,23 @@
     </v-col>
     <v-col cols="11" class="py-0">
       <div
+          v-if="type==0"
         class="grey lighten-2 py-2 px-2"
         style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap; border-radius: 500px;"
       >{{ text }}</div>
+      <v-img
+          v-else-if="type==1"
+          src="text"
+          contain
+          width="350px"
+      ></v-img>
     </v-col>
   </v-card>
 </template>
 
 <script>
 export default {
-  props: ["text"],
+  props: ["text", "type"],
   name: "message_single",
   data: () => {
     return {

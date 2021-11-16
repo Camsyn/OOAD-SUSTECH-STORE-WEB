@@ -40,3 +40,11 @@ export function str2Date(dateStr, separator) {
   let date = new Date(year, month - 1, day);
   return date;
 }
+
+export function parseTime(time){
+  return new Date(Date.parse(time));
+}
+
+export function sortUp(t1, t2){
+  return t1.getTime()-t2.getTime();
+}

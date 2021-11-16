@@ -1,7 +1,6 @@
 class chat{
     constructor() {
         this.socket = null;
-        this.messages=new Map();
         this.unConfirmed = new Map();
         this.context = null;
         this.sid = "";
@@ -10,8 +9,6 @@ class chat{
     setup(context, sid){
         this.context = context;
         this.sid = sid;
-        this.context.state.messages = this.messages;
-
         this.socket = new WebSocket("ws://10.17.106.147:8000/chat/one2one/"+sid)
 
         this.socket.onerror = function(error) {
@@ -23,6 +20,7 @@ class chat{
         };
     }
 
+    //todo 超时
     sendTo(recvId, msg, type){
         return new Promise((resolve, reject)=>{
             this.socket.send(
@@ -31,20 +29,13 @@ class chat{
                     content: msg,
                     type: type,
                 }
-            )
-
+            );
+            resolve();
         })
-
     }
 
     revMsg(ChatRecord){
-        this.context.state.tacker+=1;
-        let {sendId, sendTime, recvTime, type, content} = ChatRecord;
-        if (this.messages.has(sendId)){
-            this.messages.get(sendId).push(ChatRecord);
-        }else {
-            this.messages.set(sendId, [ChatRecord]);
-        }
+        this.context.commit("REV_MSG", ChatRecord);
     }
 
     test(){

@@ -25,6 +25,7 @@ import testdialog from "../components/Myspace/components/testdialog";
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
+import message_of from "../views/message/message_of";
 
 
 Vue.use(VueRouter);
@@ -115,6 +116,12 @@ const routes = [
       {
         path: "message",
         component: Messageall,
+        children: [
+            {
+              path: ":sid",
+              component: message_of,
+        }
+        ]
       },
       {
         path: "notification",

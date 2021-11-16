@@ -1,6 +1,6 @@
-import { login, logout } from "@/api/login";
-import {register, exist} from "@/api/register";
-import { removeToken } from "@/utils/auth";
+import { login, logout } from "../../api/login";
+import {register, exist} from "../../api/register";
+import { removeToken } from "../../utils/auth";
 import chat from "@/utils/chat";
 
 const user = {
