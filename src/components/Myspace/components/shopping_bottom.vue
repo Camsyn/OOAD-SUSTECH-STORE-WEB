@@ -33,9 +33,10 @@ export default {
 
 <style scoped>
 .shop_bottom {
+  z-index: 99;
   margin-left: 250px;
   display: inline-block;
-  width: 1200px;
+  width: 60%;
   height: 50px;
   position: fixed;
   bottom: 0;

@@ -23,11 +23,10 @@ import bought from "../components/Myspace/components/bought";
 import testdialog from "../components/Myspace/components/testdialog";
 
 import Demo from "../components/Business/Demo";
-import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
 import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
-import Pay_out from "../components/Pay/Pay_out";
+import shopping_trolley from "../components/Myspace/out/shopping_trolley";
 
 
 Vue.use(VueRouter);
@@ -43,11 +42,6 @@ const routes = [
     name:"Demo",
     component: Demo
 
-  },
-  {
-    path:"/Pay",
-    name:"Pay",
-    component: Pay_out
   },
   {
     path: "/testdialog",
@@ -67,7 +61,7 @@ const routes = [
       {
         path: "/myspace/nextsell",
         name: "nextsell",
-        component: nextsell,
+        component: shopping_trolley,
       },
       {
         path: "/myspace/settings",

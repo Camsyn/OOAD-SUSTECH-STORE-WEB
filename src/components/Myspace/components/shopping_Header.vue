@@ -30,14 +30,14 @@ export default {
 
 <style scoped>
 .test {
-  width: 1500px;
+  width: 90%;
   margin-left: 50px;
 
 }
 .progress1 {
   display: inline-block;
   margin-top: 50px;
-  width: 1500px;
+  width: 100%;
 }
 .progress2 {
   display: inline-block;

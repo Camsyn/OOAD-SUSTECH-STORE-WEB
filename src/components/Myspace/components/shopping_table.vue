@@ -26,6 +26,11 @@
         <template slot-scope="scope">{{ scope.row.Title }}</template>
       </el-table-column>
       <el-table-column
+          prop="Condition"
+          label="成色"
+          width="120">
+      </el-table-column>
+      <el-table-column
           prop="Date"
           label="上架时间"
           width="120">
@@ -35,9 +40,44 @@
           label="加入购物车时间"
           show-overflow-tooltip>
       </el-table-column>
+
+
       <el-table-column
-          prop=""
-          label="加入购物车时间"
+          label="发布者"
+          width="300"
+      >
+        <template slot-scope="scope">
+          <div class="User">
+            <a href="#">
+              <el-image
+                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
+                  :src="scope.row.User.picture"
+              ></el-image>
+            </a>
+            <div class="UserDetails">
+              <div class="UserDetails1">{{scope.row.User.name}}
+                <el-rate
+                    v-model="scope.row.User.value"
+                    show-text
+                    disabled>
+                </el-rate>
+              </div>
+              <div class="credit"></div>
+            </div>
+          </div>
+         </template>
+      </el-table-column>
+
+
+      <el-table-column
+          prop="Method"
+          label="获取方法"
+          show-overflow-tooltip>
+      </el-table-column>
+
+      <el-table-column
+          prop="price"
+          label="价格"
           show-overflow-tooltip>
       </el-table-column>
       <el-table-column
@@ -72,6 +112,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-03',
         put_Date:'2016-05-03',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -81,8 +124,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-02',
         put_Date:'2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -92,6 +136,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-04',
         put_Date:'2016-05-03',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -101,6 +148,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-01',
         put_Date:'2016-05-03',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -110,6 +160,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-08',
         put_Date:'2016-05-03',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -119,6 +172,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-06',
         put_Date:'2016-05-03',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -128,6 +184,9 @@ export default {
         Title: "DARK SHORT DRESS",
         Date: '2016-05-07',
         put_Date:'2016-05-03',
+        Method:"自提",
+        Condition: "New",
+        price:110,
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
@@ -167,5 +226,22 @@ export default {
 .table {
   margin-top: 50px;
   margin-left: 50px;
+}
+.UserDetails1 {
+  color:#7c7a7b;
+  font-size: 21px;
+  height: 40px;
+  margin-top: 25px;
+  display: inline-block;
+  background-color: white;
+}
+.credit {
+  float: left;
+  display: inline-block;
+}
+.UserDetails {
+  margin-left: 10px;
+  display: inline-block;
+  float: left;
 }
 </style>
