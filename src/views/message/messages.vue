@@ -34,10 +34,8 @@
 </template>
 
 <script>
-import Message_single from "@/views/message/message_single";
 export default {
   name: "messages",
-  components: {Message_single},
   data: () => {
     return {
       msg: "",

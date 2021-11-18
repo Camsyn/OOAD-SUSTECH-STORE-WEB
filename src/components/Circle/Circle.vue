@@ -129,7 +129,7 @@
           >
             <v-col>
               <v-avatar>
-                <img src="../../assets/CC.png" alt="CC" />
+                <img src="../../assets/C.C..png" alt="CC" />
               </v-avatar>
               <span class="font-weight-bold" style= "display:inline">
               Davis Antonia
@@ -203,7 +203,7 @@
           >
             <v-col>
               <v-avatar>
-                <img src="../../assets/CC.png" alt="CC" />
+                <img src="../../assets/C.C..png" alt="CC" />
               </v-avatar>
               <span class="font-weight-bold" style= "display:inline">
               Davis Antonia
@@ -277,7 +277,7 @@
           >
             <v-col>
               <v-avatar>
-                <img src="../../assets/CC.png" alt="CC" />
+                <img src="../../assets/C.C..png" alt="CC" />
               </v-avatar>
               <span class="font-weight-bold" style= "display:inline">
               Davis Antonia
@@ -351,7 +351,7 @@
         >
           <v-col>
             <v-avatar>
-              <img src="../../assets/CC.png" alt="CC" />
+              <img src="../../assets/C.C..png" alt="CC" />
             </v-avatar>
             <span class="font-weight-bold" style= "display:inline">
               Davis Antonia
@@ -425,7 +425,7 @@
         >
           <v-col>
             <v-avatar>
-              <img src="../../assets/CC.png" alt="CC" />
+              <img src="../../assets/C.C..png" alt="CC" />
             </v-avatar>
             <span class="font-weight-bold" style= "display:inline">
               Davis Antonia

@@ -14,10 +14,10 @@
       <v-sheet color="deep-orange lighten-3" class="pa-4">
         <!--用户头像-->
         <v-avatar>
-          <img src="../../assets/CC.png" alt="CC" />
+          <img src="../../assets/C.C..png" alt="C.C." />
         </v-avatar>
 
-        <div>CC@sustech.edu.cn</div>
+        <div>C.C.@sustech.edu.cn</div>
       </v-sheet>
 
       <v-divider></v-divider>

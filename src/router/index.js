@@ -27,6 +27,7 @@ import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
 import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
 import shopping_trolley from "../components/Myspace/out/shopping_trolley";
+import message_empty from "@/views/message/message_empty";
 
 
 Vue.use(VueRouter);
@@ -121,7 +122,11 @@ const routes = [
             {
               path: ":sid",
               component: message_of,
-        }
+        },
+          {
+            path: "",
+            component: message_empty
+          }
         ]
       },
       {
