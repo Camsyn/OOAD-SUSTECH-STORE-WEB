@@ -15,7 +15,6 @@ import settings from "../components/Myspace/components/settings";
 import collection from "../components/Myspace/components/collection";
 import fans from "../components/Myspace/components/fans";
 import nextsell from "../components/Myspace/components/nextsell";
-import publish from "../components/Myspace/components/publish";
 import sold from "../components/Myspace/components/sold";
 import trail from "../components/Myspace/components/trail";
 import concerns from "../components/Myspace/components/concerns";
@@ -27,8 +26,7 @@ import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
 import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
 import shopping_trolley from "../components/Myspace/out/shopping_trolley";
-
-
+import publish from "../components/Myspace/out/publish";
 Vue.use(VueRouter);
 
 const routes = [

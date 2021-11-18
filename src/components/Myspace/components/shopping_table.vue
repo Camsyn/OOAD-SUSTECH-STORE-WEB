@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <p class="p_text">我的商品 ({{tableData.length}})</p>
+    <p class="p_text">购物车 ({{tableData.length}})</p>
     <el-table
         ref="multipleTable"
         :data="tableData"
@@ -101,7 +101,7 @@
       <el-button @click="toggleSelection()">取消选择</el-button>
     </div>
     <div class="shop_bottom">
-      <button class="buy">
+      <button class="buy" @click ="PayFor">
         结算
       </button>
       <div class="price">共计:
@@ -157,7 +157,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
+          value:"4.9",
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -235,6 +235,11 @@ export default {
     },
     deleteRow(index, rows) {
       rows.splice(index, 1);
+    },
+    PayFor() {
+      if (this.multipleSelection.length==0) {
+        this.$message.error('已选商品数量不能为0');
+      }
     }
   }
 }
