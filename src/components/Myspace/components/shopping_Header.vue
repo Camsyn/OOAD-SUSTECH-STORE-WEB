@@ -1,10 +1,7 @@
 <template>
 <div class="test">
   <div class="progress1">
-    <el-image class="logo"
-              style="width: 100px; height: 100px"
-              :src="url"
-    ></el-image>
+    <img src="../../../assets/logo/default.png"  style="width: 150px; height: 150px"  class="logo">
     <div class="logo2">我的购物车</div>
     <div class="progress2">
       <el-steps :active="0">
@@ -36,22 +33,22 @@ export default {
 }
 .progress1 {
   display: inline-block;
-  margin-top: 50px;
+  margin-top: 20px;
   width: 100%;
 }
 .progress2 {
   display: inline-block;
   width: 500px;
   float: right;
-  margin-top: 30px;
+  margin-top: 57px;
 }
 .logo {
   float: left;
 }
 .logo2 {
-  margin-top: 30px;
+  margin-top: 60px;
   float: left;
   margin-left: 30px;
-  font-size: 30px ;
+  font-size: 25px;
 }
 </style>

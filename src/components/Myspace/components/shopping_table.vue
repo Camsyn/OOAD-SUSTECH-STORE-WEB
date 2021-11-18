@@ -1,6 +1,6 @@
 <template>
   <div class="table">
-    <p class="p_text">我的商品 ({{tableData.length}})</p>
+    <p class="p_text">购物车 ({{tableData.length}})</p>
     <el-table
         ref="multipleTable"
         :data="tableData"
@@ -44,8 +44,7 @@
 
       <el-table-column
           label="发布者"
-          width="300"
-      >
+          width="300">
         <template slot-scope="scope">
           <div class="User">
             <a href="#">
@@ -76,10 +75,13 @@
       </el-table-column>
 
       <el-table-column
-          prop="price"
           label="价格"
-          show-overflow-tooltip>
+      width="150">
+        <template slot-scope="scope">
+          <div class="Now">{{scope.row.price}}</div>
+        </template>
       </el-table-column>
+
       <el-table-column
           fixed="right"
           label="操作"
@@ -95,8 +97,21 @@
       </el-table-column>
     </el-table>
     <div style="margin-top: 20px">
-      <el-button @click="toggleSelection([tableData[1], tableData[2]])">全选</el-button>
+      <el-button @click="toggleSelection(tableData)">全选</el-button>
       <el-button @click="toggleSelection()">取消选择</el-button>
+    </div>
+    <div class="shop_bottom">
+      <button class="buy" @click ="PayFor">
+        结算
+      </button>
+      <div class="price">共计:
+        <strong class="price_text">{{sum}}</strong>
+      </div>
+      <div class="number">
+        已选商品
+        <strong class="number_text">{{multipleSelection.length}}</strong>
+        件
+      </div>
     </div>
   </div>
 
@@ -142,7 +157,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
+          value:"4.9",
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -196,7 +211,15 @@ export default {
       multipleSelection: []
     }
   },
-
+  computed: {
+    sum : function(){
+      let sum1 = 0;
+      for (let i = 0; i < this.multipleSelection.length ; i++) {
+        sum1 = sum1 + this.multipleSelection[i].price
+      }
+      return sum1
+    },
+  },
   methods: {
     toggleSelection(rows) {
       if (rows) {
@@ -212,6 +235,11 @@ export default {
     },
     deleteRow(index, rows) {
       rows.splice(index, 1);
+    },
+    PayFor() {
+      if (this.multipleSelection.length==0) {
+        this.$message.error('已选商品数量不能为0');
+      }
     }
   }
 }
@@ -243,5 +271,61 @@ export default {
   margin-left: 10px;
   display: inline-block;
   float: left;
+}
+.Now {
+  font-size: 30px;
+  font-weight: 700;
+}
+.shop_bottom {
+  z-index: 99;
+  margin-left: 250px;
+  display: inline-block;
+  width: 60%;
+  height: 50px;
+  position: fixed;
+  bottom: 0;
+  background-color: #eee;
+}
+.buy {
+  float: right;
+  display: block;
+  width: 120px;
+  height: 50px;
+  color: #fff;
+  font-size: 22px;
+  letter-spacing: 5px;
+  line-height: 50px;
+  text-align: center;
+  border-radius: 8px;
+  background-color: #fb0000;
+}
+.price {
+
+  float: right;
+  min-width: 100px;
+  height: 50px;
+  line-height: 50px;
+  margin-right: 10px;
+}
+.price_text {
+  font-weight: 400;
+  color: #fb0000;
+  float: right;
+  font-size: 23px;
+  margin-left: 15px;
+  margin-right: 10px;
+}
+.number {
+  float: right;
+  min-width: 110px;
+  margin-right: 20px;
+  height: 50px;
+  line-height: 50px;
+}
+.number_text {
+  display: inline-block;
+  padding: 0 10px;
+  font-size: 18px;
+  color: #fb0000;
 }
 </style>
