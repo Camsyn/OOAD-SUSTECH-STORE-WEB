@@ -2,7 +2,9 @@ import request from "../utils/request";
 // <!--  camsyn.cn:7000/uaa/login      -->
 export function login(username, password) {
   return request({
-    url: "/auth/uaa/login",
+    //http://camsyn.top:8000/auth
+    //http://camsyn.cn:7000
+    url: "/uaa/login",
     method: "post",
     params: {
       username,

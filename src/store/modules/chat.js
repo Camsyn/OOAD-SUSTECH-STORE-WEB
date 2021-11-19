@@ -52,7 +52,6 @@ const chatter = {
             state.tracer++;
         },
         SET_UP (state, {context, sid}){
-            console.log(sid);
             state.tracer++;
             state.chat.setup(context, sid);
         },
@@ -92,7 +91,6 @@ const chatter = {
 
     actions: {
         setupChat(context, sid){
-            console.log(sid);
             context.commit("SET_UP", {context, sid});
         },
         //取得每个用户发来的最后一条消息

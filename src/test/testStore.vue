@@ -13,7 +13,10 @@ name: "testStore",
   data(){
   return{
     emm: new Map(),
-    haha: [1]
+    haha: [1],
+    recvId: "11911626",
+    msg: "hello! again!",
+    type: 0
     }
   },
 
@@ -28,7 +31,7 @@ name: "testStore",
       this.$store.dispatch("setupChat", "11910620")
     },
     test(){
-      this.$store.dispatch("test");
+      this.$store.commit("SEND_MSG", {recvId: this.recvId, msg: this.msg, type: 0})
     }
   }
 }
