@@ -1,3 +1,6 @@
+import {service} from "./request";
+import axios from "axios";
+
 class chat{
     constructor() {
         this.socket = null;
@@ -9,15 +12,32 @@ class chat{
     setup(context, sid){
         this.context = context;
         this.sid = sid;
-        this.socket = new WebSocket("ws://10.17.106.147:8000/chat/one2one/"+sid)
-
-        this.socket.onerror = function(error) {
-            console.log(`[error] ${error.message}`);
-        };
-        this.socket.onmessage = function(event) {
-            console.log(`[message] Data received: ${event.data}`);
-            this.revMsg(event.data);
-        };
+        service({
+            method: "get",
+            url: "/chat/hello",
+        }).then(res=>{
+            console.log(res.data);
+            this.socket = new WebSocket("ws://camsyn.top:8000/chat/websocket/one2one/"+sid);
+            this.socket.onopen = function (){
+                alert("ws open");
+            };
+            this.socket.onerror = function(error) {
+                console.log(`[error] ${error.message}`);
+            };
+            this.socket.onmessage = function(event) {
+                console.log(`[message] Data received: ${event.data}`);
+                // this.revMsg(event.data);
+            };
+            this.socket.onclose = function(event) {
+                if (event.wasClean) {
+                    alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                } else {
+                    alert('[close] Connection died');
+                }
+            };
+        }).catch(error=>{
+            console.log(error);
+        });
     }
 
     //todo 超时
@@ -39,8 +59,12 @@ class chat{
     }
 
     test(){
-
+        this.socket.send("My name is abc");
     }
 }
 
 export default chat
+
+export function addTime(chatRecords){
+
+}

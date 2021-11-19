@@ -2,8 +2,6 @@
   <v-sheet min-height="70vh" rounded="lg">
     <v-container
       style="
-        position: sticky;
-        top: 8%;
         z-index: 1;
         background-color: white;
         border-bottom-left-radius: 40px;
@@ -19,7 +17,7 @@
         <v-col cols="5">
           <v-text-field flat hide-details rounded solo-inverted></v-text-field>
         </v-col>
-        <v-spacer></v-spacer>
+<!--        <v-spacer></v-spacer>-->
         <v-btn-toggle v-model="srt" tile group class="mt-3">
           <v-btn> 信誉 </v-btn>
           <v-btn> 时间 </v-btn>
@@ -27,7 +25,7 @@
           <v-btn> 价格降序 </v-btn>
         </v-btn-toggle>
         <v-spacer></v-spacer>
-        <v-dialog v-model="dialog" persistent>
+        <v-dialog v-model="dialog" persistent width="60%">
           <template v-slot:activator="{ on, attrs }">
             <v-btn class="mt-4 py-6" text v-bind="attrs" v-on="on">
               筛选
@@ -126,7 +124,6 @@
         </v-dialog>
       </v-row>
     </v-container>
-
     <v-container>
       <v-row>
         <v-col v-for="n in amount" :key="n" cols="4">

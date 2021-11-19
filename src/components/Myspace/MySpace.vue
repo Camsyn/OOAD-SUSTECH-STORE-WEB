@@ -2,11 +2,8 @@
   <v-app id="inspire">
     <v-system-bar app>
       <v-spacer></v-spacer>
-
       <v-icon>mdi-square</v-icon>
-
       <v-icon>mdi-circle</v-icon>
-
       <v-icon>mdi-triangle</v-icon>
     </v-system-bar>
 
@@ -14,10 +11,10 @@
       <v-sheet color="deep-orange lighten-3" class="pa-4">
         <!--用户头像-->
         <v-avatar>
-          <img src="../../assets/CC.png" alt="CC" />
+          <img src="../../assets/C.C..png" alt="C.C." />
         </v-avatar>
 
-        <div>CC@sustech.edu.cn</div>
+        <div>C.C.@sustech.edu.cn</div>
       </v-sheet>
 
       <v-divider></v-divider>
@@ -57,7 +54,7 @@ export default {
       { icon: "mdi-purse-outline", title: "我发布的", route: "/myspace/publish" },
       { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "/myspace/sold" },
       { icon: "mdi-cart-arrow-down", title: "我买到的", route: "/myspace/bought" },
-      { icon: "mdi-cart-variant", title: "我可转卖的", route: "/myspace/nextsell" },
+      { icon: "mdi-cart-variant", title: "购物车", route: "/myspace/nextsell" },
       { icon: "mdi-star", title: "收藏", route: "/myspace/collection" },
       { icon: "mdi-walk", title: "足迹", route: "/myspace/trail" },
       { icon: "mdi-heart-plus", title: "关注", route: "/myspace/concerns" },

@@ -1,7 +1,6 @@
-import { login, logout } from "../../api/login";
+import {getUserInfo, login, logout} from "../../api/user";
 import {register, exist} from "../../api/register";
 import { removeToken } from "../../utils/auth";
-import chat from "@/utils/chat";
 
 const user = {
   state: {
@@ -73,6 +72,10 @@ const user = {
           resolve();
       })
     },
+
+    getUserInfo(context, sid){
+      return getUserInfo(sid);
+    }
   },
 };
 

@@ -7,7 +7,7 @@ export function getLastOfEach(sid){
         params: {
             recvSid: sid,
             userSize: 9999,
-            count: 1,
+            count: 10,
         }
     })
 }

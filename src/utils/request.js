@@ -1,27 +1,38 @@
 import axios from "axios";
-import store from "../store";
-import { getToken } from "./auth";
 
 const service = axios.create({
   baseURL: "/api",
   timeout: 5000,
 });
-//发送请求前
-// service.interceptors.request.use(
-//   (config) => {
-//     if (store.getters.token) {
-//       config.headers["Authorization"] = getToken(); // 更新token
-//     }
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
-//发送请求后
+const service_login = axios.create({
+  baseURL: "/api_login",
+  timeout: 5000,
+});
+//发送请求前
+service.interceptors.request.use(
+  (config) => {
+    console.log(config);
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  });
+
+service_login.interceptors.request.use(
+    (config) => {
+      console.log(config);
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    });
+
+
+// //发送请求后
 service.interceptors.response.use(
   (response) => {
+      // console.log(response);
     const res = response.data;
     const resp_code = res.resp_code;
     const resp_msg = res.resp_msg;
@@ -37,4 +48,7 @@ service.interceptors.response.use(
   }
 );
 
-export default service;
+service.defaults.withCredentials = true;
+service_login.defaults.withCredentials = true;
+
+export {service, service_login};

@@ -1,6 +1,6 @@
 import chat from "../../utils/chat";
-import {parseTime, sortUp} from "../../utils/date";
-import {getLastOfEach} from "../../api/chat";
+import {parseTime, sortUp} from "@/utils/date";
+import {getLastOfEach} from "@/api/chat";
 
 const chatter = {
     state:{
@@ -11,8 +11,8 @@ const chatter = {
         mock: [
             {
                 sendId: "11910620",
-                type: 0,
-                content: "hello!",
+                type: 1,
+                content: "https://picsum.photos/id/11/500/300",
                 sendTime: "1",
                 isRead: false,
             },
@@ -51,7 +51,7 @@ const chatter = {
         TRACE(state){
             state.tracer++;
         },
-        SET_UP (state, context, sid){
+        SET_UP (state, {context, sid}){
             state.tracer++;
             state.chat.setup(context, sid);
         },
@@ -83,7 +83,7 @@ const chatter = {
                 state.messages.set(sendId, [ChatRecord]);
             }
         },
-        SEND_MSG(state, recvId, msg, type){
+        SEND_MSG(state, {recvId, msg, type}){
             state.tracer++;
             state.chat.sendTo(recvId, msg, type);
         }
@@ -91,7 +91,7 @@ const chatter = {
 
     actions: {
         setupChat(context, sid){
-            context.commit("SET_UP", context, sid);
+            context.commit("SET_UP", {context, sid});
         },
         //取得每个用户发来的最后一条消息
         renew(context){
@@ -101,12 +101,13 @@ const chatter = {
                     .then((res)=>{
                         const data = res.data;
                         context.commit("MSG_EACH_SET", data);
+                        context.commit("SORT_UP_MSG");
                     })
             })
         },
 
         test(context){
-
+            context.state.chat.test();
         }
     }
 }
