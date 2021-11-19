@@ -9,8 +9,11 @@ class chat{
     setup(context, sid){
         this.context = context;
         this.sid = sid;
-        this.socket = new WebSocket("ws://10.17.106.147:8000/chat/one2one/"+sid)
-
+        // this.socket = new WebSocket("ws://10.17.106.147:8000/chat/one2one/"+sid)
+        this.socket = new WebSocket("ws://localhost:8080/ws");
+        this.socket.onopen = function (){
+            alert("open");
+        };
         this.socket.onerror = function(error) {
             console.log(`[error] ${error.message}`);
         };
@@ -39,7 +42,7 @@ class chat{
     }
 
     test(){
-
+        this.socket.send("My name is abc");
     }
 }
 
