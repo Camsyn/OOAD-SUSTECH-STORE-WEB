@@ -97,11 +97,12 @@ export default {
       },
     ]
   }),
+
+  created() {
+
+  }
 };
 </script>
 
 <style scoped>
-/*html, body{*/
-/*  height: 100%;*/
-/*}*/
 </style>

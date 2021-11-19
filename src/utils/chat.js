@@ -44,3 +44,7 @@ class chat{
 }
 
 export default chat
+
+export function addTime(chatRecords){
+
+}

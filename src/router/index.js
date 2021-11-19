@@ -27,6 +27,9 @@ import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
 
+import Details2 from "../components/GoodsDetails/components/Details2";
+import Out from "../components/GoodsDetails/Out";
+
 
 Vue.use(VueRouter);
 
@@ -100,7 +103,7 @@ const routes = [
     ],
   },
   {
-    path: "/login",
+    path: "/user",
     name: "Login",
     component: Login,
   },

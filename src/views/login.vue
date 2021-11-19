@@ -155,7 +155,7 @@ export default {
     login(){
       this.$store.dispatch("Login", this.loginn).then(
           () => {
-            console.log("login success!")
+            console.log("user success!")
             this.$store.commit("SET_NAME", this.loginn.username);
 
             this.$router.push({name: "Layout"})
