@@ -4,10 +4,9 @@
       <v-row style="height: 100%">
         <v-col class="elevation-1" cols="4" style="height: 100%">
           <v-text-field flat hide-details rounded solo-inverted></v-text-field>
-
         <v-list three-line height="90%">
           <template v-for="(item, index) in messagesShort">
-            <v-list-item :key="index">
+            <v-list-item :key="index" @click="chatWith(item.sendId)">
               <v-list-item-avatar>
                 <v-img :src="item.avatar"></v-img>
               </v-list-item-avatar>
@@ -22,23 +21,8 @@
           </template>
         </v-list>
         </v-col>
-        <v-col class="elevation-1 flex-column-reverse d-flex" cols="8" style="height: 100%">
-          <v-row class="flex-row-reverse mt-1 mb-1" style="max-height: 40px">
-            <v-btn class="primary mr-3">发送</v-btn>
-          </v-row>
-          <v-row style="max-height: 180px">
-            <v-textarea
-                outlined
-                class="ml-3 mt-6 py-0"
-                auto-grow
-                append-outer-icon="mdi-close-circle"
-                hide-details="true"
-            ></v-textarea>
-          </v-row>
-          <v-divider></v-divider>
-          <v-row>
-            <router-view></router-view>
-          </v-row>
+        <v-col  cols="8" style="height: 100%">
+          <router-view style="height: 100%"></router-view>
         </v-col>
       </v-row>
     </v-container>
@@ -96,8 +80,11 @@ export default {
     ]
   }),
 
-  created() {
-
+  methods: {
+    chatWith(sid){
+      if (this.$route.params.sid !== sid)
+        this.$router.push({path: "/message/"+sid});
+    },
   }
 };
 </script>
