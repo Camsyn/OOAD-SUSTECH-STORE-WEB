@@ -7,7 +7,7 @@ module.exports = {
         target: 'http://camsyn.top:8000',
         // 允许跨域
         changeOrigin: true,
-        // ws: true,
+        ws: true,
         pathRewrite: {
           '^/api': ''
         }

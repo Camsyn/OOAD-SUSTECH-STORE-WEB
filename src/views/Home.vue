@@ -124,7 +124,6 @@
         </v-dialog>
       </v-row>
     </v-container>
-
     <v-container>
       <v-row>
         <v-col v-for="n in amount" :key="n" cols="4">

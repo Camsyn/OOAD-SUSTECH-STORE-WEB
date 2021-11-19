@@ -1,4 +1,5 @@
 import request from "../utils/request";
+// <!--  camsyn.cn:7000/uaa/login      -->
 export function login(username, password) {
   return request({
     url: "/auth/uaa/login",

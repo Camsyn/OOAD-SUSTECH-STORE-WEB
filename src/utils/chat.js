@@ -9,7 +9,7 @@ class chat{
     setup(context, sid){
         this.context = context;
         this.sid = sid;
-        this.socket = new WebSocket("ws://10.17.106.147:8000/chat/one2one/"+sid)
+        this.socket = new WebSocket("ws://camsyn.top:8000/chat/one2one/"+sid)
         // this.socket = new WebSocket("ws://localhost:8080/ws");
         this.socket.onopen = function (){
             alert("open");

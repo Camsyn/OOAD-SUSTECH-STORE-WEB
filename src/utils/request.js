@@ -5,6 +5,7 @@ import { getToken } from "./auth";
 const service = axios.create({
   baseURL: "/api",
   timeout: 5000,
+    // baseURL: "http://camsyn.cn:7000"
 });
 //发送请求前
 // service.interceptors.request.use(
