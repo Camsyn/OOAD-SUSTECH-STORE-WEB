@@ -1,6 +1,6 @@
 import chat from "../../utils/chat";
-import {parseTime, sortUp} from "../../utils/date";
-import {getLastOfEach} from "../../api/chat";
+import {parseTime, sortUp} from "@/utils/date";
+import {getLastOfEach} from "@/api/chat";
 
 const chatter = {
     state:{
