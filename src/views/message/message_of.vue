@@ -36,7 +36,7 @@
               <div
                   v-if="msg.type==0"
                   class="lighten-2 py-2 px-2"
-                  :class="{grey: msg.sendId=='11910620', blue: msg.sendId!='11910620'}"
+                  :class="{grey: msg.sendId=='123', blue: msg.sendId!='11910620'}"
                   style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap; border-radius: 500px;"
               >{{ msg.content }}</div>
 
