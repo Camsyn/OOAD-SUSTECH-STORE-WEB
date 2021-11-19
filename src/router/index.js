@@ -29,6 +29,9 @@ import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
 import shopping_trolley from "../components/Myspace/out/shopping_trolley";
 import message_empty from "@/views/message/message_empty";
 
+import Details2 from "../components/GoodsDetails/components/Details2";
+import Out from "../components/GoodsDetails/Out";
+
 
 Vue.use(VueRouter);
 
@@ -102,7 +105,7 @@ const routes = [
     ],
   },
   {
-    path: "/login",
+    path: "/user",
     name: "Login",
     component: Login,
   },

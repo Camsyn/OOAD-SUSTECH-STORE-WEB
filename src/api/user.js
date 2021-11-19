@@ -17,4 +17,17 @@ export function logout() {
   });
 }
 
+export function getUserInfo(sid){
+  return request({
+    url: "/auth/user/get/"+sid,
+    method: "get"
+  })
+}
 
+export function updateMyInfo(info){
+  return request({
+    url: "/auth/user/update",
+    method: "post",
+    data: info,
+  })
+}

@@ -101,6 +101,7 @@ const chatter = {
                     .then((res)=>{
                         const data = res.data;
                         context.commit("MSG_EACH_SET", data);
+                        context.commit("SORT_UP_MSG");
                     })
             })
         },
