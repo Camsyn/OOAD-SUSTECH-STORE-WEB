@@ -29,7 +29,8 @@ export default {
     toHome() {
       this.$router.push("home");
     },
-    toMySpace(){this.$router.push("myspace")
+    toMySpace(){
+      this.$router.push("myspace")
     }
   },
 };
