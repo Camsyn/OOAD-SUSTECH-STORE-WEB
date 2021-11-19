@@ -5,10 +5,8 @@
 
       <v-btn text @click="toHome"> 主页 </v-btn>
 
-      <v-btn text> 圈子 </v-btn>
-      <v-btn text @click="toMySpace">
-        MySpace
-      </v-btn>
+      <v-btn text @click="toCircle"> 圈子 </v-btn>
+      <v-btn text @click="toMySpace">MySpace</v-btn>
       <notif-btn icon="mdi-mail"></notif-btn>
       <menu-btn icon="mdi-forum"></menu-btn>
     </v-container>
@@ -31,6 +29,9 @@ export default {
     },
     toMySpace(){
       this.$router.push("myspace")
+    },
+    toCircle(){
+      this.$router.push("circle")
     }
   },
 };

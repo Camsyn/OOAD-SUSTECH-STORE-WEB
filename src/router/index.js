@@ -23,6 +23,10 @@ import bought from "../components/Myspace/components/bought";
 import testdialog from "../components/Myspace/components/testdialog";
 
 import Circle from "../components/Circle/Circle";
+import HotSharing from "../components/Circle/components/FirstPage/HotSharing";
+import Grass from "../components/Circle/components/FirstPage/Grass";
+import PersonalPage from "../components/Circle/components/HeaderBar/PersonalPage";
+import MessagePage from "../components/Circle/components/HeaderBar/MessagePage";
 
 
 
@@ -30,6 +34,8 @@ import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
+import PublishCircle from "../components/Circle/components/FirstPage/PublishCircle";
+import Customer from "../components/Circle/components/Custom/Customer";
 
 
 Vue.use(VueRouter);
@@ -55,6 +61,38 @@ const routes = [
     path: "/circle",
     name: "Circle",
     component: Circle,
+    children: [
+      {
+        path:"/circle/HotSharing",
+        name:"HotSharing",
+        component: HotSharing,
+      },
+      {
+        path:"/circle/Grass",
+        name:"Grass",
+        component: Grass,
+      },
+      {
+        path:"/circle/PublishCircle",
+        name:"PublishCircle",
+        component: PublishCircle,
+      },
+      {
+        path:"/circle/PersonalPage",
+        name:"PersonalPage",
+        component: PersonalPage,
+      },
+      {
+        path:"/circle/MessagePage",
+        name:"MessagePage",
+        component: MessagePage,
+      },
+      {
+        path:"/circle/Customer",
+        name:"Customer",
+        component: Customer,
+      }
+    ]
   },
   {
     path: "/myspace",
