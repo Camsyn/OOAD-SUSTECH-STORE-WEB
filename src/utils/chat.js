@@ -1,4 +1,4 @@
-import service from "./request";
+import {service} from "./request";
 import axios from "axios";
 
 class chat{
@@ -12,10 +12,9 @@ class chat{
     setup(context, sid){
         this.context = context;
         this.sid = sid;
-        console.log(123);
         service({
             method: "get",
-            url: "http://camsyn.cn:8000/hello",
+            url: "/chat/hello",
         }).then(res=>{
             console.log(res.data);
             this.socket = new WebSocket("ws://camsyn.top:8000/chat/websocket/one2one/"+sid);
