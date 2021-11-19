@@ -15,7 +15,7 @@ import settings from "../components/Myspace/components/settings";
 import collection from "../components/Myspace/components/collection";
 import fans from "../components/Myspace/components/fans";
 import nextsell from "../components/Myspace/components/nextsell";
-import publish from "../components/Myspace/components/publish";
+// import publish from "../components/Myspace/components/publish";
 import sold from "../components/Myspace/components/sold";
 import trail from "../components/Myspace/components/trail";
 import concerns from "../components/Myspace/components/concerns";
@@ -79,11 +79,11 @@ const routes = [
         name: "concerns",
         component: concerns,
       },
-      {
-        path: "/myspace/publish",
-        name: "publish",
-        component: publish,
-      },
+      // {
+      //   path: "/myspace/publish",
+      //   name: "publish",
+      //   component: publish,
+      // },
       {
         path: "/myspace/sold",
         name: "sold",
