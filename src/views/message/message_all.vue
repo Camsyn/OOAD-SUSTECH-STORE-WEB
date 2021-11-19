@@ -46,9 +46,7 @@
 </template>
 
 <script>
-import message_single from "../message/message_single";
 export default {
-  components: { message_single },
   name: "message_all",
   data: () => ({
     items: [

@@ -42,10 +42,8 @@
 </template>
 
 <script>
-import Message_single from "./message_single";
 export default {
   name: "message_of",
-  components: {Message_single},
   data(){
     return{
       myId: this.$store.state.name,
