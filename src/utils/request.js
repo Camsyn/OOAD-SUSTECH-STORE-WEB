@@ -1,12 +1,14 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL: "/api",
+  // baseURL: "/api",
+    baseURL: "http://camsyn.top:8000",
   timeout: 10000,
 });
 
 const service_login = axios.create({
-  baseURL: "/api_login",
+  // baseURL: "/api_login",
+    baseURL: "http://camsyn.cn:7000",
   timeout: 10000,
 });
 //发送请求前
