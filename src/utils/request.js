@@ -2,12 +2,12 @@ import axios from "axios";
 
 const service = axios.create({
   baseURL: "/api",
-  timeout: 5000,
+  timeout: 10000,
 });
 
 const service_login = axios.create({
   baseURL: "/api_login",
-  timeout: 5000,
+  timeout: 10000,
 });
 //发送请求前
 service.interceptors.request.use(
@@ -32,7 +32,7 @@ service_login.interceptors.request.use(
 // //发送请求后
 service.interceptors.response.use(
   (response) => {
-      // console.log(response);
+      console.log(response);
     const res = response.data;
     const resp_code = res.resp_code;
     const resp_msg = res.resp_msg;
@@ -47,8 +47,5 @@ service.interceptors.response.use(
     return Promise.reject(error); //直接返回错误码
   }
 );
-
-service.defaults.withCredentials = true;
-service_login.defaults.withCredentials = true;
 
 export {service, service_login};

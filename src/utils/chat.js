@@ -15,7 +15,9 @@ class chat{
         service({
             method: "get",
             url: "/chat/hello",
-        }).then(res=>{
+        })
+        // axios.get("http://camsyn.top:8000/chat/hello")
+        .then(res=>{
             console.log(res.data);
             this.socket = new WebSocket("ws://camsyn.top:8000/chat/websocket/one2one/"+sid);
             this.socket.onopen = function (){
@@ -26,7 +28,7 @@ class chat{
             };
             this.socket.onmessage = function(event) {
                 console.log(`[message] Data received: ${event.data}`);
-                // this.revMsg(event.data);
+                this.revMsg(event.data);
             };
             this.socket.onclose = function(event) {
                 if (event.wasClean) {
