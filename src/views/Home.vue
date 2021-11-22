@@ -162,6 +162,7 @@ export default {
     window.addEventListener("scroll", this.addMore);
   },
   methods: {
+
     del_label(index) {
       this.user_defined_label.splice(index, 1);
     },

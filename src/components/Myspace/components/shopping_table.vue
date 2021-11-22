@@ -17,6 +17,7 @@
           <el-image class="logo"
                     style="width: 100px; height: 100px"
                     :src="url"
+                    @click="detile"
           ></el-image>
         </template>
       </el-table-column>
@@ -51,6 +52,7 @@
               <el-image
                   style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
                   :src="scope.row.User.picture"
+                  @click="mycircle"
               ></el-image>
             </a>
             <div class="UserDetails">
@@ -221,6 +223,12 @@ export default {
     },
   },
   methods: {
+    detile(){
+      this.$router.push({name: "GoodsDetails"});
+    },
+    mycircle(){
+      this.$router.push({name: "Circle"});
+    },
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {

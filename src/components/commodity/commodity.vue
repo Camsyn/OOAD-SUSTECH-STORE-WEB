@@ -8,6 +8,7 @@
       ></v-progress-linear>
     </template>
     <v-img
+        @click="detile"
           height="250"
           src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
       ></v-img>
@@ -76,6 +77,9 @@ export default {
   },
   props:['height', 'descrip'],
   methods: {
+    detile(){
+      this.$router.push({name: "GoodsDetails"});
+    },
     click_like(){
       this.like++
     }
