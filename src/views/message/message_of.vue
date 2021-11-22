@@ -45,7 +45,7 @@
                   v-else-if="msg.type==1"
                   :src="msg.content"
                   contain
-                  width="350px"
+                  width="300px"
               ></v-img>
             </v-col>
           </v-card>

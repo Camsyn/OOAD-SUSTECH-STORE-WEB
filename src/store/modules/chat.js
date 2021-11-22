@@ -1,7 +1,6 @@
 import chat from "../../utils/chat";
 import {parseTime, sortUp} from "@/utils/date";
 import {getLastOfEach} from "@/api/chat";
-import da from "element-ui/src/locale/lang/da";
 
 const chatter = {
     state:{
@@ -9,31 +8,55 @@ const chatter = {
         messages: null,
         messagesOfEach: null,
         tracer: 0,
-        mock: {
-            1: [
-                {
-                sendId: "11910620",
-                type: 1,
-                content: "https://picsum.photos/id/11/500/300",
-                sendTime: "1",
-                isRead: false,
-                },
-                {
+        // mock: {
+        //     1: [
+        //         {
+        //         sendId: "11910620",
+        //         type: 1,
+        //         content: "https://picsum.photos/id/11/500/300",
+        //         sendTime: "1",
+        //         isRead: false,
+        //         },
+        //         {
+        //             sendId: "11910620",
+        //             type: 1,
+        //             content: "https://picsum.photos/id/11/500/300",
+        //             sendTime: "2",
+        //             isRead: false,
+        //         },
+        //     ],
+        //     2: [{
+        //         sendId: "11910621",
+        //         type: 0,
+        //         content: "hello again",
+        //         sendTime: "2",
+        //         isRead: false,
+        //     }],
+        // },
+        mock: [
+                    {
                     sendId: "11910620",
                     type: 1,
                     content: "https://picsum.photos/id/11/500/300",
+                    sendTime: "1",
+                    isRead: false,
+                    },
+                    {
+                        sendId: "11910620",
+                        type: 0,
+                        content: "hello",
+                        sendTime: "2",
+                        isRead: false,
+                    },
+            {
+                    sendId: "11910621",
+                    type: 0,
+                    content: "hello again",
                     sendTime: "2",
                     isRead: false,
-                },
-            ],
-            2: [{
-                sendId: "11910621",
-                type: 0,
-                content: "hello again",
-                sendTime: "2",
-                isRead: false,
-            }],
-        },
+                }
+        ]
+
     },
 
     getters: {

@@ -36,6 +36,9 @@ import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
 import PublishCircle from "../components/Circle/components/FirstPage/PublishCircle";
 import Customer from "../components/Circle/components/Custom/Customer";
+import shopping_trolley from "../components/Myspace/out/shopping_trolley";
+import publish from "../components/Myspace/out/publish";
+import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
 
 
 Vue.use(VueRouter);
@@ -56,6 +59,11 @@ const routes = [
     path: "/testdialog",
     name: "testdialog",
     component: testdialog,
+  },
+  {
+    path: "/GoodsDetails",
+    name: "GoodsDetails",
+    component: GoodsDetails_Out,
   },
   {
     path: "/circle",
@@ -107,7 +115,7 @@ const routes = [
       {
         path: "/myspace/nextsell",
         name: "nextsell",
-        component: nextsell,
+        component: shopping_trolley,
       },
       {
         path: "/myspace/settings",
@@ -139,6 +147,11 @@ const routes = [
         name: "bought",
         component: bought,
       },
+      {
+        path: "/myspace/publish",
+        name: "publish",
+        component: publish,
+      },
     ],
   },
   {
@@ -153,6 +166,7 @@ const routes = [
     children: [
       {
         path: "home",
+        name: "Home",
         component: Home,
       },
       {

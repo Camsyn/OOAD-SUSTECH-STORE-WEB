@@ -158,7 +158,7 @@ export default {
             console.log("user success!")
             this.$store.commit("SET_NAME", this.loginn.username);
 
-            this.$router.push({name: "Layout"})
+            this.$router.push({name: "Home"})
           }).catch(
           (err) => {
             console.log(err)
@@ -170,7 +170,7 @@ export default {
           () => {
             console.log("register success!")
             this.$store.commit("SET_NAME", this.register.username);
-            this.$router.push({name: "Layout"})
+            this.$router.push({path: "Home"})
           }).catch(
           (err) => {
             console.log(err)
