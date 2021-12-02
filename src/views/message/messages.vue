@@ -3,7 +3,7 @@
     <v-row>
       <v-col cols="12">
         <message_single
-            text="hello!"
+            :msg="messages[1]"
         >
         </message_single>
       </v-col>
@@ -11,7 +11,7 @@
     <v-row>
       <v-col cols="12">
         <message_single
-            text="hello!"
+            :msg="messages[0]"
         >
         </message_single>
       </v-col>
@@ -34,12 +34,20 @@
 </template>
 
 <script>
+import Message_single from "./message_single";
 export default {
+
   name: "messages",
+  components: {Message_single},
   data: () => {
     return {
       msg: "",
     };
+  },
+  computed: {
+    messages(){
+      return this.$store.getters.msgOf(this.$route.params.sid);
+    },
   },
 };
 </script>

@@ -1,5 +1,6 @@
-import {service} from "./request";
+import service from "./request";
 import axios from "axios";
+import store from "../store";
 
 class chat{
     constructor() {
@@ -12,29 +13,34 @@ class chat{
     setup(context, sid){
         this.context = context;
         this.sid = sid;
-        service({
-            method: "get",
-            url: "/chat/hello",
+        new Promise((resolve, reject)=>{
+            let token = context.getters.token;
+            console.log(token);
+            if (token!==undefined&&token!==null){
+                this.socket = new WebSocket("ws://120.77.145.246:8000/chat/websocket/one2one?token="+token);
+                resolve();
+            }else {
+                reject("Invalid token! Please login!");
+            }
         })
-        // axios.get("http://camsyn.top:8000/chat/hello")
         .then(res=>{
-            console.log(res.data);
-            this.socket = new WebSocket("ws://camsyn.top:8000/chat/websocket/one2one/"+sid);
+            let rev = this.revMsg;
             this.socket.onopen = function (){
-                alert("ws open");
+                console.log("ws open");
             };
             this.socket.onerror = function(error) {
                 console.log(`[error] ${error.message}`);
             };
             this.socket.onmessage = function(event) {
                 console.log(`[message] Data received: ${event.data}`);
-                this.revMsg(event.data);
+                if (event.data.state!==undefined)
+                    rev(event.data)
             };
             this.socket.onclose = function(event) {
                 if (event.wasClean) {
-                    alert(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                    console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
                 } else {
-                    alert('[close] Connection died');
+                    console.log('[close] Connection died');
                 }
             };
         }).catch(error=>{

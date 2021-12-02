@@ -112,9 +112,9 @@ export default {
       st: 0,
       info: null,
       loginn: {
-        username:'',
+        username:'11910620',
         email: '',
-        password: ''
+        password: '123456'
       },
       register: {
         sid: '',
@@ -157,8 +157,10 @@ export default {
           () => {
             console.log("user success!")
             this.$store.commit("SET_NAME", this.loginn.username);
+            this.$router.push({name: "Home"});
+            this.$store.dispatch("setupChat", this.loginn.username);
+            this.$store.dispatch("renew");
 
-            this.$router.push({name: "Home"})
           }).catch(
           (err) => {
             console.log(err)

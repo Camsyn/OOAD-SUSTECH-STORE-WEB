@@ -1,17 +1,28 @@
 import {getUserInfo, login, logout} from "../../api/user";
 import {register, exist} from "../../api/register";
 import { removeToken } from "../../utils/auth";
+import getters from "../getters";
 
 const user = {
   state: {
-      name: "",
-      avatar: "",
-      JSESSIONID: "emm",
+    name: "",
+    avatar: "",
+    token: undefined,
+    tokenHead: undefined,
+    refreshToken: undefined,
   },
 
-    getters:{
-
+  getters:{
+    token: state => {
+      return state.token;
     },
+    tokenHead: state => {
+      return state.tokenHead;
+    },
+    refresh_token: state => {
+      return state.refreshToken;
+    }
+  },
   mutations: {
     SET_NAME: (state, name) => {
       state.name = name;
@@ -20,7 +31,13 @@ const user = {
       state.avatar = avatar;
     },
     SET_TOKEN: (state, token) => {
-      state.JSESSIONID = token;
+      state.token = token;
+    },
+    SET_TOKEN_HEAD: (state, token) => {
+      state.tokenHead = token;
+    },
+    SET_REFRESH_TOKEN: (state, token) => {
+      state.refreshToken = token;
     },
   },
 
@@ -32,10 +49,10 @@ const user = {
         login(username, userInfo.password.trim())
           .then((response) => {
             //登录成功，更新用户信息
-            const data = response.data;
-              context.commit("SET_NAME", data.name);
-              context.commit("SET_AVATAR", data.avatar);
-              // context.commit("SET_CHAT", username);
+            let data = response.data;
+            context.commit("SET_TOKEN", data.token);
+            context.commit("SET_TOKEN_HEAD", data.tokenHead);
+            context.commit("SET_REFRESH_TOKEN", data.refreshToken);
             resolve();
           })
           .catch((error) => {
@@ -46,18 +63,10 @@ const user = {
 
     LogOut(context) {
       return new Promise((resolve, reject) => {
-        logout(context.state.token)
-          .then(() => {
-            // 等出成功，清楚用户信息
-              context.commit("SET_NAME", "");
-              context.commit("SET_AVATAR", "");
-            removeToken();
-            resolve();
-          })
-          .catch((error) => {
-            reject(error);
-          });
-      });
+        context.commit("SET_TOKEN", undefined);
+        context.commit("SET_REFRESH_TOKEN", undefined);
+        resolve();
+      })
     },
     Register(context, userInfo) {
       return new Promise((resolve, reject) => {

@@ -1,13 +1,13 @@
 import service from "../utils/request";
 
-export function getLastOfEach(sid){
+export function getLastOfEach(){
     return service({
-        url: "/chat/record/getAll",
+        url: "/chat/private-talk/record/getAll",
         method: "get",
         params: {
-            recvSid: sid,
-            userSize: 9999,
-            count: 10,
+            pageSize: 30,
+            page: 1,
+            count: 5,
         }
     })
 }

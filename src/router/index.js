@@ -39,6 +39,7 @@ import Customer from "../components/Circle/components/Custom/Customer";
 import shopping_trolley from "../components/Myspace/out/shopping_trolley";
 import publish from "../components/Myspace/out/publish";
 import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
+import store from "../store";
 
 
 Vue.use(VueRouter);
@@ -214,5 +215,14 @@ const routes = [
 const router = new VueRouter({
   routes,
 });
+
+router.beforeEach((to, from, next)=>{
+  let token = store.getters.token;
+  if (token || to.name==="Login"){
+    next();
+  }else {
+    next({name: "Login"});
+  }
+})
 
 export default router;

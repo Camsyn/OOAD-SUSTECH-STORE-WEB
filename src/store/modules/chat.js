@@ -142,14 +142,12 @@ const chatter = {
                 getLastOfEach(context.state.name)
                     .then((res)=>{
                         // const data = res.data;
-                        const data = context.state.mock;
-
+                        const data = res.data;
                         let each = [];
                         for (let val in data.values()){
                             if (Array.isArray(val))
                                 each.push(val[0]);
                         }
-
                         context.commit("MSG_EACH_SET", each);
                         context.commit("SORT_UP_MSG");
                     })
