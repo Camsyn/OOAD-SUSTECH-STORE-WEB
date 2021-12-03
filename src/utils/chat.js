@@ -49,17 +49,12 @@ class chat{
     }
 
     //todo 超时
-    sendTo(recvId, msg, type){
+    sendTo(msg){
+        console.log(msg);
         return new Promise((resolve, reject)=>{
-            this.socket.send(
-                {
-                    recvId: recvId,
-                    content: msg,
-                    type: type,
-                }
-            );
+            this.socket.send(msg);
             resolve();
-        })
+        });
     }
 
     revMsg(ChatRecord){

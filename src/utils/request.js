@@ -14,7 +14,6 @@ service.interceptors.request.use(
       if (token !== null && token !== undefined){
           config.headers["Authorization"] = head+token;
       }
-      console.log(config);
       return config;
   },
   (error) => {

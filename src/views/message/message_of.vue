@@ -1,7 +1,7 @@
 <template>
   <v-container class="justify-center d-flex flex-column-reverse py-0">
     <v-row class="flex-row-reverse mt-1 mb-0" style="max-height: 40px">
-      <v-btn class="primary mr-3">发送</v-btn>
+      <v-btn class="primary mr-3" @click="send()">发送</v-btn>
     </v-row>
     <v-row style="max-height: 140px" class="mb-0 mt-2">
       <v-textarea
@@ -10,6 +10,7 @@
           auto-grow
           append-outer-icon="mdi-close-circle"
           hide-details="true"
+          @input="input()"
       ></v-textarea>
     </v-row>
     <v-divider></v-divider>
@@ -18,7 +19,7 @@
     </v-row>
     <v-container class="pa-0">
       <v-row style="height: 50px" class="align-content-md-center">
-        <span class="mx-auto">{{myId}}</span>
+        <span class="mx-auto">{{oppositeId}}</span>
       </v-row>
 
       <v-divider class="my-1"></v-divider>
@@ -64,12 +65,31 @@ export default {
   data(){
     return{
       myId: this.$store.state.name,
+      msg:"",
+    }
+  },
+  methods: {
+    send(){
+      if (!this.msg)
+        return;
+      let msg = {
+        recvId: this.oppositeId,
+        content: this.msg,
+        type: 0,
+      }
+      this.$store.dispatch("send", msg);
+    },
+    input(){
+
     }
   },
   computed: {
     messages(){
-      return this.$store.getters.msgOf(this.$route.params.sid);
+      return this.$store.getters.msgOf(this.oppositeId);
     },
+    oppositeId(){
+      return parseInt(this.$route.params.sid);
+    }
   },
   created() {
   }

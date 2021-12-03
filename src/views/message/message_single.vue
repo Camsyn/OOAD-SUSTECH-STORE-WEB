@@ -26,7 +26,15 @@
 
 export default {
   name: "message_single",
-  props: ["msg"]
+  props: ["msg"],
+
+  data: ()=>({
+  }),
+  computed: {
+    myId(){
+      return parseInt(this.$store.getters.name);
+    }
+  }
 }
 </script>
 

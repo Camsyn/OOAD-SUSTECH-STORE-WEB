@@ -1,6 +1,7 @@
 import chat from "../../utils/chat";
 import {parseTime, sortUp} from "@/utils/date";
 import {getLastOfEach} from "@/api/chat";
+import da from "element-ui/src/locale/lang/da";
 
 const chatter = {
     state:{
@@ -105,7 +106,7 @@ const chatter = {
             });
             let mp = new Map(tmp.map((i)=>[i[0], i[1]]));
             state.messages = mp;
-            console.log(state.messages);
+            // console.log(state.messages);
         },
         REV_MSG(state, ChatRecord){
             state.tracer++;
@@ -125,9 +126,15 @@ const chatter = {
                 }
             }
         },
-        SEND_MSG(state, {recvId, msg, type}){
+        SEND_MSG(state, msg){
             state.tracer++;
-            state.chat.sendTo(recvId, msg, type);
+            state.chat.sendTo(msg).then((res)=>{
+                let opId = msg.recvId;
+                msg.sendId = state.name;
+                state.messages.get(opId).push(msg);
+            }).catch((err)=>{
+                console.log(err);
+            });
         }
     },
 
@@ -141,16 +148,32 @@ const chatter = {
             return new Promise((resolve, reject)=>{
                 getLastOfEach(context.state.name)
                     .then((res)=>{
-                        // const data = res.data;
                         const data = res.data;
+                        let msgAll = new Map();
                         let each = [];
-                        for (let val in data.values()){
-                            if (Array.isArray(val))
-                                each.push(val[0]);
+                        // console.log(data);
+                        for (let id in data){
+                            let records = data[id];
+                            if (Array.isArray(records)){
+                                msgAll.set(parseInt(id), records);
+                                each.push(records[0])
+                            }
                         }
                         context.commit("MSG_EACH_SET", each);
-                        context.commit("SORT_UP_MSG");
-                    })
+                        context.commit("MSG_SET", msgAll);
+                        // console.log(each, msgAll);
+                        // context.commit("SORT_UP_MSG");
+                    }).catch((err) => {
+                        console.log(err);
+                });
+                resolve();
+            })
+        },
+
+        send(context, msg){
+            return new Promise((resolve, reject)=>{
+                context.commit("SEND_MSG", msg);
+                resolve();
             })
         },
 

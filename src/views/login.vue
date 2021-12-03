@@ -11,21 +11,21 @@
               <h2 style="text-align: center">RESET PASSWORD</h2>
             </div>
             <v-text-field
-                v-model="reset.Email"
+                v-model="reset.email"
                 label="Email Adress"
                 clearable
                 :rules="[rules.required, rules.email]"
             ></v-text-field>
 
             <v-text-field
-                v-model="reset.Password"
+                v-model="reset.password"
                 label="new password"
                 clearable
                 :rules="[rules.required, rules.counter]"
             ></v-text-field>
 
             <v-text-field
-                v-model="reset.PasswordConfirm"
+                v-model="reset.passwordConfirm"
                 label="new password confirm"
                 clearable
                 :rules="[rules.required, rules.pwdConfirm]"
@@ -96,7 +96,7 @@
           <v-row justify="center">
             <v-btn plain @click="login" class="px-0">登录</v-btn>
             <v-btn plain @click="trans(1)" class="ml-4">注册</v-btn>
-            <v-btn plain @click="trans(2)" class="ml-4">忘记密码？</v-btn>
+            <v-btn plain @click="trans(2)" class="ml-4">忘记密码?</v-btn>
           </v-row>
         </v-form>
       </div>
@@ -112,7 +112,7 @@ export default {
       st: 0,
       info: null,
       loginn: {
-        username:'11910620',
+        username: '11911626',
         email: '',
         password: '123456'
       },
@@ -135,7 +135,7 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail'
         },
-        pwdConfirm: value => this.reset.PasswordConfirm !== this.reset.Password || 'Passwords does not match'
+        pwdConfirm: value => this.reset.passwordConfirm !== this.reset.password || 'Passwords does not match'
       }
     }
   },

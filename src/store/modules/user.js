@@ -5,8 +5,8 @@ import getters from "../getters";
 
 const user = {
   state: {
-    name: "",
-    avatar: "",
+    name: undefined,
+    avatar: undefined,
     token: undefined,
     tokenHead: undefined,
     refreshToken: undefined,
@@ -25,7 +25,7 @@ const user = {
   },
   mutations: {
     SET_NAME: (state, name) => {
-      state.name = name;
+      state.name = parseInt(name.trim());
     },
     SET_AVATAR: (state, avatar) => {
       state.avatar = avatar;

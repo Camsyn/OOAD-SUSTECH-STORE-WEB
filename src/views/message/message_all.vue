@@ -6,13 +6,13 @@
           <v-text-field flat hide-details rounded solo-inverted></v-text-field>
         <v-list three-line height="90%">
           <template v-for="(item, index) in messagesShort">
-            <v-list-item :key="index" @click="chatWith(item.sendId)">
+            <v-list-item :key="index" @click="chatWith(oppositeId(item))">
               <v-list-item-avatar>
                 <v-img :src="item.avatar"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                  <v-list-item-title v-html="item.sendId"></v-list-item-title>
+                  <v-list-item-title v-html="oppositeId(item)"></v-list-item-title>
                   <v-list-item-subtitle
                       v-html="item.content"
                 ></v-list-item-subtitle>
@@ -62,29 +62,34 @@ export default {
         },
       ]
     },
-    messagesShort: [
-      {
-        sendId: "11910620",
-        type: 0,
-        content: "hello!",
-        sendTime: "1",
-        isRead: false,
-      },
-      {
-        sendId: "11910621",
-        type: 0,
-        content: "hello again",
-        sendTime: "2",
-        isRead: false,
-      },
-    ]
   }),
-
-  methods: {
-    chatWith(sid){
-      if (this.$route.params.sid !== sid)
-        this.$router.push({path: "/message/"+sid});
+  computed: {
+    myId(){
+      return this.$store.getters.name;
     },
+
+    messagesShort(){
+      return this.$store.getters.msgEach;
+    }
+
+  },
+  methods: {
+    oppositeId(record){
+      if (record.sendId === this.myId)
+        return record.recvId;
+      else
+        return record.sendId;
+    },
+    chatWith(sid){
+      if (this.$route.params.sid !== sid.toString()){
+        this.$router.push({path: "/message/"+sid});
+      }
+      console.log(sid, this.$route.params.sid);
+    },
+  },
+
+  created() {
+
   }
 };
 </script>
