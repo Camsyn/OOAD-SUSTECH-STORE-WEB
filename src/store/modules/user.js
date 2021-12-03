@@ -10,6 +10,7 @@ const user = {
     token: undefined,
     tokenHead: undefined,
     refreshToken: undefined,
+    userInfos: new Map(),
   },
 
   getters:{
@@ -39,6 +40,9 @@ const user = {
     SET_REFRESH_TOKEN: (state, token) => {
       state.refreshToken = token;
     },
+    SET_INFO_OF: (state, info) => {
+      state.userInfos.set(info.sid, info)
+    },
   },
 
   actions: {
@@ -62,11 +66,7 @@ const user = {
     },
 
     LogOut(context) {
-      return new Promise((resolve, reject) => {
-        context.commit("SET_TOKEN", undefined);
-        context.commit("SET_REFRESH_TOKEN", undefined);
-        resolve();
-      })
+
     },
     Register(context, userInfo) {
       return new Promise((resolve, reject) => {
@@ -86,6 +86,14 @@ const user = {
       return getUserInfo(sid);
     }
   },
+
+  getInfoOf(context, id){
+    getUserInfo(id).then(res => {
+      context.commit("SET_INFO_OF", res);
+    }).catch(err => {
+      console.log(err);
+    });
+  }
 };
 
 export default user;

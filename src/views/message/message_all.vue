@@ -6,15 +6,15 @@
           <v-text-field flat hide-details rounded solo-inverted></v-text-field>
         <v-list three-line height="90%">
           <template v-for="(item, index) in messagesShort">
-            <v-list-item :key="index" @click="chatWith(oppositeId(item))">
+            <v-list-item :key="index" @click="chatWith(item[0])">
               <v-list-item-avatar>
-                <v-img :src="item.avatar"></v-img>
+                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
-                  <v-list-item-title v-html="oppositeId(item)"></v-list-item-title>
+                  <v-list-item-title v-html="item[0]"></v-list-item-title>
                   <v-list-item-subtitle
-                      v-html="item.content"
+                      v-html="item[1].content"
                 ></v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
@@ -33,35 +33,7 @@
 export default {
   name: "message_all",
   data: () => ({
-    items: [
-      {
-        sendId: "11910620",
-        type: 0,
-        content: "hello!",
-        sendTime: "time",
-        isRead: false,
-      },
-    ],
-    messages: {
-      "11910620":[
-        {
-          sendId: "11910620",
-          type: 0,
-          content: "hello!",
-          sendTime: "1",
-          isRead: false,
-        },
-      ],
-      "11910621": [
-        {
-          sendId: "11910621",
-          type: 0,
-          content: "hello again",
-          sendTime: "2",
-          isRead: false,
-        },
-      ]
-    },
+
   }),
   computed: {
     myId(){
@@ -69,22 +41,15 @@ export default {
     },
 
     messagesShort(){
+      console.log(this.$store.getters.msgEach);
       return this.$store.getters.msgEach;
-    }
+    },
 
   },
   methods: {
-    oppositeId(record){
-      if (record.sendId === this.myId)
-        return record.recvId;
-      else
-        return record.sendId;
-    },
     chatWith(sid){
-      if (this.$route.params.sid !== sid.toString()){
+      if (this.$route.params.sid !== sid.toString())
         this.$router.push({path: "/message/"+sid});
-      }
-      console.log(sid, this.$route.params.sid);
     },
   },
 

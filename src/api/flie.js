@@ -4,7 +4,7 @@ export function upload(files){
     return service({
         url: "/uploadMultipleFiles",
         method: "post",
-        params: files
+        data: files
     })
 }
 

@@ -10,7 +10,7 @@
           auto-grow
           append-outer-icon="mdi-close-circle"
           hide-details="true"
-          @input="input()"
+          v-model="msg"
       ></v-textarea>
     </v-row>
     <v-divider></v-divider>
@@ -30,27 +30,6 @@
                :key="index"
         >
           <message_single :msg="msg"></message_single>
-<!--          <v-card class="d-flex align-center" :class="{'flex-row-reverse':msg.sendId===myId}" elevation="0">-->
-<!--            <v-col cols="1" class="ml-0 mr-2 py-0 px-0 d-flex flex-column" style="height: 100%">-->
-<!--              <v-avatar color="grey darken-1" size="54"></v-avatar>-->
-<!--            </v-col>-->
-<!--            <v-col cols="11" class="py-0" :class="['d-flex', {'flex-row-reverse':msg.sendId===myId}]">-->
-<!--              <div-->
-<!--                  v-if="msg.type==0"-->
-<!--                  class="lighten-2 py-2 px-2"-->
-<!--                  :class="{grey: msg.sendId!==myId, blue: msg.sendId===myId}"-->
-<!--                  style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap; border-radius: 500px;"-->
-<!--              >{{ msg.content }}</div>-->
-
-
-<!--              <v-img-->
-<!--                  v-else-if="msg.type==1"-->
-<!--                  :src="msg.content"-->
-<!--                  contain-->
-<!--                  width="300px"-->
-<!--              ></v-img>-->
-<!--            </v-col>-->
-<!--          </v-card>-->
         </v-col>
       </v-row>
     </v-container>
@@ -64,7 +43,6 @@ export default {
   components: {Message_single},
   data(){
     return{
-      myId: this.$store.state.name,
       msg:"",
     }
   },
@@ -73,15 +51,15 @@ export default {
       if (!this.msg)
         return;
       let msg = {
+        sendId: this.myId,
         recvId: this.oppositeId,
         content: this.msg,
         type: 0,
       }
-      this.$store.dispatch("send", msg);
-    },
-    input(){
+      this.$store.dispatch("send", msg).then((res)=>{
 
-    }
+      });
+    },
   },
   computed: {
     messages(){
@@ -89,7 +67,10 @@ export default {
     },
     oppositeId(){
       return parseInt(this.$route.params.sid);
-    }
+    },
+    myId(){
+      return this.$store.getters.name;
+    },
   },
   created() {
   }

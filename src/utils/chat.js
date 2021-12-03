@@ -15,7 +15,6 @@ class chat{
         this.sid = sid;
         new Promise((resolve, reject)=>{
             let token = context.getters.token;
-            console.log(token);
             if (token!==undefined&&token!==null){
                 this.socket = new WebSocket("ws://120.77.145.246:8000/chat/websocket/one2one?token="+token);
                 resolve();
@@ -25,6 +24,7 @@ class chat{
         })
         .then(res=>{
             let rev = this.revMsg;
+            let commit = this.context.commit;
             this.socket.onopen = function (){
                 console.log("ws open");
             };
@@ -33,8 +33,7 @@ class chat{
             };
             this.socket.onmessage = function(event) {
                 console.log(`[message] Data received: ${event.data}`);
-                if (event.data.state!==undefined)
-                    rev(event.data)
+                rev(JSON.parse(event.data), commit);
             };
             this.socket.onclose = function(event) {
                 if (event.wasClean) {
@@ -50,15 +49,16 @@ class chat{
 
     //todo 超时
     sendTo(msg){
-        console.log(msg);
         return new Promise((resolve, reject)=>{
-            this.socket.send(msg);
+            this.socket.send(JSON.stringify(msg));
             resolve();
         });
     }
 
-    revMsg(ChatRecord){
-        this.context.commit("REV_MSG", ChatRecord);
+    revMsg(chatRecord, commit){
+        console.log(chatRecord);
+        if (!("state" in chatRecord))
+            commit("REV_MSG", chatRecord);
     }
 
     test(){

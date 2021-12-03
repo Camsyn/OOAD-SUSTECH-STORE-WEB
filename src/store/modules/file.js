@@ -14,20 +14,19 @@ const file = {
             const sid = context.state.name;
             return new Promise((resolve, reject)=>{
                 upload(files).then(res => {
-
-                    resolve(res.data);
+                    resolve(res);
                 }).catch(err => {
                     reject(err);
-                    })
+                })
             })
         },
 
         download(context, name){
             return new Promise((resolve, reject)=>{
                 download(name).then(res => {
-
+                    resolve(res);
                 }).catch(err => {
-
+                    reject(err);
                 })
             })
         },
