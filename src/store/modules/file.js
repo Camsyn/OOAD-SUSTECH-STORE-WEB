@@ -1,5 +1,5 @@
 import service from "../../utils/request";
-import {upload, download} from "../../api/flie";
+import {upload, download} from "../../api/file";
 
 const file = {
     state: {
@@ -10,25 +10,19 @@ const file = {
     },
 
     actions: {
-        upload(context, files){
-            const sid = context.state.name;
-            return new Promise((resolve, reject)=>{
-                upload(files).then(res => {
-                    resolve(res);
-                }).catch(err => {
-                    reject(err);
-                })
-            })
+        upload(context, {files, mul}){
+            return upload(files, mul);
+            // return new Promise((resolve, reject)=>{
+            //     upload(files).then(res => {
+            //         resolve(res);
+            //     }).catch(err => {
+            //         reject(err);
+            //     })
+            // })
         },
 
         download(context, name){
-            return new Promise((resolve, reject)=>{
-                download(name).then(res => {
-                    resolve(res);
-                }).catch(err => {
-                    reject(err);
-                })
-            })
+            return download(name);
         },
     }
 }

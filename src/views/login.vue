@@ -154,13 +154,12 @@ export default {
     },
     login(){
       this.$store.dispatch("Login", this.loginn).then(
-          () => {
-            console.log("user success!")
-            this.$store.commit("SET_NAME", this.loginn.username);
-            this.$router.push({name: "Home"});
+          (res) => {
+            console.log("login success")
             this.$store.dispatch("setupChat", this.loginn.username);
             this.$store.dispatch("renew");
-
+            this.$store.commit("SET_NAME", this.loginn.username);
+            this.$router.push({name: "Home"});
           }).catch(
           (err) => {
             console.log(err)
@@ -169,13 +168,15 @@ export default {
 
     regist(){
       this.$store.dispatch("Register", this.register).then(
-          () => {
-            console.log("register success!")
-            this.$store.commit("SET_NAME", this.register.username);
-            this.$router.push({path: "Home"})
+          (res) => {
+            const msg = res.resp_msg;
+            console.log(msg);
+            alert(msg);
+            this.trans(0);
           }).catch(
           (err) => {
-            console.log(err)
+            console.log(err);
+            alert(err);
           })
     },
 

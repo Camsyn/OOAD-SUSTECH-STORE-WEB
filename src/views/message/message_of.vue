@@ -2,13 +2,23 @@
   <v-container class="justify-center d-flex flex-column-reverse py-0">
     <v-row class="flex-row-reverse mt-1 mb-0" style="max-height: 40px">
       <v-btn class="primary mr-3" @click="send()">发送</v-btn>
+      <v-file-input
+          style="max-width: 40px"
+          @change="sendFile"
+          v-model="files"
+          flat
+          class="pt-0"
+          append-icon="mdi-camera"
+          multiple
+          hide-input
+      >
+      </v-file-input>
     </v-row>
     <v-row style="max-height: 140px" class="mb-0 mt-2">
       <v-textarea
           outlined
           class="ml-3 py-0"
           auto-grow
-          append-outer-icon="mdi-close-circle"
           hide-details="true"
           v-model="msg"
       ></v-textarea>
@@ -44,6 +54,7 @@ export default {
   data(){
     return{
       msg:"",
+      files:[],
     }
   },
   methods: {
@@ -57,13 +68,38 @@ export default {
         type: 0,
       }
       this.$store.dispatch("send", msg).then((res)=>{
-
+        this.msg = "";
       });
     },
+
+    sendFile(){
+      if (!this.files)
+        return;
+
+      this.$store.dispatch("upload", {files: this.files, mul: true}).then((data)=>{
+        for (let fl of data) {
+          let uri = fl.fileDownloadUri.replace("/downloadFile", "");
+          let type = fl.fileType.split("/")[0]==="image"?1:2;
+          let msg = {
+            sendId: this.myId,
+            recvId: this.oppositeId,
+            content: uri,
+            type: type,
+          }
+          this.$store.dispatch("send", msg).then((res)=>{
+            this.msg = "";
+          });
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+      this.files=[];
+    }
   },
   computed: {
     messages(){
-      return this.$store.getters.msgOf(this.oppositeId);
+      let msgs = this.$store.getters.msgOf(this.oppositeId);
+      return msgs;
     },
     oppositeId(){
       return parseInt(this.$route.params.sid);
@@ -73,6 +109,7 @@ export default {
     },
   },
   created() {
+    console.log(this.$route.path);
   }
 }
 </script>

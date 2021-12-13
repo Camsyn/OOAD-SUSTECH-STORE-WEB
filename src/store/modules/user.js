@@ -1,4 +1,4 @@
-import {getUserInfo, login, logout} from "../../api/user";
+import {forgetPwd, getUserInfo, login, logout} from "../../api/user";
 import {register, exist} from "../../api/register";
 import { removeToken } from "../../utils/auth";
 import getters from "../getters";
@@ -66,20 +66,20 @@ const user = {
     },
 
     LogOut(context) {
-
+      context.commit("SET_TOKEN", undefined);
+      context.commit("SET_TOKEN_HEAD", undefined);
+      context.commit("SET_REFRESH_TOKEN", undefined);
     },
+
     Register(context, userInfo) {
-      return new Promise((resolve, reject) => {
         const sid = userInfo.sid.trim();
         const password = userInfo.password.trim();
         const email = userInfo.email.trim();
-        register(sid, password, email)
-            .then((response) => {
-              const data = response.data;
-                // context.commit("SET_CHAT",sid);
-            })
-          resolve();
-      })
+        return register(sid, password, email);
+    },
+
+    forgetPwd(context, {sid, captcha, newPassword}){
+      return forgetPwd(sid, captcha, newPassword);
     },
 
     getUserInfo(context, sid){

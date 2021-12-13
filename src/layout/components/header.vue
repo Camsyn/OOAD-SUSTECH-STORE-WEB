@@ -7,8 +7,12 @@
 
       <v-btn text @click="toCircle"> 圈子 </v-btn>
       <v-btn text @click="toMySpace">MySpace</v-btn>
-      <notif-btn icon="mdi-mail"></notif-btn>
-      <menu-btn icon="mdi-forum"></menu-btn>
+      <v-badge color="pink" dot overlap>
+        <notif-btn icon="mdi-mail"></notif-btn>
+      </v-badge>
+      <v-badge color="pink" dot overlap>
+        <menu-btn icon="mdi-forum"></menu-btn>
+      </v-badge>
     </v-container>
   </v-app-bar>
 </template>
@@ -22,6 +26,14 @@ export default {
   data: () => ({
     selected: [2],
   }),
+  computed:{
+    newMsg(){
+
+    },
+    newNotify(){
+
+    }
+  },
   methods: {
     info() {},
     toHome() {

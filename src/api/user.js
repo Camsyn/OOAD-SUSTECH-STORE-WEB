@@ -10,6 +10,16 @@ export function login(username, password) {
   });
 }
 
+export function forgetPwd(sid, captcha, newPassword) {
+  return service({
+    url: "/auth/account/modify/password/captcha",
+    method: "post",
+    params: {
+      sid, captcha, newPassword
+    },
+  });
+}
+
 export function refresh(username, refresh_token) {
   return service({
     url: "/auth/oauth/token",

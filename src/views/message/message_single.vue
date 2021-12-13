@@ -10,14 +10,16 @@
           :class="{grey: msg.sendId!==myId, blue: msg.sendId===myId}"
           style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap; border-radius: 500px;"
       >{{ msg.content }}</div>
+      <a v-else-if="msg.type==1" :href="msg.content">
+        <v-img
+            :src="msg.content"
+            contain
+            max-width="400px"
+            :href="msg.content"
+        ></v-img>
+      </a>
+      
 
-
-      <v-img
-          v-else-if="msg.type==1"
-          :src="msg.content"
-          contain
-          width="300px"
-      ></v-img>
     </v-col>
   </v-card>
 </template>

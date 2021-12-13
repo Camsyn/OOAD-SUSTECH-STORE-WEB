@@ -84,18 +84,17 @@ export default {
   },
   methods: {
     addFile() {
-      console.log(this.images.length, this.description);
-      this.images.forEach((item)=>{
-        this.$store.dispatch("upload", this.images).then((data)=>{
-          data.forEach((fl)=>{
+        this.$store.dispatch("upload", {files: this.images, mul: true}).then((data)=>{
+          for (let fl of data) {
             this.imageUrls.push(fl.fileDownloadUri.replace("/downloadFile", ""));
-          })
-        });
-      })
+          }
+        }).catch(err => {
+          console.log(err);
+      });
       this.images=[];
     },
     upload() {
-
+      this.$store.dispatch("download", "1191300520211114233648425459300_202111150112847931700.jpg");
     },
   },
 

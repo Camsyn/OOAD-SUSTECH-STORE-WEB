@@ -2,6 +2,7 @@ import chat from "../../utils/chat";
 import {parseTime, sortUp} from "@/utils/date";
 import {getLastOfEach} from "@/api/chat";
 import da from "element-ui/src/locale/lang/da";
+import router from "../../router";
 
 const chatter = {
     state:{
@@ -9,6 +10,7 @@ const chatter = {
         messages: null,
         messagesShort: null,
         tracer: 0,
+        uncheck: false,
     },
 
     getters: {
@@ -24,7 +26,10 @@ const chatter = {
 
         msgEach: state=>{
             let _ = state.tracer;
-            return Array.from(state.messagesShort);
+            if (state.messagesShort)
+                return Array.from(state.messagesShort);
+            else
+                return null;
         }
     },
 
@@ -32,6 +37,11 @@ const chatter = {
         TRACE(state){
             state.tracer++;
         },
+
+        CHECK(state){
+          state.uncheck = false;
+        },
+
         SET_UP (state, {context, sid}){
             state.chat.setup(context, sid);
             state.tracer++;
@@ -66,6 +76,9 @@ const chatter = {
             let {sendId, sendTime, recvTime, type, content} = msg;
             this.commit("STORE_MSG", {msg, id: sendId});
             this.commit("UPDATE_SHORT", {msg, id: msg.sendId});
+            let pt = this.$route.path.split("/")[0];
+            if (pt!=="message")
+                state.uncheck = true;
             state.tracer++;
         },
         STORE_MSG(state, {msg, id}){
@@ -100,17 +113,17 @@ const chatter = {
                         let msgAll = new Map();
                         let each = new Map();
                         for (let id in data){
-                            // context.dispatch("getInfoOf", id);
                             let records = data[id];
                             if (Array.isArray(records)){
-                                each.set(parseInt(id),records[records.length-1]);
-                                msgAll.set(parseInt(id), records);
+                                each.set(parseInt(id),records[0]);
+                                msgAll.set(parseInt(id), records.reverse());
                             }
                         }
                         context.commit("MSG_EACH_SET", each);
                         context.commit("MSG_SET", msgAll);
                     }).catch((err) => {
                         console.log(err);
+                        reject(err);
                 });
                 resolve();
             })

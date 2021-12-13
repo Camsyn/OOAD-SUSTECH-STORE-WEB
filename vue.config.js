@@ -4,7 +4,7 @@ module.exports = {
     port: 8081,
     proxy: {
       '/api': {
-        target: 'http://camsyn.top:8000',
+        target: 'http://120.77.145.246:8000',
         changeOrigin: true,
         ws: true,
         pathRewrite: {
