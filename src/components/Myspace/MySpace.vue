@@ -1,48 +1,44 @@
 <template>
-  <v-app id="inspire">
-    <v-system-bar app>
-      <v-spacer></v-spacer>
-      <v-icon>mdi-square</v-icon>
-      <v-icon>mdi-circle</v-icon>
-      <v-icon>mdi-triangle</v-icon>
-    </v-system-bar>
+  <v-container>
+    <v-row>
+      <v-col>
+        <v-navigation-drawer v-model="drawer" color="grey lighten-5">
+          <v-sheet color="grey lighten-3" class="pa-4">
+            <!--用户头像-->
+            <v-avatar>
+              <img src="../../assets/C.C..png" alt="C.C." />
+            </v-avatar>
+            <div>C.C.@sustech.edu.cn</div>
+          </v-sheet>
 
-    <v-navigation-drawer v-model="drawer" color="deep-orange lighten-5" app>
-      <v-sheet color="deep-orange lighten-3" class="pa-4">
-        <!--用户头像-->
-        <v-avatar>
-          <img src="../../assets/C.C..png" alt="C.C." />
-        </v-avatar>
+          <v-divider></v-divider>
 
-        <div>C.C.@sustech.edu.cn</div>
-      </v-sheet>
+          <v-list>
+            <v-list-item
+                v-for="item in items"
+                :key="item.title"
+                dense
+                link
+                router
+                :to="item.route"
+            >
+              <v-list-item-icon>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-icon>
 
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item
-          v-for="item in items"
-          :key="item.title"
-          dense
-          link
-          router
-          :to="item.route"
-        >
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }} </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-    <!--右边main区域-->
-    <v-main app>
-      <router-view></router-view>
-    </v-main>
-  </v-app>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }} </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-navigation-drawer>
+      </v-col>
+      <v-col>
+        <!--右边main区域-->
+        <router-view></router-view>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -72,43 +68,4 @@ export default {
 </script>
 
 <style scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
-.avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-
-.el-tag + .el-tag {
-  margin-left: 10px;
-}
-.button-new-tag {
-  margin-left: 10px;
-  height: 32px;
-  line-height: 30px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.input-new-tag {
-  width: 90px;
-  margin-left: 10px;
-  vertical-align: bottom;
-}
 </style>

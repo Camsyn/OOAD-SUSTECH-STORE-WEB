@@ -1,7 +1,5 @@
-import {forgetPwd, getUserInfo, login, logout} from "../../api/user";
-import {register, exist} from "../../api/register";
-import { removeToken } from "../../utils/auth";
-import getters from "../getters";
+import {forgetPwd, getUserInfo, login, logout} from "@/api/user";
+import {register, exist} from "@/api/register";
 
 const user = {
   state: {
@@ -72,7 +70,7 @@ const user = {
     },
 
     Register(context, userInfo) {
-        const sid = userInfo.sid.trim();
+        const sid = parseInt(userInfo.sid.trim());
         const password = userInfo.password.trim();
         const email = userInfo.email.trim();
         return register(sid, password, email);

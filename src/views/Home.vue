@@ -14,15 +14,18 @@
             {{ buySell }}
           </v-btn>
         </v-col>
-        <v-col cols="5">
-          <v-text-field flat hide-details rounded solo-inverted></v-text-field>
+        <v-col cols="5" class="d-flex">
+          <v-text-field flat hide-details rounded solo-inverted
+                        v-model="searchInfo.queryStr"></v-text-field>
+          <v-btn icon class="mt-2" @click="search">
+            <v-icon>mdi-magnify</v-icon>
+          </v-btn>
         </v-col>
-<!--        <v-spacer></v-spacer>-->
         <v-btn-toggle v-model="srt" tile group class="mt-3">
-          <v-btn> 信誉 </v-btn>
-          <v-btn> 时间 </v-btn>
-          <v-btn> 价格升序 </v-btn>
-          <v-btn> 价格降序 </v-btn>
+          <v-btn > 信誉 </v-btn>
+          <v-btn > 时间 </v-btn>
+          <v-btn > 价格升序 </v-btn>
+          <v-btn > 价格降序 </v-btn>
         </v-btn-toggle>
         <v-spacer></v-spacer>
         <v-dialog v-model="dialog" persistent width="60%">
@@ -48,7 +51,7 @@
                     <v-checkbox
                       :value="label"
                       :label="label"
-                      v-model="label_selected"
+                      v-model="searchInfo.labels"
                     ></v-checkbox>
                   </v-col>
                 </v-row>
@@ -89,7 +92,7 @@
                 <v-row class="justify-center">
                   <v-col>
                     <v-text-field
-                      v-model="price_from"
+                      v-model="searchInfo.priceFrom"
                       filled
                       clear-icon="mdi-close-circle"
                       clearable
@@ -101,7 +104,7 @@
                   </v-col>
                   <v-col>
                     <v-text-field
-                      v-model="price_to"
+                      v-model="searchInfo.priceTo"
                       filled
                       clear-icon="mdi-close-circle"
                       clearable
@@ -140,17 +143,28 @@ export default {
   name: "Home",
   data() {
     return {
-      price_from: null,
-      price_to: null,
+      searchInfo:{
+        queryStr:"",
+        priceFrom: null,
+        priceTo: null,
+        labels: [],
+        firstOrder: null,
+        isFirstOrderAsc: true,
+        secondOrder: null,
+        isSecondOrderAsc: true,
+        thirdOrder: null,
+        isThirdOrderAsc: null,
+      },
       label_to_add: "",
       user_defined_label: ["ab", "bc", "cd", "de", "ef", "fg", "gh"],
       label_all: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
-      label_selected: [],
       dialog: false,
-      srt: [],
+      srt: 1,
       buySell: "收",
       amount: 9,
+      page: 0,
       height: 0,
+      commodities: []
     };
   },
   components: {
@@ -162,22 +176,69 @@ export default {
     window.addEventListener("scroll", this.addMore);
   },
   methods: {
-
     del_label(index) {
       this.user_defined_label.splice(index, 1);
     },
+
     add_label() {
       if (this.label_to_add != "") {
         this.user_defined_label.push(this.label_to_add);
         this.label_to_add = "";
       }
     },
+
+    random(){
+      let tmp = {
+        page: this.page,
+        limit: this.amount,
+        isRandom: true,
+      }
+      this.$store.dispatch("search", tmp).then(res=>{
+        res.forEach(cm=>{this.commodities.push(cm)});
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
+
+    search(){
+      if (this.searchInfo.queryStr==""){
+        return;
+      }
+
+      this.searchInfo.isFirstOrderAsc = true;
+      switch (this.srt) {
+        case 0:
+          this.searchInfo.firstOrder = "pusher";
+          break;
+        case 1:
+          this.searchInfo.firstOrder = "update_time";
+          break;
+        case 2:
+          this.searchInfo.firstOrder = "exact_price";
+          break;
+        case 3:
+          this.searchInfo.firstOrder = "exact_price";
+          this.searchInfo.isFirstOrderAsc = false;
+      }
+
+      let history = {
+        queryStr: this.searchInfo.queryStr,
+        priceFrom: this.searchInfo.priceFrom,
+        priceTo: this.searchInfo.priceTo,
+        labels: this.searchInfo.labels
+      };
+      this.$store.dispatch("search", this.searchInfo).then(res=>{
+        this.$store.commit("updateHistory", history);
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
+
     addMore() {
       let windowRelativeBottom =
         document.documentElement.getBoundingClientRect().bottom;
       // 如果用户将页面滚动的距离不够远（文档末端距窗口底部 >100px）
       if (windowRelativeBottom > this.height + 100) return;
-      console.log("add")
       // 添加更多数据
       this.amount += 9;
     },

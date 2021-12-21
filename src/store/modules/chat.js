@@ -1,7 +1,6 @@
 import chat from "../../utils/chat";
 import {parseTime, sortUp} from "@/utils/date";
 import {getLastOfEach} from "@/api/chat";
-import da from "element-ui/src/locale/lang/da";
 import router from "../../router";
 
 const chatter = {
@@ -14,6 +13,10 @@ const chatter = {
     },
 
     getters: {
+        uncheck: state=>{
+            let _ = state.tracer;
+            return state.uncheck;
+        },
         msgAll: state => {
             let _ = state.tracer;
             return state.messages;
@@ -60,8 +63,7 @@ const chatter = {
             tmp.sort((t1, t2)=>{
                 return sortUp(parseTime(t1[0][0]), parseTime(t2[0][0]));
             });
-            let mp = new Map(tmp.map((i)=>[i[0], i[1]]));
-            state.messages = mp;
+            state.messages = new Map(tmp.map((i) => [i[0], i[1]]));
             // console.log(state.messages);
             state.tracer++;
         },
@@ -76,7 +78,8 @@ const chatter = {
             let {sendId, sendTime, recvTime, type, content} = msg;
             this.commit("STORE_MSG", {msg, id: sendId});
             this.commit("UPDATE_SHORT", {msg, id: msg.sendId});
-            let pt = this.$route.path.split("/")[0];
+            let pt = router.path.split("/")[0];
+            console.log("rev!!!",msg)
             if (pt!=="message")
                 state.uncheck = true;
             state.tracer++;
@@ -89,7 +92,6 @@ const chatter = {
         },
         SEND_MSG(state, msg){
             state.chat.sendTo(msg).then((res)=>{
-                console.log(msg);
                 this.commit("STORE_MSG", {msg, id: msg.recvId});
                 this.commit("UPDATE_SHORT", {msg, id: msg.recvId});
             }).catch((err)=>{

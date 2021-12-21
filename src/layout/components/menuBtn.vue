@@ -65,7 +65,6 @@ export default {
   components: { messages },
   props: ["icon"],
   data: () => ({
-    selected: [2],
     items: [
       {
         action: "18hr",

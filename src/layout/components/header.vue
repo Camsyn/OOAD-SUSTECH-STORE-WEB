@@ -10,9 +10,12 @@
       <v-badge color="pink" dot overlap>
         <notif-btn icon="mdi-mail"></notif-btn>
       </v-badge>
-      <v-badge color="pink" dot overlap>
+      <v-badge color="pink" dot overlap :value="uncheck">
         <menu-btn icon="mdi-forum"></menu-btn>
       </v-badge>
+    </v-container>
+    <v-container class="d-flex flex-row-reverse">
+      <upload-btn></upload-btn>
     </v-container>
   </v-app-bar>
 </template>
@@ -20,11 +23,13 @@
 <script>
 import menuBtn from "@/layout/components/menuBtn";
 import NotifBtn from "@/layout/components/notifBtn";
+import UploadBtn from "@/layout/components/uploadBtn";
+
 export default {
-  components: { NotifBtn, menuBtn },
+  components: {UploadBtn, NotifBtn, menuBtn },
   name: "myHeader",
   data: () => ({
-    selected: [2],
+
   }),
   computed:{
     newMsg(){
@@ -32,6 +37,9 @@ export default {
     },
     newNotify(){
 
+    },
+    uncheck(){
+      return this.$store.getters.uncheck;
     }
   },
   methods: {

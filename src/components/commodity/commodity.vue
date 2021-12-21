@@ -66,6 +66,7 @@
 
 <script>
 export default {
+  props:['descrip', "info"],
   name: "commodity",
   data(){
     return{
@@ -73,20 +74,30 @@ export default {
       description: "test for a description text. This is a default description.test for a description text. This is a default description",
       credit: 100,
       like: 0,
+      liked: false,
+      pusherInfo: null,
     }
   },
-  props:['height', 'descrip'],
   methods: {
     detile(){
       this.$router.push({name: "GoodsDetails"});
     },
     click_like(){
-      this.like++
+      this.liked?this.like--:this.like++;
+      this.liked = !this.liked;
     }
   },
   computed: {
 
   },
+
+  created() {
+    // this.$store.dispatch("getUserInfo", this.info.pusher).then(res=>{
+    //   this.pusherInfo = res;
+    // }).catch(err=>{
+    //   console.log(err);
+    // });
+  }
 };
 </script>
 

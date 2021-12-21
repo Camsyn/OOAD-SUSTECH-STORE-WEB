@@ -28,18 +28,19 @@ import Grass from "../components/Circle/components/FirstPage/Grass";
 import PersonalPage from "../components/Circle/components/HeaderBar/PersonalPage";
 import MessagePage from "../components/Circle/components/HeaderBar/MessagePage";
 
-
-
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
 import PublishCircle from "../components/Circle/components/FirstPage/PublishCircle";
 import Customer from "../components/Circle/components/Custom/Customer";
+
 import shopping_trolley from "../components/Myspace/out/shopping_trolley";
 import publish from "../components/Myspace/out/publish";
 import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
-import store from "../store";
+import taint from "../components/taint";
+import store from "@/store";
+
 
 
 Vue.use(VueRouter);
@@ -103,58 +104,7 @@ const routes = [
       }
     ]
   },
-  {
-    path: "/myspace",
-    name: "Myspace",
-    component: MySpace,
-    children: [
-      {
-        path: "/myspace/fans",
-        name: "fans",
-        component: fans,
-      },
-      {
-        path: "/myspace/nextsell",
-        name: "nextsell",
-        component: shopping_trolley,
-      },
-      {
-        path: "/myspace/settings",
-        name: "settings",
-        component: settings,
-      },
-      {
-        path: "/myspace/collection",
-        name: "collection",
-        component: collection,
-      },
-      {
-        path: "/myspace/concerns",
-        name: "concerns",
-        component: concerns,
-      },
-      {
-        path: "/myspace/sold",
-        name: "sold",
-        component: sold,
-      },
-      {
-        path: "/myspace/trail",
-        name: "trail",
-        component: trail,
-      },
-      {
-        path: "/myspace/bought",
-        name: "bought",
-        component: bought,
-      },
-      {
-        path: "/myspace/publish",
-        name: "publish",
-        component: publish,
-      },
-    ],
-  },
+
   {
     path: "/login",
     name: "Login",
@@ -165,6 +115,58 @@ const routes = [
     name: "Layout",
     component: Layout,
     children: [
+      {
+        path: "/myspace",
+        name: "Myspace",
+        component: MySpace,
+        children: [
+          {
+            path: "/myspace/fans",
+            name: "fans",
+            component: fans,
+          },
+          {
+            path: "/myspace/nextsell",
+            name: "nextsell",
+            component: shopping_trolley,
+          },
+          {
+            path: "/myspace/settings",
+            name: "settings",
+            component: settings,
+          },
+          {
+            path: "/myspace/collection",
+            name: "collection",
+            component: collection,
+          },
+          {
+            path: "/myspace/concerns",
+            name: "concerns",
+            component: concerns,
+          },
+          {
+            path: "/myspace/sold",
+            name: "sold",
+            component: sold,
+          },
+          {
+            path: "/myspace/trail",
+            name: "trail",
+            component: trail,
+          },
+          {
+            path: "/myspace/bought",
+            name: "bought",
+            component: bought,
+          },
+          {
+            path: "/myspace/publish",
+            name: "publish",
+            component: publish,
+          },
+        ],
+      },
       {
         path: "home",
         name: "Home",
@@ -208,6 +210,10 @@ const routes = [
         path: "store",
         component: testStore,
       },
+      {
+        path: "taint",
+        component: taint,
+      }
     ],
   },
 ];
@@ -219,6 +225,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next)=>{
   let token = store.getters.token;
   if (token || to.name==="Login"){
+
     next();
   }else {
     next({name: "Login"});

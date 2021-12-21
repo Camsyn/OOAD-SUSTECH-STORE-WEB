@@ -32,8 +32,13 @@ class chat{
                 console.log(`[error] ${error.message}`);
             };
             this.socket.onmessage = function(event) {
-                console.log(`[message] Data received: ${event.data}`);
-                rev(JSON.parse(event.data), commit);
+                let data = event.data;
+                console.log(`[message] Data received: ${data}`);
+                data = JSON.parse(data);
+                if (data.state!=0){
+                    rev(data, commit);
+                }
+
             };
             this.socket.onclose = function(event) {
                 if (event.wasClean) {

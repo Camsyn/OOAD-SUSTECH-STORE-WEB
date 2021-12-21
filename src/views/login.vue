@@ -52,7 +52,7 @@
                 v-model="register.sid"
                 label="User ID"
                 clearable
-                :rules="[rules.required]"
+                :rules="[rules.required, rules.number]"
             ></v-text-field>
 
             <v-text-field
@@ -135,7 +135,11 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail'
         },
-        pwdConfirm: value => this.reset.passwordConfirm !== this.reset.password || 'Passwords does not match'
+        pwdConfirm: value => this.reset.passwordConfirm !== this.reset.password || 'Passwords does not match',
+        number: value => {
+          const pattern = /[0-9]+/;
+          return pattern.test(value)||"Number only";
+        }
       }
     }
   },
@@ -167,6 +171,7 @@ export default {
     },
 
     regist(){
+
       this.$store.dispatch("Register", this.register).then(
           (res) => {
             const msg = res.resp_msg;
