@@ -1,44 +1,90 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col>
-        <v-navigation-drawer v-model="drawer" color="grey lighten-5">
-          <v-sheet color="grey lighten-3" class="pa-4">
-            <!--用户头像-->
-            <v-avatar>
-              <img src="../../assets/C.C..png" alt="C.C." />
-            </v-avatar>
-            <div>C.C.@sustech.edu.cn</div>
-          </v-sheet>
+  <v-app id="inspire">
 
-          <v-divider></v-divider>
+    <v-main class="grey lighten-3">
 
-          <v-list>
-            <v-list-item
-                v-for="item in items"
-                :key="item.title"
-                dense
-                link
-                router
-                :to="item.route"
+      <v-container>
+        <v-row>
+          <v-col
+            cols="12"
+            sm="2"
+          >
+
+
+            <v-sheet
+              rounded="lg"
+              min-height="268"
             >
-              <v-list-item-icon>
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
 
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }} </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-navigation-drawer>
-      </v-col>
-      <v-col>
-        <!--右边main区域-->
-        <router-view></router-view>
-      </v-col>
-    </v-row>
-  </v-container>
+              <v-list-item>
+                <v-list-item-content>
+                  <!--用户头像-->
+                  <v-avatar>
+                    <img src="../../assets/C.C..png" alt="C.C." />
+                  </v-avatar>
+                  <div>C.C.@sustech.edu.cn</div>
+                </v-list-item-content>
+              </v-list-item>
+
+              <v-divider></v-divider>
+
+              <v-list>
+                <v-list-item
+                  v-for="item in items"
+                  :key="item.title"
+                  dense
+                  link
+                  router
+                  :to="item.route"
+                >
+                  <v-list-item-icon>
+                    <v-icon>{{ item.icon }}</v-icon>
+                  </v-list-item-icon>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{{ item.title }} </v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+
+
+            </v-sheet>
+
+          </v-col>
+
+          <v-col
+            cols="12"
+            sm="10"
+          >
+            <v-sheet
+              min-height="70vh"
+              rounded="lg"
+            >
+              <!--右边main区域-->
+              <router-view></router-view>
+            </v-sheet>
+
+
+          </v-col>
+        </v-row>
+      </v-container>
+
+    </v-main>
+
+
+
+
+
+
+
+
+
+
+
+  </v-app>
+
+
+
 </template>
 
 <script>
