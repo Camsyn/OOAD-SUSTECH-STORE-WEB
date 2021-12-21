@@ -67,43 +67,7 @@ const routes = [
     name: "GoodsDetails",
     component: GoodsDetails_Out,
   },
-  {
-    path: "/circle",
-    name: "Circle",
-    component: Circle,
-    children: [
-      {
-        path:"/circle/HotSharing",
-        name:"HotSharing",
-        component: HotSharing,
-      },
-      {
-        path:"/circle/Grass",
-        name:"Grass",
-        component: Grass,
-      },
-      {
-        path:"/circle/PublishCircle",
-        name:"PublishCircle",
-        component: PublishCircle,
-      },
-      {
-        path:"/circle/PersonalPage",
-        name:"PersonalPage",
-        component: PersonalPage,
-      },
-      {
-        path:"/circle/MessagePage",
-        name:"MessagePage",
-        component: MessagePage,
-      },
-      {
-        path:"/circle/Customer",
-        name:"Customer",
-        component: Customer,
-      }
-    ]
-  },
+
 
   {
     path: "/login",
@@ -166,6 +130,43 @@ const routes = [
             component: publish,
           },
         ],
+      },
+      {
+        path: "/circle",
+        name: "Circle",
+        component: Circle,
+        children: [
+          {
+            path:"/circle/HotSharing",
+            name:"HotSharing",
+            component: HotSharing,
+          },
+          {
+            path:"/circle/Grass",
+            name:"Grass",
+            component: Grass,
+          },
+          {
+            path:"/circle/PublishCircle",
+            name:"PublishCircle",
+            component: PublishCircle,
+          },
+          {
+            path:"/circle/PersonalPage",
+            name:"PersonalPage",
+            component: PersonalPage,
+          },
+          {
+            path:"/circle/MessagePage",
+            name:"MessagePage",
+            component: MessagePage,
+          },
+          {
+            path:"/circle/Customer",
+            name:"Customer",
+            component: Customer,
+          }
+        ]
       },
       {
         path: "home",

@@ -6,11 +6,19 @@
     >
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-            text
-            v-bind="attrs"
-            v-on="on"
+          class="mini"
+          fab
+          dark
+          small
+          color="cyan"
+          v-bind="attrs"
+          v-on="on"
         >
-          发布
+          <v-icon
+            dark
+          >
+            mdi-pencil
+          </v-icon>
         </v-btn>
       </template>
       <upload v-on:close = "dialog=false"></upload>

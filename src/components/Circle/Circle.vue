@@ -1,93 +1,6 @@
 
 <template>
   <v-app id="inspire">
-    <v-app-bar
-      app
-      color="white"
-      flat
-      height="60"
-    >
-      <div style="position: center;padding-top: 10px;padding-left: 10px;padding-bottom: 10px">
-        <v-icon
-          style="font-size: 50px; color: #eea57e"
-        >
-          mdi-zigbee
-        </v-icon>
-        <span class="font-weight-black" style= "color: coral;font-size: 30px">
-              Circle
-            </span>
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        icon
-        @click="toHome"
-      >
-        <v-icon
-          style="font-size: 30px;color: #070301 "
-        >
-          mdi-home-outline
-        </v-icon>
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        icon
-        @click="toPersonalPage"
-      >
-      <el-badge value="new" class="item">
-          <v-icon
-            style="font-size: 30px;color: #070301 "
-          >
-            mdi-account-outline
-          </v-icon>
-      </el-badge>
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        icon
-        @click="toMessagePage"
-      >
-      <el-badge :value="200" :max="99" class="item">
-        <v-icon
-          style="font-size: 30px;color: #070301 "
-        >
-          mdi-email-outline
-        </v-icon>
-      </el-badge>
-      </v-btn>
-
-
-      <v-spacer></v-spacer>
-      <v-icon
-        style="font-size: 30px;color: #070301"
-      >
-        mdi-face-recognition
-      </v-icon>
-      <!--      fire-circle-->
-      <v-spacer></v-spacer>
-      <v-btn
-        class="mini"
-        fab
-        dark
-        small
-        color="cyan"
-        @click="centerDialogVisible = true"
-      >
-        <v-icon
-          dark
-        >
-          mdi-pencil
-        </v-icon>
-      </v-btn>
-
-
-
-    </v-app-bar>
 
     <v-main class="grey lighten-3">
       <v-container>
@@ -357,10 +270,11 @@
 </template>
 
 <script>
+import image1 from '../../assets/lemon.png'
 export default {
   name: "Circle",
   data: () => ({
-    // drawer: null,
+    lemon:image1,
     loading: false,
     centerDialogVisible: false,
     selectCircle: "公开",
@@ -498,6 +412,19 @@ export default {
     // 获取数据总数
     this.totalCount = this.items_5.length
   },
+  tabClick(index){
+    if(index===0){
+      this.$router.push("home");
+    }
+    else if(index===1)
+    {
+      this.$router.push("/circle");
+    }
+    else if(index===2)
+    {
+      this.$router.push("/myspace");
+    }
+  }
 
 }
 </script>
