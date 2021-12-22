@@ -1,14 +1,21 @@
-import {forgetPwd, getUserInfo, login, logout} from "@/api/user";
-import {register, exist} from "@/api/register";
+import {forgetPwd, getUserInfo,getMyInfo, login, logout} from "../../api/user";
+import {register, exist} from "../../api/register";
 
 const user = {
   state: {
     name: undefined,
+    email: undefined,
     avatar: undefined,
     token: undefined,
     tokenHead: undefined,
     refreshToken: undefined,
+    liyuan: 0,
+    credit: 0,
+    description: undefined,
+    nickname: undefined,
+    paycode:undefined,
     userInfos: new Map(),
+    tracer: 0,
   },
 
   getters:{
@@ -20,14 +27,29 @@ const user = {
     },
     refresh_token: state => {
       return state.refreshToken;
+    },
+    myInfo: state=>{
+      let t = state.tracer;
+      return state.userInfos.get(state.name);
     }
   },
   mutations: {
-    SET_NAME: (state, name) => {
-      state.name = parseInt(name.trim());
+    TRACE: (state)=>{
+      state.tracer++;
     },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar;
+    SET_NAME: (state, name) => {
+      state.name = name;
+    },
+    SET_USER_INFO: (state, {sid, liyuan, credit, email, headImage, payCode, description, nickname})=>{
+      state.name = sid;
+      state.nickname = nickname;
+      state.liyuan = liyuan;
+      state.credit = credit;
+      state.email = email;
+      state.avatar = headImage;
+      state.payCode = payCode;
+      state.description = description;
+
     },
     SET_TOKEN: (state, token) => {
       state.token = token;
@@ -40,6 +62,7 @@ const user = {
     },
     SET_INFO_OF: (state, info) => {
       state.userInfos.set(info.sid, info)
+      state.tracer++;
     },
   },
 
@@ -47,6 +70,7 @@ const user = {
     // 登录
     Login(context, userInfo) {
       const username = userInfo.username.trim();
+      context.commit("SET_INFO_OF", userInfo);
       return new Promise((resolve, reject) => {
         login(username, userInfo.password.trim())
           .then((response) => {
@@ -80,18 +104,25 @@ const user = {
       return forgetPwd(sid, captcha, newPassword);
     },
 
-    getUserInfo(context, sid){
-      return getUserInfo(sid);
-    }
-  },
+    getMyInfo(context){
+      getMyInfo().then(res => {
+        res = res.data;
+        context.commit("SET_USER_INFO", res);
+        context.commit("SET_INFO_OF", res);
+      }).catch(err => {
+        console.log(err);
+      });
+    },
 
-  getInfoOf(context, id){
-    getUserInfo(id).then(res => {
-      context.commit("SET_INFO_OF", res);
-    }).catch(err => {
-      console.log(err);
-    });
-  }
+    getInfoOf(context, id){
+      getUserInfo(id).then(res => {
+        context.commit("SET_INFO_OF", res);
+        console.log(1);
+      }).catch(err => {
+        console.log(err);
+      });
+    },
+  },
 };
 
 export default user;

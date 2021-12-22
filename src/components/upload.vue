@@ -188,7 +188,7 @@ export default {
       this.uploadInfo.category = this.cata.indexOf(this.uploadInfo.category);
       this.uploadInfo.tradeType = this.trade.indexOf(this.uploadInfo.tradeType);
       this.uploadInfo.labels.concat(this.user_defined_label)
-      console.log(this.uploadInfo);
+      // console.log(this.uploadInfo);
       this.$store.dispatch("push", this.uploadInfo).then(res=>{
         this.uploadInfo.labels = [];
         this.uploadInfo.images = [];
