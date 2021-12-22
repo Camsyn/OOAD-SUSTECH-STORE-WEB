@@ -34,7 +34,14 @@ export function getUserInfo(sid){
   return service({
     url: "/auth/user/get/"+sid,
     method: "get"
-  })
+  });
+}
+
+export function getMyInfo(){
+  return service({
+    url: "/auth/user/get",
+    method: "get"
+  });
 }
 
 export function updateMyInfo(info){
@@ -42,5 +49,5 @@ export function updateMyInfo(info){
     url: "/auth/user/update",
     method: "post",
     data: info,
-  })
+  });
 }

@@ -9,12 +9,11 @@
 <!--      </v-col>-->
       <v-col cols="11">
         <el-descriptions title="用户信息">
-          <el-descriptions-item label="用户名">King</el-descriptions-item>
-          <el-descriptions-item label="手机号">8848</el-descriptions-item>
+          <el-descriptions-item label="用户id">{{info.sid}}</el-descriptions-item>
+          <el-descriptions-item label="邮箱">{{info.email}}</el-descriptions-item>
           <el-descriptions-item label="备注">
             <el-tag size="small">StanFord University</el-tag>
           </el-descriptions-item>
-          <el-descriptions-item label="联系地址">卫龙辣条加工厂</el-descriptions-item>
         </el-descriptions>
       </v-col>
       <v-col cols="1" class="d-flex flex-column-reverse pl-0 pr-2">
@@ -142,22 +141,12 @@ export default {
     inputVisible: false,
     inputValue: "",
   }),
+  computed:{
+    info(){
+      return this.$store.getters.myInfo;
+    }
+  },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
-
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
