@@ -24,9 +24,9 @@
       <v-tab
         v-for="item in links"
         :key="item.index"
+        @click="$router.push({name: item.to})"
       >
-        <v-btn text @click="tabClick(item.index)"> {{ item.name }} </v-btn>
-
+        {{item.name}}
       </v-tab>
     </v-tabs>
 
@@ -60,22 +60,27 @@ export default {
       {
         index:0,
         name:"Home",
+        to:"Home",
       },
       {
         index:1,
-        name:"Circle",
+        name:"myCircle",
+        to:"myCircle",
       },
       {
         index:2,
-        name:"MySpace",
+        name:"PersonalPage",
+        to:"PersonalPage",
       },
       {
         index:3,
-        name:"News",
+        name:"MessagePage",
+        to:"MessagePage",
       },
       {
         index:4,
-        name:"Personal",
+        name:"Myspace",
+        to: "settings"
       },
     ],
 
@@ -96,27 +101,6 @@ export default {
     toHome() {
       this.$router.push("home");
     },
-    tabClick(index){
-      if(index===0){
-        this.$router.push("home");
-      }
-      else if(index===1)
-      {
-        this.$router.push("circle");
-      }
-      else if(index===2)
-      {
-        this.$router.push("circle/PersonalPage");
-      }
-      else if(index===3)
-      {
-        this.$router.push("circle/MessagePage");
-      }
-      else if(index===4)
-      {
-        this.$router.push("myspace");
-      }
-    }
   },
 };
 </script>

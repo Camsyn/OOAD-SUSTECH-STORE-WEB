@@ -22,7 +22,7 @@ import concerns from "../components/Myspace/components/concerns";
 import bought from "../components/Myspace/components/bought";
 import testdialog from "../components/Myspace/components/testdialog";
 
-import Circle from "../components/Circle/Circle";
+import myCircle from "../components/Circle/Circle";
 import HotSharing from "../components/Circle/components/FirstPage/HotSharing";
 import Grass from "../components/Circle/components/FirstPage/Grass";
 import PersonalPage from "../components/Circle/components/HeaderBar/PersonalPage";
@@ -40,6 +40,7 @@ import publish from "../components/Myspace/out/publish";
 import GoodsDetails_Out from "../components/GoodsDetails/GoodsDetails_Out";
 import taint from "../components/taint";
 import store from "@/store";
+import edit from "../components/Myspace/components/edit";
 
 
 
@@ -100,6 +101,11 @@ const routes = [
             component: settings,
           },
           {
+            path: "/myspace/edit",
+            name: "edit",
+            component: edit,
+          },
+          {
             path: "/myspace/collection",
             name: "collection",
             component: collection,
@@ -133,8 +139,8 @@ const routes = [
       },
       {
         path: "/circle",
-        name: "Circle",
-        component: Circle,
+        name: "myCircle",
+        component: myCircle,
         children: [
           {
             path:"/circle/HotSharing",

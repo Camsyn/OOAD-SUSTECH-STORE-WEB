@@ -1,36 +1,44 @@
 <template>
- <div style="padding-left: 160px">
-     <v-container class="py-8 px-6" fluid>
+  <v-container class="py-8" fluid style="padding-left: 60px">
        <!--描述列表-->
-       <el-descriptions title="用户信息">
-         <el-descriptions-item label="用户名">King</el-descriptions-item>
-         <el-descriptions-item label="手机号">8848</el-descriptions-item>
-         <el-descriptions-item label="居住地"
-         >曹县一环路66号</el-descriptions-item
-         >
-         <el-descriptions-item label="备注">
-           <el-tag size="small">StanFord University</el-tag>
-         </el-descriptions-item>
-         <el-descriptions-item label="联系地址"
-         >卫龙辣条加工厂</el-descriptions-item
-         >
-       </el-descriptions>
-       <!--分割线-->
-       <v-divider></v-divider>
-       <p></p>
-       <!--用户头像上传-->
-       <p class="font-weight-black">用户头像上传</p>
-       <el-upload
-         class="avatar-uploader"
-         action="https://jsonplaceholder.typicode.com/posts/"
-         :show-file-list="false"
-         :on-success="handleAvatarSuccess"
-         :before-upload="beforeAvatarUpload"
-       >
-         <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-       </el-upload>
-       <p></p>
+    <v-row>
+<!--      <v-col cols="2" class="pa-0">-->
+<!--        <v-avatar tile size="120">-->
+<!--          <img src="@/assets/C.C..png" alt="C.C." />-->
+<!--        </v-avatar>-->
+<!--      </v-col>-->
+      <v-col cols="11">
+        <el-descriptions title="用户信息">
+          <el-descriptions-item label="用户名">King</el-descriptions-item>
+          <el-descriptions-item label="手机号">8848</el-descriptions-item>
+          <el-descriptions-item label="备注">
+            <el-tag size="small">StanFord University</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item label="联系地址">卫龙辣条加工厂</el-descriptions-item>
+        </el-descriptions>
+      </v-col>
+      <v-col cols="1" class="d-flex flex-column-reverse pl-0 pr-2">
+        <v-btn outlined rounded text class="mb-2" color="blue" @click="$router.push({name: 'edit'})">
+          编辑
+        </v-btn>
+      </v-col>
+    </v-row>
+<!--       &lt;!&ndash;分割线&ndash;&gt;-->
+<!--       <v-divider></v-divider>-->
+<!--       <p></p>-->
+<!--       &lt;!&ndash;用户头像上传&ndash;&gt;-->
+<!--       <p class="font-weight-black">用户头像上传</p>-->
+<!--       <el-upload-->
+<!--         class="avatar-uploader"-->
+<!--         action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--         :show-file-list="false"-->
+<!--         :on-success="handleAvatarSuccess"-->
+<!--         :before-upload="beforeAvatarUpload"-->
+<!--       >-->
+<!--         <img v-if="imageUrl" :src="imageUrl" class="avatar" />-->
+<!--         <i v-else class="el-icon-plus avatar-uploader-icon"></i>-->
+<!--       </el-upload>-->
+<!--       <p></p>-->
        <!--分割线-->
        <v-divider></v-divider>
        <p></p>
@@ -90,9 +98,7 @@
          @blur="handleInputConfirm"
        >
        </el-input>
-       <el-button v-else class="button-new-tag" size="small" @click="showInput"
-       >+ New Tag</el-button
-       >
+       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
        <!--分割线-->
        <p></p>
        <v-divider></v-divider>
@@ -100,7 +106,6 @@
        <!--To be continued-->
        <el-empty description="描述文字"></el-empty>
      </v-container>
- </div>
 </template>
 
 <script>
@@ -188,16 +193,7 @@ export default {
 </script>
 
 <style scoped>
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
+
 .avatar-uploader-icon {
   font-size: 28px;
   color: #8c939d;
@@ -212,9 +208,6 @@ export default {
   display: block;
 }
 
-.el-tag + .el-tag {
-  margin-left: 10px;
-}
 .button-new-tag {
   margin-left: 10px;
   height: 32px;

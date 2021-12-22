@@ -232,7 +232,7 @@
                     <v-btn
                       @click="toCustomer"
                       color="white"
-                      flat
+                      text
                       depressed
                     >
                       叛逆的鲁鲁修

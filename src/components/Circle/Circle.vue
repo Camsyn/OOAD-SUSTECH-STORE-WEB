@@ -1,9 +1,8 @@
 
 <template>
-  <v-app id="inspire">
-
-    <v-main class="grey lighten-3">
-      <v-container>
+  <v-container class="pt-0">
+    <v-container class="grey lighten-3 pt-0" >
+      <v-container class="grey lighten-3 pt-0">
         <v-row>
           <v-col
             cols="12"
@@ -133,8 +132,6 @@
                 </v-list-item>
               </v-list>
 
-
-
               <v-list-item>
                 <v-list-item-content>
                   <v-list-item-title class="text-h6">
@@ -153,7 +150,6 @@
                 v-model:currentPage="currentPage"
                 :page-size="PageSize"
                 :total="totalCount"
-                :pager-count="1"
                 layout="prev,next"
                 class="paging"
               >
@@ -172,11 +168,8 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-main>
-
-
+    </v-container>
     <!--右上角图标   发布帖子  对应的弹出框-->
-
     <el-dialog
       title="快捷发布"
       :visible.sync="centerDialogVisible"
@@ -265,14 +258,13 @@
       </div>
 
     </el-dialog>
-
-  </v-app>
+  </v-container>
 </template>
 
 <script>
 import image1 from '../../assets/lemon.png'
 export default {
-  name: "Circle",
+  name: "myCircle",
   data: () => ({
     lemon:image1,
     loading: false,

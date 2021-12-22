@@ -1,32 +1,22 @@
 <template>
-  <v-app id="inspire">
-
-    <v-main class="grey lighten-3">
-
-      <v-container>
-        <v-row>
-          <v-col
-            cols="12"
+  <v-container class="grey lighten-3 pt-0">
+    <v-row>
+      <v-col
+            cols="2"
             sm="2"
           >
-
-
             <v-sheet
               rounded="lg"
               min-height="268"
             >
-
               <v-list-item>
                 <v-list-item-content>
                   <!--用户头像-->
-                  <v-avatar>
+                  <v-avatar size="70">
                     <img src="../../assets/C.C..png" alt="C.C." />
                   </v-avatar>
-                  <div>C.C.@sustech.edu.cn</div>
                 </v-list-item-content>
               </v-list-item>
-
-              <v-divider></v-divider>
 
               <v-list>
                 <v-list-item
@@ -49,42 +39,21 @@
 
 
             </v-sheet>
-
           </v-col>
-
-          <v-col
-            cols="12"
+      <v-col
+            cols="10"
             sm="10"
           >
             <v-sheet
-              min-height="70vh"
+              min-height="80vh"
               rounded="lg"
             >
               <!--右边main区域-->
               <router-view></router-view>
             </v-sheet>
-
-
           </v-col>
-        </v-row>
-      </v-container>
-
-    </v-main>
-
-
-
-
-
-
-
-
-
-
-
-  </v-app>
-
-
-
+    </v-row>
+  </v-container>
 </template>
 
 <script>
@@ -93,6 +62,7 @@ export default {
   data: () => ({
     drawer: null,
     items: [
+      { icon: "mdi-wrench", title: "主页", route: "/myspace/settings" },
       { icon: "mdi-purse-outline", title: "我发布的", route: "/myspace/publish" },
       { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "/myspace/sold" },
       { icon: "mdi-cart-arrow-down", title: "我买到的", route: "/myspace/bought" },
@@ -101,8 +71,6 @@ export default {
       { icon: "mdi-walk", title: "足迹", route: "/myspace/trail" },
       { icon: "mdi-heart-plus", title: "关注", route: "/myspace/concerns" },
       { icon: "mdi-human-greeting-variant", title: "粉丝", route: "/myspace/fans" },
-      { icon: "mdi-wrench", title: "设置", route: "/myspace/settings" },
-      { icon: "mdi-home", title: "首页", route: "/" },
     ],
   }),
   // methods: {
