@@ -74,9 +74,9 @@ export default {
       {
         avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
         title: 'Brunch this weekend?',
-        buttontype:'plain',
+        buttontype:'primary',
         notice:false,
-        buttontext:'+关注',
+        buttontext:'已关注',
         subtitle: `<span class="font-weight-bold">Ali Connors</span>
         &mdash; I'll be in your neighborhood doing errands this weekend. Do you want to hang out?`
       },
@@ -87,9 +87,9 @@ export default {
       {
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
         title: 'Summer BBQ <span class="grey--text text--lighten-1">4</span>',
-        buttontype:'plain',
+        buttontype:'primary',
         notice:false,
-        buttontext:'+关注',
+        buttontext:'已关注',
         subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
         &mdash; Wish I could come, but I'm out of town this weekend.`
       },
@@ -100,9 +100,9 @@ export default {
       {
         avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
         title: 'Oui oui',
-        buttontype:'plain',
+        buttontype:'primary',
         notice:false,
-        buttontext:'+关注',
+        buttontext:'已关注',
         subtitle: '<span class="font-weight-bold">Sandra Adams</span> ' +
           '&mdash; Do you have Paris recommendations? Have you ever been?'
       },
@@ -115,13 +115,13 @@ export default {
       console.log(tmp)
       if (tmp===true){
         item.notice=false
-        item.buttontext="+关注";
-        item.buttontype="plain";
+        item.buttontext="已关注";
+        item.buttontype="primary"
       }
       else{
         item.notice=true;
-        item.buttontext="已关注";
-        item.buttontype="primary"
+        item.buttontext="+关注";
+        item.buttontype="plain";
       }
     }
 
