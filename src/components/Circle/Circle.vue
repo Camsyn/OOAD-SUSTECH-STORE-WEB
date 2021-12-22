@@ -161,7 +161,7 @@
                 </v-list-item-avatar>
                 <span class="font-weight-bold" style= "display:inline">
               {{ item.name }}
-                  <el-button round style="position:absolute;right:16px;padding: 6px;color:orange">+关注</el-button>
+                  <el-button  @click="observeClick(item)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
             </span>
               </v-list-item>
             </v-sheet>
@@ -169,95 +169,7 @@
         </v-row>
       </v-container>
     </v-container>
-    <!--右上角图标   发布帖子  对应的弹出框-->
-    <el-dialog
-      title="快捷发布"
-      :visible.sync="centerDialogVisible"
-      width="50%"
-      class="myPicShowDialogClass"
-      center>
-      <el-input
-        type="textarea"
-        :autosize="{ minRows: 2, maxRows: 12}"
-        placeholder="有什么新鲜事想分享给大家？"
-        class="MyInput"
-        v-model="textarea">
-      </el-input>
-      <div style="padding-top: 5px;padding-bottom: 20px;">
-        <div style="padding-top: 10px;display: flex">
 
-
-          <div style="padding: 5px">
-            <v-icon
-              style="font-size: 40px; color: #e57850"
-            >
-              mdi-emoticon-happy-outline
-            </v-icon>
-          </div>
-
-
-          <div style="padding: 5px">
-            <v-icon
-              style="font-size: 40px; color: #e57850"
-            >
-              mdi-image-search-outline
-            </v-icon>
-          </div>
-
-          <div style="padding: 5px">
-            <v-icon
-              style="font-size: 40px; color: #e57850"
-            >
-              mdi-movie-open-play
-            </v-icon>
-          </div>
-
-          <div style="padding: 5px">
-            <v-icon
-              style="font-size: 40px; color: #e57850"
-            >
-              mdi-alpha
-            </v-icon>
-          </div>
-
-          <div style="padding: 5px">
-            <v-icon
-              style="font-size: 40px; color: #e57850"
-            >
-              mdi-map-marker
-            </v-icon>
-          </div>
-
-          <div style="padding: 5px">
-            <v-icon
-              style="font-size: 40px; color: #e57850"
-            >
-              mdi-timer-settings-outline
-            </v-icon>
-          </div>
-          <div style="padding-top: 10px;padding-right: 10px">
-            <el-dropdown trigger="click" @command="handleCommand">
-              <span class="el-dropdown-link" style= "display:inline">
-                {{ selectCircle }}
-              <i class="el-icon-arrow-down el-icon--right" style="font-size: 20px"></i>
-              </span>
-              <el-dropdown-menu  slot="dropdown" >
-                <el-dropdown-item command="公开">公开</el-dropdown-item>
-                <el-dropdown-item command="粉丝">粉丝</el-dropdown-item>
-                <el-dropdown-item command="好友圈">好友圈</el-dropdown-item>
-                <el-dropdown-item command="仅自己可见">仅自己可见</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
-          </div>
-
-          <div style="padding-top: 5px;right:10px">
-            <el-button type="primary"  @click="centerDialogVisible = false">发送</el-button>
-          </div>
-        </div>
-
-      </div>
-
-    </el-dialog>
   </v-container>
 </template>
 
@@ -276,23 +188,24 @@ export default {
     PageSize:3,
     totalCount: 15,
 
+
+
     items: [
-      { title: '旅游', icon: 'mdi-checkbox-blank-circle',route: "/circle/PublishCircle" },
-      { title: '动漫', icon: 'mdi-checkbox-blank-circle',route: "/circle/Grass" },
-      { title: '车世界', icon: 'mdi-checkbox-blank-circle',route: "/circle/HotSharing"},
+      { title: '动漫', icon: 'mdi-drupal',route: "/circle/carton" },
+      { title: '游戏', icon: 'mdi-steam',route: "/circle/game" },
+      { title: '旅游', icon: 'mdi-car-estate',route: "/circle/tour"},
+      { title: '美食', icon: 'mdi-food-turkey',route: "/circle/delicious_food"},
+      { title: '萌宠', icon: 'mdi-dog',route: "/circle/cute_pet"},
+      { title: '哲思', icon: 'mdi-head-lightbulb',route: "/circle/philosophizing"},
     ],
     right: null,
 
     items_1: [
-      { icon: "mdi-incognito", title: "发会玩圈子", route: "/circle/PublishCircle" },
-      // { icon: "mdi-email-multiple", title: "互动消息", route: "/myspace/sold" },
-      { icon: "mdi-flower-tulip", title: "已种草", route: "/circle/Grass" },
-      // { icon: "mdi-emoticon-cool", title: "我的酷玩圈", route: "/myspace/nextsell" },
-      // { icon: "mdi-star", title: "收藏", route: "/myspace/collection" },
+      { icon: "mdi-incognito", title: "发酷玩圈", route: "/circle/PublishCircle" },
+      { icon: "mdi-account-star", title: "正在关注", route: "/circle/observingnow" },
+      { icon: "mdi-flower-tulip", title: "种草动态", route: "/circle/Grass" },
       { icon: "mdi-fire-circle", title: "热门分享", route: "/circle/HotSharing" },
-      // { icon: "mdi-account-reactivate-outline", title: "热门榜单", route: "/myspace/sold" },
-      // { icon: "mdi-alien-outline", title: "话题榜", route: "/circle/HotTopic" },
-      // { icon: "mdi-magnify", title: "热搜榜", route: "/myspace/nextsell" },
+
     ],
     items_3: [
       { icon: "mdi-checkbox-blank-circle", title: "旅游", route: "/circle/PublishCircle" },
@@ -309,67 +222,45 @@ export default {
       {
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2020%2F0502%2Fafee7261p00q9pcjh005kc000eb009ec.png&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639827538&t=97d9adb998c30b205201a0b3369ee39d",
         name: '冯宝儿',
+        buttontype:'plain',
+        notice:false,
+        buttontext:'+关注',
       },
       {
         avatar: "https://img2.baidu.com/it/u=2341390205,843145067&fm=26&fmt=auto",
         name: '张楚岚',
+        buttontype:'plain',
+        notice:false,
+        buttontext:'+关注',
       },
       {
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
         name: '胡桃',
+        buttontype:'plain',
+        notice:false,
+        buttontext:'+关注',
       },
       {
         avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
         name: '温迪',
+        buttontype:'plain',
+        notice:false,
+        buttontext:'+关注',
       },
       {
         avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
         name: '莜拉',
+        buttontype:'plain',
+        notice:false,
+        buttontext:'+关注',
       },
       {
         avatar: "https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
         name: '钟离',
+        buttontype:'plain',
+        notice:false,
+        buttontext:'+关注',
       },
-
-      {
-        avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-        name: '温迪',
-      },
-      {
-        avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
-        name: '莜拉',
-      },
-      {
-        avatar: "https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
-        name: '钟离',
-      },
-
-      {
-        avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-        name: '温迪',
-      },
-      {
-        avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
-        name: '莜拉',
-      },
-      {
-        avatar: "https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
-        name: '钟离',
-      },
-
-      {
-        avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-        name: '温迪',
-      },
-      {
-        avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
-        name: '莜拉',
-      },
-      {
-        avatar: "https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
-        name: '钟离',
-      },
-
 
     ],
     messages:[
@@ -399,24 +290,25 @@ export default {
       // 改变默认的页数
       this.currentPage = pageNumber;
     },
+    observeClick(item){
+      let tmp=item.notice
+      console.log(tmp)
+      if (tmp===true){
+        item.notice=false
+        item.buttontext="+关注";
+        item.buttontype="plain";
+      }
+      else{
+        item.notice=true;
+        item.buttontext="已关注";
+        item.buttontype="primary"
+      }
+    }
   },
   created() {
     // 获取数据总数
     this.totalCount = this.items_5.length
   },
-  tabClick(index){
-    if(index===0){
-      this.$router.push("home");
-    }
-    else if(index===1)
-    {
-      this.$router.push("/circle");
-    }
-    else if(index===2)
-    {
-      this.$router.push("/myspace");
-    }
-  }
 
 }
 </script>

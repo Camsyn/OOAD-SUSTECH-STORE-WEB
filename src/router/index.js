@@ -27,12 +27,14 @@ import HotSharing from "../components/Circle/components/FirstPage/HotSharing";
 import Grass from "../components/Circle/components/FirstPage/Grass";
 import PersonalPage from "../components/Circle/components/HeaderBar/PersonalPage";
 import MessagePage from "../components/Circle/components/HeaderBar/MessagePage";
+import PublishCircle from "../components/Circle/components/LeftBarComponent/PublishCircle";
+import ObservingNow from "../components/Circle/components/LeftBarComponent/ObservingNow";
+
 
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";
 import message_of from "../views/message/message_of";
-import PublishCircle from "../components/Circle/components/FirstPage/PublishCircle";
 import Customer from "../components/Circle/components/Custom/Customer";
 
 import shopping_trolley from "../components/Myspace/out/shopping_trolley";
@@ -142,6 +144,16 @@ const routes = [
         name: "myCircle",
         component: myCircle,
         children: [
+          {
+            path:"/circle/PublishCircle",
+            name:"publishcircle",
+            component: PublishCircle,
+          },
+          {
+            path:"/circle/ObservingNow",
+            name:"observingnow",
+            component: ObservingNow,
+          },
           {
             path:"/circle/HotSharing",
             name:"HotSharing",
