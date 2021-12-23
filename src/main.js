@@ -6,16 +6,19 @@ import vuetify from "./plugins/vuetify";
 
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
-
 import axios from "axios";
+
 Vue.prototype.axios = axios;
 axios.defaults.withCredentials = true;
 Vue.config.productionTip = false;
+
+
 
 Vue.use(ElementUI);
 // router.afterEach((to, from, next) => {
 //   document.querySelector("body").setAttribute("style", "overflow: auto !important;")
 // });
+
 
 new Vue({
   router,

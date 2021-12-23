@@ -30,7 +30,9 @@
               rows="5"
               row-height="25"
               shaped
+              v-model="textarea"
             ></v-textarea>
+            <VueEmoji ref="emoji"  @input="onInput" :value="textarea" />
           </v-col>
 
           <v-col>
@@ -101,14 +103,22 @@
 </template>
 
 <script>
+import VueEmoji from 'emoji-vue'
 export default {
+  components:{
+    VueEmoji
+  },
   name: "PublishCircle",
   data:()=>({
+    textarea:"",
     files: [],
     items: ['所有人可见', '关注的人可见', '好友可见', '仅自己可见'],
 
   }),
   methods:{
+    onInput(event){
+
+    },
 
   }
 };

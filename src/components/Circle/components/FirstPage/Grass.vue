@@ -27,7 +27,7 @@
             </span>
         </v-col>
 
-        <div style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;padding-right: 20px">
+        <div style="padding: 10px 20px;">
           <v-img
             src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
             height="200px"
@@ -37,11 +37,11 @@
 
 
         <v-card-title>
-          用了它，每天穿新衣！
+          冬至
         </v-card-title>
 
         <v-card-subtitle>
-          天呐！这款爆炸盐太好用了！再也不怕把衣服弄脏啦，去污除味，就用它！
+          吃点饺子如何？
         </v-card-subtitle>
 
         <v-card-actions>
@@ -82,26 +82,44 @@
               <el-input
                 type="textarea"
                 :autosize="{ minRows: 2, maxRows: 12}"
-                placeholder="有什么新鲜事想分享给大家？"
+                placeholder="快速回复"
                 class="MyInput"
                 v-model="textarea">
               </el-input>
-              <div style="position: center;padding: 10px">
-                <el-button type="primary" @click="centerDialogVisible = false">发送</el-button>
-              </div>
+            </div>
+
+            <v-spacer></v-spacer>
+            <div style="padding: 10px">
+              <el-button type="primary" @click="reply_click()">发送</el-button>
             </div>
 
 
+            <v-list-item
+              v-for="(item, i) in repy_items"
+              :key="i"
+            >
+              <v-list-item-icon>
+                <v-icon v-text="item.icon"></v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.text"></v-list-item-title>
 
-            <v-card-text>
-              I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.
-            </v-card-text>
+                <v-card-text>
+                  {{item.message}}
+                </v-card-text>
+                <v-divider
+                >
+
+                </v-divider>
+              </v-list-item-content>
+            </v-list-item>
+
+
+
           </div>
         </v-expand-transition>
       </v-card>
     </div>
-
-
   </div>
 </template>
 
@@ -118,6 +136,28 @@ export default {
     show3:false,
     sharingColor:"gray",
     sharingNum:486,
+    textarea:'',
+    repy_items: [
+      {
+        text: 'Adam',
+        icon: 'mdi-account' ,
+        message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
+      },
+      {
+        text: 'Sally',
+        icon: 'mdi-account' ,
+        message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
+          '在移速允许的范围内只要是非指向性技能就必定中不了。',
+      },
+      {
+        text: 'Alex',
+        icon: 'mdi-account' ,
+        message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
+          '\n' +
+          '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
+          '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
+      },
+    ],
   }),
   methods:{
     handleClick(){
@@ -153,6 +193,14 @@ export default {
         this.sharingColor="gray";
         // this.sharingNum=this.sharingNum-1;
       }
+    },
+    reply_click(){
+      this.repy_items.push({
+        text:'Kelly',
+        icon: 'mdi-account' ,
+        message:'UZI  YYDS !',
+      })
+
     }
 
 
@@ -161,5 +209,6 @@ export default {
 </script>
 
 <style scoped>
+
 
 </style>

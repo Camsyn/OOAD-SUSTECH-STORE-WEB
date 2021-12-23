@@ -1,176 +1,179 @@
 
 <template>
-  <v-container class="pt-0">
-    <v-container class="grey lighten-3 pt-0" >
-      <v-container class="grey lighten-3 pt-0">
-        <v-row>
-          <v-col
-            cols="12"
-            sm="2"
-          >
-            <v-sheet
-              rounded="lg"
-              min-height="268"
+  <div id="Circle">
+    <v-container class="pt-0">
+      <v-container class="grey lighten-3 pt-0" >
+        <v-container class="grey lighten-3 pt-0">
+          <v-row>
+            <v-col
+              cols="12"
+              sm="2"
             >
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h6">
-                    首页
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-divider></v-divider>
-
-              <v-list
-                dense
-                nav
+              <v-sheet
+                rounded="lg"
+                min-height="268"
               >
-                <v-list-item
-                  v-for="item in items_1"
-                  :key="item.title"
-                  link
-                  :to="item.route"
-                >
-                  <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
-
+                <v-list-item>
                   <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    <v-list-item-title class="text-h6">
+                      首页
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-              </v-list>
 
-              <!--        左下方分组检索-->
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h6">
-                    分组
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
+                <v-divider></v-divider>
 
-              <v-divider></v-divider>
-
-              <v-list
-                dense
-                nav
-              >
-                <v-list-item
-                  v-for="item in items"
-                  :key="item.title"
-                  link
-                  :to="item.route"
-                >
-                  <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-
-
-            </v-sheet>
-          </v-col>
-
-<!--          main区域-->
-          <v-col
-            cols="12"
-            sm="7"
-          >
-            <v-sheet
-              min-height="70vh"
-              rounded="lg"
-            >
-              <router-view></router-view>
-            </v-sheet>
-          </v-col>
-
-          <v-col
-            cols="12"
-            sm="3"
-          >
-            <v-sheet
-              rounded="lg"
-              min-height="268"
-            >
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h6">
-                    热搜榜
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-divider></v-divider>
-
-              <v-list
-                dense
-                nav
-              >
-                <v-list-item
-                  v-for="(item, index) in items_4"
-                  :key="item.title"
+                <v-list
                   dense
-                  :href="item.route"
+                  nav
                 >
+                  <v-list-item
+                    v-for="item in items_1"
+                    :key="item.title"
+                    link
+                    :to="item.route"
+                  >
+                    <v-list-item-icon>
+                      <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
 
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+
+                <!--        左下方分组检索-->
+                <v-list-item>
                   <v-list-item-content>
+                    <v-list-item-title class="text-h6">
+                      分组
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-divider></v-divider>
+
+                <v-list
+                  dense
+                  nav
+                >
+                  <v-list-item
+                    v-for="item in items"
+                    :key="item.title"
+                    link
+                    :to="item.route"
+                  >
+                    <v-list-item-icon>
+                      <v-icon>{{ item.icon }}</v-icon>
+                    </v-list-item-icon>
+
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+
+
+              </v-sheet>
+            </v-col>
+
+            <!--          main区域-->
+            <v-col
+              cols="12"
+              sm="7"
+            >
+              <v-sheet
+                min-height="70vh"
+                rounded="lg"
+              >
+                <router-view></router-view>
+              </v-sheet>
+            </v-col>
+
+            <v-col
+              cols="12"
+              sm="3"
+            >
+              <v-sheet
+                rounded="lg"
+                min-height="268"
+              >
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h6">
+                      热搜榜
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-divider></v-divider>
+
+                <v-list
+                  dense
+                  nav
+                >
+                  <v-list-item
+                    v-for="(item, index) in items_4"
+                    :key="item.title"
+                    dense
+                    :href="item.route"
+                  >
+
+                    <v-list-item-content>
                       <v-list-item-title>{{ index+1 }} - {{ item.title }} </v-list-item-title>
 
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h6">
+                      你可能感兴趣的人
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-              </v-list>
 
-              <v-list-item>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h6">
-                    你可能感兴趣的人
-                  </v-list-item-title>
-                  <v-list-item-subtitle>
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
+                <v-divider></v-divider>
 
-              <v-divider></v-divider>
+                <!--          分页-->
+                <el-pagination
+                  @current-change="handleCurrentChange"
+                  v-model:currentPage="currentPage"
+                  :page-size="PageSize"
+                  :total="totalCount"
+                  layout="prev,next"
+                  class="paging"
+                >
+                </el-pagination>
 
-              <!--          分页-->
-              <el-pagination
-                @current-change="handleCurrentChange"
-                v-model:currentPage="currentPage"
-                :page-size="PageSize"
-                :total="totalCount"
-                layout="prev,next"
-                class="paging"
-              >
-              </el-pagination>
-
-              <v-list-item v-for="item in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)">
-                <v-list-item-avatar>
-                  <el-image style="width: 50px; height: 50px" :key="item.avatar" :src="item.avatar"></el-image>
-                </v-list-item-avatar>
-                <span class="font-weight-bold" style= "display:inline">
+                <v-list-item v-for="(item,key) in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)">
+                  <v-list-item-avatar>
+                    <el-image style="width: 50px; height: 50px" :key="item.avatar" :src="item.avatar"></el-image>
+                  </v-list-item-avatar>
+                  <span class="font-weight-bold" style= "display:inline">
               {{ item.name }}
                   <el-button  @click="observeClick(item)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
             </span>
-              </v-list-item>
-            </v-sheet>
-          </v-col>
-        </v-row>
+                </v-list-item>
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-container>
-    </v-container>
 
-  </v-container>
+    </v-container>
+  </div>
+
 </template>
 
 <script>
@@ -231,7 +234,7 @@ export default {
         name: '张楚岚',
         buttontype:'plain',
         notice:false,
-        buttontext:'+关注',
+        buttontext:'+ 关注',
       },
       {
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
