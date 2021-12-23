@@ -9,10 +9,10 @@
       >
         <v-col>
           <v-avatar>
-            <img src="https://img1.baidu.com/it/u=4181640751,295850071&fm=26&fmt=auto" alt="CC" />
+            <img v-bind:src="item.avatar_src" alt="CC" />
           </v-avatar>
           <span class="font-weight-bold" style= "display:inline">
-              Davis Antonia
+              {{item.username}}
             </span>
           <span style="float:right">
               <el-dropdown trigger="click">
@@ -32,19 +32,20 @@
 
         <div style="padding: 10px 20px;">
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
+            max-height="800px"
+            max-width="600px"
+            v-bind:src="item.img_src"
           ></v-img>
         </div>
 
 
 
         <v-card-title>
-          冬至
+          {{item.titel}}
         </v-card-title>
 
         <v-card-subtitle>
-          吃点饺子如何？
+          {{item.subtitle}}
         </v-card-subtitle>
 
         <v-card-actions>
@@ -135,18 +136,14 @@
 export default {
   name: "delicious_food",
   data: () => ({
-    show1:false,
-    heatColor:"gray",
-    heartNum:256,
-    show2: false,
-    messageColor:"gray",
-    messageNum:666,
-    show3:false,
-    sharingColor:"gray",
-    sharingNum:486,
-    textarea:'',
     hotsharing:[
       {
+        avatar_src:"https://tse3-mm.cn.bing.net/th/id/OIP-C.FKtgH07plIFz0k8ozq4_9gHaHa?w=196&h=195&c=7&r=0&o=5&dpr=2&pid=1.7",
+        img_src:"https://img.mp.itc.cn/upload/20161204/038bc0b3d52a4beb886c2f1742b055b3_th.jpg",
+        username:"Alice",
+        titel:"法式蜗牛ESCARGOTS",
+        subtitle:"法国蜗牛Escargots是一种可食用的蜗牛，特别是勃艮第蜗牛（Les escargots de Bourgogne）是作为法国传统的菜肴的食材。 其中，法式焗蜗经典法式大餐的开胃菜，也是法国的国宴名菜。" +
+          " 很多小伙伴刚到法国的时候，对蜗牛这道菜是拒绝的。 如果你吃过螺蛳肉，那么蜗牛肉也不难接受。 在慢慢接触和品尝之后都渐渐地喜欢上它。",
         show1:false,
         heatColor:"gray",
         heartNum:256,
@@ -163,23 +160,14 @@ export default {
             icon: 'mdi-account' ,
             message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
           },
-          {
-            text: 'Sally',
-            icon: 'mdi-account' ,
-            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-              '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-          {
-            text: 'Alex',
-            icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-              '\n' +
-              '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-              '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
-          },
         ],
       },
       {
+        avatar_src:"https://tse1-mm.cn.bing.net/th/id/OIP-C.28gUOK0GI_CXZRii59Yy5wHaGl?w=219&h=196&c=7&r=0&o=5&dpr=2&pid=1.7",
+        img_src:"https://tse1-mm.cn.bing.net/th/id/R-C.32efe0814b70ae891e7fb2dc0d105a65?rik=Ap5L8nMuqXZUcA&riu=http%3a%2f%2fwww.juimg.com%2ftuku%2fyulantu%2f130820%2f328475-130R022204738.jpg&ehk=ijSPahuSDQwj5Vb0lF2cBJuhemPbUJElronW%2b5P8JNY%3d&risl=&pid=ImgRaw&r=0",
+        username:"Sam",
+        titel:"寿司",
+        subtitle:"寿司是一种很健康的食物，口味佳、热量低（平均120大卡）、营养丰富、配比合理，同时又方便制作和携带，对于有健康意识的上班族来说是很不错的选择。",
         show1:false,
         heatColor:"gray",
         heartNum:333,
@@ -211,95 +199,6 @@ export default {
               '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
           },
         ],
-      },
-      {
-        show1:false,
-        heatColor:"gray",
-        heartNum:256,
-        show2: false,
-        messageColor:"gray",
-        messageNum:666,
-        show3:false,
-        sharingColor:"gray",
-        sharingNum:486,
-        textarea:'',
-        repy_items: [
-          {
-            text: 'Adam',
-            icon: 'mdi-account' ,
-            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-          },
-          {
-            text: 'Sally',
-            icon: 'mdi-account' ,
-            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-              '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-          {
-            text: 'Alex',
-            icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-              '\n' +
-              '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-              '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
-          },
-        ],
-      },
-      {
-        show1:false,
-        heatColor:"gray",
-        heartNum:333,
-        show2: false,
-        messageColor:"gray",
-        messageNum:677,
-        show3:false,
-        sharingColor:"gray",
-        sharingNum:499,
-        textarea:'',
-        repy_items: [
-          {
-            text: 'Tom',
-            icon: 'mdi-account' ,
-            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-          },
-          {
-            text: 'Kelly',
-            icon: 'mdi-account' ,
-            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-              '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-          {
-            text: 'Tina',
-            icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-              '\n' +
-              '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-              '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
-          },
-        ],
-      },
-
-
-    ],
-    repy_items: [
-      {
-        text: 'Adam',
-        icon: 'mdi-account' ,
-        message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-      },
-      {
-        text: 'Sally',
-        icon: 'mdi-account' ,
-        message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-          '在移速允许的范围内只要是非指向性技能就必定中不了。',
-      },
-      {
-        text: 'Alex',
-        icon: 'mdi-account' ,
-        message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-          '\n' +
-          '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-          '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
       },
     ],
   }),
@@ -340,19 +239,16 @@ export default {
     },
     reply_click(item){
       item.repy_items.push({
-        text:'Kelly',
+        text:'Me',
         icon: 'mdi-account' ,
-        message:'UZI  YYDS !',
+        message:item.textarea,
       })
 
     }
-
-
   }
 };
 </script>
 
 <style scoped>
-
 
 </style>

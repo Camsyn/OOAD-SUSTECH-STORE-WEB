@@ -9,10 +9,10 @@
       >
         <v-col>
           <v-avatar>
-            <img src="https://img1.baidu.com/it/u=4181640751,295850071&fm=26&fmt=auto" alt="CC" />
+            <img v-bind:src="item.avatar_src" alt="CC" />
           </v-avatar>
           <span class="font-weight-bold" style= "display:inline">
-              Davis Antonia
+              {{item.username}}
             </span>
           <span style="float:right">
               <el-dropdown trigger="click">
@@ -32,19 +32,20 @@
 
         <div style="padding: 10px 20px;">
           <v-img
-            src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg"
-            height="200px"
+            max-height="800px"
+            max-width="600px"
+            v-bind:src="item.img_src"
           ></v-img>
         </div>
 
 
 
         <v-card-title>
-          冬至
+          {{item.titel}}
         </v-card-title>
 
         <v-card-subtitle>
-          吃点饺子如何？
+          {{item.subtitle}}
         </v-card-subtitle>
 
         <v-card-actions>
@@ -135,18 +136,14 @@
 export default {
   name: "game",
   data: () => ({
-    show1:false,
-    heatColor:"gray",
-    heartNum:256,
-    show2: false,
-    messageColor:"gray",
-    messageNum:666,
-    show3:false,
-    sharingColor:"gray",
-    sharingNum:486,
-    textarea:'',
     hotsharing:[
       {
+        avatar_src:"https://tse1-mm.cn.bing.net/th/id/OIP-C.Bx2S_Cvetd7XaMndAS_clQAAAA?w=142&h=187&c=7&r=0&o=5&dpr=2&pid=1.7",
+        img_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.nX-MIUpi4nZikcPXYLQX1QHaEK?w=310&h=180&c=7&r=0&o=5&dpr=2&pid=1.7",
+        username:"Tina",
+        titel:"《Pragmata》",
+        subtitle:"《Pragmata》是由卡普空制作的一款充满科幻色彩的冒险游戏，" +
+          "它试图为玩家提供一个前所未有的令人窒息和身临其境的科幻场景，游戏将于2023年发售，登陆PS5。",
         show1:false,
         heatColor:"gray",
         heartNum:256,
@@ -169,17 +166,48 @@ export default {
             message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
               '在移速允许的范围内只要是非指向性技能就必定中不了。',
           },
+        ],
+      },
+      {
+        avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
+        img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
+        username:"Tifa",
+        titel:"《最终幻想7重制版》",
+        subtitle:"在塔罗牌里，Tiferet的图案是红心，而有时则是天使（Tifa的酒吧是“Seventh Heaven”），" +
+          "而她的4级Limit技则是“Final Heaven”），" +
+          "她的姓“Lockheart”，表示她善于把心事锁在心里，又或者她可以解锁真正的克劳德",
+        show1:false,
+        heatColor:"gray",
+        heartNum:256,
+        show2: false,
+        messageColor:"gray",
+        messageNum:666,
+        show3:false,
+        sharingColor:"gray",
+        sharingNum:486,
+        textarea:'',
+        repy_items: [
           {
-            text: 'Alex',
+            text: 'Adam',
             icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-              '\n' +
-              '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-              '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
+            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
+          },
+          {
+            text: 'Sally',
+            icon: 'mdi-account' ,
+            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
+              '在移速允许的范围内只要是非指向性技能就必定中不了。',
           },
         ],
       },
       {
+        avatar_src:"https://img0.baidu.com/it/u=223280774,3532649295&fm=26&fmt=auto",
+        img_src:"https://img1.baidu.com/it/u=1753918686,2222541224&fm=26&fmt=auto",
+        username:"2B",
+        titel:"《尼尔：机械纪元》",
+        subtitle:"外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，" +
+          "人类建立了由“战斗型机器人”所组成的战斗抵抗组织。为了打破战场的僵局，人类设计了“尤尔哈（另译：寄叶）”作战单位——最新型的先进的机器人战士。" +
+          "在一片贫瘠荒凉、渺无人烟的地球上，机械生命体与机器人战士展开了大战，这场战争将会成为打开未知奥秘的关键",
         show1:false,
         heatColor:"gray",
         heartNum:333,
@@ -211,95 +239,6 @@ export default {
               '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
           },
         ],
-      },
-      {
-        show1:false,
-        heatColor:"gray",
-        heartNum:256,
-        show2: false,
-        messageColor:"gray",
-        messageNum:666,
-        show3:false,
-        sharingColor:"gray",
-        sharingNum:486,
-        textarea:'',
-        repy_items: [
-          {
-            text: 'Adam',
-            icon: 'mdi-account' ,
-            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-          },
-          {
-            text: 'Sally',
-            icon: 'mdi-account' ,
-            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-              '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-          {
-            text: 'Alex',
-            icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-              '\n' +
-              '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-              '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
-          },
-        ],
-      },
-      {
-        show1:false,
-        heatColor:"gray",
-        heartNum:333,
-        show2: false,
-        messageColor:"gray",
-        messageNum:677,
-        show3:false,
-        sharingColor:"gray",
-        sharingNum:499,
-        textarea:'',
-        repy_items: [
-          {
-            text: 'Tom',
-            icon: 'mdi-account' ,
-            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-          },
-          {
-            text: 'Kelly',
-            icon: 'mdi-account' ,
-            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-              '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-          {
-            text: 'Tina',
-            icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-              '\n' +
-              '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-              '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
-          },
-        ],
-      },
-
-
-    ],
-    repy_items: [
-      {
-        text: 'Adam',
-        icon: 'mdi-account' ,
-        message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-      },
-      {
-        text: 'Sally',
-        icon: 'mdi-account' ,
-        message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-          '在移速允许的范围内只要是非指向性技能就必定中不了。',
-      },
-      {
-        text: 'Alex',
-        icon: 'mdi-account' ,
-        message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-          '\n' +
-          '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-          '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
       },
     ],
   }),
@@ -340,19 +279,16 @@ export default {
     },
     reply_click(item){
       item.repy_items.push({
-        text:'Kelly',
+        text:'Me',
         icon: 'mdi-account' ,
-        message:'UZI  YYDS !',
+        message:item.textarea,
       })
 
     }
-
-
   }
 };
 </script>
 
 <style scoped>
-
 
 </style>
