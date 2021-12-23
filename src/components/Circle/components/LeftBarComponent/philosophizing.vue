@@ -133,7 +133,7 @@
 
 <script>
 export default {
-  name: "Grass",
+  name: "philosophizing",
   data: () => ({
     show1:false,
     heatColor:"gray",

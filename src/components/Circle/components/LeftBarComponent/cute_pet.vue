@@ -133,7 +133,7 @@
 
 <script>
 export default {
-  name: "Grass",
+  name: "cute_pet",
   data: () => ({
     show1:false,
     heatColor:"gray",
@@ -346,10 +346,13 @@ export default {
       })
 
     }
+
+
   }
 };
 </script>
 
 <style scoped>
+
 
 </style>
