@@ -127,12 +127,15 @@
         </v-dialog>
       </v-row>
     </v-container>
-    <v-container>
-      <v-row>
-        <v-col v-for="request in commodities" :key="request.id" cols="4">
-          <commodity :request="request"></commodity>
-        </v-col>
-      </v-row>
+    <v-container style="display: grid; grid-template-columns: repeat(4, 25%); grid-auto-flow: row dense">
+      <commodity v-for="request in commodities" :key="request.id" :request="request"></commodity>
+
+<!--      <v-row style="display: grid; grid-template-columns: repeat(auto-fill, 350px); grid-auto-flow: row dense">-->
+<!--&lt;!&ndash;        <v-col v-for="request in commodities" :key="request.id" >&ndash;&gt;-->
+<!--&lt;!&ndash;          <commodity :request="request"></commodity>&ndash;&gt;-->
+<!--&lt;!&ndash;        </v-col>&ndash;&gt;-->
+<!--&lt;!&ndash;        <commodity v-for="request in commodities" :key="request.id" :request="request"></commodity>&ndash;&gt;-->
+<!--      </v-row>-->
     </v-container>
   </v-sheet>
 </template>
@@ -170,7 +173,17 @@ export default {
   components: {
     commodity,
   },
-  computed: {},
+  computed: {
+    col () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return 6
+        case 'sm': return 6
+        case 'md': return 4
+        case 'lg': return 4
+        case 'xl': return 3
+      }
+    },
+  },
   created() {
     this.height = document.documentElement.clientHeight;
     window.addEventListener("scroll", this.addMore);
@@ -195,7 +208,12 @@ export default {
         isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
-        res.forEach(cm=>{this.commodities.push(cm)});
+        res.forEach(cm=>{
+          this.$store.dispatch("getInfoOf", cm.pusher).then(res=>{
+            cm.pusherInfo = res;
+            this.commodities.push(cm);
+          });
+        });
       }).catch(err=>{
         console.log(err);
       });

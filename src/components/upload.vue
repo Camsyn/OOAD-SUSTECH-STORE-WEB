@@ -45,18 +45,19 @@
         <v-container>
           <v-row>
             <v-col>
-              <v-select label="类型" :items="cata" v-model="uploadInfo.category"></v-select>
+              <v-select label="类型" :items="cata" v-model="uploadInfo.category" :rules="[rules.required]"></v-select>
             </v-col>
             <v-col>
-              <v-select label="买卖" :items="type" v-model="uploadInfo.type"></v-select>
+              <v-select label="买卖" :items="type" v-model="uploadInfo.type" :rules="[rules.required]"></v-select>
             </v-col>
             <v-col>
-              <v-select label="支付方式" :items="trade" v-model="uploadInfo.tradeType"></v-select>
+              <v-select label="支付方式" :items="trade" v-model="uploadInfo.tradeType" :rules="[rules.required]"></v-select>
             </v-col>
             <v-col>
               <v-text-field
                 label="待售量"
                 v-model="uploadInfo.count"
+                :rules="[rules.required, rules.number]"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -67,6 +68,7 @@
                 label="原价"
                 prefix="￥"
                 v-model="uploadInfo.originalPrice"
+                :rules="[rules.required, rules.float]"
               ></v-text-field>
             </v-col>
             <v-col>
@@ -75,6 +77,7 @@
                 label="售价"
                 prefix="￥"
                 v-model="uploadInfo.exactPrice"
+                :rules="[rules.required, rules.float]"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -172,7 +175,19 @@ export default {
       label_all: [],
       cata: ["商品","服务"],
       type:["买","卖"],
-      trade: ["第三方", "代币", "收款码", "线下"]
+      trade: ["第三方", "代币", "收款码", "线下"],
+
+      rules: {
+        required: value => !!value || '必填项',
+        counter: value => value.length <= 20 || '请勿超过20个字符',
+        number: value => {
+          return /^(0|[1-9][0-9]*)$/.test(value)||"请填整数";
+        },
+        float: value=>{
+          const pattern = /[0-9]+(\.[0-9]+)?/;
+          return pattern.test(value)||"请填数字";
+        },
+      }
     };
   },
   methods: {

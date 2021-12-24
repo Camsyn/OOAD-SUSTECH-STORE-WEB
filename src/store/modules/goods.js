@@ -1,4 +1,4 @@
-import {search, push} from "@/api/goods";
+import {search, push} from "../../api/goods";
 
 const goods = {
     state:{

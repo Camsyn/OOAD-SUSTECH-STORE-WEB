@@ -1,6 +1,6 @@
 import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo} from "../../api/user";
 import {register, exist} from "../../api/register";
-
+import head from "../../assets/head.jpeg";
 const user = {
   state: {
     name: undefined,
@@ -116,6 +116,12 @@ const user = {
     getMyInfo(context){
       getMyInfo().then(res => {
         res = res.data;
+        if (!res.headImage){
+          res.headImage = head;
+        }
+        if (!res.nickname){
+          res.nickname = res.sid.toString();
+        }
         context.commit("SET_USER_INFO", res);
         context.commit("SET_INFO_OF", res);
       }).catch(err => {
@@ -126,8 +132,15 @@ const user = {
     getInfoOf(context, id){
       return new Promise((resolve, reject)=>{
         getUserInfo(id).then(res => {
+          res = res.data;
+          if (!res.headImage){
+            res.headImage = head;
+          }
+          if (!res.nickname){
+            res.nickname = res.sid.toString();
+          }
           context.commit("SET_INFO_OF", res);
-          resolve(res.data);
+          resolve(res);
         }).catch(err => {
           console.log(err);
         });
