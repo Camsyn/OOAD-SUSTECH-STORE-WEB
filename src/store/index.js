@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import user from "./modules/user";
 import chatter from "./modules/chat";
 import file from "./modules/file";
-import goods from "@/store/modules/goods";
+import goods from "./modules/goods";
 
 Vue.use(Vuex);
 

@@ -129,8 +129,8 @@
     </v-container>
     <v-container>
       <v-row>
-        <v-col v-for="n in amount" :key="n" cols="4">
-          <commodity></commodity>
+        <v-col v-for="request in commodities" :key="request.id" cols="4">
+          <commodity :request="request"></commodity>
         </v-col>
       </v-row>
     </v-container>
@@ -174,6 +174,7 @@ export default {
   created() {
     this.height = document.documentElement.clientHeight;
     window.addEventListener("scroll", this.addMore);
+    this.random();
   },
   methods: {
     del_label(index) {
@@ -229,7 +230,7 @@ export default {
       };
       this.$store.dispatch("search", this.searchInfo).then(res=>{
         this.$store.commit("updateHistory", history);
-        this.commodities = res;
+        this.commodities.concat(res);
       }).catch(err=>{
         console.log(err);
       });

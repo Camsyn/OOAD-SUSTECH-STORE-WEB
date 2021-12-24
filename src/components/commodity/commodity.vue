@@ -14,7 +14,7 @@
       ></v-img>
 
     <v-card-text>
-      <div>Small plates, salads & sandwiches - an intimate setting with 12 indoor seats plus patio seating.</div>
+      {{request.title}}
     </v-card-text>
 
     <v-divider class="mx-4"></v-divider>
@@ -25,15 +25,12 @@
             class="pb-3"
             size="50"
         >
-          <img
-              src="https://cdn.vuetifyjs.com/images/john.jpg"
-              alt="John"
-          >
+          <img :src="pusherInfo.headImage" alt="aver">
         </v-avatar>
       </v-col>
       <v-col cols="4" class="pa-0">
         <v-card-text class="pt-3 px-0">
-          username_Jhon
+          {{pusherInfo.nickname}}
         </v-card-text>
       </v-col>
       <v-col class="pa-0" cols="3">
@@ -65,8 +62,10 @@
 </template>
 
 <script>
+import request from "../../utils/request";
+
 export default {
-  props:['descrip', "request"],
+  props:["request"],
   name: "commodity",
   data(){
     return{
@@ -75,11 +74,15 @@ export default {
       credit: 100,
       like: 0,
       liked: false,
-      pusherInfo: null,
+      pusherInfo: {
+        headImage: null,
+        nickname: null,
+      },
     }
   },
   methods: {
     detile(){
+      this.$store.commit("setCur", {request: this.request});
       this.$router.push({name: "GoodsDetails"});
     },
     click_like(){
@@ -92,7 +95,7 @@ export default {
   },
 
   created() {
-    this.$store.dispatch("getUserInfo", this.request.pusher).then(res=>{
+    this.$store.dispatch("getInfoOf", this.request.pusher).then(res=>{
       this.pusherInfo = res;
     }).catch(err=>{
       console.log(err);

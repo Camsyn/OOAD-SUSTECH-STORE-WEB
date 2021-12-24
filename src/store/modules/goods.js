@@ -2,7 +2,8 @@ import {search, push} from "@/api/goods";
 
 const goods = {
     state:{
-        searchHistory:[]
+        searchHistory:[],
+        current: null,
     },
 
     getters: {
@@ -16,19 +17,22 @@ const goods = {
 
             }
         },
+        setCur(state, request){
+            state.current = request;
+        }
     },
 
     actions: {
         search(context, searchInfo) {
-            // return new Promise((resolve, reject)=>{
-            //     search(searchInfo).then(res=>{
-            //
-            //     }).catch(err=>{
-            //         reject(err);
-            //     });
-            // });
             context.commit("updateHistory", searchInfo);
-            return search(searchInfo);
+            return new Promise((resolve, reject)=>{
+                search(searchInfo).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+            // return search(searchInfo);
         },
 
         push(context, info){

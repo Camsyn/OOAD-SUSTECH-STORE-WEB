@@ -124,11 +124,13 @@ const user = {
     },
 
     getInfoOf(context, id){
-      getUserInfo(id).then(res => {
-        context.commit("SET_INFO_OF", res);
-        console.log(1);
-      }).catch(err => {
-        console.log(err);
+      return new Promise((resolve, reject)=>{
+        getUserInfo(id).then(res => {
+          context.commit("SET_INFO_OF", res);
+          resolve(res.data);
+        }).catch(err => {
+          console.log(err);
+        });
       });
     },
   },
