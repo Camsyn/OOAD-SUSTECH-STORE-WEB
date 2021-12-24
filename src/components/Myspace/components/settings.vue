@@ -55,55 +55,55 @@
          <img width="100%" :src="dialogImageUrl" alt="" />
        </el-dialog>
        <!--分割线-->
-       <p></p>
-       <v-divider></v-divider>
-       <p></p>
-       <!--商品列表缩略图-->
-       <p class="font-weight-black">商品图片上传</p>
-       <el-upload
-         class="upload-demo"
-         action="https://jsonplaceholder.typicode.com/posts/"
-         :on-preview="handlePreview"
-         :on-remove="handleRemove"
-         :file-list="fileList"
-         list-type="picture"
-       >
-         <el-button size="small" type="primary">点击上传</el-button>
-         <div slot="tip" class="el-upload__tip">
-           只能上传jpg/png文件，且不超过500kb
-         </div>
-       </el-upload>
-       <!--分割线-->
-       <p></p>
-       <v-divider></v-divider>
-       <p></p>
-       <!--标签栏-->
-       <el-tag
-         :key="tag"
-         v-for="tag in dynamicTags"
-         closable
-         :disable-transitions="false"
-         @close="handleClose(tag)"
-       >
-         {{ tag }}
-       </el-tag>
-       <el-input
-         class="input-new-tag"
-         v-if="inputVisible"
-         v-model="inputValue"
-         ref="saveTagInput"
-         size="small"
-         @keyup.enter.native="handleInputConfirm"
-         @blur="handleInputConfirm"
-       >
-       </el-input>
-       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>
-       <!--分割线-->
-       <p></p>
-       <v-divider></v-divider>
-       <p></p>
-       <!--To be continued-->
-       <el-empty description="描述文字"></el-empty>
+<!--       <p></p>-->
+<!--       <v-divider></v-divider>-->
+<!--       <p></p>-->
+<!--       &lt;!&ndash;商品列表缩略图&ndash;&gt;-->
+<!--       <p class="font-weight-black">商品图片上传</p>-->
+<!--       <el-upload-->
+<!--         class="upload-demo"-->
+<!--         action="https://jsonplaceholder.typicode.com/posts/"-->
+<!--         :on-preview="handlePreview"-->
+<!--         :on-remove="handleRemove"-->
+<!--         :file-list="fileList"-->
+<!--         list-type="picture"-->
+<!--       >-->
+<!--         <el-button size="small" type="primary">点击上传</el-button>-->
+<!--         <div slot="tip" class="el-upload__tip">-->
+<!--           只能上传jpg/png文件，且不超过500kb-->
+<!--         </div>-->
+<!--       </el-upload>-->
+<!--       &lt;!&ndash;分割线&ndash;&gt;-->
+<!--       <p></p>-->
+<!--       <v-divider></v-divider>-->
+<!--       <p></p>-->
+<!--       &lt;!&ndash;标签栏&ndash;&gt;-->
+<!--       <el-tag-->
+<!--         :key="tag"-->
+<!--         v-for="tag in dynamicTags"-->
+<!--         closable-->
+<!--         :disable-transitions="false"-->
+<!--         @close="handleClose(tag)"-->
+<!--       >-->
+<!--         {{ tag }}-->
+<!--       </el-tag>-->
+<!--       <el-input-->
+<!--         class="input-new-tag"-->
+<!--         v-if="inputVisible"-->
+<!--         v-model="inputValue"-->
+<!--         ref="saveTagInput"-->
+<!--         size="small"-->
+<!--         @keyup.enter.native="handleInputConfirm"-->
+<!--         @blur="handleInputConfirm"-->
+<!--       >-->
+<!--       </el-input>-->
+<!--       <el-button v-else class="button-new-tag" size="small" @click="showInput">+ New Tag</el-button>-->
+<!--       &lt;!&ndash;分割线&ndash;&gt;-->
+<!--       <p></p>-->
+<!--       <v-divider></v-divider>-->
+<!--       <p></p>-->
+<!--       &lt;!&ndash;To be continued&ndash;&gt;-->
+<!--       <el-empty description="描述文字"></el-empty>-->
      </v-container>
 </template>
 

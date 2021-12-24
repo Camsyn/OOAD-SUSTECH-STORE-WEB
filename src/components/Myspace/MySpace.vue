@@ -1,57 +1,48 @@
 <template>
-  <v-container class="grey lighten-3 pt-0">
+  <v-container class="grey lighten-3">
     <v-row>
-      <v-col
-            cols="2"
-            sm="2"
-          >
-            <v-sheet
+      <v-col cols="12">
+        <v-sheet
               rounded="lg"
-              min-height="268"
             >
-              <v-list-item>
-                <v-list-item-content>
-                  <!--用户头像-->
-                  <v-avatar size="70">
-                    <img src="../../assets/C.C..png" alt="C.C." />
+              <v-row>
+                <v-col cols="2" class="pa-0">
+                  <v-avatar tile size="100" class="ml-10 mt-3 mb-3">
+                    <img :src="info.headImage" alt="头像" />
                   </v-avatar>
-                </v-list-item-content>
-              </v-list-item>
-
-              <v-list>
-                <v-list-item
-                  v-for="item in items"
-                  :key="item.title"
-                  dense
-                  link
-                  router
-                  :to="item.route"
+                </v-col>
+                <v-col class="mt-1">
+                  <div class="text-h4 font-weight-black" v-text="info.sid"></div>
+                  <div class="text-h6 grey--text" v-text="info.nickname" ></div>
+                  <div class="text-h6 grey--text" v-text="info.email"></div>
+                </v-col>
+                <v-col>
+                  <span>
+                   {{info.description}}
+                  </span>
+                </v-col>
+              </v-row>
+        </v-sheet>
+        <v-sheet min-height="70vh" class="mt-5">
+          <v-row>
+            <v-col>
+              <v-tabs
+                  centered
+                  color="grey darken-1"
+              >
+                <v-tab
+                    v-for="item in items"
+                    :key="item.index"
+                    @click="$router.push({path: item.route})"
                 >
-                  <v-list-item-icon>
-                    <v-icon>{{ item.icon }}</v-icon>
-                  </v-list-item-icon>
-
-                  <v-list-item-content>
-                    <v-list-item-title>{{ item.title }} </v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-
-
-            </v-sheet>
-          </v-col>
-      <v-col
-            cols="10"
-            sm="10"
-          >
-            <v-sheet
-              min-height="80vh"
-              rounded="lg"
-            >
-              <!--右边main区域-->
-              <router-view></router-view>
-            </v-sheet>
-          </v-col>
+                  {{item.title}}
+                </v-tab>
+              </v-tabs>
+            </v-col>
+          </v-row>
+          <router-view></router-view>
+        </v-sheet>
+      </v-col>
     </v-row>
   </v-container>
 </template>
@@ -62,7 +53,6 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-wrench", title: "主页", route: "/myspace/settings" },
       { icon: "mdi-purse-outline", title: "我发布的", route: "/myspace/publish" },
       { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "/myspace/sold" },
       { icon: "mdi-cart-arrow-down", title: "我买到的", route: "/myspace/bought" },
@@ -71,13 +61,14 @@ export default {
       { icon: "mdi-walk", title: "足迹", route: "/myspace/trail" },
       { icon: "mdi-heart-plus", title: "关注", route: "/myspace/concerns" },
       { icon: "mdi-human-greeting-variant", title: "粉丝", route: "/myspace/fans" },
+      { title: "编辑", route: "/myspace/edit" },
     ],
   }),
-  // methods: {
-  //   toSettings() {
-  //     this.$router.push("settings");
-  //   },
-  // },
+  computed:{
+    info(){
+      return this.$store.getters.myInfo;
+    }
+  },
 };
 </script>
 

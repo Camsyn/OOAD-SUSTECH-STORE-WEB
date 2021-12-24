@@ -45,17 +45,17 @@
     </el-table-column>
 
     <el-table-column
-        label="商品ID"
+        label="ID"
         prop="ID">
     </el-table-column>
 
     <el-table-column
-        label="商品名称"
+        label="标题"
         prop="Title">
     </el-table-column>
 
     <el-table-column
-        label="获取方法"
+        label="交易方式"
         prop="Method">
     </el-table-column>
 

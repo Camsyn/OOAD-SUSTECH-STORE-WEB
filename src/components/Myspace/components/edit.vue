@@ -2,26 +2,66 @@
   <v-container class="py-8" fluid style="padding-left: 60px">
     <v-row>
       <v-col cols="4">
-        <p class="font-weight-black">头像上传</p>
-        <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            list-type="picture-card"
-            :on-preview="handlePictureCardPreview"
-            :on-remove="handleRemove">
-          <i class="el-icon-plus"></i>
-        </el-upload>
+        <v-row>
+          <v-hover>
+            <template v-slot:default="{ hover }">
+              <v-avatar tile size="200" class="ml-10 mt-3 mb-3">
+                <v-overlay absolute :value="true" v-if="hover">
+                  <v-file-input
+                      accept="image/*"
+                      prepend-icon="mdi-camera"
+                      show-size
+                      counter
+                      label="上传头像"
+                      v-model="head"
+                      @change="upLoad(true)"
+                  >
+                  </v-file-input>
+                </v-overlay>
+                <img :src="myInfo.headImage?myInfo.headImage:headImage" alt="请上传头像" />
+              </v-avatar>
+            </template>
+          </v-hover>
+        </v-row>
+          <v-divider class="my-6"></v-divider>
+        <v-row>
+          <v-hover>
+            <template v-slot:default="{ hover }">
+              <v-avatar tile size="200" class="ml-10 mt-3 mb-3">
+                <v-overlay absolute :value="true" v-if="hover">
+                  <v-file-input
+                      accept="image/*"
+                      prepend-icon="mdi-camera"
+                      show-size
+                      counter
+                      :label="shoukuan"
+                      v-model="pay"
+                      @change="upLoad(false)"
+                  >
+                  </v-file-input>
+                </v-overlay>
+                <img :src="myInfo.payCode?myInfo.payCode:payCode" alt="请上传收款码" />
+              </v-avatar>
+            </template>
+          </v-hover>
+        </v-row>
       </v-col>
-      <v-col cols="8">
+      <v-col cols="6">
         <v-row>
           <v-col>
-            <el-descriptions title="用户信息">
-              <el-descriptions-item label="用户名">King</el-descriptions-item>
-              <el-descriptions-item label="手机号">8848</el-descriptions-item>
-              <el-descriptions-item label="备注">
-                <el-tag size="small">StanFord University</el-tag>
-              </el-descriptions-item>
-              <el-descriptions-item label="联系地址">卫龙辣条加工厂</el-descriptions-item>
-            </el-descriptions>
+            <v-form>
+              <div class="text-h6 font-weight-black" v-text="xinxi"></div>
+              <v-text-field outlined label="用户名" v-model="info.nickname"></v-text-field>
+              <v-text-field outlined label="电话" v-model="info.phone"></v-text-field>
+              <v-text-field outlined label="一句话介绍" v-model="info.description"></v-text-field>
+            </v-form>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="d-flex justify-center" >
+            <v-btn outlined rounded text class="mb-2" color="blue" @click="updateInfo">
+              上传
+            </v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -34,16 +74,67 @@ export default {
   name: "edit",
   data(){
     return{
+      xinxi: "用户信息",
+      touxiang: "上传头像",
+      shoukuan: "收款码",
+      info: {
+        nickname: null,
+        phone: null,
+        description: null,
+      },
+      headImage: null,
+      payCode: null,
 
+      head: null,
+      pay: null,
+      model: null,
     }
   },
   methods:{
     handleRemove(file, fileList) {
       console.log(file, fileList);
     },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
+    upLoadPay(file) {
+      this.info.payCode = file.url;
       this.dialogVisible = true;
+    },
+    upLoad(head) {
+      this.$store.dispatch("upload", {files: [head?this.head:this.pay], mul: true}).then((data)=>{
+        if (head){
+          this.headImage = data[0].fileDownloadUri.replace("/downloadFile", "");
+          this.$store.dispatch("update", {headImage: this.headImage});
+        }else {
+          this.payCode = data[0].fileDownloadUri.replace("/downloadFile", "");
+          this.$store.dispatch("update", {payCode: this.payCode});
+        }
+      }).catch(err => {
+        console.log(err);
+      });
+
+    },
+    updateInfo(){
+      let nul = true;
+      for (let fd of Object.values(this.info)){
+        console.log(fd);
+        if (fd){
+          nul = false;
+          break;
+        }
+      }
+      if (nul)
+        return;
+
+      this.$store.dispatch("update", this.info).then(res=>{
+        // this.$store.dispatch("")
+        console.log("update");
+      }).catch(err=>{
+        console.log(err);
+      });
+    }
+  },
+  computed:{
+    myInfo(){
+      return this.$store.getters.myInfo;
     }
   }
 }

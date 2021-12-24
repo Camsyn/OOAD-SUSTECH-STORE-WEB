@@ -66,7 +66,7 @@
 
 <script>
 export default {
-  props:['descrip', "info"],
+  props:['descrip', "request"],
   name: "commodity",
   data(){
     return{
@@ -92,11 +92,11 @@ export default {
   },
 
   created() {
-    // this.$store.dispatch("getUserInfo", this.info.pusher).then(res=>{
-    //   this.pusherInfo = res;
-    // }).catch(err=>{
-    //   console.log(err);
-    // });
+    this.$store.dispatch("getUserInfo", this.request.pusher).then(res=>{
+      this.pusherInfo = res;
+    }).catch(err=>{
+      console.log(err);
+    });
   }
 };
 </script>

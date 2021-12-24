@@ -229,6 +229,7 @@ export default {
       };
       this.$store.dispatch("search", this.searchInfo).then(res=>{
         this.$store.commit("updateHistory", history);
+        this.commodities = res;
       }).catch(err=>{
         console.log(err);
       });

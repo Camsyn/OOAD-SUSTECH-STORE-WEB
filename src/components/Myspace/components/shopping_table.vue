@@ -56,12 +56,19 @@
               ></el-image>
             </a>
             <div class="UserDetails">
-              <div class="UserDetails1">{{scope.row.User.name}}
-                <el-rate
+              <div class="UserDetails1">
+                <span></span>
+                <div class="text-h6" v-text="scope.row.User.name"></div>
+                <v-rating
                     v-model="scope.row.User.value"
-                    show-text
-                    disabled>
-                </el-rate>
+                    background-color="orange lighten-3"
+                    color="orange"
+                ></v-rating>
+<!--                <el-rate-->
+<!--                    v-model="scope.row.User.value"-->
+<!--                    show-text-->
+<!--                    disabled>-->
+<!--                </el-rate>-->
               </div>
               <div class="credit"></div>
             </div>
@@ -135,7 +142,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
+          value:3.7,
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -147,7 +154,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
+          value:3.7,
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -159,7 +166,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"4.9",
+          value:4.9,
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -171,43 +178,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
-        }
-      }, {
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-08',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
-        }
-      }, {
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-06',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
-        }
-      }, {
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-07',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:"3.7",
+          value: 3.7,
         }
       }],
       multipleSelection: []

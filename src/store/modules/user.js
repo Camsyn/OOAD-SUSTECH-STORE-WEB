@@ -1,4 +1,4 @@
-import {forgetPwd, getUserInfo,getMyInfo, login, logout} from "../../api/user";
+import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo} from "../../api/user";
 import {register, exist} from "../../api/register";
 
 const user = {
@@ -98,6 +98,15 @@ const user = {
         const password = userInfo.password.trim();
         const email = userInfo.email.trim();
         return register(sid, password, email);
+    },
+
+    update(context, info){
+      info.sid = context.state.name;
+      updateMyInfo(info).then(res=>{
+        context.dispatch("getMyInfo").then().catch(err=>{console.log(err);});
+      }).catch(err=>{
+        console.log(err);
+      });
     },
 
     forgetPwd(context, {sid, captcha, newPassword}){

@@ -14,12 +14,10 @@
               Store
     </span>
 
-    <v-spacer></v-spacer>
-
     <v-tabs
       centered
       class="ml-n9"
-      color="grey darken-1"
+      color="blue darken-1"
     >
       <v-tab
         v-for="item in links"
@@ -39,7 +37,7 @@
       <menu-btn icon="mdi-forum"></menu-btn>
     </v-badge>
 
-    <span>&nbsp;&nbsp;&nbsp;</span>
+<!--    <span>&nbsp;&nbsp;&nbsp;</span>-->
 
     <upload-btn></upload-btn>
   </v-app-bar>
@@ -80,7 +78,7 @@ export default {
       {
         index:4,
         name:"Myspace",
-        to: "settings"
+        to: "publish"
       },
     ],
 
@@ -98,9 +96,6 @@ export default {
   },
   methods: {
     info() {},
-    toHome() {
-      this.$router.push("home");
-    },
   },
 };
 </script>

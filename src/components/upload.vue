@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto" style="overflow: hidden">
-    <div style="padding: 20px">
+   <div style="padding: 20px">
       <v-form>
         <v-file-input
           accept="image/*"
@@ -32,10 +32,11 @@
           </v-slide-item>
         </v-slide-group>
         <v-divider></v-divider>
+        <v-text-field label="标题" v-model="uploadInfo.title"></v-text-field>
         <v-textarea
           dense
           v-model="uploadInfo.description"
-          placeholder="文字描述..."
+          placeholder="描述..."
           counter
           maxlength="200"
           full-width
@@ -45,6 +46,9 @@
           <v-row>
             <v-col>
               <v-select label="类型" :items="cata" v-model="uploadInfo.category"></v-select>
+            </v-col>
+            <v-col>
+              <v-select label="买卖" :items="type" v-model="uploadInfo.type"></v-select>
             </v-col>
             <v-col>
               <v-select label="支付方式" :items="trade" v-model="uploadInfo.tradeType"></v-select>
@@ -83,15 +87,16 @@
             <v-expansion-panel-content>
               <v-container class="px-0">
                 <v-row>
-                  标签
+                  预设标签
                 </v-row>
-                <v-row class="d-flex">
-                  <v-checkbox
-                    v-for="label in label_all" :key="label"
-                    :value="label"
-                    :label="label"
-                    v-model="uploadInfo.labels"
-                  ></v-checkbox>
+                <v-row>
+                  <v-col v-for="label in pre_defined_label" :key="label" cols="1">
+                    <v-checkbox
+                        :value="label"
+                        :label="label"
+                        v-model="label_all"
+                    ></v-checkbox>
+                  </v-col>
                 </v-row>
                 <v-row>
                   自定义标签
@@ -136,7 +141,6 @@
         </div>
       </v-form>
     </div>
-
   </v-card>
 </template>
 
@@ -164,9 +168,11 @@ export default {
       images: [],
       label_to_add: "",
       user_defined_label: [],
+      pre_defined_label: [],
       label_all: [],
       cata: ["商品","服务"],
-      trade: ["第三方支付", "平台代币", "收款码", "私下交易"]
+      type:["买","卖"],
+      trade: ["第三方", "代币", "收款码", "线下"]
     };
   },
   methods: {
@@ -190,7 +196,8 @@ export default {
       }
       this.uploadInfo.category = this.cata.indexOf(this.uploadInfo.category);
       this.uploadInfo.tradeType = this.trade.indexOf(this.uploadInfo.tradeType);
-      this.uploadInfo.labels.concat(this.user_defined_label)
+      this.uploadInfo.labels.concat(this.user_defined_label).concat(this.label_all);
+      this.uploadInfo.type = this.type.indexOf(this.uploadInfo.type);
       // console.log(this.uploadInfo);
       this.$store.dispatch("push", this.uploadInfo).then(res=>{
         this.uploadInfo.labels = [];

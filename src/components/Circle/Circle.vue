@@ -156,7 +156,7 @@
                 >
                 </el-pagination>
 
-                <v-list-item v-for="(item,key) in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)">
+                <v-list-item v-for="(item,key) in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)" :key="key">
                   <v-list-item-avatar>
                     <el-image style="width: 50px; height: 50px" :key="item.avatar" :src="item.avatar"></el-image>
                   </v-list-item-avatar>

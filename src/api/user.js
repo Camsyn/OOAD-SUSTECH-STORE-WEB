@@ -47,7 +47,7 @@ export function getMyInfo(){
 export function updateMyInfo(info){
   return service({
     url: "/auth/user/update",
-    method: "post",
+    method: "put",
     data: info,
   });
 }
