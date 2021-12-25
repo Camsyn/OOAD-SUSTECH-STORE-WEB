@@ -39,6 +39,7 @@
       <el-table-column
           prop="put_Date"
           label="加入购物车时间"
+          width="120"
           show-overflow-tooltip>
       </el-table-column>
 
@@ -142,7 +143,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:3.7,
+          value:4,
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -154,7 +155,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:3.7,
+          value:4,
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -166,7 +167,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:4.9,
+          value:5,
         }
       }, {
         Title: "DARK SHORT DRESS",
@@ -178,7 +179,7 @@ export default {
         User:{
           name: "dadas WDWAD",
           picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value: 3.7,
+          value: 3,
         }
       }],
       multipleSelection: []

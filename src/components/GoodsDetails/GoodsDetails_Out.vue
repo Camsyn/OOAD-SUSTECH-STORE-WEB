@@ -35,8 +35,8 @@ export default {
 
 <style scoped>
 .Main {
-  margin-left: 13%;
-  margin-right: 13%;
+  margin-left: 15%;
+  width: 73%;
 }
 .Swiper {
   float: left;
