@@ -178,7 +178,7 @@
                           <v-spacer></v-spacer>
                           <v-col>
                             <v-text-field
-                                v-model="searchInfo.publishers[0]"
+                                v-model="searchInfo.publishers"
                                 filled
                                 dense
                                 label="限定发布者id"
@@ -230,6 +230,7 @@ export default {
   name: "Home",
   data() {
     return {
+      limit: 9,
       searchInfo:{
         queryStr:"",
         priceFrom: null,
@@ -237,7 +238,7 @@ export default {
         labels: [],
         tradeTypes: [],
         types: [],
-        publishers: [null],
+        publishers: null,
         firstOrder: null,
         isFirstOrderAsc: true,
         secondOrder: null,
@@ -246,6 +247,9 @@ export default {
         isThirdOrderAsc: null,
         after: null,
         before: null,
+        page: 0,
+        limit: this.limit,
+        searchStrategy: 2,
       },
       label_to_add: "",
       user_defined_label: [],
@@ -253,7 +257,7 @@ export default {
       dialog: false,
       srt: 1,
       buySell: "收",
-      amount: 9,
+
       page: 0,
       height: 0,
       commodities0: [],
@@ -263,12 +267,16 @@ export default {
       trade: ["第三方", "代币", "收款码", "线下"],
       dates: [],
       menu: false,
+      more: true,
     };
   },
   components: {
     commodity,
   },
   computed: {
+    isSearch(){
+      return this.$store.getters.search;
+    }
   },
   created() {
     this.height = document.documentElement.clientHeight;
@@ -288,6 +296,8 @@ export default {
     },
 
     show(res, clear = false){
+      if (res.length <= this.limit)
+        this.more = false;
       if (clear){
         this.commodities0 = [];
         this.commodities1 = [];
@@ -304,9 +314,10 @@ export default {
     },
 
     random(){
+      console.log("randow")
       let tmp = {
         page: this.page,
-        limit: this.amount,
+        limit: this.limit,
         isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
@@ -316,23 +327,23 @@ export default {
       });
     },
 
-    search(){
+    search(clear = true){
+      console.log("search")
+
       if (this.searchInfo.queryStr==""){
         return;
+      }
+      if (!this.isSearch){
+        this.page = 0;
+        this.$store.commit("setSearch", true);
       }
 
       this.convertInfo();
 
-      // let history = {
-      //   queryStr: this.searchInfo.queryStr,
-      //   priceFrom: this.searchInfo.priceFrom,
-      //   priceTo: this.searchInfo.priceTo,
-      //   labels: this.searchInfo.labels
-      // };
       console.log(this.searchInfo);
       this.$store.dispatch("search", this.searchInfo).then(res=>{
-        // this.$store.commit("updateHistory", history);
-        this.show(res, true);
+        console.log(res);
+        this.show(res, clear);
       }).catch(err=>{
         console.log(err);
       });
@@ -357,22 +368,39 @@ export default {
 
       this.searchInfo.labels = this.searchInfo.labels.concat(this.user_defined_label);
 
-      for (let i=0;i<this.searchInfo.types.length;i++){
-
-      }
-
       this.searchInfo.tradeTypes = this.searchInfo.tradeTypes.map(item=>this.trade.indexOf(item));
       this.searchInfo.types = this.searchInfo.types.map(item=>this.type.indexOf(item));
+      if (this.dates.length>0){
+        this.searchInfo.after = this.dates[0];
+        if (this.dates.length>1)
+          this.searchInfo.before = this.dates[1];
+      }
+
+      if (this.searchInfo.publishers)
+        this.searchInfo.publishers = [this.searchInfo.publishers];
+
+      this.searchInfo.page = this.page;
+      // this.searchInfo.limit = this.limit;
     },
 
     addMore() {
-      let windowRelativeBottom =
-        document.documentElement.getBoundingClientRect().bottom;
+      let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
+      if (!this.more)
+        return;
+
       // 如果用户将页面滚动的距离不够远（文档末端距窗口底部 >100px）
-      if (windowRelativeBottom > this.height + 100) return;
+      if (windowRelativeBottom > this.height + 100)
+        return;
       // 添加更多数据
-      this.amount += 9;
+
+      this.page++;
+
+      if (this.isSearch)
+        this.search(false);
+      else
+        this.random();
     },
+
     buySellChange() {
       this.buySell = this.buySell == "收" ? "出" : "收";
     },

@@ -4,12 +4,16 @@ const goods = {
     state:{
         searchHistory:[],
         current: null,
-        labels: ["食品","书籍","手机","服饰","电子","洗护","优惠券",]
+        labels: ["食品","书籍","手机","服饰","电子","洗护","优惠券",],
+        search: false,
     },
 
     getters: {
         labels(state){
             return state.labels;
+        },
+        search(state){
+            return state.search;
         }
     },
 
@@ -22,6 +26,9 @@ const goods = {
         },
         setCur(state, request){
             state.current = request;
+        },
+        setSearch(state, sch){
+            state.search = sch;
         }
     },
 

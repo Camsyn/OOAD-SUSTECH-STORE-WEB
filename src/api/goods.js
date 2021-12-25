@@ -3,7 +3,7 @@ import service from "@/utils/request";
 export function search(searchInfo) {
     return service({
         url: "request/request/search",
-        data: searchInfo
+        params: searchInfo
     });
 }
 
