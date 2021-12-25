@@ -127,15 +127,18 @@
         </v-dialog>
       </v-row>
     </v-container>
-    <v-container style="display: grid; grid-template-columns: repeat(4, 25%); grid-auto-flow: row dense">
-      <commodity v-for="request in commodities" :key="request.id" :request="request"></commodity>
-
-<!--      <v-row style="display: grid; grid-template-columns: repeat(auto-fill, 350px); grid-auto-flow: row dense">-->
-<!--&lt;!&ndash;        <v-col v-for="request in commodities" :key="request.id" >&ndash;&gt;-->
-<!--&lt;!&ndash;          <commodity :request="request"></commodity>&ndash;&gt;-->
-<!--&lt;!&ndash;        </v-col>&ndash;&gt;-->
-<!--&lt;!&ndash;        <commodity v-for="request in commodities" :key="request.id" :request="request"></commodity>&ndash;&gt;-->
-<!--      </v-row>-->
+    <v-container>
+      <v-row>
+        <v-col cols="4">
+          <commodity v-for="request in commodities0" :key="request.id" :request="request"></commodity>
+        </v-col>
+        <v-col cols="4">
+          <commodity v-for="request in commodities1" :key="request.id" :request="request"></commodity>
+        </v-col>
+        <v-col cols="4">
+          <commodity v-for="request in commodities2" :key="request.id" :request="request"></commodity>
+        </v-col>
+      </v-row>
     </v-container>
   </v-sheet>
 </template>
@@ -167,7 +170,9 @@ export default {
       amount: 9,
       page: 0,
       height: 0,
-      commodities: []
+      commodities0: [],
+      commodities1: [],
+      commodities2: [],
     };
   },
   components: {
@@ -208,12 +213,14 @@ export default {
         isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
-        res.forEach(cm=>{
-          this.$store.dispatch("getInfoOf", cm.pusher).then(res=>{
-            cm.pusherInfo = res;
-            this.commodities.push(cm);
+        for (let i=0;i<res.length;i++){
+          let s = (i%3).toString();
+          let cm = res[i];
+          this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
+            cm.pusherInfo = rees;
+            this["commodities"+s].push(cm);
           });
-        });
+        }
       }).catch(err=>{
         console.log(err);
       });
@@ -270,5 +277,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
