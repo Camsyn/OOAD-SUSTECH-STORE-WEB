@@ -156,7 +156,11 @@
                 >
                 </el-pagination>
 
-                <v-list-item v-for="(item,key) in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)" :key="key">
+                <v-list-item
+                  v-for="(item,key) in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)"
+                  :key="key"
+                  v-show="!item.notice"
+                >
                   <v-list-item-avatar>
                     <el-image style="width: 50px; height: 50px" :key="item.avatar" :src="item.avatar"></el-image>
                   </v-list-item-avatar>
@@ -228,6 +232,8 @@ export default {
         buttontype:'plain',
         notice:false,
         buttontext:'+关注',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
       },
       {
         avatar: "https://img2.baidu.com/it/u=2341390205,843145067&fm=26&fmt=auto",
@@ -235,6 +241,8 @@ export default {
         buttontype:'plain',
         notice:false,
         buttontext:'+ 关注',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
       },
       {
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
@@ -242,6 +250,8 @@ export default {
         buttontype:'plain',
         notice:false,
         buttontext:'+关注',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
       },
       {
         avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
@@ -249,6 +259,8 @@ export default {
         buttontype:'plain',
         notice:false,
         buttontext:'+关注',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
       },
       {
         avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
@@ -256,6 +268,8 @@ export default {
         buttontype:'plain',
         notice:false,
         buttontext:'+关注',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
       },
       {
         avatar: "https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
@@ -263,6 +277,8 @@ export default {
         buttontype:'plain',
         notice:false,
         buttontext:'+关注',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
       },
 
     ],
