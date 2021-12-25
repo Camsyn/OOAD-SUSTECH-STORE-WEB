@@ -166,7 +166,7 @@
                   </v-list-item-avatar>
                   <span class="font-weight-bold" style= "display:inline">
               {{ item.name }}
-                  <el-button  @click="observeClick(item)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
+                  <el-button  @click="observeClick(item,key)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
             </span>
                 </v-list-item>
               </v-sheet>
@@ -182,9 +182,11 @@
 
 <script>
 import image1 from '../../assets/lemon.png'
+import circle from "../../store/modules/circle";
 export default {
   name: "myCircle",
   data: () => ({
+    tmp:'',
     lemon:image1,
     loading: false,
     centerDialogVisible: false,
@@ -225,63 +227,7 @@ export default {
       { title: "知乎，谢邀，人在火星，刚下航母", route: "https://www.zhihu.com/" },
       { title: "量子位，专注技术", route: "https://www.qbitai.com/" },
     ],
-    items_5: [
-      {
-        avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2020%2F0502%2Fafee7261p00q9pcjh005kc000eb009ec.png&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639827538&t=97d9adb998c30b205201a0b3369ee39d",
-        name: '冯宝儿',
-        buttontype:'plain',
-        notice:false,
-        buttontext:'+关注',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
-      },
-      {
-        avatar: "https://img2.baidu.com/it/u=2341390205,843145067&fm=26&fmt=auto",
-        name: '张楚岚',
-        buttontype:'plain',
-        notice:false,
-        buttontext:'+ 关注',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
-      },
-      {
-        avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
-        name: '胡桃',
-        buttontype:'plain',
-        notice:false,
-        buttontext:'+关注',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
-      },
-      {
-        avatar: "https://img1.baidu.com/it/u=3361849135,1935470780&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500",
-        name: '温迪',
-        buttontype:'plain',
-        notice:false,
-        buttontext:'+关注',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
-      },
-      {
-        avatar: "https://img1.baidu.com/it/u=3894253077,938650472&fm=253&fmt=auto&app=138&f=PNG?w=500&h=500",
-        name: '莜拉',
-        buttontype:'plain',
-        notice:false,
-        buttontext:'+关注',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
-      },
-      {
-        avatar: "https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
-        name: '钟离',
-        buttontype:'plain',
-        notice:false,
-        buttontext:'+关注',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
-      },
-
-    ],
+    items_5: [],
     messages:[
       {
         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
@@ -309,18 +255,22 @@ export default {
       // 改变默认的页数
       this.currentPage = pageNumber;
     },
-    observeClick(item){
+    observeClick(item,index){
       let tmp=item.notice
       console.log(tmp)
-      if (tmp===true){
+      if (tmp){
         item.notice=false
         item.buttontext="+关注";
         item.buttontype="plain";
       }
       else{
         item.notice=true;
-        item.buttontext="已关注";
-        item.buttontype="primary"
+        item.buttontext="取消关注";
+        item.buttontype="primary";
+
+        // circle.mutations.follow(this.state,item);
+        console.log(item)
+        this.$store.commit('follow', { item, index });
       }
     }
   },
@@ -328,6 +278,11 @@ export default {
     // 获取数据总数
     this.totalCount = this.items_5.length
   },
+  mounted() {
+    this.items_5=circle.state.unfollow
+  }
+
+
 
 }
 </script>

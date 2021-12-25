@@ -1,30 +1,12 @@
 <template>
   <div id="observingnow">
     <div style="padding: 10px">
-
-
       <v-card
         class="mx-auto"
       >
         <v-list two-line>
-          <template v-for="(item, index) in items2.slice(0, 6)">
-
-            <v-subheader
-              v-if="item.header"
-              :key="item.header"
-            >
-              {{ item.header }}
-            </v-subheader>
-
-
-            <v-divider
-              v-else-if="item.divider"
-              :key="index"
-              :inset="item.inset"
-            ></v-divider>
+          <template v-for="(item, index) in items2">
             <v-list-item
-              v-else
-              v-show="item.notice"
               :key="item.name"
             >
               <v-list-item-avatar>
@@ -33,10 +15,9 @@
               <v-list-item-content>
                 <v-list-item-title v-html="item.name"></v-list-item-title>
                 <span class="font-weight-bold" style= "display:inline">
-                  <el-button  @click="observeClick(item)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
+                  <el-button  @click="observeClick(item,index)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
                 </span>
                 <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
-
               </v-list-item-content>
             </v-list-item>
           </template>
@@ -77,13 +58,16 @@ export default {
     model: 1,
   }),
   methods:{
-    observeClick(item){
+    observeClick(item,index){
       let tmp=item.notice
       console.log(tmp)
-      if (tmp===false){
+      if (!tmp){
         item.notice=true
         item.buttontext="已关注";
         item.buttontype="primary"
+        // circle.mutations.unfollow(this.state,item)
+        console.log(item)
+        this.$store.commit('unfollow', { item, index })
       }
       else{
         item.notice=false;
@@ -93,9 +77,9 @@ export default {
     },
 
   },
-  mounted(){
+  created(){
     this.items2=circle.state.follow
-    console.log(this.items2);
+    console.log("create",this.items2);
   }
 };
 </script>
