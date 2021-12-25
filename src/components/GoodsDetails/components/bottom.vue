@@ -70,7 +70,7 @@ export default {
   background-color: white;
   float: left;
   height: 400px;
-  width: 1200px;
+  width: 100%;
   margin-top: 50px;
 }
 .Next {
@@ -78,7 +78,7 @@ export default {
   background-color: white;
   float: left;
   height: 400px;
-  width: 1250px;
+  width: 100%;
 }
 .guess {
   text-align: center;
@@ -88,16 +88,13 @@ export default {
 .MoreProduce {
   float: left;
   background-color: white;
-  width: 625px;
+  width: 50%;
   height: 500px;
 }
 .MoreProduce1 {
   display: inline-block;
   margin-left: 20px;
   margin-top: 50px;
-}
-.MoreProductInformation {
-  display: inline-block;
 }
 .Title4 {
   width: 300px;

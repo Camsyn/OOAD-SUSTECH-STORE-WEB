@@ -1,19 +1,12 @@
 <template>
   <v-app>
     <myHeader></myHeader>
-
-    <div class="Main">
-      <div class="bread">
-        <el-breadcrumb separator="/" class="m" >
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item :to="{ path: '/home' }">商品页面</el-breadcrumb-item>
-          <el-breadcrumb-item>商品详情</el-breadcrumb-item>
-        </el-breadcrumb>
-      </div>
+    <div class="Main1">
       <Swiper class="Swiper"></Swiper>
       <Details2 class="information3"></Details2>
       <bottom class="bottom1"></bottom>
     </div>
+
   </v-app>
 </template>
 
@@ -34,9 +27,9 @@ export default {
 </script>
 
 <style scoped>
-.Main {
-  margin-left: 15%;
-  width: 73%;
+.Main1 {
+  width: 100%;
+  background-color: white;
 }
 .Swiper {
   float: left;
@@ -49,9 +42,5 @@ export default {
   border-bottom: 4px solid #dbd6d6;
   display: inline-block;
   width: 1250px;
-}
-.m {
-  margin-top: 90px;
-  font-size: 15px;
 }
 </style>

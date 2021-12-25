@@ -72,12 +72,6 @@ const routes = [
     name: "testdialog",
     component: testdialog,
   },
-  {
-    path: "/GoodsDetails",
-    name: "GoodsDetails",
-    component: GoodsDetails_Out,
-  },
-
 
   {
     path: "/login",
@@ -242,7 +236,11 @@ const routes = [
         path: "notification",
         component: Notifications,
       },
-
+      {
+        path: "/GoodsDetails",
+        name: "GoodsDetails",
+        component: GoodsDetails_Out,
+      },
     ],
   },
   {

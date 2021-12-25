@@ -42,8 +42,6 @@
         <button> <div class="Buy_buttion">Buy</div></button>
       </div>
     </div>
-
-
     <div class="details2">
       <div class="User">
         <a href="#">
@@ -109,18 +107,19 @@ body{
   background-color: white !important;
 }
 .details3 {
+  width: 45%;
   margin-left: 20px;
   float: left;
   height: 550px;
 }
 .details1{
-  width: 700px;
+  width: 100%;
   height: 400px;
   background-color: white;
 }
 .details2{
-  margin-top: 20px;;
-  width: 700px;
+  margin-top: 20px;
+  width: 631px;
   height: 100px;
   background-color: white;
 }
@@ -191,7 +190,7 @@ body{
 }
 .UserDetails {
   background-color: white;
-  width: 610px;
+  width: 531px;
   height: 80px;
   margin-left: 10px;
   display: inline-block;
