@@ -1,24 +1,22 @@
 <template>
   <v-app>
-    <myHeader></myHeader>
     <div class="Main1">
       <Swiper class="Swiper"></Swiper>
       <Details2 class="information3"></Details2>
       <bottom class="bottom1"></bottom>
     </div>
-
   </v-app>
 </template>
 
 <script>
-import myHeader from "@/layout/components/header";
-import Swiper from "@/components/GoodsDetails/components/Shuffling_figure";
+import Swiper from "./components/Shuffing_figure2";
 import Details2 from "@/components/GoodsDetails/components/Details2";
 import bottom from "@/components/GoodsDetails/components/bottom";
+import goods from "../../store/modules/goods";
 export default {
   name: "GoodsDetails_Out",
+  title:'s',
   components: {
-    myHeader,
     Swiper,
     Details2,
     bottom,
@@ -32,6 +30,10 @@ export default {
   background-color: white;
 }
 .Swiper {
+  margin-top: 50px;
+  margin-left: 30px;
+  width: 500px;
+  height: 630px;
   float: left;
 }
 .information3{
