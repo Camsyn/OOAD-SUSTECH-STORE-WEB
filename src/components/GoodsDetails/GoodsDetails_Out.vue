@@ -12,7 +12,6 @@
 import Swiper from "./components/Shuffing_figure2";
 import Details2 from "@/components/GoodsDetails/components/Details2";
 import bottom from "@/components/GoodsDetails/components/bottom";
-import goods from "../../store/modules/goods";
 export default {
   name: "GoodsDetails_Out",
   title:'s',

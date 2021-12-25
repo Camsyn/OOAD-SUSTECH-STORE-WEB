@@ -45,6 +45,7 @@
 
 <script>
 import goods from "../../../store/modules/goods";
+import {search} from "../../../api/goods";
 export default {
   name: "bottom",
   methods: {
@@ -61,7 +62,7 @@ export default {
       search: {
         page: 1,
         limit: 3,
-        searchStrategy: 1,
+        searchStrategy: 2,
       },
       MoreProduct: [],
     }
@@ -71,6 +72,13 @@ export default {
     this.$store.dispatch('search',this.search).then((data) => {
       this.MoreProduct = data
     })
+    if (this.MoreProduct.length < 3) {
+      this.search.searchStrategy = 0
+      this.search.isRandom = true
+      this.$store.dispatch('search',this.search).then((data) => {
+        this.MoreProduct = data
+      })
+    }
   }
 }
 </script>

@@ -10,7 +10,7 @@
             <i class="el-icon-chat-line-round"></i>
             Message
           </button>
-          <button class="Action2">
+          <button class="Action2" @click = AddToCartitem>
             <i class="el-icon-shopping-cart-full"></i>
             加入购物车
           </button>
@@ -71,15 +71,20 @@
 import goods from "../../../store/modules/goods";
 export default {
   name: "Details2",
+  methods:{
+    AddToCartitem(){
+      let addInfo = {
+        requestId : this.Product.id,
+        count : 1,
+      }
+      this.$store.dispatch("addInfo",addInfo)
+    }
+  },
   data(){
     return{
       Product: {
       },
       User: {
-        name: "dadas WDWAD",
-        picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-        credit: 80,
-        value:3.7,
       },
     }
   },

@@ -14,81 +14,86 @@
       <el-table-column
           width="120" >
         <template slot-scope="scope">
-          <el-image class="logo"
-                    style="width: 100px; height: 100px"
-                    :src="url"
-                    @click="detile"
-          ></el-image>
+          {{123}}
+<!--          <el-image class="logo"-->
+<!--                    v-if="scope.row.images.length!==0"-->
+<!--                    style="width: 100px; height: 100px"-->
+<!--                    :src="scope.row.images[0]"-->
+<!--                    @click="detile"-->
+<!--          ></el-image>-->
         </template>
       </el-table-column>
       <el-table-column
           label="商品名称"
           width="150">
-        <template slot-scope="scope">{{ scope.row.Title }}</template>
+        <template slot-scope="scope">{{ scope.row.title }}</template>
       </el-table-column>
+
       <el-table-column
-          prop="Condition"
-          label="成色"
+          prop="count"
+          label="总量"
           width="120">
       </el-table-column>
+
       <el-table-column
-          prop="Date"
+          prop="saleCount"
+          label="已卖"
+          width="120">
+      </el-table-column>
+
+      <el-table-column
+          prop="updateTime"
           label="上架时间"
           width="120">
       </el-table-column>
       <el-table-column
-          prop="put_Date"
+          prop="cartItemCreateTime"
           label="加入购物车时间"
           width="120"
           show-overflow-tooltip>
       </el-table-column>
 
 
-      <el-table-column
-          label="发布者"
-          width="300">
-        <template slot-scope="scope">
-          <div class="User">
-            <a href="#">
-              <el-image
-                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
-                  :src="scope.row.User.picture"
-                  @click="mycircle"
-              ></el-image>
-            </a>
-            <div class="UserDetails">
-              <div class="UserDetails1">
-                <span></span>
-                <div class="text-h6" v-text="scope.row.User.name"></div>
-                <v-rating
-                    v-model="scope.row.User.value"
-                    background-color="orange lighten-3"
-                    color="orange"
-                ></v-rating>
-<!--                <el-rate-->
+<!--      <el-table-column-->
+<!--          label="发布者"-->
+<!--          width="300">-->
+<!--        <template slot-scope="scope">-->
+<!--          <div class="User">-->
+<!--            <a href="#">-->
+<!--              <el-image-->
+<!--                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"-->
+<!--                  :src="scope.row.User.picture"-->
+<!--                  @click="mycircle"-->
+<!--              ></el-image>-->
+<!--            </a>-->
+<!--            <div class="UserDetails">-->
+<!--              <div class="UserDetails1">-->
+<!--                <span></span>-->
+<!--                <div class="text-h6" v-text="scope.row.User.name"></div>-->
+<!--                <v-rating-->
 <!--                    v-model="scope.row.User.value"-->
-<!--                    show-text-->
-<!--                    disabled>-->
-<!--                </el-rate>-->
-              </div>
-              <div class="credit"></div>
-            </div>
-          </div>
-         </template>
-      </el-table-column>
+<!--                    background-color="orange lighten-3"-->
+<!--                    color="orange"-->
+<!--                ></v-rating>-->
+<!--&lt;!&ndash;                <el-rate&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-model="scope.row.User.value"&ndash;&gt;-->
+<!--&lt;!&ndash;                    show-text&ndash;&gt;-->
+<!--&lt;!&ndash;                    disabled>&ndash;&gt;-->
+<!--&lt;!&ndash;                </el-rate>&ndash;&gt;-->
+<!--              </div>-->
+<!--              <div class="credit"></div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--         </template>-->
+<!--      </el-table-column>-->
 
 
-      <el-table-column
-          prop="Method"
-          label="获取方法"
-          show-overflow-tooltip>
-      </el-table-column>
 
       <el-table-column
           label="价格"
       width="150">
         <template slot-scope="scope">
-          <div class="Now">{{scope.row.price}}</div>
+          <div class="Now">{{scope.row.exactPrice}}</div>
         </template>
       </el-table-column>
 
@@ -98,13 +103,14 @@
           width="120">
         <template slot-scope="scope">
           <el-button
-              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              @click.native.prevent="deleteRow(scope.$index,tableData)"
               size="mini"
               type="danger">
             移除
           </el-button>
         </template>
       </el-table-column>
+
     </el-table>
     <div style="margin-top: 20px">
       <el-button @click="toggleSelection(tableData)">全选</el-button>
@@ -133,55 +139,7 @@ export default {
   data() {
     return {
       url:"https://img1.baidu.com/it/u=1034833325,3625066472&fm=26&fmt=auto",
-      tableData: [{
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-03',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:4,
-        }
-      }, {
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-02',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:4,
-        }
-      }, {
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-04',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value:5,
-        }
-      }, {
-        Title: "DARK SHORT DRESS",
-        Date: '2016-05-01',
-        put_Date:'2016-05-03',
-        Method:"自提",
-        Condition: "New",
-        price:110,
-        User:{
-          name: "dadas WDWAD",
-          picture:"https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-          value: 3,
-        }
-      }],
+      tableData: [],
       multipleSelection: []
     }
   },
@@ -189,7 +147,7 @@ export default {
     sum : function(){
       let sum1 = 0;
       for (let i = 0; i < this.multipleSelection.length ; i++) {
-        sum1 = sum1 + this.multipleSelection[i].price
+        sum1 = sum1 + this.multipleSelection[i].exactPrice
       }
       return sum1
     },
@@ -221,6 +179,18 @@ export default {
         this.$message.error('已选商品数量不能为0');
       }
     }
+  },
+  mounted() {
+    this.$store.dispatch('getCart',this.search).then((data) => {
+      this.tableData = data
+      console.log(data)
+      for (let i = 0; i <this.tableData.length ; i++) {
+        this.tableData[i].updateTime = this.tableData[i].updateTime.substr(0,10)
+        this.tableData[i].cartItemCreateTime  = this.tableData[i].cartItemCreateTime.substr(0,10)
+        for (let j = 0; j <this.tableData[i].images.length; j++) {
+        }
+      }
+    })
   }
 }
 </script>

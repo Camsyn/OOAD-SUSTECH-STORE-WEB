@@ -21,7 +21,6 @@ const goods = {
         updateHistory(state, info){
             let newInfo = {
                 queryStr: info.queryStr,
-
             }
         },
         setCur(state, request){
