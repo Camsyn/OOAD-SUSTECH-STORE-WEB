@@ -4,7 +4,7 @@
   <div class="Product_Details">
    <div class="change" >
      <el-carousel height="600px" >
-       <el-carousel-item v-for="item in 5" :key="item">
+       <el-carousel-item v-for="item in this.length" :key="item">
        </el-carousel-item>
      </el-carousel>
    </div>
@@ -12,27 +12,26 @@
 </template>
 
 <script>
+import goods from "../../../store/modules/goods";
 export default {
   name: "Shuffling_figure",
   data(){
     return{
-      Product: {
-        label: "电器",
-        Title: "杯子",
-        Ori_Price:110,
-        Now_Price:100,
-        Method: "自提",
-        Date: "2020-03-11",
-        View_count: 10,
-        Number: 11,
-      },
-      User: {
-        name: "鲁姐姐",
-        credit:80,
-      },
-
+      length: 2,
+      path_Array: [],
     }
+  },
+  mounted() {
+    this.path_Array = goods.state.current.request.images
+    this.length = this.path_Array.length
+    var a = document.querySelectorAll('.el-carousel__item')
+    console.log(a)
+    for (let i = 0; i < this.path_Array.length; i++) {
+      a[i].style.backgroundImage= this.path_Array[i]
+    }
+    console.log(this.path_Array)
   }
+
 }
 </script>
 <style>

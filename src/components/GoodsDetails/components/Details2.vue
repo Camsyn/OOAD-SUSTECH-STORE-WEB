@@ -3,7 +3,7 @@
     <div class="details1">
       <div class="Title">
         <h2 class="Title2">
-          {{Product.Title}}
+          {{Product.title}}
         </h2>
         <div class="Action">
           <button class="Action2">
@@ -16,29 +16,23 @@
           </button>
         </div>
       </div>
-
-
-      <div class = "Brand">
-        {{Product.Brand}}
-      </div>
-
       <div class="information">
         <el-descriptions title="商品信息">
-          <el-descriptions-item label="成色"><div class="information1"> {{Product.Condition}}</div></el-descriptions-item>
-          <el-descriptions-item label="品牌"><div class="information1">{{Product.Brand}}</div></el-descriptions-item>
-          <el-descriptions-item label="发布日期"><div class="information1">{{Product.Date}}</div></el-descriptions-item>
-          <el-descriptions-item label="标签"><el-tag size="small"><div class="information1">{{Product.label}}</div></el-tag></el-descriptions-item>
-          <el-descriptions-item label="获取方式"><div class="information1">{{Product.Method}}</div></el-descriptions-item>
+          <el-descriptions-item label="总量"><div class="information1"> {{Product.count}}</div></el-descriptions-item>
+          <el-descriptions-item label="已售数量"><div class="information1">{{Product.saleCount}}</div></el-descriptions-item>
+          <el-descriptions-item label="发布日期"><div class="information1">{{Product.updateTime}}</div></el-descriptions-item>
+          <el-descriptions-item label="标签"><el-tag size="small"><div class="information1">{{Product.labels[0]}}</div></el-tag></el-descriptions-item>
+          <el-descriptions-item label="预估价格"><div class="information1">{{Product.originalPrice}}</div></el-descriptions-item>
         </el-descriptions>
       </div>
 
       <div class="MoreInformation">
-       {{Product.Information}}
+       {{Product.desc_}}
       </div>
 
       <div class="Buy">
-        <div class="Now">{{Product.Now_Price}}</div>
-        <div class="Old">{{Product.Ori_Price}}</div>
+        <div class="Now">{{Product.exactPrice}}</div>
+        <div class="Old">{{Product.originalPrice}}</div>
         <button> <div class="Buy_buttion">Buy</div></button>
       </div>
     </div>
@@ -47,13 +41,13 @@
         <a href="#">
           <el-image
               style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
-              :src="User.picture"
+              :src="User.headImage"
           ></el-image>
         </a>
         <div class="UserDetails">
-          <div class="UserDetails1">{{User.name}}
+          <div class="UserDetails1">{{User.nickname}}
             <el-rate
-                v-model="User.value"
+                v-model="User.credit"
                 show-text
             disabled>
             </el-rate>
@@ -74,22 +68,12 @@
 </template>
 
 <script>
+import goods from "../../../store/modules/goods";
 export default {
   name: "Details2",
   data(){
     return{
       Product: {
-        Title: "DARK SHORT DRESS",
-        Brand: "River Island",
-        Condition: "New",
-        label:"电器",
-        Ori_Price:110,
-        Now_Price:100,
-        Method: "自提",
-        Date: "2020-03-11",
-        View_count: 10,
-        Number: 11,
-        Information: "这里水很深，我大撒大撒大苏打倒萨大苏打水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水水就不多说了，懂的都懂，不懂我也没办法和你说，dasdadasd的撒大大实打实萨达阿达啊大大苏打撒的撒旦啊实打实啊撒旦。大苏打打赏大",
       },
       User: {
         name: "dadas WDWAD",
@@ -98,6 +82,12 @@ export default {
         value:3.7,
       },
     }
+  },
+  mounted() {
+    this.Product = goods.state.current.request
+    this.Product.updateTime = this.Product.updateTime.substr(0,10)
+    this.User = goods.state.current.request.pusherInfo
+    this.User.credit = this.User.credit/100 * 5
   }
 }
 </script>
@@ -119,7 +109,7 @@ body{
 }
 .details2{
   margin-top: 20px;
-  width: 631px;
+  width: 600px;
   height: 100px;
   background-color: white;
 }
@@ -190,7 +180,7 @@ body{
 }
 .UserDetails {
   background-color: white;
-  width: 531px;
+  width: 500px;
   height: 80px;
   margin-left: 10px;
   display: inline-block;
