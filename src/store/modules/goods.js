@@ -47,7 +47,20 @@ const goods = {
 
         push(context, info){
             return push(info);
-        }
+        },
+
+        sbPushed(context){
+          let sch = {
+              searchStrategy: 4,
+              page:0,
+              limit:99,
+              publishers: [context.state.name],
+              firstOrder: "update_time",
+              isFirstOrderAsc: true,
+          }
+
+          return search(sch);
+        },
     }
 }
 
