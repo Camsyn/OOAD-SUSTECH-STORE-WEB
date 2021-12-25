@@ -37,6 +37,7 @@
 
           <v-col>
             <v-file-input
+              accept="image/*"
               v-model="files"
               placeholder="Upload your documents"
               label="File input"
@@ -89,6 +90,14 @@
 
 
         </v-card-actions>
+
+        <div v-show="false">
+
+          <p>
+            cool
+          </p>
+        </div>
+
 
       </v-card>
     </div>
