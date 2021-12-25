@@ -35,7 +35,7 @@
         <v-text-field label="标题" v-model="uploadInfo.title"></v-text-field>
         <v-textarea
           dense
-          v-model="uploadInfo.description"
+          v-model="uploadInfo.desc_"
           placeholder="描述..."
           counter
           maxlength="200"
@@ -92,12 +92,14 @@
                 <v-row>
                   预设标签
                 </v-row>
-                <v-row>
-                  <v-col v-for="label in pre_defined_label" :key="label" cols="1">
+                <v-row dense>
+                  <v-col v-for="label in $store.getters.labels" :key="label" cols="3">
                     <v-checkbox
                         :value="label"
                         :label="label"
                         v-model="label_all"
+                        dense
+                        hide-details
                     ></v-checkbox>
                   </v-col>
                 </v-row>
@@ -107,12 +109,14 @@
                 <v-row class="mr-0">
                   <v-col cols="5">
                     <v-text-field
+                        outlined
                       v-model="label_to_add"
                       :append-outer-icon="'mdi-check'"
                       filled
                       clear-icon="mdi-close-circle"
                       clearable
                       type="text"
+                        :rules="[this.rules.only]"
                       @click:append-outer="add_label"
                     ></v-text-field>
                   </v-col>
@@ -154,7 +158,7 @@ export default {
     return {
       uploadInfo: {
         title: "",
-        description: "",
+        desc_: "",
         type: null,
         count: 1,
         saleCount: 0,
@@ -166,7 +170,7 @@ export default {
         video: [],
         labels: [],
       },
-      description: "",
+      desc_: "",
       model: null,
       images: [],
       label_to_add: "",
@@ -187,6 +191,9 @@ export default {
           const pattern = /[0-9]+(\.[0-9]+)?/;
           return pattern.test(value)||"请填数字";
         },
+        only: value=>{
+          return this.user_defined_label.indexOf(value)===-1||"标签已存在";
+        }
       }
     };
   },
@@ -202,7 +209,7 @@ export default {
       this.images=[];
     },
     upload() {
-      if (this.uploadInfo.description===""||this.uploadInfo.exactPrice==null
+      if (this.uploadInfo.desc_===""||this.uploadInfo.exactPrice==null
           ||this.uploadInfo.originalPrice==null||this.uploadInfo.category==null
           ||this.uploadInfo.tradeType==null
       ){
@@ -211,7 +218,7 @@ export default {
       }
       this.uploadInfo.category = this.cata.indexOf(this.uploadInfo.category);
       this.uploadInfo.tradeType = this.trade.indexOf(this.uploadInfo.tradeType);
-      this.uploadInfo.labels.concat(this.user_defined_label).concat(this.label_all);
+      this.uploadInfo.labels = this.user_defined_label.concat(this.label_all);
       this.uploadInfo.type = this.type.indexOf(this.uploadInfo.type);
       // console.log(this.uploadInfo);
       this.$store.dispatch("push", this.uploadInfo).then(res=>{
@@ -228,7 +235,7 @@ export default {
     },
 
     add_label() {
-      if (this.label_to_add != "") {
+      if (this.label_to_add != "" && this.user_defined_label.indexOf(this.label_to_add)===-1) {
         this.user_defined_label.push(this.label_to_add);
         this.label_to_add = "";
       }

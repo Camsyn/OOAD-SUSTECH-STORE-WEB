@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto my-6" width="350" min-height="200px" elevation="1">
+  <v-card class="mx-auto my-6" width="350" min-height="200px" elevation="2">
     <template slot="progress">
       <v-progress-linear
         color="deep-purple"
@@ -7,16 +7,19 @@
         indeterminate
       ></v-progress-linear>
     </template>
-    <v-img
-        v-if="request.images.length!==0"
-        @click="detile"
+    <div @click="detile" style="cursor: pointer">
+      <v-img
+          v-if="request.images.length!==0"
+          @click="detile"
           height="250"
           :src="request.images[0]"
       ></v-img>
-    <v-card-title>{{request.title}}</v-card-title>
-    <v-card-text>
-      {{request.description}}
-    </v-card-text>
+      <v-card-title>{{request.title}}</v-card-title>
+      <v-card-text>
+        {{request.desc_}}
+      </v-card-text>
+    </div>
+
     <v-divider class="mx-4"></v-divider>
     <v-card-actions>
       <v-row class="pt-5">

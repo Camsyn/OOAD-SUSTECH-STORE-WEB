@@ -36,7 +36,7 @@
           </template>
           <v-card>
             <v-card-title>
-              <span class="text-h5 mx-auto">全部筛选</span>
+              <span class="text-h5 mx-auto">筛选</span>
             </v-card-title>
             <v-card-text>
               <v-container fluid>
@@ -47,11 +47,13 @@
                   <span>预设标签</span>
                 </v-row>
                 <v-row>
-                  <v-col v-for="label in label_all" :key="label" cols="1">
+                  <v-col v-for="label in $store.getters.labels" :key="label" cols="2">
                     <v-checkbox
                       :value="label"
                       :label="label"
                       v-model="searchInfo.labels"
+                      dense
+                      hide-details
                     ></v-checkbox>
                   </v-col>
                 </v-row>
@@ -61,6 +63,7 @@
                 <v-row class="flex-row row--dense mt-3">
                   <v-col cols="3">
                     <v-text-field
+                        dense
                       v-model="label_to_add"
                       :append-outer-icon="'mdi-check'"
                       filled
@@ -68,6 +71,7 @@
                       clearable
                       type="text"
                       @click:append-outer="add_label"
+                      outlined
                     ></v-text-field>
                   </v-col>
                   <v-col cols="7" class="ml-7 pt-6 flow-row justify-start">
@@ -86,31 +90,108 @@
                     </v-row>
                   </v-col>
                 </v-row>
-                <v-row>
-                  <span>价格区间</span>
-                </v-row>
                 <v-row class="justify-center">
+                  <v-col>
+                    <v-combobox multiple dense outlined label="支付方式" :items="trade" v-model="searchInfo.tradeTypes"></v-combobox>
+                  </v-col>
+                  <v-col>
+                    <v-combobox multiple dense outlined label="买卖" :items="type" v-model="searchInfo.types"></v-combobox>
+                  </v-col>
                   <v-col>
                     <v-text-field
                       v-model="searchInfo.priceFrom"
                       filled
+                      dense
+                      label="价格区间"
                       clear-icon="mdi-close-circle"
                       clearable
                       type="text"
+                      outlined
                     ></v-text-field>
                   </v-col>
-                  <v-col cols="1" class="my-3">
+                  <v-col cols="1" class="mb-2">
                     <p class="text-center text-h5">到</p>
                   </v-col>
                   <v-col>
                     <v-text-field
                       v-model="searchInfo.priceTo"
                       filled
+                      dense
+                      label="价格区间"
                       clear-icon="mdi-close-circle"
                       clearable
                       type="text"
+                      outlined
                     ></v-text-field>
                   </v-col>
+                </v-row>
+                <v-row>
+                  <v-expansion-panels flat  popout>
+                    <v-expansion-panel>
+                      <v-expansion-panel-header class="pa-0">
+                        详细
+                      </v-expansion-panel-header>
+                      <v-expansion-panel-content>
+                        <v-row dense>
+                          <v-col cols="4">
+                            <v-menu
+                                ref="menu"
+                                v-model="menu"
+                                :close-on-content-click="false"
+                                :return-value.sync="dates"
+                                min-width="auto"
+                            >
+                              <template v-slot:activator="{ on, attrs }">
+                                <v-text-field
+                                    v-model="dates"
+                                    label="发布时间"
+                                    prepend-icon="mdi-calendar"
+                                    readonly
+                                    v-bind="attrs"
+                                    v-on="on"
+                                ></v-text-field>
+                              </template>
+                              <v-date-picker
+                                  v-model="dates"
+                                  no-title
+                                  scrollable
+                                  range
+                              >
+                                <v-spacer></v-spacer>
+                                <v-btn
+                                    text
+                                    color="primary"
+                                    @click="menu = false;dates=[];"
+                                >
+                                  取消
+                                </v-btn>
+                                <v-btn
+                                    text
+                                    color="primary"
+                                    @click="$refs.menu.save(dates)"
+                                >
+                                  确定
+                                </v-btn>
+                              </v-date-picker>
+                            </v-menu>
+                          </v-col>
+                          <v-spacer></v-spacer>
+                          <v-col>
+                            <v-text-field
+                                v-model="searchInfo.publishers[0]"
+                                filled
+                                dense
+                                label="限定发布者id"
+                                clear-icon="mdi-close-circle"
+                                clearable
+                                type="text"
+                                outlined
+                            ></v-text-field>
+                          </v-col>
+                        </v-row>
+                      </v-expansion-panel-content>
+                    </v-expansion-panel>
+                  </v-expansion-panels>
                 </v-row>
               </v-container>
             </v-card-text>
@@ -154,16 +235,21 @@ export default {
         priceFrom: null,
         priceTo: null,
         labels: [],
+        tradeTypes: [],
+        types: [],
+        publishers: [null],
         firstOrder: null,
         isFirstOrderAsc: true,
         secondOrder: null,
         isSecondOrderAsc: true,
         thirdOrder: null,
         isThirdOrderAsc: null,
+        after: null,
+        before: null,
       },
       label_to_add: "",
-      user_defined_label: ["ab", "bc", "cd", "de", "ef", "fg", "gh"],
-      label_all: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"],
+      user_defined_label: [],
+      label_all: [],
       dialog: false,
       srt: 1,
       buySell: "收",
@@ -173,21 +259,16 @@ export default {
       commodities0: [],
       commodities1: [],
       commodities2: [],
+      type:["买","卖"],
+      trade: ["第三方", "代币", "收款码", "线下"],
+      dates: [],
+      menu: false,
     };
   },
   components: {
     commodity,
   },
   computed: {
-    col () {
-      switch (this.$vuetify.breakpoint.name) {
-        case 'xs': return 6
-        case 'sm': return 6
-        case 'md': return 4
-        case 'lg': return 4
-        case 'xl': return 3
-      }
-    },
   },
   created() {
     this.height = document.documentElement.clientHeight;
@@ -206,6 +287,22 @@ export default {
       }
     },
 
+    show(res, clear = false){
+      if (clear){
+        this.commodities0 = [];
+        this.commodities1 = [];
+        this.commodities2 = [];
+      }
+      for (let i=0;i<res.length;i++){
+        let s = (i%3).toString();
+        let cm = res[i];
+        this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
+          cm.pusherInfo = rees;
+          this["commodities"+s].push(cm);
+        });
+      }
+    },
+
     random(){
       let tmp = {
         page: this.page,
@@ -213,14 +310,7 @@ export default {
         isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
-        for (let i=0;i<res.length;i++){
-          let s = (i%3).toString();
-          let cm = res[i];
-          this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
-            cm.pusherInfo = rees;
-            this["commodities"+s].push(cm);
-          });
-        }
+        this.show(res);
       }).catch(err=>{
         console.log(err);
       });
@@ -231,6 +321,24 @@ export default {
         return;
       }
 
+      this.convertInfo();
+
+      // let history = {
+      //   queryStr: this.searchInfo.queryStr,
+      //   priceFrom: this.searchInfo.priceFrom,
+      //   priceTo: this.searchInfo.priceTo,
+      //   labels: this.searchInfo.labels
+      // };
+      console.log(this.searchInfo);
+      this.$store.dispatch("search", this.searchInfo).then(res=>{
+        // this.$store.commit("updateHistory", history);
+        this.show(res, true);
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
+
+    convertInfo(){
       this.searchInfo.isFirstOrderAsc = true;
       switch (this.srt) {
         case 0:
@@ -247,18 +355,14 @@ export default {
           this.searchInfo.isFirstOrderAsc = false;
       }
 
-      let history = {
-        queryStr: this.searchInfo.queryStr,
-        priceFrom: this.searchInfo.priceFrom,
-        priceTo: this.searchInfo.priceTo,
-        labels: this.searchInfo.labels
-      };
-      this.$store.dispatch("search", this.searchInfo).then(res=>{
-        this.$store.commit("updateHistory", history);
-        this.commodities.concat(res);
-      }).catch(err=>{
-        console.log(err);
-      });
+      this.searchInfo.labels = this.searchInfo.labels.concat(this.user_defined_label);
+
+      for (let i=0;i<this.searchInfo.types.length;i++){
+
+      }
+
+      this.searchInfo.tradeTypes = this.searchInfo.tradeTypes.map(item=>this.trade.indexOf(item));
+      this.searchInfo.types = this.searchInfo.types.map(item=>this.type.indexOf(item));
     },
 
     addMore() {

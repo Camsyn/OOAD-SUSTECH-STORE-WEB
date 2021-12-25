@@ -4,10 +4,13 @@ const goods = {
     state:{
         searchHistory:[],
         current: null,
+        labels: ["食品","书籍","手机","服饰","电子","洗护","优惠券",]
     },
 
     getters: {
-
+        labels(state){
+            return state.labels;
+        }
     },
 
     mutations:{
