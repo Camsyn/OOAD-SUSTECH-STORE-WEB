@@ -17,3 +17,11 @@ export function push(info){
         data: info
     });
 }
+
+export function close(requestId){
+    return service({
+        method: "put",
+        url: "request/request/close",
+        params: {requestId}
+    });
+}

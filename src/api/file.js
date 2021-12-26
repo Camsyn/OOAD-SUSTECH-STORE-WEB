@@ -24,17 +24,21 @@ export function upload(files, mul = false){
         }
     }
 
-    return new Promise((resolve, reject)=>{
-        axios.post(url, forms, configs).then(response=>{
-            let st = response.status;
-            if (st!==200){
-                reject()
-            }else
-                resolve(response.data); // 请求成功 返回数据
-        }).catch(err=>{
-            reject(err);
-        });
-    })
+    return axios.post(url, forms, configs);
+
+    // return new Promise((resolve, reject)=>{
+    //     axios.post(url, forms, configs).then(response=>{
+    //         let st = response.status;
+    //         if (st!==200){
+    //             reject()
+    //         }else{
+    //             console.log(1, response.data)
+    //             resolve(response.data); // 请求成功 返回数据
+    //         }
+    //     }).catch(err=>{
+    //         reject(err);
+    //     });
+    // });
 }
 
 export function download(fileName){

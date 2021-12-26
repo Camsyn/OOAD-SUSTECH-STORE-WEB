@@ -2,35 +2,68 @@
   <v-card class="mx-auto" style="overflow: hidden">
    <div style="padding: 20px">
       <v-form>
-        <v-file-input
-          accept="image/*"
-          prepend-icon="mdi-camera"
-          show-size
-          counter
-          multiple
-          label="上传图片"
-          v-model="images"
-        >
-        </v-file-input>
-        <v-slide-group
-          v-model="model"
-          class="pa-4"
-          active-class="success"
-          show-arrows
-        >
-          <v-slide-item
-            v-for="(image, ind) in this.uploadInfo.images"
-            :key="ind"
-            v-slot="{ active, toggle }"
-            class="mx-2"
+        <v-row>
+          <v-file-input
+              accept="image/*"
+              prepend-icon="mdi-camera"
+              show-size
+              counter
+              multiple
+              label="上传图片"
+              v-model="images"
           >
-            <v-img
-              contain
-              :src=image
-              width="350"
-            ></v-img>
-          </v-slide-item>
-        </v-slide-group>
+          </v-file-input>
+          <v-btn
+              class="mb-3 mx-4" @click="addFile"
+              plain
+              fab
+          >
+            <v-icon dark>
+              mdi-cloud-upload
+            </v-icon>
+          </v-btn>
+        </v-row>
+        <v-carousel
+            v-if="this.uploadInfo.images.length!==0"
+            v-model="model" class="mt-5" style="width:100%; height: 300px"
+            hide-delimiter-background
+        >
+          <v-carousel-item
+              v-for="(image, ind) in this.uploadInfo.images"
+              :key="ind"
+          >
+            <v-hover>
+              <template v-slot:default="{ hover }">
+                <div>
+                  <v-img
+                      contain
+                      :src=image
+                  ></v-img>
+                  <v-overlay absolute v-if="hover">
+                    <v-btn @click="uploadInfo.images.splice(ind,1);" class="mb-10">
+                      点击删除
+                    </v-btn>
+                  </v-overlay>
+                </div>
+              </template>
+            </v-hover>
+          </v-carousel-item>
+        </v-carousel>
+
+<!--        <v-slide-group-->
+<!--          v-model="model"-->
+<!--          class="pa-4"-->
+<!--          active-class="success"-->
+<!--          show-arrows-->
+<!--        >-->
+<!--          <v-slide-item-->
+<!--            v-for="(image, ind) in this.uploadInfo.images"-->
+<!--            :key="ind"-->
+<!--            v-slot="{ active, toggle }"-->
+<!--            class="mx-2"-->
+<!--          >-->
+<!--          </v-slide-item>-->
+<!--        </v-slide-group>-->
         <v-divider></v-divider>
         <v-text-field label="标题" v-model="uploadInfo.title"></v-text-field>
         <v-textarea
@@ -139,21 +172,22 @@
           </v-expansion-panel>
         </v-expansion-panels>
         <div class="d-flex justify-center">
-          <v-btn class="mb-3 mx-4" @click="addFile">
-            <span>上传</span>
-          </v-btn>
           <v-btn class="mb-3 mx-4" @click="upload">
             <span>完成</span>
           </v-btn>
         </div>
       </v-form>
     </div>
+<!--    <div>-->
+<!--      {{pre}}-->
+<!--    </div>-->
   </v-card>
 </template>
 
 <script>
 export default {
   name: "upload",
+  props:["preInfo"],
   data() {
     return {
       uploadInfo: {
@@ -194,13 +228,15 @@ export default {
         only: value=>{
           return this.user_defined_label.indexOf(value)===-1||"标签已存在";
         }
-      }
+      },
+      tmp: 0,
     };
   },
   methods: {
     addFile() {
-        this.$store.dispatch("upload", {files: this.images, mul: true}).then((data)=>{
-          for (let fl of data) {
+        this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
+          res = res[0];
+          for (let fl of res) {
             this.uploadInfo.images.push(fl.fileDownloadUri.replace("/downloadFile", ""));
           }
         }).catch(err => {
@@ -242,8 +278,24 @@ export default {
     },
   },
 
-  created() {
-  }
+  watch:{
+    pre:function (){
+    }
+  },
+
+  computed:{
+    pre(){
+      if (this.preInfo){
+        for (let k in this.preInfo){
+          this.uploadInfo[k] = this.preInfo[k];
+        }
+        this.uploadInfo.type = this.type[this.uploadInfo.type];
+        this.uploadInfo.category = this.cata[this.uploadInfo.category];
+        this.uploadInfo.tradeType = this.trade[this.uploadInfo.tradeType];
+      }
+      return this.preInfo.id;
+    }
+  },
 };
 </script>
 

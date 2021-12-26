@@ -150,6 +150,10 @@ const user = {
         });
       });
     },
+
+    test(context){
+      return 123;
+    }
   },
 };
 
