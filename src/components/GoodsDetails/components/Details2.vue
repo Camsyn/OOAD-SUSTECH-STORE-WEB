@@ -184,7 +184,6 @@ body{
   margin-top: 50px;
 }
 .UserDetails {
-  background-color: white;
   width: 500px;
   height: 80px;
   margin-left: 10px;
@@ -197,7 +196,6 @@ body{
   height: 40px;
   margin-top: 25px;
   display: inline-block;
-  background-color: white;
 }
 .button8 {
   margin-left: 20px;

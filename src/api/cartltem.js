@@ -18,6 +18,7 @@ export  function  getItem() {
 export function deleteItem(cartItemId){
     return service({
         method: 'delete',
-        url: 'request/cart/delete'
+        url: 'request/cart/delete',
+        params:cartItemId,
     })
 }

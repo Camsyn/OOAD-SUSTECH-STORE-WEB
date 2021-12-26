@@ -57,42 +57,41 @@
 
           width="300">
         <template slot-scope="scope">
-<!--&lt;!&ndash;          <div class="User">&ndash;&gt;-->
-<!--&lt;!&ndash;            <a>&ndash;&gt;-->
-<!--&lt;!&ndash;              &ndash;&gt;-->
-<!--&lt;!&ndash;              <el-image&ndash;&gt;-->
-<!--&lt;!&ndash;                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"&ndash;&gt;-->
-<!--&lt;!&ndash;                  :src="scope.row.head"&ndash;&gt;-->
-<!--&lt;!&ndash;                  @click="mycircle"&ndash;&gt;-->
-<!--&lt;!&ndash;              ></el-image>&ndash;&gt;-->
-<!--&lt;!&ndash;            </a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <div class="UserDetails">&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="UserDetails1">&ndash;&gt;-->
-<!--&lt;!&ndash;                <span></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                <div class="text-h6" v-text="scope.row.nickname"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;                <v-rating&ndash;&gt;-->
-<!--&lt;!&ndash;                    v-model="scope.row.credit"&ndash;&gt;-->
-<!--&lt;!&ndash;                    background-color="orange lighten-3"&ndash;&gt;-->
-<!--&lt;!&ndash;                    color="orange"&ndash;&gt;-->
-<!--&lt;!&ndash;                ></v-rating>&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                <el-rate&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    v-model="scope.row.pusherInfo.credit"&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    show-text&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                    disabled>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;&lt;!&ndash;                </el-rate>&ndash;&gt;&ndash;&gt;-->
-<!--&lt;!&ndash;              </div>&ndash;&gt;-->
-<!--&lt;!&ndash;              <div class="credit"></div>&ndash;&gt;-->
-<!--&lt;!&ndash;            </div>&ndash;&gt;-->
-<!--&lt;!&ndash;          </div>&ndash;&gt;-->
-          {{ scope.row.pusherInfo.sid }}
-         </template>
+                    <div class="User">
+                      <a>
+
+                        <el-image
+                            style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
+                            :src="scope.row.pusherInfo.headImage"
+                            @click="mycircle"
+                        ></el-image>
+                      </a>
+                      <div class="UserDetails">
+                        <div class="UserDetails1">
+                          <span></span>
+                          <div class="text-h6" v-text="scope.row.pusherInfo.nickname"></div>
+<!--                          <v-rating-->
+<!--                              v-model="scope.row.pusherInfo.credit"-->
+<!--                              background-color="orange lighten-3"-->
+<!--                              color="orange"-->
+<!--                          ></v-rating>-->
+                          <el-rate
+                              v-model="scope.row.pusherInfo.credit"
+                              show-text
+                              disabled>
+                          </el-rate>
+                        </div>
+                        <div class="credit"></div>
+                      </div>
+                    </div>
+        </template>
       </el-table-column>
 
 
 
       <el-table-column
           label="价格"
-      width="150">
+          width="150">
         <template slot-scope="scope">
           <div class="Now">{{scope.row.exactPrice}}</div>
         </template>
@@ -183,7 +182,10 @@ export default {
           message: '删除成功!'
         })
         rows.splice(index, 1)
-        this.$store.dispatch('deleteItem',{})
+        let data = {
+          cartItemId: rows[index].cartItemId
+        }
+        this.$store.dispatch('deleteItem',data)
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -199,19 +201,14 @@ export default {
   },
   created() {
     this.$store.dispatch('getCart',this.search).then((data) => {
+      console.log(data)
       for (let i = 0; i <data.length ; i++) {
-        data[i].updateTime = data[i].updateTime.substr(0,10)
-        data[i].cartItemCreateTime  = data[i].cartItemCreateTime.substr(0,10)
-        if (data[i].images == null ){
-          data[i].images = [this.url]
-        }
         this.$store.dispatch("getInfoOf", data[i].pusher).then(rees=>{
           data[i].pusherInfo = rees;
           data[i].pusherInfo.credit =  data[i].pusherInfo.credit * 5/ 100;
           this.tableData.push(data[i]);
         });
       }
-
     })
   }
 }
@@ -272,7 +269,6 @@ export default {
   background-color: #fb0000;
 }
 .price {
-
   float: right;
   min-width: 100px;
   height: 50px;
