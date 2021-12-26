@@ -296,8 +296,12 @@ export default {
     },
 
     show(res, clear = false){
-      if (res.length <= this.limit)
+      if (res.length <= this.limit){
         this.more = false;
+      }else {
+        res.pop();
+      }
+
       if (clear){
         this.commodities0 = [];
         this.commodities1 = [];
@@ -384,6 +388,7 @@ export default {
     },
 
     addMore() {
+
       let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
       if (!this.more)
         return;
@@ -392,7 +397,7 @@ export default {
       if (windowRelativeBottom > this.height + 100)
         return;
       // 添加更多数据
-
+      console.log(123);
       this.page++;
 
       if (this.isSearch)
