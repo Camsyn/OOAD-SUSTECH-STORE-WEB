@@ -54,36 +54,37 @@
 
       <el-table-column
           label="发布者"
+
           width="300">
         <template slot-scope="scope">
-<!--          <div class="User">-->
-<!--            <a>-->
-<!--              -->
-<!--              <el-image-->
-<!--                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"-->
-<!--                  :src="scope.row.head"-->
-<!--                  @click="mycircle"-->
-<!--              ></el-image>-->
-<!--            </a>-->
-<!--            <div class="UserDetails">-->
-<!--              <div class="UserDetails1">-->
-<!--                <span></span>-->
-<!--                <div class="text-h6" v-text="scope.row.nickname"></div>-->
-<!--                <v-rating-->
-<!--                    v-model="scope.row.credit"-->
-<!--                    background-color="orange lighten-3"-->
-<!--                    color="orange"-->
-<!--                ></v-rating>-->
-<!--&lt;!&ndash;                <el-rate&ndash;&gt;-->
-<!--&lt;!&ndash;                    v-model="scope.row.pusherInfo.credit"&ndash;&gt;-->
-<!--&lt;!&ndash;                    show-text&ndash;&gt;-->
-<!--&lt;!&ndash;                    disabled>&ndash;&gt;-->
-<!--&lt;!&ndash;                </el-rate>&ndash;&gt;-->
-<!--              </div>-->
-<!--              <div class="credit"></div>-->
-<!--            </div>-->
-<!--          </div>-->
-          {{ scope.row.pusherInfo?scope.row.pusherInfo.credit:123 }}
+<!--&lt;!&ndash;          <div class="User">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a>&ndash;&gt;-->
+<!--&lt;!&ndash;              &ndash;&gt;-->
+<!--&lt;!&ndash;              <el-image&ndash;&gt;-->
+<!--&lt;!&ndash;                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"&ndash;&gt;-->
+<!--&lt;!&ndash;                  :src="scope.row.head"&ndash;&gt;-->
+<!--&lt;!&ndash;                  @click="mycircle"&ndash;&gt;-->
+<!--&lt;!&ndash;              ></el-image>&ndash;&gt;-->
+<!--&lt;!&ndash;            </a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <div class="UserDetails">&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="UserDetails1">&ndash;&gt;-->
+<!--&lt;!&ndash;                <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                <div class="text-h6" v-text="scope.row.nickname"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                <v-rating&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-model="scope.row.credit"&ndash;&gt;-->
+<!--&lt;!&ndash;                    background-color="orange lighten-3"&ndash;&gt;-->
+<!--&lt;!&ndash;                    color="orange"&ndash;&gt;-->
+<!--&lt;!&ndash;                ></v-rating>&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                <el-rate&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    v-model="scope.row.pusherInfo.credit"&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    show-text&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                    disabled>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;&lt;!&ndash;                </el-rate>&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              </div>&ndash;&gt;-->
+<!--&lt;!&ndash;              <div class="credit"></div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;          </div>&ndash;&gt;-->
+          {{ scope.row.pusherInfo.sid }}
          </template>
       </el-table-column>
 
@@ -196,20 +197,21 @@ export default {
       }
     }
   },
-  mounted() {
+  created() {
     this.$store.dispatch('getCart',this.search).then((data) => {
-      this.tableData = data
-      for (let i = 0; i <this.tableData.length ; i++) {
-        this.tableData[i].updateTime = this.tableData[i].updateTime.substr(0,10)
-        this.tableData[i].cartItemCreateTime  = this.tableData[i].cartItemCreateTime.substr(0,10)
-        if (this.tableData[i].images == null ){
-          this.tableData[i].images = [this.url]
+      for (let i = 0; i <data.length ; i++) {
+        data[i].updateTime = data[i].updateTime.substr(0,10)
+        data[i].cartItemCreateTime  = data[i].cartItemCreateTime.substr(0,10)
+        if (data[i].images == null ){
+          data[i].images = [this.url]
         }
-        this.$store.dispatch("getInfoOf", this.tableData[i].pusher).then(rees=>{
-          this.tableData[i].pusherInfo = rees;
-          this.tableData[i].pusherInfo.credit =  this.tableData[i].pusherInfo.credit * 5/ 100;
+        this.$store.dispatch("getInfoOf", data[i].pusher).then(rees=>{
+          data[i].pusherInfo = rees;
+          data[i].pusherInfo.credit =  data[i].pusherInfo.credit * 5/ 100;
+          this.tableData.push(data[i]);
         });
       }
+
     })
   }
 }
