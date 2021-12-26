@@ -5,19 +5,27 @@
         class="mx-auto"
       >
         <v-list two-line>
-          <template v-for="(item, index) in items2">
+          <template v-for="(item, index) in all_followers">
             <v-list-item
-              :key="item.name"
+              :key="index"
             >
               <v-list-item-avatar>
-                <img :src="item.avatar">
+                <img :src="item.avatar" alt="CC">
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title v-html="item.name"></v-list-item-title>
                 <span class="font-weight-bold" style= "display:inline">
-                  <el-button  @click="observeClick(item,index)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
+                  <v-btn
+                      depressed
+                      color="error"
+                      right
+                      @click="observeClick(item)"
+                  >
+                  取消关注
+                </v-btn>
                 </span>
-                <v-list-item-subtitle v-html="item.subtitle"></v-list-item-subtitle>
+                <v-list-item-subtitle v-html="item.subtitle">
+                </v-list-item-subtitle>
               </v-list-item-content>
             </v-list-item>
           </template>
@@ -54,32 +62,19 @@ export default {
         text: 'Drafts',
       },
     ],
-    items2: [],
     model: 1,
   }),
   methods:{
-    observeClick(item,index){
-      let tmp=item.notice
-      console.log(tmp)
-      if (!tmp){
-        item.notice=true
-        item.buttontext="已关注";
-        item.buttontype="primary"
-        // circle.mutations.unfollow(this.state,item)
-        console.log(item)
-        this.$store.commit('unfollow', { item, index })
-      }
-      else{
-        item.notice=false;
-        item.buttontext="+关注";
-        item.buttontype="plain";
-      }
+    observeClick(item){
+      this.$store.commit('UAdd', { item })
     },
 
   },
-  created(){
-    this.items2=circle.state.follow
-    console.log("create",this.items2);
+  computed:{
+    all_followers(){
+      return circle.state.followList
+    }
+
   }
 };
 </script>

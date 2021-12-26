@@ -292,7 +292,6 @@ export default {
       else{
         item.heatColor="gray";
         item.heartNum=item.heartNum-1;
-
       }
     },
     handleClick2(item){

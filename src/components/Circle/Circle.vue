@@ -157,16 +157,24 @@
                 </el-pagination>
 
                 <v-list-item
-                  v-for="(item,key) in items_5.slice((currentPage-1)*PageSize,currentPage*PageSize)"
+                  v-for="(item,key) in all_unfollowers.slice((currentPage-1)*PageSize,currentPage*PageSize)"
                   :key="key"
-                  v-show="!item.notice"
                 >
                   <v-list-item-avatar>
                     <el-image style="width: 50px; height: 50px" :key="item.avatar" :src="item.avatar"></el-image>
                   </v-list-item-avatar>
+                  <v-list-item-title v-html="item.name"></v-list-item-title>
+                  <v-spacer></v-spacer>
                   <span class="font-weight-bold" style= "display:inline">
-              {{ item.name }}
-                  <el-button  @click="observeClick(item,key)" :type="item.buttontype"  round style="position:absolute;right:16px;padding: 6px;">{{item.buttontext}}</el-button>
+
+                 <v-btn
+                     depressed
+                     color="primary"
+                     right
+                     @click="observeClick(item)"
+                 >
+                  +关注
+                </v-btn>
             </span>
                 </v-list-item>
               </v-sheet>
@@ -183,6 +191,7 @@
 <script>
 import image1 from '../../assets/lemon.png'
 import circle from "../../store/modules/circle";
+import {mapGetters,mapMutations } from "vuex";
 export default {
   name: "myCircle",
   data: () => ({
@@ -227,7 +236,6 @@ export default {
       { title: "知乎，谢邀，人在火星，刚下航母", route: "https://www.zhihu.com/" },
       { title: "量子位，专注技术", route: "https://www.qbitai.com/" },
     ],
-    items_5: [],
     messages:[
       {
         avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
@@ -255,31 +263,15 @@ export default {
       // 改变默认的页数
       this.currentPage = pageNumber;
     },
-    observeClick(item,index){
-      let tmp=item.notice
-      console.log(tmp)
-      if (tmp){
-        item.notice=false
-        item.buttontext="+关注";
-        item.buttontype="plain";
-      }
-      else{
-        item.notice=true;
-        item.buttontext="取消关注";
-        item.buttontype="primary";
-
-        // circle.mutations.follow(this.state,item);
-        console.log(item)
-        this.$store.commit('follow', { item, index });
-      }
+    observeClick(item){
+      this.$store.commit('FAdd', { item });
     }
   },
-  created() {
-    // 获取数据总数
-    this.totalCount = this.items_5.length
-  },
-  mounted() {
-    this.items_5=circle.state.unfollow
+  computed:{
+    all_unfollowers(){
+      this.totalCount = circle.state.unfollowList.length
+      return circle.state.unfollowList
+    },
   }
 
 
