@@ -1,17 +1,10 @@
-import {add,getItem,deleteItem,buy,satisfy} from "../../api/cartltem";
-
+import {add,getItem,deleteItem,satisfy,buy} from "../../api/cartltem";
+paramsSerializer: params => {
+    return qs.stringify(params, { indices: false })
+}
 const cartItem = {
     state : {},
     actions: {
-        buy(context,data) {
-            return new Promise((resolve, reject)=>{
-                buy(data).then(res=>{
-                    resolve(res.data);
-                }).catch(err=>{
-                    reject(err);
-                });
-            });
-        },
         addInfo(context,addIo){
             return add(addIo)
         },
@@ -35,7 +28,6 @@ const cartItem = {
         deleteItem(context,cartItemId) {
             return new Promise((resolve, reject)=>{
                 deleteItem(cartItemId).then(res=>{
-
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);
@@ -44,7 +36,16 @@ const cartItem = {
         },
         satisfy(context,data){
             return new Promise((resolve, reject)=>{
-                satisfy(cartItemId).then(res=>{
+                satisfy(data).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+        buy(context,data) {
+            return new Promise((resolve, reject)=>{
+                buy(data).then(res=>{
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);

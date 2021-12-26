@@ -33,7 +33,7 @@
       <div class="Buy">
         <div class="Now">{{Product.exactPrice}}</div>
         <div class="Old">{{Product.originalPrice}}</div>
-        <button> <div class="Buy_buttion">Buy</div></button>
+        <button> <div class="Buy_buttion" @click = 'buyGood'>Buy</div></button>
       </div>
     </div>
     <div class="details2">
@@ -72,12 +72,41 @@ import goods from "../../../store/modules/goods";
 export default {
   name: "Details2",
   methods:{
+    buyGood(){
+      let lista = []
+      lista.push(goods.state.current.request)
+      this.$store.commit('setpayList',lista)
+      this.$router.push('/pay')
+    },
     AddToCartitem(){
       let addInfo = {
         requestId : this.Product.id,
         count : 1,
       }
-      this.$store.dispatch("addInfo",addInfo)
+      this.$confirm('是否加入购物车?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch("addInfo",addInfo).then((data) => {
+          this.$message({
+            type: 'success',
+            message: '加入购物车成功!',
+          })
+        }).catch(err=>{
+          this.$message({
+            type: 'warning',
+            message: err
+          })
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+
+
     }
   },
   data(){

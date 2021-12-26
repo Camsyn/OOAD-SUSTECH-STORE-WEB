@@ -45,7 +45,6 @@
 import Pay_header from "./Pay_header";
 import user from "../../store/modules/user";
 import goods from "../../store/modules/goods";
-import cartItem from "../../store/modules/cartItem";
 export default {
   name: "Pay",
   components: {
@@ -77,23 +76,45 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        if (this.liyuan >= this.Now_sum){
-          this.$message({
-            type: 'success',
-            message: '订单成功!'
-          })
-          let data = {}
-          for (let i = 0; i < this.desserts.length; i++) {
-            data
+          let data = [1]
+          if(this.desserts[0].cartItemId !== null) {
+            for (let i = 0; i < this.desserts.length; i++) {
+              data.push(this.desserts[i].cartItemId)
+            }
           }
-          this.$router.push('/home')
-        }
-        else {
-          this.$message({
-            type: 'warning',
-            message: '余额不足'
-          });
-        }
+          if (data[0].cartItemId == null) {
+            data = {
+              requestId:this.desserts[0].id,
+              count: 1,
+            }
+            this.$store.dispatch('buy',data).then((data) => {
+              this.$message({
+                type: 'success',
+                message: '订单成功!',
+              })
+              this.$router.push('/home')
+            }).catch(err=>{
+              this.$message({
+                type: 'warning',
+                message: err
+              })
+            });
+          }
+          else {
+            this.$store.dispatch('satisfy',data).then((data) => {
+              this.$message({
+                type: 'success',
+                message: '订单成功!'
+              })
+              this.$router.push('/home')
+            }).catch(err=>{
+              this.$message({
+                type: 'warning',
+                message: err
+              })
+            });
+            this.$router.push('/home')
+          }
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -111,16 +132,19 @@ export default {
       return sum1
     },
     Ori_sum : function(){
-      let sum1 = 0;
+      let sum2 = 0;
       for (let i = 0; i < this.desserts.length ; i++) {
-        sum1 = sum1 + this.desserts[i].originalPrice
+        sum2 = sum2 + this.desserts[i].originalPrice
       }
-      return sum1
+      return sum2
     },
   },
   created() {
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
+    if(goods.state.payList[0].cartItemId == null) {
+      this.desserts[0].count = 1
+    }
   }
 };
 </script>
