@@ -72,6 +72,7 @@
                       type="text"
                       @click:append-outer="add_label"
                       outlined
+                        :rules="[rules.only]"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="7" class="ml-7 pt-6 flow-row justify-start">
@@ -247,7 +248,7 @@ export default {
         isThirdOrderAsc: null,
         after: null,
         before: null,
-        page: 0,
+        page: 1,
         limit: this.limit,
         searchStrategy: 2,
       },
@@ -268,6 +269,22 @@ export default {
       dates: [],
       menu: false,
       more: true,
+
+      rules: {
+        required: value => !!value || 'Required',
+        counter: value => value.length <= 20 || 'Max 20 characters',
+        number: value => {
+          const pattern = /^[0-9]+$/;
+          return pattern.test(value)||"请输入整数";
+        },
+        float: value=>{
+          const pattern = /^[0-9]+(.[0-9]+)?$/;
+          return pattern.test(value)||"请输入数字";
+        },
+        only: value=>{
+          return this.user_defined_label.indexOf(value)===-1||"标签已存在";
+        }
+      }
     };
   },
   components: {

@@ -1,9 +1,12 @@
 import service from "@/utils/request";
-
+import qs from "qs";
 export function search(searchInfo) {
     return service({
         url: "request/request/search",
-        params: searchInfo
+        params: searchInfo,
+        paramsSerializer: params => {
+            return qs.stringify(params, { indices: false })
+        }
     });
 }
 

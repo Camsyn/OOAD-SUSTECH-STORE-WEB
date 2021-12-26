@@ -159,7 +159,7 @@ export default {
     login(){
       this.$store.dispatch("Login", this.loginn).then(
           (res) => {
-            console.log("login success")
+
             this.$store.dispatch("setupChat", this.loginn.username);
             this.$store.dispatch("renew");
             this.$store.commit("SET_NAME", this.loginn.username);
@@ -167,10 +167,9 @@ export default {
             this.$store.dispatch("getMyInfo").then(res=>{
 
             });
-          }).catch(
-          (err) => {
+          }).catch((err) => {
             console.log(err)
-          })
+          });
     },
 
     regist(){

@@ -33,7 +33,6 @@ const goods = {
 
     actions: {
         search(context, searchInfo) {
-            context.commit("updateHistory", searchInfo);
             return new Promise((resolve, reject)=>{
                 search(searchInfo).then(res=>{
                     resolve(res.data);
@@ -41,24 +40,29 @@ const goods = {
                     reject(err);
                 });
             });
-            // return search(searchInfo);
         },
 
         push(context, info){
             return push(info);
         },
 
-        sbPushed(context){
-          let sch = {
-              searchStrategy: 4,
-              page:0,
-              limit:99,
-              publishers: [context.state.name],
-              firstOrder: "update_time",
-              isFirstOrderAsc: true,
-          }
-
-          return search(sch);
+        sbPushed(context, name){
+            let my = {
+                page: 0,
+                limit: 99,
+                searchStrategy: 4,
+                firstOrder: "update_time",
+                isAmbiguous: false,
+                publishers: [name],
+            };
+            console.log(my)
+            return new Promise((resolve, reject)=>{
+                search(my).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
         },
     }
 }

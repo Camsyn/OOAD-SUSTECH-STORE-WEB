@@ -3,26 +3,29 @@ import {register, exist} from "../../api/register";
 import head from "../../assets/head.jpeg";
 const user = {
   state: {
-    name: undefined,
-    email: undefined,
-    avatar: undefined,
-    token: undefined,
-    tokenHead: undefined,
-    refreshToken: undefined,
+    name: null,
+    email: null,
+    avatar: null,
+    token: null,
+    tokenHead: null,
+    refreshToken: null,
     liyuan: 0,
     credit: 0,
-    description: undefined,
-    nickname: undefined,
-    paycode:undefined,
+    description: null,
+    nickname: null,
+    paycode:null,
     userInfos: new Map(),
     tracer: 0,
   },
 
   getters:{
-    token: state => {
-      return state.token;
-    },
-    tokenHead: state => {
+    name: state=>{
+      return state.name;
+  },
+      token: state => {
+    return state.token;
+  },
+      tokenHead: state => {
       return state.tokenHead;
     },
     refresh_token: state => {
@@ -38,7 +41,8 @@ const user = {
       state.tracer++;
     },
     SET_NAME: (state, name) => {
-      state.name = name;
+      state.name = parseInt(name);
+      // console.log(state.name)
     },
     SET_USER_INFO: (state, {sid, liyuan, credit, email, headImage, payCode, description, nickname})=>{
       state.name = sid;
