@@ -1,8 +1,17 @@
-import {add,getItem,deleteItem} from "../../api/cartltem";
+import {add,getItem,deleteItem,buy,satisfy} from "../../api/cartltem";
 
 const cartItem = {
     state : {},
     actions: {
+        buy(context,data) {
+            return new Promise((resolve, reject)=>{
+                buy(data).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
         addInfo(context,addIo){
             return add(addIo)
         },
@@ -27,6 +36,15 @@ const cartItem = {
             return new Promise((resolve, reject)=>{
                 deleteItem(cartItemId).then(res=>{
 
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+        satisfy(context,data){
+            return new Promise((resolve, reject)=>{
+                satisfy(cartItemId).then(res=>{
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);

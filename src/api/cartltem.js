@@ -22,3 +22,18 @@ export function deleteItem(cartItemId){
         params:cartItemId,
     })
 }
+
+export function buy(details){
+    return service({
+        method: 'put',
+        url: 'request/request/pull',
+        params:details,
+    })
+}
+export function satisfy(data) {
+    return service({
+        method: 'put',
+        url: 'request/cart/satisfy',
+        params: data
+    })
+}

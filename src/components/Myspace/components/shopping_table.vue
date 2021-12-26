@@ -134,6 +134,7 @@
 </template>
 
 <script>
+import goods from "../../../store/modules/goods";
 export default {
   name: "shopping_table",
   data() {
@@ -196,6 +197,10 @@ export default {
     PayFor() {
       if (this.multipleSelection.length==0) {
         this.$message.error('已选商品数量不能为0');
+      }
+      else  {
+        this.$store.commit('setpayList',this.multipleSelection)
+        this.$router.push('/pay')
       }
     }
   },

@@ -62,11 +62,7 @@ const routes = [
     component: Demo
 
   },
-  {
-    path:"/Pay",
-    name:"Pay",
-    component: Pay
-  },
+
   {
     path: "/testdialog",
     name: "testdialog",
@@ -235,6 +231,11 @@ const routes = [
       {
         path: "notification",
         component: Notifications,
+      },
+      {
+        path:"/Pay",
+        name:"Pay",
+        component: Pay
       },
       {
         path: "/GoodsDetails",
