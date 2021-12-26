@@ -335,13 +335,13 @@ export default {
     },
 
     random(){
-      console.log("randow")
       let tmp = {
         page: this.page,
         limit: this.limit,
         isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
+        // console.log(res);
         this.show(res);
       }).catch(err=>{
         console.log(err);
