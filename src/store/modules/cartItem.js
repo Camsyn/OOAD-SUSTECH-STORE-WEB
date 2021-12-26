@@ -1,5 +1,7 @@
-import {add,getItem,deleteItem} from "../../api/cartltem";
-
+import {add,getItem,deleteItem,satisfy,buy} from "../../api/cartltem";
+paramsSerializer: params => {
+    return qs.stringify(params, { indices: false })
+}
 const cartItem = {
     state : {},
     actions: {
@@ -26,7 +28,24 @@ const cartItem = {
         deleteItem(context,cartItemId) {
             return new Promise((resolve, reject)=>{
                 deleteItem(cartItemId).then(res=>{
-
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+        satisfy(context,data){
+            return new Promise((resolve, reject)=>{
+                satisfy(data).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+        buy(context,data) {
+            return new Promise((resolve, reject)=>{
+                buy(data).then(res=>{
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);

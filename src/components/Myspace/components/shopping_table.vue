@@ -98,6 +98,24 @@
       </el-table-column>
 
       <el-table-column
+          label="数目"
+          width="150">
+
+        <template slot-scope="scope">
+          <el-input-number v-model="scope.row.cartItemCount" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+        </template>
+      </el-table-column>
+
+      <el-table-column
+          prop="cartItemCreateTime"
+          label="加入购物车时间"
+          width="120"
+          show-overflow-tooltip>
+      </el-table-column>
+
+
+
+      <el-table-column
           fixed="right"
           label="操作"
           width="120">
@@ -134,6 +152,7 @@
 </template>
 
 <script>
+import goods from "../../../store/modules/goods";
 export default {
   name: "shopping_table",
   data() {
@@ -177,15 +196,23 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-        rows.splice(index, 1)
+
         let data = {
           cartItemId: rows[index].cartItemId
         }
-        this.$store.dispatch('deleteItem',data)
+        rows.splice(index, 1)
+        console.log(data)
+        this.$store.dispatch('deleteItem',data).then((data) => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+        }).catch((err) => {
+          this.$message({
+            type: 'info',
+            message: err
+          });
+        })
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -196,6 +223,10 @@ export default {
     PayFor() {
       if (this.multipleSelection.length==0) {
         this.$message.error('已选商品数量不能为0');
+      }
+      else  {
+        this.$store.commit('setpayList',this.multipleSelection)
+        this.$router.push('/pay')
       }
     }
   },
@@ -209,6 +240,7 @@ export default {
           this.tableData.push(data[i]);
         });
       }
+      console.log(this.tableData)
     })
   }
 }

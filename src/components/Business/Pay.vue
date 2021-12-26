@@ -1,34 +1,209 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      class="pt-4"
-      color="grey lighten-3"
-      mini-variant
-    >
-      <v-avatar
-        v-for="n in 6"
-        :key="n"
-        :color="`grey ${n === 1 ? 'darken' : 'lighten'}-1`"
-        :size="n === 1 ? 36 : 20"
-        class="d-block text-center mx-auto mb-9"
-      ></v-avatar>
-    </v-navigation-drawer>
+  <div class="main10">
+    <Pay_header></Pay_header>
 
-    <v-main>
-      <!--  -->
-    </v-main>
-  </v-app>
+    <div class="Goodsdetails">
+      <div class="title">
+        订单复核
+      </div>
+      <v-data-table
+          :headers="headers"
+          :items="desserts"
+          :items-per-page="5"
+          class="elevation-1 details2"
+      ></v-data-table>
+
+      <div class="PayMethod">
+        <div class="title3">支付方式 :</div>
+        <el-radio-group v-model="radio1">
+          <el-radio-button label="上海" class="button"></el-radio-button>
+          <el-radio-button label="北京" class="button"></el-radio-button>
+          <el-radio-button label="广州" class="button"></el-radio-button>
+          <el-radio-button label="深圳" class="button"></el-radio-button>
+        </el-radio-group>
+      </div>
+
+      <div class="price">
+        <div class="pricetitle">商品原价:</div>
+        <div class="OldPrice">￥{{Ori_sum}}</div>
+
+        <div class="pricetitle">商品现价:</div>
+        <div class="OldPrice">
+          ￥{{Now_sum}}
+        </div>
+
+        <div class="pricetitle">应付总金额:</div>
+        <div class="payPrice">￥{{Now_sum}}</div>
+      </div>
+
+      <el-button type="danger" round class="button3"  @click = 'buy'>购买</el-button>
+    </div>
+  </div>
 </template>
 
 <script>
+import Pay_header from "./Pay_header";
+import user from "../../store/modules/user";
+import goods from "../../store/modules/goods";
 export default {
-  name: "Pay"
+  name: "Pay",
+  components: {
+    Pay_header
+  },
+  data () {
+    return {
+      radio1: '上海',
+      liyuan:0,
+      headers: [
+        {
+          text: '商品名',
+          align: 'start',
+          sortable: false,
+          value: 'title',
+        },
+        { text: '原价', value: 'originalPrice' },
+        { text: '现价', value: 'exactPrice' },
+        { text: '发布者', value: 'pusherInfo.nickname' },
+        { text: '购买数量' ,value: 'count'},
+      ],
+      desserts: [],
+    }
+  },
+  methods: {
+    buy() {
+      this.$confirm('您是否要购买这些商品', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+          let data = [1]
+          if(this.desserts[0].cartItemId !== null) {
+            for (let i = 0; i < this.desserts.length; i++) {
+              data.push(this.desserts[i].cartItemId)
+            }
+          }
+          if (data[0].cartItemId == null) {
+            data = {
+              requestId:this.desserts[0].id,
+              count: 1,
+            }
+            this.$store.dispatch('buy',data).then((data) => {
+              this.$message({
+                type: 'success',
+                message: '订单成功!',
+              })
+              this.$router.push('/home')
+            }).catch(err=>{
+              this.$message({
+                type: 'warning',
+                message: err
+              })
+            });
+          }
+          else {
+            this.$store.dispatch('satisfy',data).then((data) => {
+              this.$message({
+                type: 'success',
+                message: '订单成功!'
+              })
+              this.$router.push('/home')
+            }).catch(err=>{
+              this.$message({
+                type: 'warning',
+                message: err
+              })
+            });
+            this.$router.push('/home')
+          }
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消订单'
+        });
+      });
+    }
+  },
+  computed: {
+    Now_sum : function(){
+      let sum1 = 0;
+      for (let i = 0; i < this.desserts.length ; i++) {
+        sum1 = sum1 + this.desserts[i].exactPrice
+      }
+      return sum1
+    },
+    Ori_sum : function(){
+      let sum2 = 0;
+      for (let i = 0; i < this.desserts.length ; i++) {
+        sum2 = sum2 + this.desserts[i].originalPrice
+      }
+      return sum2
+    },
+  },
+  created() {
+    this.liyuan = user.state.liyuan
+    this.desserts = goods.state.payList
+    if(goods.state.payList[0].cartItemId == null) {
+      this.desserts[0].count = 1
+    }
+  }
 };
 </script>
 
 <style scoped>
-
-
+.main10 {
+  background: white;
+  display: inline-block;
+  width: 100%;
+}
+.OldPrice {
+  margin-right: 5px;
+  margin-top: 20px;
+  float: right;
+}
+.Goodsdetails {
+  background: white;
+  display: inline-block;
+  width: 100%;
+}
+.title {
+  margin-left: 20px;
+}
+.details2 {
+  margin-top: 20px;
+}
+.PayMethod {
+  height: 100px;
+  border-top: 4px solid #DCDFE6;
+  border-bottom: 4px solid #DCDFE6;
+}
+.button {
+  border: 1px solid #DCDFE6;
+  margin-left: 30px;
+}
+.title3 {
+  margin-left: 30px;
+  margin-top: 40px;
+  display: inline-block;
+}
+.price {
+  height: 100px;
+}
+.pricetitle {
+  margin-top: 20px;
+  margin-left: 80%;
+  display: inline-block;
+}
+.payPrice {
+  color: red;
+  font-size: 20px;
+  margin-right: 5px;
+  margin-top: 20px;
+  float: right;
+}
+.button3 {
+  width: 200px;
+  height: 51px;
+  margin-top: 30px;
+  margin-left: 45%;
+}
 </style>
