@@ -14,13 +14,11 @@
       <el-table-column
           width="120" >
         <template slot-scope="scope">
-          {{123}}
-<!--          <el-image class="logo"-->
-<!--                    v-if="scope.row.images.length!==0"-->
-<!--                    style="width: 100px; height: 100px"-->
-<!--                    :src="scope.row.images[0]"-->
-<!--                    @click="detile"-->
-<!--          ></el-image>-->
+          <el-image class="logo"
+                    style="width: 100px; height: 100px"
+                    :src="scope.row.images[0]"
+                    @click="detile"
+          ></el-image>
         </template>
       </el-table-column>
       <el-table-column
@@ -54,29 +52,30 @@
       </el-table-column>
 
 
-<!--      <el-table-column-->
-<!--          label="发布者"-->
-<!--          width="300">-->
-<!--        <template slot-scope="scope">-->
+      <el-table-column
+          label="发布者"
+          width="300">
+        <template slot-scope="scope">
 <!--          <div class="User">-->
-<!--            <a href="#">-->
+<!--            <a>-->
+<!--              -->
 <!--              <el-image-->
 <!--                  style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"-->
-<!--                  :src="scope.row.User.picture"-->
+<!--                  :src="scope.row.head"-->
 <!--                  @click="mycircle"-->
 <!--              ></el-image>-->
 <!--            </a>-->
 <!--            <div class="UserDetails">-->
 <!--              <div class="UserDetails1">-->
 <!--                <span></span>-->
-<!--                <div class="text-h6" v-text="scope.row.User.name"></div>-->
+<!--                <div class="text-h6" v-text="scope.row.nickname"></div>-->
 <!--                <v-rating-->
-<!--                    v-model="scope.row.User.value"-->
+<!--                    v-model="scope.row.credit"-->
 <!--                    background-color="orange lighten-3"-->
 <!--                    color="orange"-->
 <!--                ></v-rating>-->
 <!--&lt;!&ndash;                <el-rate&ndash;&gt;-->
-<!--&lt;!&ndash;                    v-model="scope.row.User.value"&ndash;&gt;-->
+<!--&lt;!&ndash;                    v-model="scope.row.pusherInfo.credit"&ndash;&gt;-->
 <!--&lt;!&ndash;                    show-text&ndash;&gt;-->
 <!--&lt;!&ndash;                    disabled>&ndash;&gt;-->
 <!--&lt;!&ndash;                </el-rate>&ndash;&gt;-->
@@ -84,8 +83,9 @@
 <!--              <div class="credit"></div>-->
 <!--            </div>-->
 <!--          </div>-->
-<!--         </template>-->
-<!--      </el-table-column>-->
+          {{ scope.row.pusherInfo?scope.row.pusherInfo.credit:123 }}
+         </template>
+      </el-table-column>
 
 
 
@@ -172,7 +172,23 @@ export default {
       this.multipleSelection = val;
     },
     deleteRow(index, rows) {
-      rows.splice(index, 1);
+      this.$confirm('此操作将会将该商品移出购物车, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '删除成功!'
+        })
+        rows.splice(index, 1)
+        this.$store.dispatch('deleteItem',{})
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
     PayFor() {
       if (this.multipleSelection.length==0) {
@@ -183,12 +199,16 @@ export default {
   mounted() {
     this.$store.dispatch('getCart',this.search).then((data) => {
       this.tableData = data
-      console.log(data)
       for (let i = 0; i <this.tableData.length ; i++) {
         this.tableData[i].updateTime = this.tableData[i].updateTime.substr(0,10)
         this.tableData[i].cartItemCreateTime  = this.tableData[i].cartItemCreateTime.substr(0,10)
-        for (let j = 0; j <this.tableData[i].images.length; j++) {
+        if (this.tableData[i].images == null ){
+          this.tableData[i].images = [this.url]
         }
+        this.$store.dispatch("getInfoOf", this.tableData[i].pusher).then(rees=>{
+          this.tableData[i].pusherInfo = rees;
+          this.tableData[i].pusherInfo.credit =  this.tableData[i].pusherInfo.credit * 5/ 100;
+        });
       }
     })
   }

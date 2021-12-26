@@ -1,4 +1,4 @@
-import {add,getItem} from "../../api/cartltem";
+import {add,getItem,deleteItem} from "../../api/cartltem";
 
 const cartItem = {
     state : {},
@@ -14,8 +14,16 @@ const cartItem = {
                     reject(err);
                 });
             });
-            // return search(searchInfo);
         },
+        deleteItem(context,cartItemId) {
+            return new Promise((resolve, reject)=>{
+                deleteItem(cartItemId).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        }
     }
 }
 export default cartItem;

@@ -14,3 +14,10 @@ export  function  getItem() {
         url: 'request/cart/get',
     })
 }
+
+export function deleteItem(cartItemId){
+    return service({
+        method: 'delete',
+        url: 'request/cart/delete'
+    })
+}
