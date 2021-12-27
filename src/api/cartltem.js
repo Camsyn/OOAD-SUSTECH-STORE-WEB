@@ -40,3 +40,11 @@ export function  buy(data){
         params: data
     })
 }
+
+export function modifyCount(data) {
+    return service({
+        method: 'put',
+        url:'request/cart/modify/count',
+        params: data
+    })
+}

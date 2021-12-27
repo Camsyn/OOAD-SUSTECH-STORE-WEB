@@ -1,4 +1,4 @@
-import {search, push, close} from "../../api/goods";
+import {search, push, close, open, update} from "../../api/goods";
 
 const goods = {
     state:{
@@ -50,9 +50,23 @@ const goods = {
             return push(info);
         },
 
+        updateRq(context, info){
+            return update(info);
+        },
+
         close(context, id) {
             return new Promise((resolve, reject)=>{
                 close(id).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+
+        open(context, id) {
+            return new Promise((resolve, reject)=>{
+                open(id).then(res=>{
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);

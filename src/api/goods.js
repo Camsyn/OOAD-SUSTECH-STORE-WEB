@@ -18,10 +18,25 @@ export function push(info){
     });
 }
 
+export function update(info){
+    return service({
+        method: "put",
+        url: "request/request/update",
+        data: info
+    });
+}
+
 export function close(requestId){
     return service({
         method: "put",
         url: "request/request/close",
+        params: {requestId}
+    });
+}
+export function open(requestId) {
+    return service({
+        method: "put",
+        url: "request/request/open",
         params: {requestId}
     });
 }

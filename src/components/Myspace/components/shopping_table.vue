@@ -14,11 +14,12 @@
       <el-table-column
           width="120" >
         <template slot-scope="scope">
-          <el-image class="logo"
-                    style="width: 100px; height: 100px"
-                    :src="scope.row.images[0]"
-                    @click="detile"
-          ></el-image>
+          <a @click="detile(scope.$index,tableData)">
+            <el-image class="logo"
+                      style="width: 100px; height: 100px"
+                      :src="scope.row.images[0]"
+            ></el-image>
+          </a>
         </template>
       </el-table-column>
       <el-table-column
@@ -30,13 +31,13 @@
       <el-table-column
           prop="count"
           label="总量"
-          width="120">
+          width="80">
       </el-table-column>
 
       <el-table-column
           prop="saleCount"
           label="已卖"
-          width="120">
+          width="80">
       </el-table-column>
 
       <el-table-column
@@ -59,7 +60,6 @@
         <template slot-scope="scope">
                     <div class="User">
                       <a>
-
                         <el-image
                             style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
                             :src="scope.row.pusherInfo.headImage"
@@ -102,17 +102,16 @@
           width="150">
 
         <template slot-scope="scope">
-          <el-input-number v-model="scope.row.cartItemCount" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number>
+          <el-input-number v-model="scope.row.cartItemCount" @change="handleChange" :min="1" :max='scope.row.count - scope.row.saleCount' label="描述文字"
+          size="small"></el-input-number>
         </template>
       </el-table-column>
 
       <el-table-column
-          prop="cartItemCreateTime"
-          label="加入购物车时间"
-          width="120"
-          show-overflow-tooltip>
+          prop="tradeMethod"
+          label="支付方式"
+          width="150">
       </el-table-column>
-
 
 
       <el-table-column
@@ -166,14 +165,17 @@ export default {
     sum : function(){
       let sum1 = 0;
       for (let i = 0; i < this.multipleSelection.length ; i++) {
-        sum1 = sum1 + this.multipleSelection[i].exactPrice
+        sum1 = sum1 + this.multipleSelection[i].exactPrice * this.multipleSelection[i].cartItemCount
       }
       return sum1
     },
   },
   methods: {
-    detile(){
-      this.$router.push({name: "GoodsDetails"});
+    handleChange(){},
+    detile(index,rows){
+      this.$store.commit('setCur',rows[index])
+      goods.state.current.request = rows[index]
+      this.$router.push('/GoodsDetails');
     },
     mycircle(){
       this.$router.push({name: "Circle"});
@@ -201,7 +203,6 @@ export default {
           cartItemId: rows[index].cartItemId
         }
         rows.splice(index, 1)
-        console.log(data)
         this.$store.dispatch('deleteItem',data).then((data) => {
           this.$message({
             type: 'success',
@@ -225,6 +226,19 @@ export default {
         this.$message.error('已选商品数量不能为0');
       }
       else  {
+        for (let i = 0; i <this.multipleSelection.length ; i++) {
+          let data2 = {
+            cartItemId : this.multipleSelection[i].cartItemId,
+            count: this.multipleSelection[i].cartItemCount
+          }
+          this.$store.dispatch('modifyCount',data2).then(() => {
+          }).catch(err => {
+            this.$message({
+              type: 'warning',
+              message: err
+            })
+          })
+        }
         this.$store.commit('setpayList',this.multipleSelection)
         this.$router.push('/pay')
       }
@@ -232,15 +246,25 @@ export default {
   },
   created() {
     this.$store.dispatch('getCart',this.search).then((data) => {
-      console.log(data)
       for (let i = 0; i <data.length ; i++) {
+        if (data[i].tradeType == 0) {
+          data[i].tradeMethod = '第三方支付'
+        }
+        if (data[i].tradeType == 1) {
+          data[i].tradeMethod = '平台代币'
+        }
+        if (data[i].tradeType == 2) {
+          data[i].tradeMethod = '个人收款码'
+        }
+        if (data[i].tradeType == 3) {
+          data[i].tradeMethod = '私下交易'
+        }
         this.$store.dispatch("getInfoOf", data[i].pusher).then(rees=>{
           data[i].pusherInfo = rees;
           data[i].pusherInfo.credit =  data[i].pusherInfo.credit * 5/ 100;
           this.tableData.push(data[i]);
         });
       }
-      console.log(this.tableData)
     })
   }
 }

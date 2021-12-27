@@ -51,10 +51,33 @@ export default {
   methods: {
     changeDetails1() {
       this.$store.commit('setCur',this.MoreProduct[1])
-      console.log(goods.state.current.title)
+      goods.state.current.request = this.MoreProduct[1]
+      this.search.queryStr = goods.state.current.request.title
+      this.$store.dispatch('search',this.search).then((data) => {
+        this.MoreProduct = data
+      })
+      if (this.MoreProduct.length < 3) {
+        this.search.searchStrategy = 0
+        this.search.isRandom = true
+        this.$store.dispatch('search',this.search).then((data) => {
+          this.MoreProduct = data
+        })
+      }
     },
     changeDetails2() {
       this.$store.commit('setCur',this.MoreProduct[2])
+      goods.state.current.request = this.MoreProduct[2]
+      this.search.queryStr = goods.state.current.request.title
+      this.$store.dispatch('search',this.search).then((data) => {
+        this.MoreProduct = data
+      })
+      if (this.MoreProduct.length < 3) {
+        this.search.searchStrategy = 0
+        this.search.isRandom = true
+        this.$store.dispatch('search',this.search).then((data) => {
+          this.MoreProduct = data
+        })
+      }
     }
   },
   data() {
@@ -67,7 +90,7 @@ export default {
       MoreProduct: [],
     }
   },
-  mounted() {
+  created() {
     this.search.queryStr = goods.state.current.request.title
     this.$store.dispatch('search',this.search).then((data) => {
       this.MoreProduct = data

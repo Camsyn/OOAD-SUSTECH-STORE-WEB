@@ -6,6 +6,7 @@ import file from "./modules/file";
 import goods from "./modules/goods";
 import circle from "./modules/circle";
 import cartItem from "./modules/cartItem";
+import order from "./modules/order";
 
 Vue.use(Vuex);
 
@@ -16,7 +17,8 @@ const store = new Vuex.Store({
     file,
     goods,
     circle,
-    cartItem
+    cartItem,
+    order,
   },
 });
 
