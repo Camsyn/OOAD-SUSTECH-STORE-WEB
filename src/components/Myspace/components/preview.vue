@@ -1,7 +1,7 @@
 <template>
   <v-card elevation="0">
     <div v-for="item in show" :key="item.ind">
-      <div v-if="item.text" v-text="item.text" class="pl-4"></div>
+      <div v-if="item.text" v-text="item.text" class="pl-4" style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"></div>
       <v-img :src="item.image" contain></v-img>
     </div>
   </v-card>
