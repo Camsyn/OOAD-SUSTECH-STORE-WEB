@@ -1,5 +1,12 @@
 <template>
     <div class="table">
+      <v-dialog
+          v-model="dialog"
+          width="500"
+      >
+        <upload v-on:close = "dialog=false" :pre-info="edit"></upload>
+      </v-dialog>
+
       <p class="p_text">购物车 ({{tableData.length}})</p>
       <el-table
           :data="tableData"
@@ -54,21 +61,12 @@
             label="操作"
             width="120">
           <template slot-scope="scope">
-            <v-dialog
-                v-model="dialog"
-                width="500"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <el-button
-                    v-bind="attrs"
-                    v-on="on"
-                    size="mini"
-                    type="primary">
-                  编辑
-                </el-button>
-              </template>
-              <upload v-on:close = "dialog=false"></upload>
-            </v-dialog>
+            <el-button
+                @click="editRq(scope.row)"
+                size="mini"
+                type="primary">
+              编辑
+            </el-button>
           </template>
         </el-table-column>
 
@@ -102,7 +100,8 @@ export default {
       multipleSelection: [],
       page: 1,
       limit: 99,
-      dialog: false
+      dialog: false,
+      edit: null,
     }
   },
   computed: {
@@ -163,7 +162,7 @@ export default {
       let my = {
         page: 1,
         limit: 99,
-        searchStrategy: 4,
+        searchStrategy: 0,
         firstOrder: "update_time",
         isAmbiguous: false,
         publishers: [this.$store.getters.name],
@@ -171,6 +170,14 @@ export default {
       console.log(my)
       this.$store.dispatch("search",my).then((data) => {
         this.tableData = data;
+      });
+    },
+    editRq(rq){
+      this.$store.dispatch("close", rq.id).then(res=>{
+        this.dialog=true;
+        this.edit=rq;
+      }).catch(err=>{
+        console.log(err);
       });
     }
   },

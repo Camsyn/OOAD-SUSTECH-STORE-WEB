@@ -1,4 +1,4 @@
-import {search, push} from "../../api/goods";
+import {search, push, close} from "../../api/goods";
 
 const goods = {
     state:{
@@ -48,6 +48,16 @@ const goods = {
 
         push(context, info){
             return push(info);
+        },
+
+        close(context, id) {
+            return new Promise((resolve, reject)=>{
+                close(id).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
         },
 
         sbPushed(context, name){

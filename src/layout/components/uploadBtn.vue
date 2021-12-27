@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import upload from "@/components/upload";
+import upload from "../../components/upload";
 export default {
   components:{upload},
   name: "uploadBtn",
