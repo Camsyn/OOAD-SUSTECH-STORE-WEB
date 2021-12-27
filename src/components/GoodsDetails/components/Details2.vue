@@ -23,6 +23,8 @@
           <el-descriptions-item label="发布日期"><div class="information1">{{Product.updateTime}}</div></el-descriptions-item>
           <el-descriptions-item label="标签"><el-tag size="small"><div class="information1">{{Product.labels[0]}}</div></el-tag></el-descriptions-item>
           <el-descriptions-item label="预估价格"><div class="information1">{{Product.originalPrice}}</div></el-descriptions-item>
+          <el-descriptions-item label="付款方式"><div class="information1">{{Product.tradeMethod}}</div></el-descriptions-item>
+
         </el-descriptions>
       </div>
 
@@ -117,8 +119,31 @@ export default {
       },
     }
   },
-  mounted() {
+  computed: {
+    test() {
+      return goods.state.current.request
+    }
+  },
+  watch: {
+    test: function (newVal,oldVal) {
+      this.Product = newVal
+    }
+  },
+  created() {
     this.Product = goods.state.current.request
+    if (this.Product.tradeType == 0) {
+      this.Product.tradeMethod = '第三方支付'
+    }
+    if (this.Product.tradeType == 1) {
+      this.Product.tradeMethod = '平台代币'
+    }
+    if (this.Product.tradeType == 2) {
+      this.Product.tradeMethod = '个人收款码'
+    }
+    if (this.Product.tradeType == 3) {
+      this.Product.tradeMethod = '私下交易'
+    }
+
     this.Product.updateTime = this.Product.updateTime.substr(0,10)
     this.User = goods.state.current.request.pusherInfo
     this.User.credit = this.User.credit/100 * 5

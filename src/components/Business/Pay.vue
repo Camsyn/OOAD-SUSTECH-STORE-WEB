@@ -64,7 +64,7 @@ export default {
         { text: '原价', value: 'originalPrice' },
         { text: '现价', value: 'exactPrice' },
         { text: '发布者', value: 'pusherInfo.nickname' },
-        { text: '购买数量' ,value: 'count'},
+        { text: '购买数量' ,value: 'cartItemCount'},
       ],
       desserts: [],
     }
@@ -127,14 +127,14 @@ export default {
     Now_sum : function(){
       let sum1 = 0;
       for (let i = 0; i < this.desserts.length ; i++) {
-        sum1 = sum1 + this.desserts[i].exactPrice
+        sum1 = sum1 + this.desserts[i].exactPrice * this.desserts[i].cartItemCount
       }
       return sum1
     },
     Ori_sum : function(){
       let sum2 = 0;
       for (let i = 0; i < this.desserts.length ; i++) {
-        sum2 = sum2 + this.desserts[i].originalPrice
+        sum2 = sum2 + this.desserts[i].originalPrice * this.desserts[i].cartItemCount
       }
       return sum2
     },
@@ -143,7 +143,7 @@ export default {
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
     if(goods.state.payList[0].cartItemId == null) {
-      this.desserts[0].count = 1
+      this.desserts[0].cartItemCount = 1
     }
   }
 };

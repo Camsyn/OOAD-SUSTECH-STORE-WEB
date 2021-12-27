@@ -32,7 +32,17 @@ export default {
       ],
     }
   },
-  mounted() {
+  computed: {
+    test() {
+      return goods.state.current.request
+    }
+  },
+  watch: {
+    test: function (newVal,oldVal) {
+      this.items = goods.state.current.request.images
+    }
+  },
+  created() {
     this.items = goods.state.current.request.images
   }
 }
