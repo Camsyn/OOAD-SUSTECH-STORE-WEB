@@ -172,6 +172,9 @@
           </v-expansion-panel>
         </v-expansion-panels>
         <div class="d-flex justify-center">
+          <v-btn class="mb-3 mx-4" @click="cancel">
+            <span>取消</span>
+          </v-btn>
           <v-btn class="mb-3 mx-4" @click="upload">
             <span>完成</span>
           </v-btn>
@@ -191,6 +194,20 @@ export default {
   data() {
     return {
       uploadInfo: {
+        title: "",
+        desc_: "",
+        type: null,
+        count: 1,
+        saleCount: 0,
+        tradeType: null,
+        category: null,
+        originalPrice: null,
+        exactPrice: null,
+        images: [],
+        video: [],
+        labels: [],
+      },
+      origin: {
         title: "",
         desc_: "",
         type: null,
@@ -235,7 +252,8 @@ export default {
   methods: {
     addFile() {
         this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
-          res = res[0];
+          console.log(res)
+          // res = res[0];
           for (let fl of res) {
             this.uploadInfo.images.push(fl.fileDownloadUri.replace("/downloadFile", ""));
           }
@@ -256,15 +274,23 @@ export default {
       this.uploadInfo.tradeType = this.trade.indexOf(this.uploadInfo.tradeType);
       this.uploadInfo.labels = this.user_defined_label.concat(this.label_all);
       this.uploadInfo.type = this.type.indexOf(this.uploadInfo.type);
-      // console.log(this.uploadInfo);
-      this.$store.dispatch("push", this.uploadInfo).then(res=>{
-        this.uploadInfo.labels = [];
-        this.uploadInfo.images = [];
-        this.uploadInfo.video = [];
-        this.$emit("close");
-      }).catch(err=>{
-        console.log(err);
-      });
+      if (this.uploadInfo.id){
+        this.$store.dispatch("updateRq", this.uploadInfo).then(res=>{
+          this.$emit("close");
+        }).catch(err=>{
+          console.log(err);
+        });
+      }
+      else {
+        this.$store.dispatch("push", this.uploadInfo).then(res=>{
+          this.uploadInfo.labels = [];
+          this.uploadInfo.images = [];
+          this.uploadInfo.video = [];
+          this.$emit("close");
+        }).catch(err=>{
+          console.log(err);
+        });
+      }
     },
     del_label(index) {
       this.user_defined_label.splice(index, 1);
@@ -274,6 +300,16 @@ export default {
       if (this.label_to_add != "" && this.user_defined_label.indexOf(this.label_to_add)===-1) {
         this.user_defined_label.push(this.label_to_add);
         this.label_to_add = "";
+      }
+    },
+
+    cancel(){
+      if (this.uploadInfo.id){
+        this.$store.dispatch("open", this.uploadInfo.id).then(res=>{
+
+        }).catch(err=>{
+          console.log(err);
+        });
       }
     },
   },
@@ -292,8 +328,8 @@ export default {
         this.uploadInfo.type = this.type[this.uploadInfo.type];
         this.uploadInfo.category = this.cata[this.uploadInfo.category];
         this.uploadInfo.tradeType = this.trade[this.uploadInfo.tradeType];
+        return this.preInfo.id;
       }
-      return this.preInfo.id;
     }
   },
 };

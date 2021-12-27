@@ -3,6 +3,7 @@
       <v-dialog
           v-model="dialog"
           width="500"
+          persistent
       >
         <upload v-on:close = "dialog=false" :pre-info="edit"></upload>
       </v-dialog>
@@ -85,7 +86,6 @@
         </el-table-column>
       </el-table>
   </div>
-
 </template>
 
 <script>
