@@ -129,13 +129,14 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+
           let data = [1]
           if(this.desserts[0].cartItemId !== null) {
             for (let i = 0; i < this.desserts.length; i++) {
               data.push(this.desserts[i].cartItemId)
             }
           }
-          if (data[0].cartItemId == null) {
+          if (this.desserts[0].cartItemId == null) {
             data = {
               requestId:this.desserts[0].id,
               count: 1,

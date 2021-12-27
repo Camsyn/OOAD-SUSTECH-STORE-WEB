@@ -112,9 +112,9 @@ export default {
       st: 0,
       info: null,
       loginn: {
-        username: '11910620',
+        username: '11910215',
         email: '',
-        password: '123456'
+        password: '123321'
       },
       register: {
         sid: '',
