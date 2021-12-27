@@ -16,8 +16,8 @@ const circle = {
       {
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
         name: '胡桃',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
+        subtitle:"mdash Wish I could come, but I'm out of town this weekend."
+
       },
       {
         avatar: "https://tse4-mm.cn.bing.net/th/id/OIP-C.rtQNUWTWbvZam02cGcv5lQHaHa?pid=ImgDet&rs=1",

@@ -39,7 +39,7 @@
 
 <script>
 import circle from "../../../../../store/modules/circle";
-
+import user from "../../../../../store/modules/user";
 export default {
   name: "evaluate",
   data:()=>({
@@ -49,17 +49,17 @@ export default {
     all_evaluations(){
       this.$store.dispatch('getMyInfo').then(() => {
         let data = {
-          sid : this.$store.state.nickname,
+          sid : user.state.name,
           page: 0,
           limit: 10,
           sort : false
         }
-        console.log(data)
         this.$store.dispatch('getUserComment', data).then((data) => {
           console.log(data)
         })
       })
       return circle.state.evaluate
+
     }
 
   }

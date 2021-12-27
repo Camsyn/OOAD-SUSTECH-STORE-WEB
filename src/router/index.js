@@ -139,6 +139,28 @@ const routes = [
             name: "publish",
             component: publish,
           },
+          {
+            path:"/PersonalPage",
+            name:"PersonalPage",
+            component: PersonalPage,
+            children:[
+              {
+                path:"/PersonalPage/treasure",
+                name:"treasure",
+                component:treasure,
+              },
+              {
+                path:"/PersonalPage/evaluate",
+                name:"evaluate",
+                component:evaluate,
+              },
+              {
+                path:"/PersonalPage/dynamic",
+                name:"dynamic",
+                component:dynamic,
+              }
+            ]
+          },
         ],
       },
       {
@@ -170,28 +192,6 @@ const routes = [
             path:"/circle/PublishCircle",
             name:"PublishCircle",
             component: PublishCircle,
-          },
-          {
-            path:"/circle/PersonalPage",
-            name:"PersonalPage",
-            component: PersonalPage,
-            children:[
-              {
-                path:"/circle/PersonalPage/treasure",
-                name:"treasure",
-                component:treasure,
-              },
-              {
-                path:"/circle/PersonalPage/evaluate",
-                name:"evaluate",
-                component:evaluate,
-              },
-              {
-                path:"/circle/PersonalPage/dynamic",
-                name:"dynamic",
-                component:dynamic,
-              }
-            ]
           },
           {
             path:"/circle/Customer",

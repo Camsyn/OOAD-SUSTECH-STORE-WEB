@@ -4,7 +4,6 @@ import head from "../../assets/head.jpeg";
 
 const user = {
   state: {
-    sid: 0,
     name: null,
     email: null,
     avatar: null,
@@ -21,9 +20,6 @@ const user = {
   },
 
   getters:{
-    name: state=>{
-      return state.name;
-  },
     token: state => {
     return state.token;
   },
@@ -41,6 +37,7 @@ const user = {
       let t = state.tracer;
       return state.userInfos.get(id);
     }
+
   },
   mutations: {
     TRACE: (state)=>{
