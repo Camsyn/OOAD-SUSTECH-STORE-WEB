@@ -939,9 +939,10 @@ const circle = {
     MyInfoUpload(state,{form}){
       state.myInfo=form
     },
-    PublishCircle(state,{form}){
-      console.log("form:",form)
-      state.dynamicPool.push(form)
+    PublishCircle(state,data){
+      console.log("form:",data)
+      // form['tag']='game'
+      state.dynamicPool.push(data)
     }
   },
   actions: {

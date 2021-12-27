@@ -176,11 +176,10 @@ export default {
   }),
   methods:{
     publish(){
-      this.dynamic.id=666
-      this.dynamic.tag='game'
-      console.log("tag:",this.dynamic.tag)
-      let item=this.dynamic
-      this.$store.commit('PublishCircle',{item})
+      console.log('?')
+      this.dynamic.id=Math.floor(Math.random()*200+100);
+      console.log("Tag:",this.dynamic.tag)
+      this.$store.commit('PublishCircle', this.dynamic)
     }
   }
 };
