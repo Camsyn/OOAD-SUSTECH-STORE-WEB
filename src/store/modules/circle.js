@@ -1,4 +1,4 @@
-
+import {post,postComment,Delete,commentDelete,AllgetLatest} from '../../api/circle'
 
 const circle = {
   state: {
@@ -946,11 +946,50 @@ const circle = {
     }
   },
   actions: {
+
     addfollow( {commit} , { item } ){
       commit('FAdd',{ item })
     },
     addunfollow( {commit} , { item } ){
       commit('UAdd',{ item })
+    },
+    postComment(context, msg) {
+      return new Promise((resolve, reject)=>{
+        postComment(msg).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+    Delete(context, msg) {
+      return new Promise((resolve, reject)=>{
+        Delete(msg).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+    commentDelete(context, msg) {
+      return new Promise((resolve, reject)=>{
+        commentDelete(msg).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+    AllgetLatest(context, msg) {
+      return new Promise((resolve, reject)=>{
+        AllgetLatest(msg).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
     },
 
   }

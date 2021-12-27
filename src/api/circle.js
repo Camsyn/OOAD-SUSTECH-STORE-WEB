@@ -1,37 +1,42 @@
 import service from "../utils/request";
 
 export function post(msg){
-
+    return service({
+        method: 'post',
+        url: 'chat/circle/post',
+        params:msg,
+    })
 }
 
 export function postComment(msg){
+    return service({
+        method: 'post',
+        url: 'chat/circle/comment/post',
+        params:msg,
+    })
 
 }
 
-export function getLatestOf(n){
-
+export function Delete(msg){
+    return service({
+        method: 'delete',
+        url: 'chat/circle/delete',
+        params:msg,
+    })
 }
 
-export function getLatestAll(n){
-
+export function commentDelete(msg){
+    return service({
+        method: 'delete',
+        url: 'chat/circle/comment/delete',
+        params:msg,
+    })
 }
 
-export function getBeforeOf(n){
-
-}
-
-export function getBeforeAll(n){
-
-}
-
-export function getCommentBeforeOf(n){
-
-}
-
-export function getCommentBeforeAll(n){
-
-}
-
-export function msgToString(){
-
+export function AllgetLatest(n){
+    return service({
+        method: 'get',
+        url: 'chat/circle/all/getLatest',
+        params:n,
+    })
 }
