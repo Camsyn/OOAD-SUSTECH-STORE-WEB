@@ -40,6 +40,14 @@
       </el-table-column>
 
       <el-table-column
+          label="状态"
+          width="150">
+        <template slot-scope="scope">
+          <div>{{stats[scope.row.state]}}</div>
+        </template>
+      </el-table-column>
+
+      <el-table-column
           fixed="right"
           label="操作"
           width="120">
@@ -67,6 +75,7 @@ export default {
       limit: 9,
       dialog: false,
       edit: null,
+      stats:["准备中","已发布","已完成","审核中","已中断"]
     }
   },
   computed: {

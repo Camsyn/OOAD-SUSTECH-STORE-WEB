@@ -319,6 +319,7 @@ export default {
       //   res.pop();
       // }
       this.page++;
+      this.addMore();
       if (clear){
         this.commodities0 = [];
         this.commodities1 = [];
@@ -335,11 +336,9 @@ export default {
     },
 
     random(){
-      console.log("rand")
       let tmp = {
         page: this.page,
         limit: this.limit,
-        isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
         if (res.length===0){
@@ -347,7 +346,6 @@ export default {
           return;
         }
         this.show(res);
-        this.addMore();
       }).catch(err=>{
         console.log(err);
       });
