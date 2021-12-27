@@ -1,10 +1,24 @@
 <template>
-  <div>
-    {{tk}}
-    <v-btn class="primary" @click="setup">SET_up</v-btn>
-    <v-btn class="primary" @click="test">test</v-btn>
-  </div>
+  <div class="table">
+    <el-table
+        :data="tableData"
+        tooltip-effect="dark"
+        style="width: 100%"
+       >
 
+      <el-table-column
+          label="总量"
+          width="120">
+      </el-table-column>
+
+
+    </el-table>
+    <el-pagination
+        small
+        layout="prev, pager, next"
+        :total="50">
+    </el-pagination>
+  </div>
 </template>
 
 <script>
@@ -16,7 +30,8 @@ name: "testStore",
     haha: [1],
     recvId: "11911626",
     msg: "hello! again!",
-    type: 0
+    type: 0,
+    tableData: [1,2,3,4,5,6,7,8]
     }
   },
 

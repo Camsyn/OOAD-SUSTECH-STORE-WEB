@@ -1,6 +1,7 @@
 import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo} from "../../api/user";
 import {register, exist} from "../../api/register";
 import head from "../../assets/head.jpeg";
+
 const user = {
   state: {
     name: null,
@@ -34,6 +35,10 @@ const user = {
     myInfo: state=>{
       let t = state.tracer;
       return state.userInfos.get(state.name);
+    },
+    infoOf: state=>id=>{
+      let t = state.tracer;
+      return state.userInfos.get(id);
     }
   },
   mutations: {
@@ -135,19 +140,23 @@ const user = {
 
     getInfoOf(context, id){
       return new Promise((resolve, reject)=>{
-        getUserInfo(id).then(res => {
-          res = res.data;
-          if (!res.headImage){
-            res.headImage = head;
-          }
-          if (!res.nickname){
-            res.nickname = res.sid.toString();
-          }
-          context.commit("SET_INFO_OF", res);
-          resolve(res);
-        }).catch(err => {
-          console.log(err);
-        });
+        if (context.state.userInfos.has(id)){
+          resolve(context.getters.infoOf(id));
+        }else{
+          getUserInfo(id).then(res => {
+            res = res.data;
+            if (!res.headImage){
+              res.headImage = head;
+            }
+            if (!res.nickname){
+              res.nickname = res.sid.toString();
+            }
+            context.commit("SET_INFO_OF", res);
+            resolve(res);
+          }).catch(err => {
+            console.log(err);
+          });
+        }
       });
     },
 

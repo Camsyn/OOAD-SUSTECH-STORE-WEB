@@ -2,14 +2,21 @@
   <div class="table">
     <p class="p_text">我卖出的 ({{tableData.length}})</p>
     <el-table
+        empty-text="暂无数据"
         :data="tableData"
         tooltip-effect="dark"
         style="width: 100%"
-        @selection-change="handleSelectionChange">
+    >
       <el-table-column
           label="商品名称"
           width="150">
         <template slot-scope="scope">{{ scope.row.requestTitle }}</template>
+      </el-table-column>
+
+      <el-table-column
+          prop="puller"
+          label="买家"
+          width="120">
       </el-table-column>
 
       <el-table-column
@@ -38,7 +45,7 @@
           width="120">
         <template slot-scope="scope">
           <el-button
-              @click="editRq(scope.row)"
+              @click="confirm(scope.row.id)"
               size="mini"
               type="primary">
             确认
@@ -57,7 +64,7 @@ export default {
       tableData: [],
       multipleSelection: [],
       page: 1,
-      limit: 99,
+      limit: 9,
       dialog: false,
       edit: null,
     }
@@ -73,41 +80,18 @@ export default {
     mycircle(){
       this.$router.push({name: "Circle"});
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
-    deleteRow(index, rows) {
-      this.$confirm('此操作将会将该商品移出购物车, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-        rows.splice(index, 1)
-        this.$store.dispatch('deleteItem',{})
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        });
+
+    confirm(id){
+      this.$store.dispatch("confirmPush", id).then(res=>{
+
+      }).then(err=>{
+        console.log(err);
       });
     },
-    
 
     getPushed(){
       this.$store.dispatch("getPush", {page: this.page, size: this.limit}).then((data) => {
+        data = data.data;
         this.tableData = data;
       });
     },

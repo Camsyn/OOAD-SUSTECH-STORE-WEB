@@ -4,7 +4,7 @@
     <div style="padding: 10px">
       <v-card
         class="mx-auto"
-        v-for="(item,i) in hotsharing"
+        v-for="(item,i) in CartonList"
         :key="i"
       >
         <v-col>
@@ -133,6 +133,8 @@
 </template>
 
 <script>
+import circle from "../../../../store/modules/circle";
+
 export default {
   name: "carton",
   data: () => ({
@@ -210,46 +212,21 @@ export default {
   }),
   methods:{
     handleClick(item){
-      item.show1=!item.show1
-      if(item.show1){
-        item.heatColor="pink";
-        item.heartNum=item.heartNum+1;
-      }
-      else{
-        item.heatColor="gray";
-        item.heartNum=item.heartNum-1;
-
-      }
+      this.$store.commit('dynamicClick1',{item})
     },
     handleClick2(item){
-      item.show2=!item.show2
-      if(item.show2){
-        item.messageColor="orange";
-        // this.messageNum=this.messageNum+1;
-      }
-      else{
-        item.messageColor="gray";
-        // this.messageNum=this.messageNum-1;
-      }
+      this.$store.commit('dynamicClick2',{item})
     },
     handleClick3(item){
-      item.show3=!item.show3
-      if(item.show3){
-        item.sharingColor="blue";
-        // this.sharingNum=this.sharingNum+1;
-      }
-      else{
-        item.sharingColor="gray";
-        // this.sharingNum=this.sharingNum-1;
-      }
+      this.$store.commit('dynamicClick3',{item})
     },
     reply_click(item){
-      item.repy_items.push({
-        text:'Me',
-        icon: 'mdi-account' ,
-        message:item.textarea,
-      })
-
+      this.$store.commit('dynamicreply_click',{item})
+    }
+  },
+  computed:{
+    CartonList(){
+      return circle.state.dynamicPool.filter(item=>item.tag==="carton")
     }
   }
 };
