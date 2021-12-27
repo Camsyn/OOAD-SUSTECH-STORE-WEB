@@ -259,7 +259,7 @@ export default {
       srt: 1,
       buySell: "收",
 
-      page: 0,
+      page: 1,
       height: 0,
       commodities0: [],
       commodities1: [],
@@ -313,12 +313,12 @@ export default {
     },
 
     show(res, clear = false){
-      if (res.length <= this.limit){
-        this.more = false;
-      }else {
-        res.pop();
-      }
-
+      // if (res.length <= this.limit){
+      //   this.more = false;
+      // }else {
+      //   res.pop();
+      // }
+      this.page++;
       if (clear){
         this.commodities0 = [];
         this.commodities1 = [];
@@ -335,14 +335,19 @@ export default {
     },
 
     random(){
+      console.log("rand")
       let tmp = {
         page: this.page,
         limit: this.limit,
         isRandom: true,
       }
       this.$store.dispatch("search", tmp).then(res=>{
-        // console.log(res);
+        if (res.length===0){
+          this.more = false;
+          return;
+        }
         this.show(res);
+        this.addMore();
       }).catch(err=>{
         console.log(err);
       });
@@ -350,7 +355,7 @@ export default {
 
     search(clear = true){
       console.log("search")
-
+      this.more = true;
       if (this.searchInfo.queryStr==""){
         return;
       }
@@ -363,7 +368,10 @@ export default {
 
       console.log(this.searchInfo);
       this.$store.dispatch("search", this.searchInfo).then(res=>{
-        console.log(res);
+        if (res.length===0){
+          this.more = false;
+          return;
+        }
         this.show(res, clear);
       }).catch(err=>{
         console.log(err);
@@ -405,17 +413,13 @@ export default {
     },
 
     addMore() {
-
       let windowRelativeBottom = document.documentElement.getBoundingClientRect().bottom;
       if (!this.more)
         return;
-
       // 如果用户将页面滚动的距离不够远（文档末端距窗口底部 >100px）
       if (windowRelativeBottom > this.height + 100)
         return;
       // 添加更多数据
-      console.log(123);
-      this.page++;
 
       if (this.isSearch)
         this.search(false);
