@@ -107,7 +107,11 @@
         </template>
       </el-table-column>
 
-
+      <el-table-column
+          prop="tradeMethod"
+          label="支付方式"
+          width="150">
+      </el-table-column>
 
 
       <el-table-column
@@ -243,6 +247,18 @@ export default {
   created() {
     this.$store.dispatch('getCart',this.search).then((data) => {
       for (let i = 0; i <data.length ; i++) {
+        if (data[i].tradeType == 0) {
+          data[i].tradeMethod = '第三方支付'
+        }
+        if (data[i].tradeType == 1) {
+          data[i].tradeMethod = '平台代币'
+        }
+        if (data[i].tradeType == 2) {
+          data[i].tradeMethod = '个人收款码'
+        }
+        if (data[i].tradeType == 3) {
+          data[i].tradeMethod = '私下交易'
+        }
         this.$store.dispatch("getInfoOf", data[i].pusher).then(rees=>{
           data[i].pusherInfo = rees;
           data[i].pusherInfo.credit =  data[i].pusherInfo.credit * 5/ 100;

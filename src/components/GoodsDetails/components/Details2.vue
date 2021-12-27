@@ -131,6 +131,7 @@ export default {
   },
   created() {
     this.Product = goods.state.current.request
+    this.Product.tradeMethod = ''
     if (this.Product.tradeType == 0) {
       this.Product.tradeMethod = '第三方支付'
     }
@@ -227,7 +228,7 @@ body{
 .Buy_buttion {
   margin-left: 50px;
   display: inline-block;
-  width: 250px;
+  width: 200px;
   background-color: #33d09a;
   border-radius:35px;
   text-align: center;
