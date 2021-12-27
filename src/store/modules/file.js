@@ -21,12 +21,6 @@ const file = {
                     reject(err);
                 });
             });
-            // upload(files, mul).then(res=>{
-            //     console.log(1, res.data);
-            //     return res.data;
-            // }).catch(err=>{
-            //     console.log("file err", err);
-            // });
         },
 
         download(context, name){

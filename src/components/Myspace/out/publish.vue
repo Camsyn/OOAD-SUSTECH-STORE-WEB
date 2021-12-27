@@ -177,7 +177,6 @@ export default {
         isAmbiguous: false,
         publishers: [this.$store.getters.name],
       };
-      console.log(my)
       this.$store.dispatch("search",my).then((data) => {
         this.tableData = data;
       });

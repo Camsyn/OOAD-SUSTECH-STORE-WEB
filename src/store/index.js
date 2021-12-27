@@ -7,7 +7,7 @@ import goods from "./modules/goods";
 import circle from "./modules/circle";
 import cartItem from "./modules/cartItem";
 import order from "./modules/order";
-
+import comment from "./modules/comment";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
@@ -19,6 +19,7 @@ const store = new Vuex.Store({
     circle,
     cartItem,
     order,
+    comment,
   },
 });
 

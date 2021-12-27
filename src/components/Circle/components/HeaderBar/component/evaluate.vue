@@ -3,6 +3,7 @@
     <div style="padding: 10px">
       <v-card
           class="mx-auto"
+          flat
       >
         <v-list two-line>
           <template v-for="(item, index) in all_evaluations">
@@ -44,7 +45,20 @@ export default {
   data:()=>({
   }),
   computed:{
+
     all_evaluations(){
+      this.$store.dispatch('getMyInfo').then(() => {
+        let data = {
+          sid : this.$store.state.nickname,
+          page: 0,
+          limit: 10,
+          sort : false
+        }
+        console.log(data)
+        this.$store.dispatch('getUserComment', data).then((data) => {
+          console.log(data)
+        })
+      })
       return circle.state.evaluate
     }
 
