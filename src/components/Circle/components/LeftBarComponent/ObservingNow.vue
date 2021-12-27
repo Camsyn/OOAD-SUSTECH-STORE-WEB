@@ -15,17 +15,26 @@
               <v-list-item-content>
                 <v-list-item-title v-html="item.name"></v-list-item-title>
                 <span class="font-weight-bold" style= "display:inline">
-                  <v-btn
-                      depressed
-                      color="error"
-                      right
-                      @click="observeClick(item)"
-                  >
-                  取消关注
-                </v-btn>
+
                 </span>
-                <v-list-item-subtitle v-html="item.subtitle">
-                </v-list-item-subtitle>
+                <v-row>
+                  <v-col cols="12" md="9" sm="9">
+                    <v-list-item-subtitle v-html="item.subtitle">
+                    </v-list-item-subtitle>
+                  </v-col>
+                 <v-col cols="12" md="3" sm="3">
+                   <v-btn
+                       depressed
+                       color="error"
+                       right
+                       @click="observeClick(item)"
+                   >
+                     取消关注
+                   </v-btn>
+                 </v-col>
+
+                </v-row>
+
               </v-list-item-content>
             </v-list-item>
           </template>

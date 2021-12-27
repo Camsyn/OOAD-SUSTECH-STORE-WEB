@@ -23,21 +23,11 @@
               <img src="https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto" alt="CC" />
             </v-avatar>
             <span class="font-weight-bold" style= "display:inline;font-size: 20px">
-              Davis Antonia
+              {{MyInfo.name}}
             </span>
           </div>
           <div style="position: absolute;right:20px;padding-top: 20px">
-<!--            <v-btn-->
-<!--              tile-->
-<!--              color="white"-->
-<!--              depressed-->
-<!--              @click="centerDialogVisible = true"-->
-<!--            >-->
-<!--              <v-icon left>-->
-<!--                mdi-pencil-->
-<!--              </v-icon>-->
-<!--              Edit-->
-<!--            </v-btn>-->
+
             <v-row justify="center">
               <v-dialog
                 v-model="dialog"
@@ -67,45 +57,36 @@
                         <v-col
                           cols="12"
                           sm="6"
-                          md="4"
                         >
                           <v-text-field
                             label="用户名"
+                            v-model="MyInfo.name"
                             required
                           ></v-text-field>
                         </v-col>
                         <v-col
                           cols="12"
                           sm="6"
-                          md="4"
-                        >
-                          <v-text-field
-                            label="生肖"
-                            hint="十二生肖"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col
-                          cols="12"
-                          sm="6"
-                          md="4"
                         >
                           <v-text-field
                             label="星座"
                             hint="十二星座"
+                            v-model="MyInfo.constellation"
                             persistent-hint
                             required
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12">
                           <v-text-field
-                            label="邮件"
+                            label="座右铭"
+                            v-model="MyInfo.moto"
                             required
                           ></v-text-field>
                         </v-col>
                         <v-col cols="12">
                           <v-text-field
-                            label="密码"
-                            type="password"
+                            label="个性化介绍"
+                            v-model="MyInfo.selfIntroduce"
                             required
                           ></v-text-field>
                         </v-col>
@@ -113,21 +94,27 @@
                           cols="12"
                           sm="6"
                         >
-                          <v-select
-                            :items="['0-17', '18-29', '30-54', '54+']"
-                            label="生日"
-                            required
-                          ></v-select>
+                          <v-text-field
+                              label="职业"
+                              hint="打工人"
+                              v-model="MyInfo.career"
+                          ></v-text-field>
                         </v-col>
                         <v-col
                           cols="12"
                           sm="6"
                         >
-                          <v-autocomplete
-                            :items="['游泳', '篮球', '羽毛球', '电子游戏', '徒步登山', '攀岩', '跳伞', '摄影', '编程']"
-                            label="兴趣爱好"
-                            multiple
-                          ></v-autocomplete>
+                          <v-text-field
+                              label="兴趣爱好"
+                              hint="特长点"
+                              v-model="MyInfo.hobby"
+                          ></v-text-field>
+<!--                          <v-autocomplete-->
+<!--                            :items="['游泳', '篮球', '羽毛球', '电子游戏', '徒步登山', '攀岩', '跳伞', '摄影', '编程']"-->
+<!--                            label="兴趣爱好"-->
+<!--                            v-model="form.hobby"-->
+<!--                            multiple-->
+<!--                          ></v-autocomplete>-->
                         </v-col>
                       </v-row>
                     </v-container>
@@ -145,7 +132,7 @@
                     <v-btn
                       color="blue darken-1"
                       text
-                      @click="dialog = false"
+                      @click="new EditMyInfo()"
                     >
                       保存
                     </v-btn>
@@ -158,7 +145,7 @@
         </v-card>
 
         <v-card-subtitle>
-          起风了，唯有努力生存
+          {{ MyInfo.moto }}
         </v-card-subtitle>
         <v-expansion-panels
           flat
@@ -175,13 +162,13 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               <div style="font-size: x-small;color: #80848a;padding-bottom: 23px">
-                <v-icon small>mdi-emoticon-happy-outline</v-icon> &nbsp;长安不夜城-00后男生-双鱼座
+                <v-icon small>mdi-emoticon-happy-outline</v-icon> &nbsp;{{MyInfo.selfIntroduce+"-"+MyInfo.constellation}}
               </div>
               <div style="font-size: x-small;color: #80848a;padding-bottom: 23px">
-                <v-icon small>mdi-folder-account-outline</v-icon> &nbsp;自由职业-行政
+                <v-icon small>mdi-folder-account-outline</v-icon> &nbsp;{{ MyInfo.career }}
               </div>
               <div style="font-size: x-small;color: #80848a;">
-                <v-icon small>mdi-heart-outline</v-icon> &nbsp;喜欢健身，旅游，运动
+                <v-icon small>mdi-heart-outline</v-icon> &nbsp;{{ MyInfo.hobby }}
               </div>
 
             </v-expansion-panel-content>
@@ -254,6 +241,7 @@
 </template>
 
 <script>
+import circle from "../../../../store/modules/circle";
 export default {
   name: "PersonalPage",
   data: () => ({
@@ -266,6 +254,16 @@ export default {
     show3:false,
     sharingColor:"gray",
     sharingNum:486,
+    form:{
+      name:'',
+      avatar:'',
+      moto:'',
+      constellation:'',
+      selfIntroduce:'',
+      career:'',
+      hobby:'',
+    },
+
 
     dialog: false,
   }),
@@ -273,42 +271,15 @@ export default {
     toCustomer() {
       this.$router.push("/circle/Customer");
     },
-    handleClick(){
-      this.show1=!this.show1
-      if(this.show1){
-        this.heatColor="pink";
-        this.heartNum=this.heartNum+1;
-      }
-      else{
-        this.heatColor="gray";
-        this.heartNum=this.heartNum-1;
-
-      }
-    },
-    handleClick2(){
-      this.show2=!this.show2
-      if(this.show2){
-        this.messageColor="orange";
-        // this.messageNum=this.messageNum+1;
-      }
-      else{
-        this.messageColor="gray";
-        // this.messageNum=this.messageNum-1;
-      }
-    },
-    handleClick3(){
-      this.show3=!this.show3
-      if(this.show3){
-        this.sharingColor="blue";
-        // this.sharingNum=this.sharingNum+1;
-      }
-      else{
-        this.sharingColor="gray";
-        // this.sharingNum=this.sharingNum-1;
-      }
+    EditMyInfo(){
+      this.dialog=false
     }
+  },
+  computed:{
+    MyInfo(){
+      return circle.state.myInfo
 
-
+    }
   }
 };
 </script>
