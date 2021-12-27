@@ -52,26 +52,6 @@ import circle from "../../../../store/modules/circle";
 export default {
   name: "ObservingNow",
   data:()=>({
-    data1:[],
-    items: [
-      {
-        icon: 'mdi-inbox',
-        text: 'Inbox',
-      },
-      {
-        icon: 'mdi-star',
-        text: 'Star',
-      },
-      {
-        icon: 'mdi-send',
-        text: 'Send',
-      },
-      {
-        icon: 'mdi-email-open',
-        text: 'Drafts',
-      },
-    ],
-    model: 1,
   }),
   methods:{
     observeClick(item){
