@@ -1,83 +1,69 @@
 <template>
-  <div id="PublishCircle">
-    <div class="card1" style="padding: 10px">
-      <v-card
-        class="mx-auto"
-      >
-        <v-img
-          src="https://images.pexels.com/photos/10570567/pexels-photo-10570567.jpeg?cs=srgb&dl=pexels-alex-staudinger-10570567.jpg&fm=jpg"
-          height="200px"
-        ></v-img>
+  <v-card elevation="0" class="mx-auto">
+    <div style="padding: 20px">
+      <v-row align="center">
+        <v-col cols="12" md="6" sm="6">
+          <v-text-field
+              v-model="dynamic.titel"
+              label="Title"
+              hide-details="auto"
+          ></v-text-field>
+        </v-col>
+      </v-row>
+    </div>
+    <div class="text-h6 font-weight-black pl-4" v-text="yulan"></div>
+    <preview :content="this.dynamic.content" class="px-3"></preview>
 
-        <v-card-title>
-          Top western road trips
-        </v-card-title>
-
-        <v-card-subtitle>
-          1,000 miles of wonder
-        </v-card-subtitle>
-
-        <v-card-text>
-          <div style="padding: 20px">
-
-            <v-row align="center">
-              <v-col cols="12" md="6" sm="6">
-                <v-text-field
-                    v-model="dynamic.titel"
-                    label="Title"
-                    hide-details="auto"
-                ></v-text-field>
-              </v-col>
-
-            </v-row>
-          </div>
-
-
-
-
-          <v-col
+    <v-card-text>
+      <v-row
             cols="auto"
           >
             <v-textarea
-              label="Five rows"
+              label="编辑"
               auto-grow
               outlined
               rows="5"
               row-height="25"
               shaped
-              v-model="dynamic.subtitle"
+              v-model="edit"
             ></v-textarea>
-<!--      表情包组件 -->
-<!--            <VueEmoji ref="emoji"  @input="onInput" :value="textarea" />-->
-          </v-col>
+          </v-row>
+      <v-row dense class="d-flex justify-center">
+        <v-btn
+            small
+            class="ma-0" @click="addText"
+            plain
+            fab
+        >
+          上传
+        </v-btn>
+      </v-row>
 
-          <v-col>
+      <v-row>
             <v-file-input
-              accept="image/*"
-              v-model="files"
-              placeholder="Upload your documents"
-              label="File input"
-              multiple
-              prepend-icon="mdi-camera"
+                accept="image/*"
+                prepend-icon="mdi-camera"
+                show-size
+                counter
+                multiple
+                label="上传图片"
+                v-model="images"
             >
-              <template v-slot:selection="{ text }">
-                <v-chip
-                  small
-                  label
-                  color="primary"
-                >
-                  {{ text }}
-                </v-chip>
-              </template>
             </v-file-input>
+            <v-btn
+                class="mb-3 mx-4" @click="addImage"
+                plain
+                fab
+            >
+              <v-icon dark>
+                mdi-cloud-upload
+              </v-icon>
+            </v-btn>
+          </v-row>
+    </v-card-text>
 
-          </v-col>
-
-        </v-card-text>
-
-        <v-card-actions>
-
-          <div class="card_item" style="padding:20px">
+    <v-card-actions>
+    <div class="card_item" style="padding:20px">
             <v-row>
               <v-col cols="12" md="6" sm="6">
                 <v-select
@@ -113,35 +99,19 @@
               </v-col>
             </v-row>
           </div>
-
-        </v-card-actions>
-
-        <div v-show="false">
-
-          <p>
-            cool
-          </p>
-        </div>
-
-
-      </v-card>
+      </v-card-actions>
+      <div v-show="false">
+      <p>cool</p>
     </div>
-
-
-
-
-
-
-
-  </div>
+  </v-card>
 </template>
 
 <script>
-import VueEmoji from 'emoji-vue'
+import preview from "../../../Myspace/components/preview";
 
 export default {
   components:{
-    VueEmoji
+    preview
   },
   name: "PublishCircle",
   data:()=>({
@@ -150,6 +120,7 @@ export default {
     items: ['所有人可见', '关注的人可见', '好友可见', '仅自己可见'],
     e1: 'Florida',
     Tags: ['carton','game','tour','food','pet','tease'],
+    yulan: "预览",
 
     dynamic:  {
       tag:"carton",
@@ -158,8 +129,9 @@ export default {
       img_src:"https://tse3-mm.cn.bing.net/th/id/OIP-C.DCP5cR24V7N_2WOImceBbQHaEP?w=304&h=180&c=7&r=0&o=5&dpr=2&pid=1.7",
       username:"亚托莉",
       titel:"《ATRI -MY DEAR MOMENTS-》",
-      subtitle:"背景设定在因为不明原因导致全球海平面上升之后的未来，在全球大多数地方都被海洋淹没城市才是相对环境的情况下，" +
-          "在一场事故失去了一条腿的男主斑鸠夏生却选择了放弃城市，转而搬家到海边去生活，一切故事也由此展开",
+      content:"",
+
+      urls:[],
       show1:false,
       heatColor:"gray",
       heartNum:0,
@@ -172,7 +144,10 @@ export default {
       textarea:'',
       repy_items: [],
     },
-
+    edit:"",
+    images:[],
+    splitter:"<<<IMAGE>>>",
+    spLen: 11,
   }),
   methods:{
     publish(){
@@ -180,6 +155,25 @@ export default {
       this.dynamic.id=Math.floor(Math.random()*200+100);
       console.log("Tag:",this.dynamic.tag)
       this.$store.commit('PublishCircle', this.dynamic)
+    },
+    addImage(){
+      this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
+        console.log(res)
+        for (let fl of res) {
+          let url = fl.fileDownloadUri.replace("/downloadFile", "");
+          this.dynamic.urls.push(url);
+          this.dynamic.content+=(this.splitter+url+this.splitter);
+        }
+
+      }).catch(err => {
+        console.log(err);
+      });
+      this.images=[];
+    },
+    addText(){
+      console.log(this.edit)
+      this.dynamic.content+=this.edit;
+      this.edit = "";
     }
   }
 };
