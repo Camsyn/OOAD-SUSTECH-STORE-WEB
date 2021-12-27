@@ -31,7 +31,7 @@ import treasure from "../components/Circle/components/HeaderBar/component/treasu
 import dynamic from "../components/Circle/components/HeaderBar/component/dynamic";
 import evaluate from "../components/Circle/components/HeaderBar/component/evaluate";
 
-import MessagePage from "../components/Circle/components/HeaderBar/MessagePage";
+
 import PublishCircle from "../components/Circle/components/LeftBarComponent/PublishCircle";
 import ObservingNow from "../components/Circle/components/LeftBarComponent/ObservingNow";
 
@@ -192,11 +192,6 @@ const routes = [
                 component:dynamic,
               }
             ]
-          },
-          {
-            path:"/circle/MessagePage",
-            name:"MessagePage",
-            component: MessagePage,
           },
           {
             path:"/circle/Customer",
