@@ -130,7 +130,7 @@ export default {
       username:"亚托莉",
       titel:"《ATRI -MY DEAR MOMENTS-》",
       content:"",
-      contentSp:[],
+
       urls:[],
       show1:false,
       heatColor:"gray",
@@ -175,9 +175,6 @@ export default {
       console.log(this.edit)
       this.dynamic.content+=this.edit;
       this.edit = "";
-    },
-    upload(){
-
     }
   }
 };

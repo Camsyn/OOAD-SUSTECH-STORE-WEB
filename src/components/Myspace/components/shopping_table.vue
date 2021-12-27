@@ -183,7 +183,9 @@ export default {
     toggleSelection(rows) {
       if (rows) {
         rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
+          if (row.count - row.saleCount > 0) {
+            this.$refs.multipleTable.toggleRowSelection(row);
+          }
         });
       } else {
         this.$refs.multipleTable.clearSelection();
@@ -260,6 +262,7 @@ export default {
           data[i].tradeMethod = '私下交易'
         }
         this.$store.dispatch("getInfoOf", data[i].pusher).then(rees=>{
+          console.log(rees)
           data[i].pusherInfo = rees;
           data[i].pusherInfo.credit =  data[i].pusherInfo.credit * 5/ 100;
           this.tableData.push(data[i]);

@@ -982,6 +982,17 @@ const circle = {
     addunfollow( {commit} , { item } ){
       commit('UAdd',{ item })
     },
+    postMsg(context, msg) {
+      return new Promise((resolve, reject)=>{
+        post(msg).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+
     postComment(context, msg) {
       return new Promise((resolve, reject)=>{
         postComment(msg).then(res=>{

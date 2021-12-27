@@ -4,7 +4,7 @@ export function post(msg){
     return service({
         method: 'post',
         url: 'chat/circle/post',
-        params:msg,
+        data:msg,
     })
 }
 
@@ -12,7 +12,7 @@ export function postComment(msg){
     return service({
         method: 'post',
         url: 'chat/circle/comment/post',
-        params:msg,
+        data:msg,
     })
 
 }
