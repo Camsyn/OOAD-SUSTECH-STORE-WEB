@@ -4,6 +4,7 @@ import head from "../../assets/head.jpeg";
 
 const user = {
   state: {
+    sid: 0,
     name: null,
     email: null,
     avatar: null,

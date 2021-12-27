@@ -176,10 +176,24 @@ export default {
   }),
   methods:{
     publish(){
-      console.log('?')
-      this.dynamic.id=Math.floor(Math.random()*200+100);
-      console.log("Tag:",this.dynamic.tag)
-      this.$store.commit('PublishCircle', this.dynamic)
+      let data = {
+        topic : this.dynamic.titel,
+        content : this.dynamic.subtitle,
+        type : 0,
+        tag: this.dynamic.tag,
+      }
+      this.$store.dispatch('postMsg',data).then((data) => {
+        this.$message({
+          type: 'success',
+          message: '发布成功!',
+        })
+        this.$router.push('/home')
+      }).catch(err=>{
+        this.$message({
+          type: 'warning',
+          message: err
+        })
+      });
     }
   }
 };
