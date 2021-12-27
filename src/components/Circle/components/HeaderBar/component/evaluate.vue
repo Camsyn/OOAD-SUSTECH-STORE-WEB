@@ -14,13 +14,13 @@
                 <img :src="item.avatar" alt="CC">
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-html="item.name"></v-list-item-title>
+                <v-list-item-title v-html="item.nickname"></v-list-item-title>
                 <span class="font-weight-bold" style= "display:inline">
 
                 </span>
                 <v-row>
                   <v-col cols="12" md="9" sm="9">
-                    <v-list-item-subtitle v-html="item.subtitle">
+                    <v-list-item-subtitle v-html="item.content">
                     </v-list-item-subtitle>
                   </v-col>
 
@@ -43,23 +43,30 @@ import user from "../../../../../store/modules/user";
 export default {
   name: "evaluate",
   data:()=>({
+    commentData: [],
   }),
   computed:{
 
     all_evaluations(){
       this.$store.dispatch('getMyInfo').then(() => {
-        let data = {
+        let data10 = {
           sid : user.state.name,
           page: 0,
           limit: 10,
           sort : false
         }
-        this.$store.dispatch('getUserComment', data).then((data) => {
-          console.log(data)
+        this.$store.dispatch('getUserComment', data10).then((data) => {
+
+          for (let i = 0; i <data.length ; i++) {
+            this.$store.dispatch("getInfoOf" , data[i].fromSid).then((data3) => {
+              data[i].avatar = data3.headImage
+              data[i].nickname = data3.nickname
+            })
+          }
+          this.commentData = data
         })
       })
-      return circle.state.evaluate
-
+      return this.commentData
     }
 
   }
