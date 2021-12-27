@@ -12,6 +12,14 @@
       </v-row>
     </div>
     <div class="text-h6 font-weight-black pl-4" v-text="yulan"></div>
+    <div v-for="(item, index) in contents" :key="index">
+      <div v-if="item.text"
+           v-text="item.text"
+           class="pl-4"
+           style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"
+      ></div>
+      <v-img v-else :src="item.image" contain></v-img>
+    </div>
     <preview :content="this.dynamic.content" class="px-3"></preview>
 
     <v-card-text>
@@ -20,8 +28,9 @@
               label="编辑"
               auto-grow
               outlined
-              rows="5"
-              row-height="25"
+              dense
+              rows="2"
+              row-height="10"
               shaped
               v-model="edit"
             ></v-textarea>
@@ -113,12 +122,13 @@ export default {
       topic:"",
       content:"",
     },
+    contents: [],
     urls:[],
     edit:"",
     images:[],
     splitter:"<<<IMAGE>>>",
     spLen: 11,
-
+    ind: 0,
   }),
   methods:{
     publish(){
@@ -131,10 +141,16 @@ export default {
       });
     },
     addImage(){
+      this.contents.push({text: this.edit});
+      this.edit="";
+
       this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
         console.log(res)
         for (let fl of res) {
           let url = fl.fileDownloadUri.replace("/downloadFile", "");
+
+          this.contents.push({image: url});
+
           this.urls.push(url);
           this.dynamic.content+=(this.splitter+url+this.splitter);
         }

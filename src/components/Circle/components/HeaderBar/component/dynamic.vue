@@ -28,7 +28,6 @@
             </el-dropdown>
             </span>
       </v-col>
-
       <div style="padding: 10px 20px;">
         <v-img
             max-height="800px"
@@ -36,17 +35,12 @@
             v-bind:src="item.img_src"
         ></v-img>
       </div>
-
-
-
       <v-card-title>
         {{item.titel}}
       </v-card-title>
-
       <v-card-subtitle>
         {{item.subtitle}}
       </v-card-subtitle>
-
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn
@@ -67,7 +61,6 @@
           </v-icon>
         </v-btn>
         <span class="subheading">{{ item.messageNum }}</span>
-
         <v-btn
             icon
             @click="handleClick3(item)"
@@ -77,7 +70,6 @@
         </v-btn>
         <span class="subheading">{{ item.sharingNum }}</span>
       </v-card-actions>
-
       <v-expand-transition>
         <div v-show="item.show2">
           <v-divider></v-divider>
@@ -90,13 +82,10 @@
                 v-model="item.textarea">
             </el-input>
           </div>
-
           <v-spacer></v-spacer>
           <div style="padding: 10px">
             <el-button type="primary" @click="reply_click(item)">发送</el-button>
           </div>
-
-
           <v-list-item
               v-for="(item2, i) in item.repy_items"
               :key="i"
@@ -106,19 +95,12 @@
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title v-text="item2.text"></v-list-item-title>
-
               <v-card-text>
                 {{item2.message}}
               </v-card-text>
-              <v-divider
-              >
-
-              </v-divider>
+              <v-divider></v-divider>
             </v-list-item-content>
           </v-list-item>
-
-
-
         </div>
       </v-expand-transition>
     </v-card>

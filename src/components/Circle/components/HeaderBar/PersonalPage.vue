@@ -167,8 +167,6 @@
           </v-expansion-panel>
         </v-expansion-panels>
 
-
-
       </div>
 
       <v-tabs
@@ -183,13 +181,8 @@
           {{item.name}}
         </v-tab>
       </v-tabs>
-
       <router-view></router-view>
-
     </v-card>
-
-
-
   </div>
 </template>
 
