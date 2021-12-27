@@ -125,10 +125,6 @@
       </v-card>
     </div>
 
-
-
-
-
   </div>
 </template>
 

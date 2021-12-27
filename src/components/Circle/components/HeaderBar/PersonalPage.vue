@@ -109,12 +109,6 @@
                               hint="特长点"
                               v-model="MyInfo.hobby"
                           ></v-text-field>
-<!--                          <v-autocomplete-->
-<!--                            :items="['游泳', '篮球', '羽毛球', '电子游戏', '徒步登山', '攀岩', '跳伞', '摄影', '编程']"-->
-<!--                            label="兴趣爱好"-->
-<!--                            v-model="form.hobby"-->
-<!--                            multiple-->
-<!--                          ></v-autocomplete>-->
                         </v-col>
                       </v-row>
                     </v-container>
@@ -183,55 +177,16 @@
         color="deep-purple accent-4"
         right
       >
-        <v-tab>宝贝&nbsp;11</v-tab>
-        <v-tab>评价&nbsp;1</v-tab>
-        <v-tab>动态&nbsp;36</v-tab>
-
-        <v-tab-item
-          v-for="n in 3"
-          :key="n"
+        <v-tab
+        v-for="(item,index) in carts"
+        :key="index"
+        @click="$router.push({name: item.to})"
         >
-          <v-container fluid>
-            <v-row>
-              <v-col
-                v-for="i in 6"
-                :key="i"
-                cols="12"
-                md="4"
-              >
-
-                <v-img
-                  :src="`https://picsum.photos/500/300?image=${i * n * 5 + 10}`"
-                  :lazy-src="`https://picsum.photos/10/6?image=${i * n * 5 + 10}`"
-                  aspect-ratio="1"
-                ></v-img>
-
-
-                  <div style="font-size: small;color: #070301;padding-bottom: 10px">
-                    现货xbox series s 全新未拆封
-                  </div>
-                  <div style="font-size: x-small;color: #e17d63;padding-bottom: 10px;display: flex">
-                    全新-日版
-                  </div>
-                  <div style="font-size: small;color: #80848a;">
-
-                    <v-icon color="green">mdi-drupal</v-icon> &nbsp;
-                    <v-btn
-                      @click="toCustomer"
-                      color="white"
-                      text
-                      depressed
-                    >
-                      叛逆的鲁鲁修
-                    </v-btn>
-                  </div>
-
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-tab-item>
+          {{item.name}}
+        </v-tab>
       </v-tabs>
 
+      <router-view></router-view>
 
     </v-card>
 
@@ -264,7 +219,23 @@ export default {
       hobby:'',
     },
 
-
+    carts:[
+      {
+        id:0,
+        name:"宝贝",
+        to:"treasure",
+      },
+      {
+        id:1,
+        name:"评价",
+        to:"evaluate",
+      },
+      {
+        id:2,
+        name:"动态",
+        to:"dynamic",
+      },
+    ],
     dialog: false,
   }),
   methods:{
@@ -278,7 +249,6 @@ export default {
   computed:{
     MyInfo(){
       return circle.state.myInfo
-
     }
   }
 };

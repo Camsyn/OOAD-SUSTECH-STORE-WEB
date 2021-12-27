@@ -25,7 +25,12 @@ import testdialog from "../components/Myspace/components/testdialog";
 import myCircle from "../components/Circle/Circle";
 import HotSharing from "../components/Circle/components/FirstPage/HotSharing";
 import Grass from "../components/Circle/components/FirstPage/Grass";
+
 import PersonalPage from "../components/Circle/components/HeaderBar/PersonalPage";
+import treasure from "../components/Circle/components/HeaderBar/component/treasure";
+import dynamic from "../components/Circle/components/HeaderBar/component/dynamic";
+import evaluate from "../components/Circle/components/HeaderBar/component/evaluate";
+
 import MessagePage from "../components/Circle/components/HeaderBar/MessagePage";
 import PublishCircle from "../components/Circle/components/LeftBarComponent/PublishCircle";
 import ObservingNow from "../components/Circle/components/LeftBarComponent/ObservingNow";
@@ -170,6 +175,23 @@ const routes = [
             path:"/circle/PersonalPage",
             name:"PersonalPage",
             component: PersonalPage,
+            children:[
+              {
+                path:"/circle/PersonalPage/treasure",
+                name:"treasure",
+                component:treasure,
+              },
+              {
+                path:"/circle/PersonalPage/evaluate",
+                name:"evaluate",
+                component:evaluate,
+              },
+              {
+                path:"/circle/PersonalPage/dynamic",
+                name:"dynamic",
+                component:dynamic,
+              }
+            ]
           },
           {
             path:"/circle/MessagePage",
