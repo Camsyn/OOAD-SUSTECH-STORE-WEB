@@ -3,8 +3,6 @@
     <v-card
       class="mx-auto"
     >
-
-
       <div>
           <v-img
             class="white--text align-end"
