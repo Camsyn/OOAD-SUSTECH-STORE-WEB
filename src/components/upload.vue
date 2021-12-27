@@ -276,6 +276,7 @@ export default {
       this.uploadInfo.type = this.type.indexOf(this.uploadInfo.type);
       if (this.uploadInfo.id){
         this.$store.dispatch("updateRq", this.uploadInfo).then(res=>{
+          this.clear();
           this.$emit("close");
         }).catch(err=>{
           console.log(err);
@@ -283,9 +284,6 @@ export default {
       }
       else {
         this.$store.dispatch("push", this.uploadInfo).then(res=>{
-          this.uploadInfo.labels = [];
-          this.uploadInfo.images = [];
-          this.uploadInfo.video = [];
           this.$emit("close");
         }).catch(err=>{
           console.log(err);
@@ -312,6 +310,10 @@ export default {
         });
       }
     },
+
+    clear(){
+      Object.assign(this.uploadInfo, this.origin);
+    }
   },
 
   watch:{
@@ -322,12 +324,20 @@ export default {
   computed:{
     pre(){
       if (this.preInfo){
-        for (let k in this.preInfo){
-          this.uploadInfo[k] = this.preInfo[k];
-        }
+        Object.assign(this.uploadInfo, this.preInfo);
+        // for (let k in this.preInfo){
+        //   this.uploadInfo[k] = this.preInfo[k];
+        // }
         this.uploadInfo.type = this.type[this.uploadInfo.type];
         this.uploadInfo.category = this.cata[this.uploadInfo.category];
         this.uploadInfo.tradeType = this.trade[this.uploadInfo.tradeType];
+        for (let l of this.uploadInfo.labels){
+          if (this.$store.getters.labels.indexOf(l)!==-1){
+            this.label_all.push(l);
+          }else{
+            this.user_defined_label.push(l);
+          }
+        }
         return this.preInfo.id;
       }
     }

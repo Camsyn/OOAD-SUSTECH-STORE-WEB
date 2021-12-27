@@ -10,6 +10,7 @@
 
       <p class="p_text">购物车 ({{tableData.length}})</p>
       <el-table
+          empty-text="暂无数据"
           :data="tableData"
           tooltip-effect="dark"
           style="width: 100%"
@@ -84,7 +85,16 @@
             </el-button>
           </template>
         </el-table-column>
+
+
       </el-table>
+      <div class="d-flex justify-center">
+        <el-pagination
+            layout="prev, pager, next"
+
+            :total="50">
+        </el-pagination>
+      </div>
   </div>
 </template>
 
@@ -99,7 +109,7 @@ export default {
       tableData: [],
       multipleSelection: [],
       page: 1,
-      limit: 99,
+      limit: 5,
       dialog: false,
       edit: null,
     }
