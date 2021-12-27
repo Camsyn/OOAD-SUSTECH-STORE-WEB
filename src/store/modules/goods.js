@@ -7,6 +7,7 @@ const goods = {
         labels: ["食品","书籍","手机","服饰","电子","洗护","优惠券",],
         search: false,
         payList: [],
+
     },
 
     getters: {
