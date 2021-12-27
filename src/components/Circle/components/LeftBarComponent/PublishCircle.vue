@@ -148,6 +148,7 @@ export default {
     images:[],
     splitter:"<<<IMAGE>>>",
     spLen: 11,
+    
   }),
   methods:{
     publish(){
