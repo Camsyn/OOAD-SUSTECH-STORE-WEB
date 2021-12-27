@@ -298,7 +298,8 @@ export default {
   created() {
     this.height = document.documentElement.clientHeight;
     window.addEventListener("scroll", this.addMore);
-    this.random();
+    if (this.more)
+      this.random();
   },
   methods: {
     del_label(index) {

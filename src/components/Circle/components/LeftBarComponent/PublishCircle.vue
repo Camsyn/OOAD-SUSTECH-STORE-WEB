@@ -128,7 +128,7 @@ export default {
         console.log(res);
       }).catch(err=>{
         console.log(err);
-      })
+      });
     },
     addImage(){
       this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
