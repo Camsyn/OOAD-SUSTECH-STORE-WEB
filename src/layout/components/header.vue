@@ -72,11 +72,6 @@ export default {
       },
       {
         index:3,
-        name:"MessagePage",
-        to:"MessagePage",
-      },
-      {
-        index:4,
         name:"Myspace",
         to: "publish"
       },

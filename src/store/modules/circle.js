@@ -12,9 +12,38 @@ const circle = {
       hobby:'健身，旅游，运动',
     },
 
-    followList: [
-
+    evaluate: [
+      {
+        id:88,
+        avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnimg.ws.126.net%2F%3Furl%3Dhttp%3A%2F%2Fdingyue.ws.126.net%2F2021%2F0409%2F568ae17fj00qr9hws0023c000hs00hsc.jpg%26thumbnail%3D650x2147483647%26quality%3D80%26type%3Djpg&refer=http%3A%2F%2Fnimg.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639828185&t=d4d66f12c74a28ca55c83c2834b63b74",
+        name: '胡桃',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
+      },
+      {
+        id:1,
+        avatar: "https://tse4-mm.cn.bing.net/th/id/OIP-C.rtQNUWTWbvZam02cGcv5lQHaHa?pid=ImgDet&rs=1",
+        name: '刻晴',
+        subtitle: `<span class="font-weight-bold">Ali Connors</span>
+        &mdash; I'll be in your neighborhood doing errands this weekend.`
+      },
+      {
+        id:2,
+        avatar: "https://img.139y.com/m00/c4/0a/58275efbe26d92b42233aaeae14ef6bd.jpg",
+        name: '莹',
+        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
+        &mdash; Wish I could come, but I'm out of town this weekend.`
+      },
+      {
+        id:3,
+        avatar: "https://upload-bbs.mihoyo.com/upload/2020/11/15/11833340/d87515e3a221729d405cbb12d8c35336_2686882829853950575.jpg?x-oss-process=image/resize,s_600/quality,q_80/auto-orient,0/interlace,1/format,jpg",
+        name: '温迪',
+        subtitle: '<span class="font-weight-bold">Sandra Adams</span> ' +
+            '&mdash; Do you have Paris recommendations? Have you ever been?'
+      },
     ],
+
+    followList:[],
     unfollowList: [
       {
         id:86,
