@@ -89,6 +89,7 @@ const user = {
             context.commit("SET_TOKEN", data.token);
             context.commit("SET_TOKEN_HEAD", data.tokenHead);
             context.commit("SET_REFRESH_TOKEN", data.refreshToken);
+            sessionStorage.setItem("token", context.state.tokenHead+context.state.token);
             resolve();
           })
           .catch((error) => {

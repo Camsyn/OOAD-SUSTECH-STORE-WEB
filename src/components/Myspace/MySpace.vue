@@ -53,12 +53,10 @@ export default {
   data: () => ({
     drawer: null,
     items: [
-      { icon: "mdi-purse-outline", title: "我发布的", route: "/myspace/publish" },
-      { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "/myspace/sold" },
-      { icon: "mdi-cart-arrow-down", title: "我买到的", route: "/myspace/bought" },
-      { icon: "mdi-cart-variant", title: "购物车", route: "/myspace/nextsell" },
-      { icon: "mdi-heart-plus", title: "关注", route: "/myspace/concerns" },
-      { icon: "mdi-human-greeting-variant", title: "粉丝", route: "/myspace/fans" },
+      { title: "我发布的", route: "/myspace/publish" },
+      { title: "我卖出的", route: "/myspace/sold" },
+      { title: "我买到的", route: "/myspace/bought" },
+      { title: "购物车", route: "/myspace/nextsell" },
       { title: "编辑", route: "/myspace/edit" },
     ],
   }),

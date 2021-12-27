@@ -1,5 +1,4 @@
 import axios from "axios";
-import store from "../store";
 
 const service = axios.create({
     baseURL: "/api",
@@ -9,10 +8,9 @@ const service = axios.create({
 //发送请求前
 service.interceptors.request.use(
   (config) => {
-      let token = store.getters.token;
-      let head = store.getters.tokenHead;
+      let token = sessionStorage.getItem("token");
       if (token !== null && token !== undefined){
-          config.headers["Authorization"] = head+token;
+          config.headers["Authorization"] = token;
       }
       return config;
   },

@@ -151,7 +151,7 @@ export default {
   },
   computed:{
     GameList(){
-      return circle.state.dynamicPool.filter(item=>item.tag==="game")
+      return circle.state.dynamicPool.filter(item=>item.tag==="游戏")
     }
   }
 };

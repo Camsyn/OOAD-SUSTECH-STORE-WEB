@@ -295,7 +295,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next)=>{
-  let token = store.getters.token;
+  let token = sessionStorage.getItem("token");
   if (token || to.name==="Login"){
     next();
   }else {
