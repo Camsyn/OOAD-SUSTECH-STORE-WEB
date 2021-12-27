@@ -51,3 +51,5 @@ export function updateMyInfo(info){
     data: info,
   });
 }
+
+

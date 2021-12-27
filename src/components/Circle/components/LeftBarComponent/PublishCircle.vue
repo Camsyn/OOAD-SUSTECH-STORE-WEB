@@ -152,10 +152,16 @@ export default {
   }),
   methods:{
     publish(){
-      console.log('?')
-      this.dynamic.id=Math.floor(Math.random()*200+100);
-      console.log("Tag:",this.dynamic.tag)
-      this.$store.commit('PublishCircle', this.dynamic)
+      let data = {
+        count: 10
+      };
+      let test1 = []
+      this.$store.dispatch('AllgetLatest',data).then((data) => {
+        test1 = data
+      })
+
+
+
     },
     addImage(){
       this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{

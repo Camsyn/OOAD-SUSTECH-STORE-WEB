@@ -24,10 +24,10 @@ const user = {
     name: state=>{
       return state.name;
   },
-      token: state => {
+    token: state => {
     return state.token;
   },
-      tokenHead: state => {
+    tokenHead: state => {
       return state.tokenHead;
     },
     refresh_token: state => {
@@ -132,6 +132,7 @@ const user = {
         if (!res.nickname){
           res.nickname = res.sid.toString();
         }
+
         context.commit("SET_USER_INFO", res);
         context.commit("SET_INFO_OF", res);
       }).catch(err => {
