@@ -7,14 +7,15 @@
       >
         <upload v-on:close = "dialog=false" :pre-info="edit"></upload>
       </v-dialog>
-
-      <p class="p_text">购物车 ({{tableData.length}})</p>
+      <v-row>
+        <span v-text="gouwuche" class="my-4 mx-auto"></span>
+      </v-row>
       <el-table
           empty-text="暂无数据"
-          :data="tableData"
+          :data="all[page-1]"
           tooltip-effect="dark"
           style="width: 100%"
-          @selection-change="handleSelectionChange">
+          >
         <el-table-column
             label="图片"
             width="120" >
@@ -78,7 +79,7 @@
             width="120">
           <template slot-scope="scope">
             <el-button
-                @click.native.prevent="deleteRow(scope.$index,tableData)"
+                @click.native.prevent="deleteRow(scope.$index,all)"
                 size="mini"
                 type="danger">
               移除
@@ -89,11 +90,8 @@
 
       </el-table>
       <div class="d-flex justify-center">
-        <el-pagination
-            layout="prev, pager, next"
-
-            :total="50">
-        </el-pagination>
+        <v-pagination v-model="page" @input="more" :length="length">
+        </v-pagination>
       </div>
   </div>
 </template>
@@ -105,23 +103,19 @@ export default {
   name: "publish",
   data() {
     return {
-      url:"https://img1.baidu.com/it/u=1034833325,3625066472&fm=26&fmt=auto",
-      tableData: [],
+      all: [],
       multipleSelection: [],
       page: 1,
-      limit: 5,
+      limit: 6,
+      length: 1,
       dialog: false,
       edit: null,
     }
   },
   computed: {
-    sum : function(){
-      let sum1 = 0;
-      for (let i = 0; i < this.multipleSelection.length ; i++) {
-        sum1 = sum1 + this.multipleSelection[i].exactPrice
-      }
-      return sum1
-    },
+    gouwuche(){
+      return "购物车 (第"+this.page+"页)";
+    }
   },
 
   methods: {
@@ -131,20 +125,8 @@ export default {
     mycircle(){
       this.$router.push({name: "Circle"});
     },
-    toggleSelection(rows) {
-      if (rows) {
-        rows.forEach(row => {
-          this.$refs.multipleTable.toggleRowSelection(row);
-        });
-      } else {
-        this.$refs.multipleTable.clearSelection();
-      }
-    },
-    handleSelectionChange(val) {
-      this.multipleSelection = val;
-    },
     deleteRow(index, rows) {
-      this.$confirm('此操作将会将该商品移出购物车, 是否继续?', '提示', {
+      this.$confirm('确定删除吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -162,23 +144,26 @@ export default {
         });
       });
     },
-    PayFor() {
-      if (this.multipleSelection.length==0) {
-        this.$message.error('已选商品数量不能为0');
-      }
-    },
 
-    getPushed(page=1, limit=99){
+    more(){
+      if (this.page<this.length-1){
+        return;
+      }
       let my = {
-        page: 1,
-        limit: 99,
+        page: this.page,
+        limit: this.limit,
         searchStrategy: 0,
         firstOrder: "update_time",
         isAmbiguous: false,
         publishers: [this.$store.getters.name],
       };
-      this.$store.dispatch("search",my).then((data) => {
-        this.tableData = data;
+      this.$store.dispatch("search",my).then((res) => {
+        if (res.length!==0){
+          this.all.push(res);
+          if (this.page>=this.length&&res.length===this.limit){
+            this.length++;
+          }
+        }
       });
     },
     editRq(rq){
@@ -191,7 +176,7 @@ export default {
     }
   },
   created() {
-    this.getPushed(0, 10);
+    this.more();
   }
 }
 </script>

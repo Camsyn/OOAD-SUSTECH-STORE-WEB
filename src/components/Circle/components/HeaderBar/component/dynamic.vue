@@ -34,7 +34,7 @@ export default {
       this.$store.dispatch("sbGetPage", {sid, page, limit}).then(res=>{
         if (res.length!==0){
           this.all.push(res);
-          if (this.page>=this.length){
+          if (this.page>=this.length&&res.length===this.limit){
             this.length++;
           }
         }
