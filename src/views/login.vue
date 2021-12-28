@@ -60,7 +60,7 @@
 
 
             <v-row justify="center">
-              <v-btn plain @click="resetPwd" class="px-0">重置</v-btn>
+              <v-btn plain @click="resetPwd" class="px-0">确认</v-btn>
               <v-btn plain @click="trans(0)" class="ml-4">取消</v-btn>
             </v-row>
           </div>
@@ -159,7 +159,7 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail'
         },
-        pwdConfirm: value => this.reset.passwordConfirm !== this.reset.password || 'Passwords does not match',
+        pwdConfirm: value => this.reset.passwordConfirm === this.reset.password || 'Passwords does not match',
         number: value => {
           const pattern = /[0-9]+/;
           return pattern.test(value)||"Number only";
@@ -184,25 +184,38 @@ export default {
     //   alert('验证码已发送，60s后重发')
     // },
     getCode(){
-      this.$message({
-        showClose: true,
-        message: '验证码已发送，60s后重发',
-        type: 'success'
-      });
-      const TIME_COUNT = 60;
-      if (!this.timer) {
-        this.count = TIME_COUNT;
-        this.show = false;
-        this.timer = setInterval(() => {
-          if (this.count > 0 && this.count <= TIME_COUNT) {
-            this.count--;
-          } else {
-            this.show = true;
-            clearInterval(this.timer);
-            this.timer = null;
-          }
-        }, 1000)
+      console.log(this.reset.email)
+      let data = {
+        username: this.reset.email
       }
+      this.$store.dispatch('modifyPwd',data).then(() => {
+        this.$message({
+          showClose: true,
+          message: '验证码已发送，60s后重发',
+          type: 'success'
+        });
+        const TIME_COUNT = 60;
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000)
+        }
+      }).catch((err) => {
+        this.$message({
+          showClose: true,
+          message: err,
+          type: 'warning'
+        });
+      })
+
     },
     appendIconCallback() {
       this.$message({
@@ -243,12 +256,11 @@ export default {
 
     resetPwd(){
       let data = {
+        username : this.reset.email,
+        captcha : this.reset.Vcode,
+        newPassword: this.reset.password
       }
-      // this.$store.dispatch('forgetPwd',).then(() => {
-      //
-      // }).catch(() => {
-      //
-      // })
+      this.$store.dispatch('')
     }
   },
 }

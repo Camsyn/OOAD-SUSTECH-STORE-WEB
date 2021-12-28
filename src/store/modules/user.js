@@ -1,6 +1,7 @@
-import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo,randomUser} from "../../api/user";
+import {forgetPwd, getUserInfo, getMyInfo, login, updateMyInfo, randomUser, modifyPwd} from "../../api/user";
 import {register, exist} from "../../api/register";
 import head from "../../assets/head.jpeg";
+import {search} from "../../api/goods";
 
 const user = {
   state: {
@@ -126,8 +127,18 @@ const user = {
       });
     },
 
-    forgetPwd(context, {sid, captcha, newPassword}){
-      return forgetPwd(sid, captcha, newPassword);
+    forgetPwd(context, data){
+      return forgetPwd(data);
+    },
+
+    modifyPwd(context,data) {
+      return new Promise((resolve, reject)=>{
+        modifyPwd(data).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
     },
 
     getMyInfo(context){
