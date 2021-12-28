@@ -17,6 +17,31 @@
                 :rules="[rules.required, rules.email]"
             ></v-text-field>
 
+            <v-row>
+              <v-col clos="12" >
+                <v-text-field
+                    v-model="reset.Vcode"
+                    label="verification code"
+                    @click:append="appendIconCallback"
+                    hint="点击发送验证码"
+                    append-icon="mdi-email-receive-outline"
+                    clearable
+                    :rules="[rules.required]"
+                ></v-text-field>
+                <span v-show="show" @click="getCode" class="getCode">获取验证码</span>
+                <span v-show="!show" class="count">{{count}}s后重新获取</span>
+              </v-col>
+
+
+<!--              <v-col>-->
+<!--                <v-btn>-->
+<!--                  Send-->
+<!--                </v-btn>-->
+
+<!--              </v-col>-->
+
+            </v-row>
+
             <v-text-field
                 v-model="reset.password"
                 label="new password"
@@ -31,12 +56,8 @@
                 :rules="[rules.required, rules.pwdConfirm]"
             ></v-text-field>
 
-            <v-text-field
-                v-model="reset.Vcode"
-                label="verification code"
-                clearable
-                :rules="[rules.required]"
-            ></v-text-field>
+
+
 
             <v-row justify="center">
               <v-btn plain @click="resetPwd" class="px-0">重置</v-btn>
@@ -109,6 +130,9 @@ export default {
   name: "login",
   data () {
     return {
+      show: true,
+      count: '',
+      timer: null,
       st: 0,
       info: null,
       loginn: {
@@ -155,6 +179,37 @@ export default {
         document.getElementById("reg").style.display = ''
         document.getElementById("log").style.display = 'none'
       }
+    },
+    // appendIconCallback () {
+    //   alert('验证码已发送，60s后重发')
+    // },
+    getCode(){
+      this.$message({
+        showClose: true,
+        message: '验证码已发送，60s后重发',
+        type: 'success'
+      });
+      const TIME_COUNT = 60;
+      if (!this.timer) {
+        this.count = TIME_COUNT;
+        this.show = false;
+        this.timer = setInterval(() => {
+          if (this.count > 0 && this.count <= TIME_COUNT) {
+            this.count--;
+          } else {
+            this.show = true;
+            clearInterval(this.timer);
+            this.timer = null;
+          }
+        }, 1000)
+      }
+    },
+    appendIconCallback() {
+      this.$message({
+        showClose: true,
+        message: '验证码已发送，60s后重发',
+        type: 'success'
+      });
     },
     login(){
       this.$store.dispatch("Login", this.loginn).then(

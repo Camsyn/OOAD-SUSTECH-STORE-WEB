@@ -64,17 +64,42 @@
             </v-btn>
           </v-col>
         </v-row>
+        <v-row>
+          <v-col>
+            <v-form>
+
+              <div class="text-h6 font-weight-black" v-text="code"></div>
+              <div style="padding: 10px">
+                <el-input placeholder="请输入密码" v-model="input1" show-password></el-input>
+              </div>
+              <div style="padding: 10px">
+                <el-input placeholder="请再次输入密码" v-model="input2" show-password></el-input>
+              </div>
+              <v-row>
+                <v-col class="d-flex justify-center" >
+                  <v-btn outlined rounded text class="mb-2" color="blue" @click="updateCode">
+                    确认更改
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-form>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+
 export default {
   name: "edit",
   data(){
     return{
       xinxi: "用户信息",
+      code:"修改密码",
+      input1:"",
+      input2:"",
       touxiang: "上传头像",
       shoukuan: "收款码",
       info: {
@@ -110,7 +135,6 @@ export default {
       }).catch(err => {
         console.log(err);
       });
-
     },
     updateInfo(){
       let nul = true;
@@ -127,6 +151,23 @@ export default {
       this.$store.dispatch("update", this.info).then(res=>{
         // this.$store.dispatch("")
         console.log("update");
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
+    updateCode(){
+
+      if (this.input1 !== this.input2)
+        return;
+
+      let sid=this.$store.state.name
+
+      let userinfo={'sid':sid,'code':this.input2}
+
+
+      this.$store.dispatch("updateCode", userinfo).then(res=>{
+        // this.$store.dispatch("")
+        console.log("updateCode");
       }).catch(err=>{
         console.log(err);
       });

@@ -117,6 +117,14 @@ const user = {
         console.log(err);
       });
     },
+    updateCode(context, info){
+      info.sid = context.state.name;
+      updateMyInfo(info).then(res=>{
+        context.dispatch("getMyInfo").then().catch(err=>{console.log(err);});
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
 
     forgetPwd(context, {sid, captcha, newPassword}){
       return forgetPwd(sid, captcha, newPassword);
