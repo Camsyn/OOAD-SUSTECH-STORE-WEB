@@ -40,6 +40,14 @@ export function AllgetLatest(n){
     })
 }
 
+export function AllgetPage(page, limit){
+    return service({
+        method: 'get',
+        url: 'chat/circle/all/page',
+        params:{page, limit},
+    })
+}
+
 export function sbGetLast(sid, count){
     return service({
         method: 'get',
@@ -53,5 +61,13 @@ export function sbGetPage(sid, page, limit){
         method: 'get',
         url: 'chat/circle/sid/page',
         params:{sid, page, limit},
+    })
+}
+
+export function getComment(cmId, count){
+    return service({
+        method: 'get',
+        url: 'chat/circle/comment/cmId/getLatest',
+        params:{cmId, count},
     })
 }
