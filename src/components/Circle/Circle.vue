@@ -304,7 +304,6 @@ export default {
   },
   computed: {
     all_unfollowers() {
-
       return circle.state.unfollowList
     }
   },
