@@ -1,34 +1,69 @@
 <template>
-  <div id="con">
-    <svg xmlns="http://www.w3.org/2000/svg" height="100%" width="100%">
-      <filter id="filter-zjq145yry">
-        <feTurbulence baseFrequency="0.0002" numOctaves="10" seed="629"></feTurbulence>
-        <feColorMatrix values="3.5 -2.1 0.4 -0.9 0.1 2.1 0.3 3.2 -3.7 -0.5 2.1 0.9 0.8 1.7 -0.5 -1.3 4 -2.4 0.7 1.9"></feColorMatrix>
-      </filter>
-      <rect width="100%" height="100%" filter="url(#filter-zjq145yry)"></rect>
-    </svg>
+  <div id="concerns">
+    <div style="padding: 10px">
+      <v-card
+          class="mx-auto"
+      >
+        <v-list two-line>
+          <template v-for="(item, index) in all_followers">
+            <v-list-item
+                :key="index"
+            >
+              <v-list-item-avatar>
+                <img :src="item.avatar" alt="CC">
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title v-html="item.name"></v-list-item-title>
+                <span class="font-weight-bold" style= "display:inline">
+
+                </span>
+                <v-row>
+                  <v-col cols="12" md="9" sm="9">
+                    <v-list-item-subtitle v-html="item.subtitle">
+                    </v-list-item-subtitle>
+                  </v-col>
+                  <v-col cols="12" md="3" sm="3">
+                    <v-btn
+                        depressed
+                        color="error"
+                        right
+                        @click="observeClick(item)"
+                    >
+                      取消关注
+                    </v-btn>
+                  </v-col>
+
+                </v-row>
+
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </v-list>
+      </v-card>
+
+    </div>
+
   </div>
 </template>
 
 <script>
+import circle from "../../../store/modules/circle";
 export default {
   name: "concern",
-  data: () => ({
-    drawer: null,
-    items: [
-      { icon: "mdi-purse-outline", title: "我发布的", route: "publish" },
-      { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "sold" },
-      { icon: "mdi-cart-arrow-down", title: "我买到的", route: "bought" },
-      { icon: "mdi-cart-variant", title: "我可转卖的", route: "nextsell" },
-      { icon: "mdi-star", title: "收藏", route: "collection" },
-      { icon: "mdi-walk", title: "足迹", route: "trail" },
-      { icon: "mdi-heart-plus", title: "关注", route: "concerns" },
-      { icon: "mdi-human-greeting-variant", title: "粉丝", route: "fans" },
-      { icon: "mdi-wrench", title: "设置", route: "settings" },
-    ],
-
+  data:()=>({
   }),
+  methods:{
+    observeClick(item){
+      this.$store.commit('UAdd', { item })
+    },
 
+  },
+  computed:{
+    all_followers(){
+      return circle.state.followList
+    }
+
+  }
 };
 </script>
 

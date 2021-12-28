@@ -42,7 +42,7 @@ const goods = {
                 search(searchInfo).then(res=>{
                     let url = "https://img1.baidu.com/it/u=1034833325,3625066472&fm=26&fmt=auto"
                     for (let i = 0; i <res.data.length ; i++) {
-                        if(res.data[i].images.length == 0) {
+                        if(res.data[i].images.length === 0) {
                             res.data[i].images = [url]
                         }
                     }
