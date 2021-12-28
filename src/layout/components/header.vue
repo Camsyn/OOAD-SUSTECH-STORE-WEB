@@ -91,17 +91,17 @@ export default {
   },
   methods: {
     info(item) {
-      if(item.index == 0){
+      if(item.index === 0){
         this.$router.push('/home')
       }
-      if(item.index == 1){
+      if(item.index === 1){
         this.$router.push('/circle')
       }
-      if(item.index == 2){
+      if(item.index === 2){
         user.state.ObserverId = user.state.name
         this.$router.push('/PersonalPage')
       }
-      if(item.index == 3){
+      if(item.index === 3){
         this.$router.push('/myspace')
       }
     },
