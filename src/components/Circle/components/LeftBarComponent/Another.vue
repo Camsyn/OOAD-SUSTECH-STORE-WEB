@@ -4,7 +4,7 @@
     <div style="padding: 10px">
       <v-card
           class="mx-auto"
-          v-for="(item,i) in data"
+          v-for="(item,i) in dataList"
           :key="i"
       >
         <v-col>
@@ -15,18 +15,102 @@
               {{item.username}}
             </span>
           <span style="float:right">
-              <el-dropdown trigger="click">
-              <span class="el-dropdown-link">
-              <i class="el-icon-arrow-down el-icon--right" style="font-size: 20px"></i>
-              </span>
-              <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item>帮上头条</el-dropdown-item>
-                <el-dropdown-item>收藏</el-dropdown-item>
-                <el-dropdown-item>屏蔽此条信息</el-dropdown-item>
-                <el-dropdown-item>屏蔽该博主</el-dropdown-item>
-                <el-dropdown-item>投诉</el-dropdown-item>
-              </el-dropdown-menu>
-            </el-dropdown>
+<!--              <el-dropdown trigger="click">-->
+<!--              <span class="el-dropdown-link">-->
+<!--              <i class="el-icon-arrow-down el-icon&#45;&#45;right" style="font-size: 20px"></i>-->
+<!--              </span>-->
+<!--              <el-dropdown-menu slot="dropdown">-->
+<!--                <el-dropdown-item>帮上头条</el-dropdown-item>-->
+<!--                <el-dropdown-item>收藏</el-dropdown-item>-->
+<!--                <el-dropdown-item>屏蔽此条信息</el-dropdown-item>-->
+<!--                <el-dropdown-item>屏蔽该博主</el-dropdown-item>-->
+<!--                <el-dropdown-item @click="">投诉</el-dropdown-item>-->
+<!--              </el-dropdown-menu>-->
+<!--            </el-dropdown>-->
+
+               <div style="position: absolute;right:20px;padding-top: 20px">
+
+            <v-row justify="center">
+              <v-dialog
+                  v-model="dialog"
+                  persistent
+                  max-width="600px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                      color="white"
+                      depressed
+                      v-bind="attrs"
+                      v-on="on"
+                  >
+                    <v-icon left>
+                      mdi-pencil
+                    </v-icon>
+                    举报
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    <span class="text-h5">举报窗口</span>
+                  </v-card-title>
+                  <v-card-text>
+                    <v-container>
+                      <v-row>
+                        <v-col
+                            cols="12"
+                            sm="6"
+                        >
+                          <v-text-field
+                              label="用户名"
+                              required
+                          ></v-text-field>
+                        </v-col>
+                        <v-col
+                            cols="12"
+                            sm="6"
+                        >
+                          <v-text-field
+                              label="Dynamic-ID"
+                              hint="请输入动态ID"
+                              persistent-hint
+                              required
+                          ></v-text-field>
+                        </v-col>
+
+
+                       <v-col cols="12">
+                        <v-text-field
+                            label="Description"
+                            outlined
+                            height="200px"
+                        ></v-text-field>
+                       </v-col>
+                      </v-row>
+                    </v-container>
+                    <small>请勿恶意诽谤~</small>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="dialog = false"
+                    >
+                      关闭
+                    </v-btn>
+                    <v-btn
+                        color="blue darken-1"
+                        text
+                        @click="new EditMyInfo()"
+                    >
+                      保存
+                    </v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </v-row>
+
+          </div>
             </span>
         </v-col>
 
@@ -50,14 +134,14 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-              icon
-              @click="handleClick(item)"
-              :color="item.heartColor"
-          >
-            <v-icon>mdi-heart</v-icon>
-          </v-btn>
-          <span class="subheading mr-2">{{item.heartNum}}</span>
+<!--          <v-btn-->
+<!--              icon-->
+<!--              @click="handleClick(item)"-->
+<!--              :color="item.heartColor"-->
+<!--          >-->
+<!--            <v-icon>mdi-heart</v-icon>-->
+<!--          </v-btn>-->
+<!--          <span class="subheading mr-2">{{item.heartNum}}</span>-->
           <v-btn
               icon
               @click="handleClick2(item)"
@@ -67,16 +151,18 @@
               mdi-message-text
             </v-icon>
           </v-btn>
-          <span class="subheading">{{ item.messageNum }}</span>
+          <span class="subheading">{{ 0 }}</span>
 
-          <v-btn
-              icon
-              @click="handleClick3(item)"
-              :color="item.sharingColor"
-          >
-            <v-icon>mdi-share-variant</v-icon>
-          </v-btn>
-          <span class="subheading">{{ item.sharingNum }}</span>
+<!--          <v-btn-->
+<!--              icon-->
+<!--              @click="handleClick3(item)"-->
+<!--              :color="item.sharingColor"-->
+<!--          >-->
+<!--            <v-icon>mdi-share-variant</v-icon>-->
+<!--          </v-btn>-->
+<!--          <span class="subheading">{{ item.sharingNum }}</span>-->
+
+
         </v-card-actions>
 
         <v-expand-transition>
@@ -133,15 +219,15 @@
 </template>
 
 <script>
-import circle from "../../../../store/modules/circle";
 
 export default {
   name: "Another",
   data: () => ({
+    dialog: false,
     currentPage: 1,
     PageSize:1,
     totalCount: 15,
-    data:[
+    dataList:[
       {
         // avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
         //  img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
@@ -175,6 +261,7 @@ export default {
         ],
       },
     ],
+    buffer:[],
   }),
   methods:{
     handleClick(item){
@@ -219,33 +306,45 @@ export default {
       // 改变默认的页数
       this.currentPage = pageNumber;
     },
+    EditMyInfo(){
+      this.dialog=false
+    }
   },
   created() {
     let count = 10;
     console.log("哲学")
     this.$store.dispatch("AllgetLatest", count).then(res => {
-      this.data = res.filter(item=>item.tag===null)
-      this.totalCount=this.data.length
-      for(let i=0;i<this.data.length;i++){
+      this.buffer = res.filter(item=>item.tag===null)
+      this.totalCount=this.buffer.length+1
+      for(let i=0;i<this.buffer.length;i++){
         // console.log("sid:",this.data[i]['sendId'])
-        this.data[i]['username']='Tom'
-        console.log("username:",this.data[i]['username'])
-        this.data[i].show1=false
-        this.data[i].heartColor='gray'
-        this.data[i].heartNum=322
-        this.data[i].show2=false
-        this.data[i].messageColor='gray'
-        this.data[i].messageNum=677
-        this.data[i].show3=false
-        this.data[i].sharingColor='gray'
-        this.data[i].sharingNum=499
-        this.data[i].textarea=''
-        this.data[i].reply_items=[]
+        this.buffer[i]['username']='Tom'
+        this.buffer[i].show1=false
+        this.buffer[i].heartColor='gray'
+        this.buffer[i].heartNum=322
+        this.buffer[i].show2=false
+        this.buffer[i].messageColor='gray'
+        this.buffer[i].messageNum=677
+        this.buffer[i].show3=false
+        this.buffer[i].sharingColor='gray'
+        this.buffer[i].sharingNum=499
+        this.buffer[i].textarea=''
+        this.buffer[i].reply_items=[]
       }
+      for(let i=0;i<this.buffer.length;i++){
+        this.dataList.push(this.buffer[i])
+      }
+
     }).catch(err => {
       console.log(err);
     });
   },
+
+  computed:{
+    ReplyLength(item){
+      return item.repy_items.length
+    }
+  }
 
 };
 </script>
