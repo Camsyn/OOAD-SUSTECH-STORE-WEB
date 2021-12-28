@@ -141,7 +141,40 @@ export default {
     currentPage: 1,
     PageSize:1,
     totalCount: 15,
-    data:[],
+    data:[
+      {
+        // avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
+        //  img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
+        username:"Tifa",
+        topic:"《最终幻想7重制版》",
+        content:"在塔罗牌里，Tiferet的图案是红心，而有时则是天使（Tifa的酒吧是“Seventh Heaven”），" +
+            "而她的4级Limit技则是“Final Heaven”），" +
+            "她的姓“Lockheart”，表示她善于把心事锁在心里，又或者她可以解锁真正的克劳德",
+        show1:false,
+        heartColor:"gray",
+        heartNum:256,
+        show2: false,
+        messageColor:"gray",
+        messageNum:666,
+        show3:false,
+        sharingColor:"gray",
+        sharingNum:486,
+        textarea:'',
+        repy_items: [
+          {
+            text: 'Adam',
+            icon: 'mdi-account' ,
+            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
+          },
+          {
+            text: 'Sally',
+            icon: 'mdi-account' ,
+            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
+                '在移速允许的范围内只要是非指向性技能就必定中不了。',
+          },
+        ],
+      },
+    ],
     grassList:[
       {
        // avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
