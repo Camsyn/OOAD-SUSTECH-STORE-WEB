@@ -8,6 +8,7 @@
             cols="12"
             md="4"
         >
+
           <v-img
               :src="item.images[0]"
               aspect-ratio="1"

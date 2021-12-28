@@ -9,9 +9,17 @@
             <v-list-item
               :key="index"
             >
-              <v-list-item-avatar>
-                <img :src="item.headImage" alt="CC" >
-              </v-list-item-avatar>
+              <v-btn
+                  icon
+                  x-large
+                  v-on="on"
+                  @click = 'PersonPage(item)'
+              >
+                <v-list-item-avatar>
+                  <img :src="item.headImage" alt="CC" >
+                </v-list-item-avatar>
+              </v-btn>
+
               <v-list-item-content>
                 <v-list-item-title v-html="item.nickname"></v-list-item-title>
                 <span class="font-weight-bold" style= "display:inline">
@@ -55,6 +63,10 @@ export default {
   data:()=>({
   }),
   methods:{
+    PersonPage(item) {
+      user.state.ObserverId = item.sid
+      this.$router.push('/PersonalPage')
+    },
     Details(item) {},
     observeClick(item){
       this.$confirm('是否取消对该用户的关注', '提示', {
