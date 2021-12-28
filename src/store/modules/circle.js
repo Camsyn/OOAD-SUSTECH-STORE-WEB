@@ -754,7 +754,7 @@ const circle = {
         ],
       },
 
-    ]
+    ],
   },
   getters: {
     all_followers:state=> state.followList,
@@ -957,7 +957,7 @@ const circle = {
       console.log("form:",data)
       // form['tag']='game'
       state.dynamicPool.push(data)
-    }
+    },
   },
   actions: {
 
