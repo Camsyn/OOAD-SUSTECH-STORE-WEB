@@ -6,10 +6,6 @@ const circle = {
       avatar:'',
       name:'钟离',
       moto:'起风了，唯有努力生存',
-      constellation:'双鱼座',
-      selfIntroduce:'云村达人',
-      career:'自由职业-行政',
-      hobby:'健身，旅游，运动',
     },
 
     evaluate: [

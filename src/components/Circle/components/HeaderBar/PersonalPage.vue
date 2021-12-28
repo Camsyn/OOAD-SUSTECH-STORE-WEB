@@ -18,126 +18,16 @@
         >
           <div>
             <v-avatar size="90" >
-              <img src="https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto" alt="CC" />
+              <img v-bind:src="url0" alt="CC" />
             </v-avatar>
             <span class="font-weight-bold" style= "display:inline;font-size: 20px">
-              {{MyInfo.name}}
+              {{this.Info.nickname}}
             </span>
-          </div>
-          <div style="position: absolute;right:20px;padding-top: 20px">
-
-            <v-row justify="center">
-              <v-dialog
-                v-model="dialog"
-                persistent
-                max-width="600px"
-              >
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    color="white"
-                    depressed
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <v-icon left>
-                      mdi-pencil
-                    </v-icon>
-                    编辑个人资料
-                  </v-btn>
-                </template>
-                <v-card>
-                  <v-card-title>
-                    <span class="text-h5">个人信息</span>
-                  </v-card-title>
-                  <v-card-text>
-                    <v-container>
-                      <v-row>
-                        <v-col
-                          cols="12"
-                          sm="6"
-                        >
-                          <v-text-field
-                            label="用户名"
-                            v-model="MyInfo.name"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col
-                          cols="12"
-                          sm="6"
-                        >
-                          <v-text-field
-                            label="星座"
-                            hint="十二星座"
-                            v-model="MyInfo.constellation"
-                            persistent-hint
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                          <v-text-field
-                            label="座右铭"
-                            v-model="MyInfo.moto"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col cols="12">
-                          <v-text-field
-                            label="个性化介绍"
-                            v-model="MyInfo.selfIntroduce"
-                            required
-                          ></v-text-field>
-                        </v-col>
-                        <v-col
-                          cols="12"
-                          sm="6"
-                        >
-                          <v-text-field
-                              label="职业"
-                              hint="打工人"
-                              v-model="MyInfo.career"
-                          ></v-text-field>
-                        </v-col>
-                        <v-col
-                          cols="12"
-                          sm="6"
-                        >
-                          <v-text-field
-                              label="兴趣爱好"
-                              hint="特长点"
-                              v-model="MyInfo.hobby"
-                          ></v-text-field>
-                        </v-col>
-                      </v-row>
-                    </v-container>
-                    <small>不要留空哦~</small>
-                  </v-card-text>
-                  <v-card-actions>
-                    <v-spacer></v-spacer>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="dialog = false"
-                    >
-                      关闭
-                    </v-btn>
-                    <v-btn
-                      color="blue darken-1"
-                      text
-                      @click="new EditMyInfo()"
-                    >
-                      保存
-                    </v-btn>
-                  </v-card-actions>
-                </v-card>
-              </v-dialog>
-            </v-row>
-
           </div>
         </v-card>
 
         <v-card-subtitle>
-          {{ MyInfo.moto }}
+          {{ this.Info.description }}
         </v-card-subtitle>
         <v-expansion-panels
           flat
@@ -152,18 +42,18 @@
                 <v-icon small>mdi-account-circle-outline</v-icon> &nbsp;已认证
               </div>
             </v-expansion-panel-header>
-            <v-expansion-panel-content>
-              <div style="font-size: x-small;color: #80848a;padding-bottom: 23px">
-                <v-icon small>mdi-emoticon-happy-outline</v-icon> &nbsp;{{MyInfo.selfIntroduce+"-"+MyInfo.constellation}}
-              </div>
-              <div style="font-size: x-small;color: #80848a;padding-bottom: 23px">
-                <v-icon small>mdi-folder-account-outline</v-icon> &nbsp;{{ MyInfo.career }}
-              </div>
-              <div style="font-size: x-small;color: #80848a;">
-                <v-icon small>mdi-heart-outline</v-icon> &nbsp;{{ MyInfo.hobby }}
-              </div>
+<!--            <v-expansion-panel-content>-->
+<!--              <div style="font-size: x-small;color: #80848a;padding-bottom: 23px">-->
+<!--                <v-icon small>mdi-emoticon-happy-outline</v-icon> &nbsp;{{MyInfo.selfIntroduce+"-"+MyInfo.constellation}}-->
+<!--              </div>-->
+<!--              <div style="font-size: x-small;color: #80848a;padding-bottom: 23px">-->
+<!--                <v-icon small>mdi-folder-account-outline</v-icon> &nbsp;{{ MyInfo.career }}-->
+<!--              </div>-->
+<!--              <div style="font-size: x-small;color: #80848a;">-->
+<!--                <v-icon small>mdi-heart-outline</v-icon> &nbsp;{{ MyInfo.hobby }}-->
+<!--              </div>-->
 
-            </v-expansion-panel-content>
+<!--            </v-expansion-panel-content>-->
           </v-expansion-panel>
         </v-expansion-panels>
 
@@ -188,9 +78,12 @@
 
 <script>
 import circle from "../../../../store/modules/circle";
+import user from "../../../../store/modules/user";
 export default {
   name: "PersonalPage",
   data: () => ({
+    Info: {},
+    url0:"https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
     show1:false,
     heatColor:"gray",
     heartNum:256,
@@ -237,10 +130,11 @@ export default {
       this.dialog=false
     }
   },
-  computed:{
-    MyInfo(){
-      return circle.state.myInfo
-    }
+  created(){
+      this.$store.dispatch('getInfoOf',user.state.ObserverId).then((data) => {
+        this.Info = data
+        this.url0 = data.headImage
+      })
   }
 };
 </script>

@@ -160,9 +160,18 @@
                   v-for="(item,key) in all_unfollowers.slice((currentPage-1)*PageSize,currentPage*PageSize)"
                   :key="key"
                 >
-                  <v-list-item-avatar>
-                    <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage" @click='clickIn(item)'></el-image>
-                  </v-list-item-avatar>
+                  <v-btn
+                  icon
+                  x-large
+                  v-on="on"
+                  @click = 'PersonPage(item)'
+                  >
+                    <v-list-item-avatar>
+                      <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage"></el-image>
+                    </v-list-item-avatar>
+
+                  </v-btn>
+
                   <v-list-item-title v-html="item.nickname"></v-list-item-title>
                   <v-spacer></v-spacer>
                   <span class="font-weight-bold" style= "display:inline">
@@ -249,8 +258,9 @@ export default {
     ]
   }),
   methods: {
-    clickIn() {
-      // this.$router.push('/PersonalPage')
+    PersonPage(item) {
+      user.state.ObserverId = item.sid
+      this.$router.push('/PersonalPage')
     },
     toHome() {
       this.$router.push("/");

@@ -39,9 +39,4 @@ export default {
   margin-top: 70px;
   margin-left: 30px;
 }
-.bread {
-  border-bottom: 4px solid #dbd6d6;
-  display: inline-block;
-  width: 1250px;
-}
 </style>

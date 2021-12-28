@@ -5,7 +5,7 @@
       与此商品相关的商品
     </div>
     <div class="Next">
-      <div class="MoreProduce">
+      <div class="MoreProduce" v-if="MoreProduct[1]">
         <a  class="MoreProduce1" @click = changeDetails1>
           <el-image
               style="width: 200px; height: 200px"
@@ -22,7 +22,7 @@
           </div>
         </a >
       </div>
-      <div class="MoreProduce">
+      <div class="MoreProduce" v-if="MoreProduct[2]">
         <a  class="MoreProduce1" @click = changeDetails2>
           <el-image
               style="width: 200px; height: 200px"
@@ -50,34 +50,45 @@ export default {
   name: "bottom",
   methods: {
     changeDetails1() {
-      this.$store.commit('setCur',this.MoreProduct[1])
-      goods.state.current.request = this.MoreProduct[1]
+
+       this.$store.dispatch('getInfoOf',this.MoreProduct[1].pusher).then((data) => {
+         this.$store.commit('setCur',this.MoreProduct[1])
+         goods.state.current.request = this.MoreProduct[1]
+         goods.state.current.request.pusherInfo = data
+       })
       this.search.queryStr = goods.state.current.request.title
       this.$store.dispatch('search',this.search).then((data) => {
         this.MoreProduct = data
+        if (this.MoreProduct.length < 3) {
+          this.search.searchStrategy = 0
+          this.search.isRandom = true
+          this.$store.dispatch('search',this.search).then((data) => {
+            this.MoreProduct = data
+          })
+        }
       })
-      if (this.MoreProduct.length < 3) {
-        this.search.searchStrategy = 0
-        this.search.isRandom = true
-        this.$store.dispatch('search',this.search).then((data) => {
-          this.MoreProduct = data
-        })
-      }
+
     },
     changeDetails2() {
-      this.$store.commit('setCur',this.MoreProduct[2])
-      goods.state.current.request = this.MoreProduct[2]
+      this.$store.dispatch('getInfoOf',this.MoreProduct[2].pusher).then((data) => {
+        this.$store.commit('setCur',this.MoreProduct[2])
+        goods.state.current.request = this.MoreProduct[2]
+        goods.state.current.request.pusherInfo = data
+      })
       this.search.queryStr = goods.state.current.request.title
       this.$store.dispatch('search',this.search).then((data) => {
+
         this.MoreProduct = data
+
+        if (this.MoreProduct.length < 3) {
+          this.search.searchStrategy = 0
+          this.search.isRandom = true
+          this.$store.dispatch('search',this.search).then((data) => {
+            this.MoreProduct = data
+          })
+        }
       })
-      if (this.MoreProduct.length < 3) {
-        this.search.searchStrategy = 0
-        this.search.isRandom = true
-        this.$store.dispatch('search',this.search).then((data) => {
-          this.MoreProduct = data
-        })
-      }
+
     }
   },
   data() {
@@ -94,14 +105,15 @@ export default {
     this.search.queryStr = goods.state.current.request.title
     this.$store.dispatch('search',this.search).then((data) => {
       this.MoreProduct = data
+      if (this.MoreProduct.length < 3) {
+        this.search.searchStrategy = 0
+        this.search.isRandom = true
+        this.$store.dispatch('search',this.search).then((data) => {
+          this.MoreProduct = data
+        })
+      }
     })
-    if (this.MoreProduct.length < 3) {
-      this.search.searchStrategy = 0
-      this.search.isRandom = true
-      this.$store.dispatch('search',this.search).then((data) => {
-        this.MoreProduct = data
-      })
-    }
+
   }
 }
 </script>

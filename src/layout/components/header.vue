@@ -22,7 +22,7 @@
       <v-tab
         v-for="item in links"
         :key="item.index"
-        @click="$router.push({name: item.to})"
+        @click=info(item)
       >
         {{item.name}}
       </v-tab>
@@ -48,7 +48,7 @@ import menuBtn from "@/layout/components/menuBtn";
 import NotifBtn from "@/layout/components/notifBtn";
 import UploadBtn from "@/layout/components/uploadBtn";
 import image_lemon from '../asserts/lemon.png'
-
+import user from '../../store/modules/user';
 export default {
   components: {UploadBtn, NotifBtn, menuBtn },
   name: "myHeader",
@@ -90,7 +90,21 @@ export default {
     }
   },
   methods: {
-    info() {},
+    info(item) {
+      if(item.index == 0){
+        this.$router.push('/home')
+      }
+      if(item.index == 1){
+        this.$router.push('/circle')
+      }
+      if(item.index == 2){
+        user.state.ObserverId = user.state.name
+        this.$router.push('/PersonalPage')
+      }
+      if(item.index == 3){
+        this.$router.push('/myspace')
+      }
+    },
   },
 };
 </script>

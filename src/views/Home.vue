@@ -319,6 +319,7 @@ export default {
       // }else {
       //   res.pop();
       // }
+      this.more = true;
       this.page++;
       this.addMore();
       if (clear){
@@ -353,8 +354,6 @@ export default {
     },
 
     search(clear = true){
-      console.log("search")
-      this.more = true;
       if (this.searchInfo.queryStr==""){
         return;
       }
@@ -420,6 +419,7 @@ export default {
         return;
       // 添加更多数据
 
+      this.more = false;
       if (this.isSearch)
         this.search(false);
       else

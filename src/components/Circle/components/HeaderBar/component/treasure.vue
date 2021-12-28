@@ -8,10 +8,13 @@
             cols="12"
             md="4"
         >
-          <v-img
-              :src="item.images[0]"
-              aspect-ratio="1"
-          ></v-img>
+            <v-img
+                @click = 'GoodDetails(item)'
+                style="cursor: pointer"
+                :src="item.images[0]"
+                aspect-ratio="1"
+            ></v-img>
+
 
 
           <div style="font-size: small;color: #070301;padding-bottom: 10px">
@@ -42,11 +45,21 @@
 
 <script>
 import user from "../../../../../store/modules/user";
+import goods from "../../../../../store/modules/goods";
 export default {
   name: "treasure",
   data:()=>({
    goods:[],
   }),
+  methods: {
+    GoodDetails(item) {
+      this.$store.dispatch('getInfoOf',item.pusher).then((data) => {
+        goods.state.current.request = item
+        goods.state.current.request.pusherInfo = data
+        this.$router.push('/GoodsDetails')
+      })
+    }
+  },
   created() {
     let my = {
       page: 1,

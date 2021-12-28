@@ -6,11 +6,7 @@
           {{Product.title}}
         </h2>
         <div class="Action">
-          <button class="Action2">
-            <i class="el-icon-chat-line-round"></i>
-            Message
-          </button>
-          <button class="Action2"   @click = AddToCartitem>
+          <button class="Action2" @click = AddToCartitem>
             <i class="el-icon-shopping-cart-full"></i>
             {{ icon_info }}
           </button>
@@ -40,7 +36,7 @@
     </div>
     <div class="details2">
       <div class="User">
-        <a href="#">
+        <a @click = 'Personpage'>
           <el-image
               style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
               :src="User.headImage"
@@ -55,13 +51,13 @@
             </el-rate>
           </div>
           <div class="credit"></div>
-          <el-button type="success" round class="button8">
+          <el-button type="success" round class="button8" @click="chat">
               <i class="el-icon-chat-line-round"></i>
-              Message
+              聊天
             </el-button>
-          <el-button type="primary" round class="button9">
+          <el-button type="primary" round class="button9" @click = 'follow'>
               <i class="el-icon-plus"></i>
-              Add
+              关注
             </el-button>
         </div>
       </div>
@@ -71,9 +67,38 @@
 
 <script>
 import goods from "../../../store/modules/goods";
+import user from "../../../store/modules/user";
 export default {
   name: "Details2",
   methods:{
+    Personpage(){
+      user.state.ObserverId = goods.state.current.request.pusherInfo.sid
+      this.$router.push('/PersonalPage')
+    },
+    follow() {
+      let add = true
+      for (let i = 0; i <user.state.follow.length ; i++) {
+        if(user.state.follow[i] == goods.state.current.request.pusherInfo.sid){
+          add = false
+        }
+      }
+      if(add) {
+        user.state.follow.push(goods.state.current.request.pusherInfo.sid)
+        let data = {
+          sid: user.state.sid,
+          email: user.state.email,
+          nickname : user.state.nickname,
+          description: user.state.description,
+          credit: user.state.credit,
+          liyuan : user.state.liyuan,
+          headImage : user.state.avatar,
+          payCode : user.state.paycode,
+          follow : user.state.follow
+        }
+        this.$store.dispatch('update',data).then(() => {
+        })
+      }
+    },
     buyGood(){
       let lista = []
       lista.push(goods.state.current.request)
@@ -110,9 +135,11 @@ export default {
           message: '已取消'
         });
       });
+    },
 
-
-    }
+    chat(){
+      this.$store.dispatch("test").then(res=>{});
+    },
   },
   data(){
     return{
@@ -126,11 +153,28 @@ export default {
   computed: {
     test() {
       return goods.state.current.request
-    }
+    },
   },
   watch: {
     test: function (newVal,oldVal) {
       this.Product = newVal
+      this.Product.tradeMethod = ''
+      if (this.Product.tradeType == 0) {
+        this.Product.tradeMethod = '第三方支付'
+      }
+      if (this.Product.tradeType == 1) {
+        this.Product.tradeMethod = '平台代币'
+      }
+      if (this.Product.tradeType == 2) {
+        this.Product.tradeMethod = '个人收款码'
+      }
+      if (this.Product.tradeType == 3) {
+        this.Product.tradeMethod = '私下交易'
+      }
+      console.log(goods.state.current.request.pusherInfo)
+      this.Product.updateTime = this.Product.updateTime.substr(0,10)
+      this.User = goods.state.current.request.pusherInfo
+      this.User.credit = this.User.credit/100 * 5
     }
   },
   created() {
@@ -262,7 +306,6 @@ body{
   margin-top: 23px;
 }
 .button9 {
-  width: 120px;
   margin-left: 30px;
   float: right;
   margin-top: 23px;

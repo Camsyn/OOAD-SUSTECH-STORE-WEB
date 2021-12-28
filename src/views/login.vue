@@ -187,7 +187,13 @@ export default {
     },
 
     resetPwd(){
-      // console.log(this.$store.getters.tk)
+      let data = {
+      }
+      // this.$store.dispatch('forgetPwd',).then(() => {
+      //
+      // }).catch(() => {
+      //
+      // })
     }
   },
 }
