@@ -8,11 +8,13 @@
             cols="12"
             md="4"
         >
+            <v-img
+                @click = 'GoodDetails(item)'
+                style="cursor: pointer"
+                :src="item.images[0]"
+                aspect-ratio="1"
+            ></v-img>
 
-          <v-img
-              :src="item.images[0]"
-              aspect-ratio="1"
-          ></v-img>
 
 
           <div style="font-size: small;color: #070301;padding-bottom: 10px">
@@ -48,6 +50,11 @@ export default {
   data:()=>({
    goods:[],
   }),
+  methods: {
+    GoodDetails(item) {
+      console.log(item)
+    }
+  },
   created() {
     let my = {
       page: 1,
