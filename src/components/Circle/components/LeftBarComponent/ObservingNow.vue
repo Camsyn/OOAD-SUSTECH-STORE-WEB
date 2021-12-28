@@ -5,21 +5,21 @@
         class="mx-auto"
       >
         <v-list two-line>
-          <template v-for="(item, index) in all_followers">
+          <template v-for="(item, index) in this.followDetails">
             <v-list-item
               :key="index"
             >
               <v-list-item-avatar>
-                <img :src="item.avatar" alt="CC">
+                <img :src="item.headImage" alt="CC">
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-html="item.name"></v-list-item-title>
+                <v-list-item-title v-html="item.nickname"></v-list-item-title>
                 <span class="font-weight-bold" style= "display:inline">
 
                 </span>
                 <v-row>
                   <v-col cols="12" md="9" sm="9">
-                    <v-list-item-subtitle v-html="item.subtitle">
+                    <v-list-item-subtitle v-html="item.description">
                     </v-list-item-subtitle>
                   </v-col>
                  <v-col cols="12" md="3" sm="3">
@@ -49,22 +49,69 @@
 
 <script>
 import circle from "../../../../store/modules/circle";
+import user from "../../../../store/modules/user";
 export default {
   name: "ObservingNow",
   data:()=>({
+    followDetails: [],
   }),
   methods:{
     observeClick(item){
-      this.$store.commit('UAdd', { item })
+      this.$confirm('是否取消对该用户的关注', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let data2 = []
+        let data_id = []
+        for (let i = 0; i <this.followDetails.length ; i++) {
+          if(this.followDetails[i] !== item) {
+            data2.push(this.followDetails[i])
+            data_id.push(this.followDetails[i].sid)
+          }
+        }
+        let data = {
+          sid: user.state.sid,
+          email: user.state.email,
+          nickname : user.state.nickname,
+          description: user.state.description,
+          credit: user.state.credit,
+          liyuan : user.state.liyuan,
+          headImage : user.state.avatar,
+          payCode : user.state.paycode,
+          follow : data_id
+        }
+        this.$store.dispatch('update',data).then(() => {
+          this.followDetails = data2
+          this.$message({
+            type: 'success',
+            message: '已取消关注'
+          })
+        }).catch((err) => {
+          console.log(err)
+        })
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
 
   },
-  computed:{
-    all_followers(){
-      return circle.state.followList
-    }
-
+  created() {
+    this.followDetails = []
+    this.$store.dispatch('getMyInfo').then(() => {
+      for (let i = 0; i <user.state.follow.length ; i++) {
+        this.$store.dispatch('getInfoOf',user.state.follow[i]).then((data1) => {
+          this.followDetails.push(data1)
+        })
+      }
+      return this.followDetails
+    })
   }
+
 };
 </script>
 

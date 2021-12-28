@@ -45,8 +45,7 @@ const circle = {
         id:86,
         avatar: "https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fdingyue.ws.126.net%2F2020%2F0502%2Fafee7261p00q9pcjh005kc000eb009ec.png&refer=http%3A%2F%2Fdingyue.ws.126.net&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1639827538&t=97d9adb998c30b205201a0b3369ee39d",
         name: '冯宝儿',
-        subtitle: `<span class="font-weight-bold">to Alex, Scott, Jennifer</span>
-        &mdash; Wish I could come, but I'm out of town this weekend.`
+        subtitle: "to Alex, Scott, Jennifer"
       },
       {
         id:87,

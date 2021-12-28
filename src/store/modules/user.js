@@ -4,6 +4,8 @@ import head from "../../assets/head.jpeg";
 
 const user = {
   state: {
+    followInfo: [],
+    follow: [],
     name: null,
     email: null,
     avatar: null,
@@ -46,7 +48,7 @@ const user = {
       state.name = parseInt(name);
       // console.log(state.name)
     },
-    SET_USER_INFO: (state, {sid, liyuan, credit, email, headImage, payCode, description, nickname})=>{
+    SET_USER_INFO: (state, {sid, liyuan, credit, email, headImage, payCode, description, nickname , follow})=>{
       state.name = sid;
       state.nickname = nickname;
       state.liyuan = liyuan;
@@ -55,6 +57,7 @@ const user = {
       state.avatar = headImage;
       state.payCode = payCode;
       state.description = description;
+      state.follow = follow
     },
     SET_TOKEN: (state, token) => {
       state.token = token;
