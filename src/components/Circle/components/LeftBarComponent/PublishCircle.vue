@@ -5,6 +5,7 @@
         <v-col cols="12" md="6" sm="6">
           <v-text-field
               v-model="dynamic.topic"
+              :rules="[rules.required]"
               label="Title"
               hide-details="auto"
           ></v-text-field>
@@ -50,13 +51,6 @@
       </v-row>
       <v-row dense class="d-flex justify-center">
         <v-btn
-            class="ma-0" @click="addText"
-            plain
-            fab
-        >
-          上传
-        </v-btn>
-        <v-btn
             class="ma-0" @click="clear"
             plain
             fab
@@ -94,6 +88,7 @@
           <v-select
               v-model="dynamic.tag"
               :items="Tags"
+              :rules="[rules.required]"
               menu-props="auto"
               label="Select"
               hide-details
@@ -138,30 +133,44 @@ export default {
     splitter:"<<<IMAGE>>>",
     spLen: 11,
     ind: 0,
+    rules: {
+      required: value => !!value || '必填项',
+    },
   }),
   methods:{
     publish(){
-      if (this.dynamic.content.length===0)
+      if (this.dynamic.tag===""||this.dynamic.topic==="")
         return;
+      if (this.edit){
+        this.contents.push({text: this.edit, edit: false});
+        this.edit="";
+      }
+      if (this.contents.length===0)
+        return;
+
+      this.contents.forEach(item=>{
+        if (item.text)
+          this.dynamic.content+=item.text;
+        else if (item.image)
+          this.dynamic.content+=this.splitter+item.image+this.splitter;
+      })
+
       this.$store.dispatch("postMsg", this.dynamic).then(res=>{
-        console.log(res);
+        this.clear();
       }).catch(err=>{
         console.log(err);
       });
     },
     addImage(){
+      if (!this.images)
+        return;
       this.contents.push({text: this.edit, edit: false});
       this.edit="";
 
       this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
-        console.log(res)
         for (let fl of res) {
           let url = fl.fileDownloadUri.replace("/downloadFile", "");
-
           this.contents.push({image: url});
-
-          // this.urls.push(url);
-          // this.dynamic.content+=(this.splitter+url+this.splitter);
         }
 
       }).catch(err => {
@@ -169,12 +178,10 @@ export default {
       });
       this.images=[];
     },
-    addText(){
-      this.dynamic.content+=this.edit;
-      this.edit = "";
-    },
+
     clear(){
       this.dynamic.content="";
+      this.contents=[];
       this.urls=[];
       this.edit="";
       this.images=[];

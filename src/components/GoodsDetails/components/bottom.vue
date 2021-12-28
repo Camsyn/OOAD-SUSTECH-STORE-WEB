@@ -5,7 +5,7 @@
       与此商品相关的商品
     </div>
     <div class="Next">
-      <div class="MoreProduce">
+      <div class="MoreProduce" v-if="MoreProduct[1]">
         <a  class="MoreProduce1" @click = changeDetails1>
           <el-image
               style="width: 200px; height: 200px"
@@ -22,7 +22,7 @@
           </div>
         </a >
       </div>
-      <div class="MoreProduce">
+      <div class="MoreProduce" v-if="MoreProduct[2]">
         <a  class="MoreProduce1" @click = changeDetails2>
           <el-image
               style="width: 200px; height: 200px"

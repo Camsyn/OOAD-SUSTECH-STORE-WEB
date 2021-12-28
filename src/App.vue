@@ -10,23 +10,32 @@ export default {
 
   created() {
     //在页面加载时读取sessionStorage里的状态信息
-    let st = sessionStorage.getItem("store");
+    let user = sessionStorage.getItem("user");
+    let goods = sessionStorage.getItem("goods");
 
-    if (st) {
-      st = JSON.parse(st);
-      st.userInfos = new Map(Object.entries(st.userInfos));
-      Object.assign(this.$store.state.user, this.$store.state.user, st);
+    if (user) {
+      user = JSON.parse(user);
+      user.userInfos = new Map(Object.entries(user.userInfos));
+      Object.assign(this.$store.state.user, this.$store.state.user, user);
+
       this.$store.dispatch("setupChat");
       this.$store.dispatch("renew");
+    }
+    if (goods){
+      goods = JSON.parse(goods);
+      Object.assign(this.$store.state.goods, this.$store.state.goods, goods);
     }
 
     //在页面刷新时将vuex里的信息保存到sessionStorage里
     window.addEventListener('beforeunload', () => {
-      let st = {}
-      Object.assign(st, this.$store.state.user);
-      // console.log(st.userInfos);
-      st.userInfos = Object.fromEntries(st.userInfos);
-      sessionStorage.setItem('store', JSON.stringify(st));
+      let user = {}, goods = {};
+      Object.assign(user, this.$store.state.user);
+      user.userInfos = Object.fromEntries(user.userInfos);
+
+      Object.assign(goods, this.$store.state.goods);
+
+      sessionStorage.setItem('user', JSON.stringify(user));
+      sessionStorage.setItem('goods', JSON.stringify(goods));
     });
   },
 };
