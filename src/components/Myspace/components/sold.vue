@@ -1,9 +1,9 @@
 <template>
   <div class="table">
-    <p class="p_text">我卖出的 ({{tableData.length}})</p>
+    <p class="p_text">我卖出的 ({{all.length}})</p>
     <el-table
         empty-text="暂无数据"
-        :data="tableData"
+        :data="all[page-1]"
         tooltip-effect="dark"
         style="width: 100%"
     >
@@ -69,17 +69,20 @@ export default {
   name: "sold",
   data() {
     return {
-      tableData: [],
+      all: [],
       multipleSelection: [],
       page: 1,
-      limit: 9,
+      limit: 10,
+      length: 1,
       dialog: false,
       edit: null,
       stats:["准备中","已发布","已完成","审核中","已中断"]
     }
   },
   computed: {
-
+    maichude(){
+      return "我卖出的 (第"+this.page+"页)";
+    }
   },
 
   methods: {
@@ -98,15 +101,24 @@ export default {
       });
     },
 
-    getPushed(){
-      this.$store.dispatch("getPush", {page: this.page, size: this.limit}).then((data) => {
-        data = data.data;
-        this.tableData = data;
+    more(){
+      if (this.page<this.length-1){
+        return;
+      }
+
+      this.$store.dispatch("getPush", {page: this.page, size: this.limit}).then((res) => {
+        res = res.data;
+        if (res.length!==0){
+          this.all.push(res);
+          if (this.page>=this.length&&res.length===this.limit){
+            this.length++;
+          }
+        }
       });
     },
   },
   created() {
-    this.getPushed();
+    this.more();
   }
 }
 </script>

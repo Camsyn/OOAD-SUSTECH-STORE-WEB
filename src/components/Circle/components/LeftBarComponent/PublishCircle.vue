@@ -13,11 +13,24 @@
     </div>
     <div class="text-h6 font-weight-black pl-4" v-text="yulan"></div>
     <div v-for="(item, index) in contents" :key="index">
+      <v-textarea
+          append-icon="mdi-comment"
+          @click:append="item.edit=false"
+          v-if="item.edit"
+          v-model="item.text"
+          dense
+          outlined
+          auto-grow
+          rows="1"
+          row-height="10"
+      >
+      </v-textarea>
       <div
+          v-else-if="item.text"
           v-text="item.text"
           class="pl-4"
           style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"
-          @click="edit=item.text;"
+          @click="item.edit=true;"
       ></div>
       <v-img v-if="item.image" :src="item.image" contain></v-img>
     </div>
@@ -137,7 +150,7 @@ export default {
       });
     },
     addImage(){
-      this.contents.push({text: this.edit});
+      this.contents.push({text: this.edit, edit: false});
       this.edit="";
 
       this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
@@ -147,8 +160,8 @@ export default {
 
           this.contents.push({image: url});
 
-          this.urls.push(url);
-          this.dynamic.content+=(this.splitter+url+this.splitter);
+          // this.urls.push(url);
+          // this.dynamic.content+=(this.splitter+url+this.splitter);
         }
 
       }).catch(err => {

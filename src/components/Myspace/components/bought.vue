@@ -1,9 +1,11 @@
 <template>
   <div class="table">
-    <p class="p_text">我买到的 ({{tableData.length}})</p>
+    <v-row>
+      <span v-text="maidaode" class="my-4 mx-auto"></span>
+    </v-row>
     <el-table
         empty-text="暂无数据"
-        :data="tableData"
+        :data="all[page-1]"
         tooltip-effect="dark"
         style="width: 100%"
         >
@@ -61,6 +63,10 @@
         </template>
       </el-table-column>
     </el-table>
+    <div class="d-flex justify-center">
+      <v-pagination v-model="page" @input="more" :length="length">
+      </v-pagination>
+    </div>
   </div>
 </template>
 
@@ -69,17 +75,20 @@ export default {
   name: "bought",
   data() {
     return {
-      tableData: [],
+      all: [],
       multipleSelection: [],
       page: 1,
-      limit: 9,
+      limit: 10,
+      length: 1,
       dialog: false,
       edit: null,
-      stats:["准备中","已发布","已完成","审核中","已中断"]
+      stats:["准备中","已发布","已完成","审核中","已中断"],
     }
   },
   computed: {
-
+    maidaode(){
+      return "我买到的 (第"+this.page+"页)";
+    }
   },
 
   methods: {
@@ -98,16 +107,24 @@ export default {
       });
     },
 
-    getPulled(){
-      this.$store.dispatch("getPull", {page: this.page, size: this.limit}).then((data) => {
-        data = data.data;
-        this.tableData = data;
+    more(){
+      if (this.page<this.length-1){
+        return;
+      }
+      this.$store.dispatch("getPull", {page: this.page, size: this.limit}).then((res) => {
+        res = res.data;
+        if (res.length!==0){
+          this.all.push(res);
+          if (this.page>=this.length&&res.length===this.limit){
+            this.length++;
+          }
+        }
       });
     },
 
   },
   created() {
-    this.getPulled();
+    this.more();
   }
 }
 </script>
