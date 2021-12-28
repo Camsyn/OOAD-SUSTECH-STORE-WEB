@@ -1,15 +1,20 @@
 <template>
-  <v-card elevation="1">
-    <div v-for="item in show" :key="item.ind">
-      <div v-if="item.text" v-text="item.text" class="pl-4" style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"></div>
-      <v-img v-else :src="item.image" contain></v-img>
-    </div>
+  <v-card elevation="2">
+    <v-card-subtitle>
+      {{circle.sendTime}}
+    </v-card-subtitle>
+    <v-card-text>
+      <div v-for="item in show" :key="item.ind">
+        <div v-if="item.text" v-text="item.text" class="pl-1" style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"></div>
+        <v-img v-else :src="item.image" contain></v-img>
+      </div>
+    </v-card-text>
   </v-card>
 </template>
 
 <script>
 export default {
-  props:["content"],
+  props:["circle"],
   name: "preview",
   data:()=>({
     splitter:"<<<IMAGE>>>",
@@ -17,9 +22,12 @@ export default {
   }),
   computed:{
     show(){
-      let con = this.content;
+      let con = this.circle.content;
       return this.parse(con);
-    }
+    },
+    // date(){
+    //   return new Date(this.circle.sendTime).getDate();
+    // }
   },
   methods:{
     parse(con){

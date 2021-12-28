@@ -65,6 +65,9 @@ export default {
       return this.$store.getters.myInfo;
     }
   },
+  created() {
+    console.log(this.info)
+  }
 };
 </script>
 

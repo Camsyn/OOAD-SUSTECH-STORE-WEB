@@ -9,10 +9,9 @@ export function upload(files, mul = false){
         headers:{'Content-Type':'multipart/form-data'}
     };
 
-    let token = store.getters.token;
-    let head = store.getters.tokenHead;
+    let token = sessionStorage.getItem("token");
     if (token !== null && token !== undefined){
-        configs.headers["Authorization"] = head+token;
+        configs.headers["Authorization"] = token;
     }
 
     let ind = 0;

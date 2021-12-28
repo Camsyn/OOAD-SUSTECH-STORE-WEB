@@ -13,14 +13,14 @@
     </div>
     <div class="text-h6 font-weight-black pl-4" v-text="yulan"></div>
     <div v-for="(item, index) in contents" :key="index">
-      <div v-if="item.text"
-           v-text="item.text"
-           class="pl-4"
-           style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"
+      <div
+          v-text="item.text"
+          class="pl-4"
+          style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"
+          @click="edit=item.text;"
       ></div>
-      <v-img v-else :src="item.image" contain></v-img>
+      <v-img v-if="item.image" :src="item.image" contain></v-img>
     </div>
-    <preview :content="this.dynamic.content" class="px-3"></preview>
 
     <v-card-text>
       <v-row cols="auto">
@@ -104,12 +104,8 @@
 </template>
 
 <script>
-import preview from "../../../Myspace/components/preview";
 
 export default {
-  components:{
-    preview
-  },
   name: "PublishCircle",
   data:()=>({
     textarea:"",

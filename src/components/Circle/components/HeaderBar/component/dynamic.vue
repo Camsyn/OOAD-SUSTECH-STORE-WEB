@@ -108,7 +108,7 @@
     <preview
         v-for="(item, index) in all"
         :key="index"
-        :content="item.content"
+        :circle="item"
         class="my-3"
     ></preview>
   </div>

@@ -31,11 +31,11 @@ const user = {
     },
     myInfo: state=>{
       let t = state.tracer;
-      return state.userInfos.get(state.name);
+      return state.userInfos.get(state.name.toString());
     },
     infoOf: state=>id=>{
       let t = state.tracer;
-      return state.userInfos.get(id);
+      return state.userInfos.get(id.toString());
     }
   },
   mutations: {
@@ -55,7 +55,6 @@ const user = {
       state.avatar = headImage;
       state.payCode = payCode;
       state.description = description;
-
     },
     SET_TOKEN: (state, token) => {
       state.token = token;
@@ -67,7 +66,7 @@ const user = {
       state.refreshToken = token;
     },
     SET_INFO_OF: (state, info) => {
-      state.userInfos.set(info.sid, info)
+      state.userInfos.set(info.sid.toString(), info)
       state.tracer++;
     },
   },
@@ -76,7 +75,6 @@ const user = {
     // 登录
     Login(context, userInfo) {
       const username = userInfo.username.trim();
-      context.commit("SET_INFO_OF", userInfo);
       return new Promise((resolve, reject) => {
         login(username, userInfo.password.trim())
           .then((response) => {
@@ -139,7 +137,7 @@ const user = {
 
     getInfoOf(context, id){
       return new Promise((resolve, reject)=>{
-        if (context.state.userInfos.has(id)){
+        if (context.state.userInfos.has(id.toString())){
           resolve(context.getters.infoOf(id));
         }else{
           getUserInfo(id).then(res => {
