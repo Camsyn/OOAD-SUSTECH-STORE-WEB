@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table" style="padding: 20px">
     <v-row>
       <span v-text="maidaode" class="my-4 mx-auto"></span>
     </v-row>

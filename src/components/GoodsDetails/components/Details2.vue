@@ -10,9 +10,9 @@
             <i class="el-icon-chat-line-round"></i>
             Message
           </button>
-          <button class="Action2" @click = AddToCartitem>
+          <button class="Action2"   @click = AddToCartitem>
             <i class="el-icon-shopping-cart-full"></i>
-            加入购物车
+            {{ icon_info }}
           </button>
         </div>
       </div>
@@ -91,6 +91,9 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch("addInfo",addInfo).then((data) => {
+          if (this.icon_info==='加入购物车'){
+            this.icon_info='已加入购物车'
+          }
           this.$message({
             type: 'success',
             message: '加入购物车成功!',
@@ -117,6 +120,7 @@ export default {
       },
       User: {
       },
+      icon_info:"加入购物车",
     }
   },
   computed: {

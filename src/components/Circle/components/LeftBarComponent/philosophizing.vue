@@ -158,6 +158,7 @@ export default {
     currentPage: 1,
     PageSize:1,
     totalCount: 15,
+    data:[]
   }),
   methods:{
     handleClick(item){
@@ -176,6 +177,18 @@ export default {
       // 改变默认的页数
       this.currentPage = pageNumber;
     },
+  },
+  created(){
+    let count=10;
+    console.log("哲学")
+    this.$store.dispatch("AllgetLatest",count).then(res=>{
+      this.data=res
+      console.log("data:",this.data)
+    }).catch(err=>{
+      console.log(err);
+    });
+
+
   },
   computed:{
     TeasingList(){

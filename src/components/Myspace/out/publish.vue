@@ -1,5 +1,5 @@
 <template>
-    <div class="table">
+    <div class="table" style="padding: 20px">
       <v-dialog
           v-model="dialog"
           width="500"

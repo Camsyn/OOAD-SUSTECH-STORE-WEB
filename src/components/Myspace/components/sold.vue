@@ -1,5 +1,5 @@
 <template>
-  <div class="table">
+  <div class="table" style="padding: 20px">
     <p class="p_text">我卖出的 ({{all.length}})</p>
     <el-table
         empty-text="暂无数据"

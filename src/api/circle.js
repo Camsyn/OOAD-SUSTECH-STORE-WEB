@@ -14,7 +14,6 @@ export function postComment(msg){
         url: 'chat/circle/comment/post',
         data:msg,
     })
-
 }
 
 export function Delete(msg){

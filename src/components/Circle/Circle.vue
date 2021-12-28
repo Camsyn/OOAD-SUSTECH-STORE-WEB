@@ -217,6 +217,7 @@ export default {
       { title: '美食', icon: 'mdi-food-turkey',route: "/circle/delicious_food"},
       { title: '萌宠', icon: 'mdi-dog',route: "/circle/cute_pet"},
       { title: '哲思', icon: 'mdi-head-lightbulb',route: "/circle/philosophizing"},
+      { title: '其它', icon: 'mdi-waze',route: "/circle/another"},
     ],
     right: null,
 

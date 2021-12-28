@@ -13,7 +13,6 @@ import Notifications from "../views/notifications";
 import MySpace from "../components/Myspace/MySpace";
 import settings from "../components/Myspace/components/settings";
 import collection from "../components/Myspace/components/collection";
-import fans from "../components/Myspace/components/fans";
 import nextsell from "../components/Myspace/components/nextsell";
 
 import sold from "../components/Myspace/components/sold";
@@ -41,6 +40,7 @@ import delicious_food from "../components/Circle/components/LeftBarComponent/del
 import game from "../components/Circle/components/LeftBarComponent/game";
 import philosophizing from "../components/Circle/components/LeftBarComponent/philosophizing";
 import tour from "../components/Circle/components/LeftBarComponent/tour";
+import Another from "../components/Circle/components/LeftBarComponent/Another";
 
 
 import Demo from "../components/Business/Demo";
@@ -89,11 +89,6 @@ const routes = [
         name: "Myspace",
         component: MySpace,
         children: [
-          {
-            path: "/myspace/fans",
-            name: "fans",
-            component: fans,
-          },
           {
             path: "/myspace/nextsell",
             name: "nextsell",
@@ -228,6 +223,12 @@ const routes = [
             name:"tour",
             component: tour,
           },
+          {
+            path:"/circle/another",
+            name:"another",
+            component: Another,
+          },
+
         ]
       },
       {
