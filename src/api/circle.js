@@ -37,6 +37,14 @@ export function AllgetLatest(n){
     return service({
         method: 'get',
         url: 'chat/circle/all/getLatest',
-        params:n,
+        params:{count: n},
+    })
+}
+
+export function sbGetLast(sid, count){
+    return service({
+        method: 'get',
+        url: 'chat/circle/sid/getLatest',
+        params:{sid, count},
     })
 }

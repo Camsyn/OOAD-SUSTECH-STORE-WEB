@@ -37,7 +37,6 @@ const user = {
       let t = state.tracer;
       return state.userInfos.get(id);
     }
-
   },
   mutations: {
     TRACE: (state)=>{
