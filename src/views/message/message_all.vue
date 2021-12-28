@@ -7,8 +7,8 @@
         <v-list three-line height="90%">
           <template v-for="(item, index) in messagesShort">
             <v-list-item :key="index" @click="chatWith(item[0])">
-              <v-list-item-avatar>
-                <v-img src="https://cdn.vuetifyjs.com/images/john.jpg"></v-img>
+              <v-list-item-avatar size="50">
+                <v-img :src="item"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
@@ -44,7 +44,6 @@ export default {
       console.log(this.$store.getters.msgEach);
       return this.$store.getters.msgEach;
     },
-
   },
   methods: {
     chatWith(sid){

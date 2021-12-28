@@ -6,11 +6,7 @@
           {{Product.title}}
         </h2>
         <div class="Action">
-          <button class="Action2">
-            <i class="el-icon-chat-line-round"></i>
-            Message
-          </button>
-          <button class="Action2"   @click = AddToCartitem>
+          <button class="Action2" @click = AddToCartitem>
             <i class="el-icon-shopping-cart-full"></i>
             {{ icon_info }}
           </button>
@@ -55,13 +51,13 @@
             </el-rate>
           </div>
           <div class="credit"></div>
-          <el-button type="success" round class="button8">
+          <el-button type="success" round class="button8" @click="chat">
               <i class="el-icon-chat-line-round"></i>
-              Message
+              聊天
             </el-button>
           <el-button type="primary" round class="button9">
               <i class="el-icon-plus"></i>
-              Add
+              关注
             </el-button>
         </div>
       </div>
@@ -110,9 +106,11 @@ export default {
           message: '已取消'
         });
       });
+    },
 
-
-    }
+    chat(){
+      this.$store.dispatch("test").then(res=>{});
+    },
   },
   data(){
     return{
@@ -262,7 +260,6 @@ body{
   margin-top: 23px;
 }
 .button9 {
-  width: 120px;
   margin-left: 30px;
   float: right;
   margin-top: 23px;

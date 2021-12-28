@@ -173,8 +173,8 @@ const user = {
       });
     },
 
-    test(context){
-      return 123;
+    test1(context){
+      return 123131;
     }
   },
 };
