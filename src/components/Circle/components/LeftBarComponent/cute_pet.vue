@@ -1,7 +1,7 @@
 <template>
   <div id="main">
 
-    <div style="padding: 10px">
+    <div v-if="PetList" style="padding: 10px">
       <v-card
         class="mx-auto"
         v-for="(item,i) in PetList.slice((currentPage-1)*PageSize,currentPage*PageSize)"
