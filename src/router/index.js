@@ -86,6 +86,7 @@ const routes = [
     component: Layout,
     children: [
       {
+
         path: "/myspace",
         name: "Myspace",
         component: MySpace,
@@ -140,29 +141,29 @@ const routes = [
             redirect:'/myspace',
             component: publish,
           },
-          {
-            path:"/PersonalPage",
-            name:"PersonalPage",
-            component: PersonalPage,
-            children:[
-              {
-                path:"/PersonalPage/treasure",
-                name:"treasure",
-                component:treasure,
-              },
-              {
-                path:"/PersonalPage/evaluate",
-                name:"evaluate",
-                component:evaluate,
-              },
-              {
-                path:"/PersonalPage/dynamic",
-                name:"dynamic",
-                component:dynamic,
-              }
-            ]
-          },
         ],
+      },
+      {
+        path:"/PersonalPage",
+        name:"PersonalPage",
+        component: PersonalPage,
+        children:[
+          {
+            path:"/PersonalPage/treasure",
+            name:"treasure",
+            component:treasure,
+          },
+          {
+            path:"/PersonalPage/evaluate",
+            name:"evaluate",
+            component:evaluate,
+          },
+          {
+            path:"/PersonalPage/dynamic",
+            name:"dynamic",
+            component:dynamic,
+          }
+        ]
       },
       {
         path: "/circle",
