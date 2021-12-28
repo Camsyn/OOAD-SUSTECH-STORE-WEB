@@ -1,4 +1,13 @@
-import {forgetPwd, getUserInfo, getMyInfo, login, updateMyInfo, randomUser, modifyPwd} from "../../api/user";
+import {
+  forgetPwd,
+  getUserInfo,
+  getMyInfo,
+  login,
+  updateMyInfo,
+  randomUser,
+  modifyPwd,
+  modifyPwdIn
+} from "../../api/user";
 import {register, exist} from "../../api/register";
 import head from "../../assets/head.jpeg";
 import {search} from "../../api/goods";
@@ -140,6 +149,16 @@ const user = {
     modifyPwd(context,data) {
       return new Promise((resolve, reject)=>{
         modifyPwd(data).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+    modifyPwd2(context,data) {
+      return new Promise((resolve, reject)=>{
+        modifyPwdIn(data).then(res=>{
           resolve(res.data);
         }).catch(err=>{
           reject(err);

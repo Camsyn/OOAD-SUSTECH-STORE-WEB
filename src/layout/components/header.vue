@@ -99,7 +99,7 @@ export default {
       }
       if(item.index === 2){
         user.state.ObserverId = user.state.name
-        this.$router.push('/PersonalPage')
+        this.$router.push('/PersonalPage/treasure')
       }
       if(item.index === 3){
         this.$router.push('/myspace')

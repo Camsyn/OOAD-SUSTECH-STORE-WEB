@@ -164,7 +164,6 @@ export default {
 
       let userinfo={'sid':sid,'code':this.input2}
 
-
       this.$store.dispatch("updateCode", userinfo).then(res=>{
         // this.$store.dispatch("")
         console.log("updateCode");
