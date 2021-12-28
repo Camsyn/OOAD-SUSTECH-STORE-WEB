@@ -161,7 +161,7 @@
                   :key="key"
                 >
                   <v-list-item-avatar>
-                    <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage" @click = 'clickIn(item)'></el-image>
+                    <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage" @click='clickIn(item)'></el-image>
                   </v-list-item-avatar>
                   <v-list-item-title v-html="item.nickname"></v-list-item-title>
                   <v-spacer></v-spacer>
