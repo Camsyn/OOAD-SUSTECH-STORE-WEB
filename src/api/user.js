@@ -10,13 +10,27 @@ export function login(username, password) {
   });
 }
 
-export function forgetPwd(sid, captcha, newPassword) {
+export function forgetPwd(data) {
   return service({
     url: "/auth/account/modify/password/captcha",
     method: "post",
-    params: {
-      sid, captcha, newPassword
-    },
+    params: data,
+  });
+}
+
+export  function  modifyPwdIn(data) {
+  return service({
+    url: "/auth/account/modify/password/oldPassword",
+    method: "post",
+    params:data,
+  });
+
+}
+export function modifyPwd(data) {
+  return service({
+    url: "/auth/verify/modify/password",
+    method: "post",
+    params:data,
   });
 }
 

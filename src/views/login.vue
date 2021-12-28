@@ -17,6 +17,31 @@
                 :rules="[rules.required, rules.email]"
             ></v-text-field>
 
+            <v-row>
+              <v-col clos="12" >
+                <v-text-field
+                    v-model="reset.Vcode"
+                    label="verification code"
+                    @click:append="appendIconCallback"
+                    hint="点击发送验证码"
+                    append-icon="mdi-email-receive-outline"
+                    clearable
+                    :rules="[rules.required]"
+                ></v-text-field>
+                <span v-show="show" @click="getCode" class="getCode">获取验证码</span>
+                <span v-show="!show" class="count">{{count}}s后重新获取</span>
+              </v-col>
+
+
+<!--              <v-col>-->
+<!--                <v-btn>-->
+<!--                  Send-->
+<!--                </v-btn>-->
+
+<!--              </v-col>-->
+
+            </v-row>
+
             <v-text-field
                 v-model="reset.password"
                 label="new password"
@@ -31,15 +56,11 @@
                 :rules="[rules.required, rules.pwdConfirm]"
             ></v-text-field>
 
-            <v-text-field
-                v-model="reset.Vcode"
-                label="verification code"
-                clearable
-                :rules="[rules.required]"
-            ></v-text-field>
+
+
 
             <v-row justify="center">
-              <v-btn plain @click="resetPwd" class="px-0">重置</v-btn>
+              <v-btn plain @click="resetPwd" class="px-0">确认</v-btn>
               <v-btn plain @click="trans(0)" class="ml-4">取消</v-btn>
             </v-row>
           </div>
@@ -109,6 +130,9 @@ export default {
   name: "login",
   data () {
     return {
+      show: true,
+      count: '',
+      timer: null,
       st: 0,
       info: null,
       loginn: {
@@ -135,7 +159,7 @@ export default {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           return pattern.test(value) || 'Invalid e-mail'
         },
-        pwdConfirm: value => this.reset.passwordConfirm !== this.reset.password || 'Passwords does not match',
+        pwdConfirm: value => this.reset.passwordConfirm === this.reset.password || 'Passwords does not match',
         number: value => {
           const pattern = /[0-9]+/;
           return pattern.test(value)||"Number only";
@@ -156,6 +180,50 @@ export default {
         document.getElementById("log").style.display = 'none'
       }
     },
+    // appendIconCallback () {
+    //   alert('验证码已发送，60s后重发')
+    // },
+    getCode(){
+      console.log(this.reset.email)
+      let data = {
+        username: this.reset.email
+      }
+      this.$store.dispatch('modifyPwd',data).then(() => {
+        this.$message({
+          showClose: true,
+          message: '验证码已发送，60s后重发',
+          type: 'success'
+        });
+        const TIME_COUNT = 60;
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000)
+        }
+      }).catch((err) => {
+        this.$message({
+          showClose: true,
+          message: err,
+          type: 'warning'
+        });
+      })
+
+    },
+    appendIconCallback() {
+      this.$message({
+        showClose: true,
+        message: '验证码已发送，60s后重发',
+        type: 'success'
+      });
+    },
     login(){
       this.$store.dispatch("Login", this.loginn).then(
           (res) => {
@@ -172,7 +240,6 @@ export default {
     },
 
     regist(){
-
       this.$store.dispatch("Register", this.register).then(
           (res) => {
             const msg = res.resp_msg;
@@ -188,12 +255,23 @@ export default {
 
     resetPwd(){
       let data = {
+        username : this.reset.email,
+        captcha : this.reset.Vcode,
+        newPassword: this.reset.password
       }
-      // this.$store.dispatch('forgetPwd',).then(() => {
-      //
-      // }).catch(() => {
-      //
-      // })
+      this.$store.dispatch('forgetPwd',data).then(() => {
+        this.$message({
+          showClose: true,
+          message: '修改成功',
+          type: 'success'
+        });
+      }).catch((err) => {
+        this.$message({
+          showClose: true,
+          message: err,
+          type: 'warning'
+        });
+      })
     }
   },
 }

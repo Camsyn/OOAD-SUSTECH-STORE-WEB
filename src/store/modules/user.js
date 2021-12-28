@@ -1,6 +1,16 @@
-import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo,randomUser} from "../../api/user";
+import {
+  forgetPwd,
+  getUserInfo,
+  getMyInfo,
+  login,
+  updateMyInfo,
+  randomUser,
+  modifyPwd,
+  modifyPwdIn
+} from "../../api/user";
 import {register, exist} from "../../api/register";
 import head from "../../assets/head.jpeg";
+import {search} from "../../api/goods";
 
 const user = {
   state: {
@@ -117,9 +127,43 @@ const user = {
         console.log(err);
       });
     },
+    updateCode(context, info){
+      info.sid = context.state.name;
+      updateMyInfo(info).then(res=>{
+        context.dispatch("getMyInfo").then().catch(err=>{console.log(err);});
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
 
-    forgetPwd(context, {sid, captcha, newPassword}){
-      return forgetPwd(sid, captcha, newPassword);
+    forgetPwd(context, data){
+      return new Promise((resolve, reject)=>{
+        forgetPwd(data).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+    modifyPwd(context,data) {
+      return new Promise((resolve, reject)=>{
+        modifyPwd(data).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+    modifyPwd2(context,data) {
+      return new Promise((resolve, reject)=>{
+        modifyPwdIn(data).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
     },
 
     getMyInfo(context){
