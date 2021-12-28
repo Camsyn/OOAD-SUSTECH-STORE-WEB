@@ -270,14 +270,14 @@ export default {
   computed:{
     all_unfollowers(){
       let data = {
-        size : 6
+        size : 4
       }
       this.$store.dispatch('getRandomUser',data).then((data) => {
+        circle.state.unfollowList = data
         this.totalCount = data.length
-        return data
+        return circle.state.unfollowList
       })
-      // this.totalCount = circle.state.unfollowList.length
-      // return circle.state.unfollowList
+
     },
   }
 
