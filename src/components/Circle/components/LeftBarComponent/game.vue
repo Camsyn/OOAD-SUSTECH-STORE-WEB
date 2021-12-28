@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div v-if="GameList" id="main">
 
     <div style="padding: 10px">
       <v-card

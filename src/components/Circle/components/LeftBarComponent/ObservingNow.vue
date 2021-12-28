@@ -1,6 +1,6 @@
 <template>
   <div id="observingnow">
-    <div style="padding: 10px">
+    <div v-if="followDetails" style="padding: 10px">
       <v-card
         class="mx-auto"
       >

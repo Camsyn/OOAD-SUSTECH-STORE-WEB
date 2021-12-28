@@ -1,7 +1,7 @@
 <template>
   <div id="main">
 
-    <div style="padding: 10px">
+    <div v-if="FoodList" style="padding: 10px">
       <v-card
         class="mx-auto"
         v-for="(item,i) in  FoodList.slice((currentPage-1)*PageSize,currentPage*PageSize)"

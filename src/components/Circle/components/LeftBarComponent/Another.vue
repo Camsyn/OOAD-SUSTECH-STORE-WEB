@@ -1,15 +1,15 @@
 <template>
   <div id="main">
 
-    <div v-if="CartonList" style="padding: 10px">
+    <div v-if="data" style="padding: 10px">
       <v-card
-        class="mx-auto"
-        v-for="(item,i) in CartonList.slice((currentPage-1)*PageSize,currentPage*PageSize)"
-        :key="i"
+          class="mx-auto"
+          v-for="(item,i) in data.slice((currentPage-1)*PageSize,currentPage*PageSize)"
+          :key="i"
       >
         <v-col>
-          <v-avatar>
-            <img v-bind:src="item.avatar_src" alt="CC" />
+          <v-avatar v-if = "item.avatar_src">
+            <img v-bind:src="item.avatar_src" alt="CC"  />
           </v-avatar>
           <span class="font-weight-bold" style= "display:inline">
               {{item.username}}
@@ -17,7 +17,7 @@
           <span style="float:right">
               <el-dropdown trigger="click">
               <span class="el-dropdown-link">
-              <i class="el-icon-arrow-down el-icon--right" style="font-size: 20px"></i>
+              <i clxass="el-icon-arrow-down el-icon--right" style="font-size: 20px"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item>帮上头条</el-dropdown-item>
@@ -30,38 +30,38 @@
             </span>
         </v-col>
 
-        <div style="padding: 10px 20px;">
+        <div v-if="item.img_src" style="padding: 10px 20px;">
           <v-img
-            max-height="800px"
-            max-width="600px"
-            v-bind:src="item.img_src"
+              max-height="800px"
+              max-width="600px"
+              v-bind:src="item.img_src"
           ></v-img>
         </div>
 
 
 
         <v-card-title>
-          {{item.titel}}
+          {{item.topic}}
         </v-card-title>
 
         <v-card-subtitle>
-          {{item.subtitle}}
+          {{item.content}}
         </v-card-subtitle>
 
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn
-            icon
-            @click="handleClick(item)"
-            :color="item.heatColor"
+              icon
+              @click="handleClick(item)"
+              :color="item.heatColor"
           >
             <v-icon>mdi-heart</v-icon>
           </v-btn>
           <span class="subheading mr-2">{{item.heartNum}}</span>
           <v-btn
-            icon
-            @click="handleClick2(item)"
-            :color="item.messageColor"
+              icon
+              @click="handleClick2(item)"
+              :color="item.messageColor"
           >
             <v-icon>
               mdi-message-text
@@ -70,9 +70,9 @@
           <span class="subheading">{{ item.messageNum }}</span>
 
           <v-btn
-            icon
-            @click="handleClick3(item)"
-            :color="item.sharingColor"
+              icon
+              @click="handleClick3(item)"
+              :color="item.sharingColor"
           >
             <v-icon>mdi-share-variant</v-icon>
           </v-btn>
@@ -84,23 +84,23 @@
             <v-divider></v-divider>
             <div style="padding: 6px">
               <el-input
-                type="textarea"
-                :autosize="{ minRows: 2, maxRows: 12}"
-                placeholder="快速回复"
-                class="MyInput"
-                v-model="item.textarea">
+                  type="textarea"
+                  :autosize="{ minRows: 2, maxRows: 12}"
+                  placeholder="快速回复"
+                  class="MyInput"
+                  v-model="item.textarea">
               </el-input>
             </div>
 
             <v-spacer></v-spacer>
             <div style="padding: 10px">
-              <el-button type="primary" @click="reply_click(item)">发送</el-button>
+              <el-button type="primary" @click="quick_reply(item)">发送</el-button>
             </div>
 
 
             <v-list-item
-              v-for="(item2, i) in item.repy_items"
-              :key="i"
+                v-for="(item2, i) in item.repy_items"
+                :key="i"
             >
               <v-list-item-icon>
                 <v-icon v-text="item2.icon"></v-icon>
@@ -153,11 +153,12 @@
 import circle from "../../../../store/modules/circle";
 
 export default {
-  name: "carton",
+  name: "Another",
   data: () => ({
     currentPage: 1,
     PageSize:1,
     totalCount: 15,
+    data:[]
   }),
   methods:{
     handleClick(item){
@@ -172,17 +173,47 @@ export default {
     reply_click(item){
       this.$store.commit('dynamicreply_click',{item})
     },
+    quick_reply(item){
+      let editItem=this.data.find(n=>n.sendId===item.sendId)
+      editItem.repy_items.push({
+        text:'Me',
+        icon: 'mdi-account' ,
+        message:item.textarea,
+      })
+    },
     handleCurrentChange(pageNumber) {
       // 改变默认的页数
       this.currentPage = pageNumber;
     },
   },
-  computed:{
-    CartonList(){
-      this.totalCount=circle.state.dynamicPool.filter(item=>item.tag==="carton").length
-      return circle.state.dynamicPool.filter(item=>item.tag==="carton")
-    }
-  }
+  created() {
+    let count = 10;
+    console.log("哲学")
+    this.$store.dispatch("AllgetLatest", count).then(res => {
+      this.data = res.filter(item=>item.tag===null)
+      this.totalCount=this.data.length
+      console.log("data:", this.data)
+      for(let i=0;i<this.data.length;i++){
+        console.log("sid:",this.data[i]['sendId'])
+        this.data[i]['username']='Tom'
+        console.log("username:",this.data[i]['username'])
+        this.data[i]['show1']=false
+        this.data[i]['heartColor']='gray'
+        this.data[i]['heartNum']=322
+        this.data[i]['show2']=false
+        this.data[i]['messageColor']='gray'
+        this.data[i]['messageNum']=677
+        this.data[i]['show3']=false
+        this.data[i]['sharingColor']='gray'
+        this.data[i]['sharingNum']=499
+        this.data[i]['textarea']=''
+        this.data[i]['reply_items']=[]
+      }
+    }).catch(err => {
+      console.log(err);
+    });
+  },
+
 };
 </script>
 
