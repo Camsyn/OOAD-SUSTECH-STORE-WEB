@@ -50,34 +50,45 @@ export default {
   name: "bottom",
   methods: {
     changeDetails1() {
-      this.$store.commit('setCur',this.MoreProduct[1])
-      goods.state.current.request = this.MoreProduct[1]
+
+       this.$store.dispatch('getInfoOf',this.MoreProduct[1].pusher).then((data) => {
+         this.$store.commit('setCur',this.MoreProduct[1])
+         goods.state.current.request = this.MoreProduct[1]
+         goods.state.current.request.pusherInfo = data
+       })
       this.search.queryStr = goods.state.current.request.title
       this.$store.dispatch('search',this.search).then((data) => {
         this.MoreProduct = data
+        if (this.MoreProduct.length < 3) {
+          this.search.searchStrategy = 0
+          this.search.isRandom = true
+          this.$store.dispatch('search',this.search).then((data) => {
+            this.MoreProduct = data
+          })
+        }
       })
-      if (this.MoreProduct.length < 3) {
-        this.search.searchStrategy = 0
-        this.search.isRandom = true
-        this.$store.dispatch('search',this.search).then((data) => {
-          this.MoreProduct = data
-        })
-      }
+
     },
     changeDetails2() {
-      this.$store.commit('setCur',this.MoreProduct[2])
-      goods.state.current.request = this.MoreProduct[2]
+      this.$store.dispatch('getInfoOf',this.MoreProduct[2].pusher).then((data) => {
+        this.$store.commit('setCur',this.MoreProduct[2])
+        goods.state.current.request = this.MoreProduct[2]
+        goods.state.current.request.pusherInfo = data
+      })
       this.search.queryStr = goods.state.current.request.title
       this.$store.dispatch('search',this.search).then((data) => {
+
         this.MoreProduct = data
+
+        if (this.MoreProduct.length < 3) {
+          this.search.searchStrategy = 0
+          this.search.isRandom = true
+          this.$store.dispatch('search',this.search).then((data) => {
+            this.MoreProduct = data
+          })
+        }
       })
-      if (this.MoreProduct.length < 3) {
-        this.search.searchStrategy = 0
-        this.search.isRandom = true
-        this.$store.dispatch('search',this.search).then((data) => {
-          this.MoreProduct = data
-        })
-      }
+
     }
   },
   data() {

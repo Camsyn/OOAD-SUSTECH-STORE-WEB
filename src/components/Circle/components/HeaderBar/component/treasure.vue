@@ -45,6 +45,7 @@
 
 <script>
 import user from "../../../../../store/modules/user";
+import goods from "../../../../../store/modules/goods";
 export default {
   name: "treasure",
   data:()=>({
@@ -52,7 +53,11 @@ export default {
   }),
   methods: {
     GoodDetails(item) {
-      console.log(item)
+      this.$store.dispatch('getInfoOf',item.pusher).then((data) => {
+        goods.state.current.request = item
+        goods.state.current.request.pusherInfo = data
+        this.$router.push('/GoodsDetails')
+      })
     }
   },
   created() {
