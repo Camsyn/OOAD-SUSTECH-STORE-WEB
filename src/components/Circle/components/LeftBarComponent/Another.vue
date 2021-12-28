@@ -144,9 +144,8 @@ export default {
     data:[],
     grassList:[
       {
-        id:11,
-        avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
-        img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
+       // avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
+      //  img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
         username:"Tifa",
         topic:"《最终幻想7重制版》",
         content:"在塔罗牌里，Tiferet的图案是红心，而有时则是天使（Tifa的酒吧是“Seventh Heaven”），" +
@@ -177,12 +176,11 @@ export default {
         ],
       },
       {
-        id:12,
-        avatar_src:"https://img0.baidu.com/it/u=223280774,3532649295&fm=26&fmt=auto",
+        //avatar_src:"https://img0.baidu.com/it/u=223280774,3532649295&fm=26&fmt=auto",
         img_src:"https://img1.baidu.com/it/u=1753918686,2222541224&fm=26&fmt=auto",
         username:"2B",
         titel:"《尼尔：机械纪元》",
-        subtitle:"外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，" +
+        content:"外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，" +
             "人类建立了由“战斗型机器人”所组成的战斗抵抗组织。为了打破战场的僵局，人类设计了“尤尔哈（另译：寄叶）”作战单位——最新型的先进的机器人战士。" +
             "在一片贫瘠荒凉、渺无人烟的地球上，机械生命体与机器人战士展开了大战，这场战争将会成为打开未知奥秘的关键",
         show1:false,
@@ -239,6 +237,10 @@ export default {
       else{
         item.messageColor="gray";
       }
+      let a = item.content
+      item.content ='?'
+      item.content = '??'
+      item.content = a
     },
     handleClick3(item){
       item.show3=!item.show3
@@ -251,8 +253,6 @@ export default {
     },
     reply_click(item){
       item.repy_items.push({
-        text:'Me',
-        icon: 'mdi-account' ,
         message:item.textarea,
       })
     },
@@ -267,7 +267,6 @@ export default {
     this.$store.dispatch("AllgetLatest", count).then(res => {
       this.data = res.filter(item=>item.tag===null)
       this.totalCount=this.data.length
-      console.log("data:", this.data)
       for(let i=0;i<this.data.length;i++){
         // console.log("sid:",this.data[i]['sendId'])
         this.data[i]['username']='Tom'
@@ -284,12 +283,8 @@ export default {
         this.data[i].textarea=''
         this.data[i].reply_items=[]
       }
-      for(let i=0;i<this.data.length;i++){
-        console.log("item:",this.data[i])
-      }
-      for(let i=0;i<this.grassList.length;i++){
-        console.log("gitem:",this.grassList[i])
-      }
+      console.log(this.grassList)
+      console.log(this.data)
     }).catch(err => {
       console.log(err);
     });
@@ -309,7 +304,7 @@ export default {
           this.data[i]['show1']=false
           this.data[i]['heartColor']='gray'
           this.data[i]['heartNum']=322
-          this.data[i]['show2']=false
+          this.data[i].show2=true
           this.data[i]['messageColor']='gray'
           this.data[i]['messageNum']=677
           this.data[i]['show3']=false

@@ -136,6 +136,11 @@ const routes = [
             component: publish,
           },
           {
+            path: "/myspace/fans",
+            redirect:'/myspace',
+            component: publish,
+          },
+          {
             path:"/PersonalPage",
             name:"PersonalPage",
             component: PersonalPage,
