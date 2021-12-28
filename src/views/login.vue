@@ -159,7 +159,7 @@ export default {
     login(){
       this.$store.dispatch("Login", this.loginn).then(
           (res) => {
-            this.$store.dispatch("setupChat", this.loginn.username);
+            this.$store.dispatch("setupChat");
             this.$store.dispatch("renew");
             this.$store.commit("SET_NAME", this.loginn.username);
             this.$router.push({name: "Home"});

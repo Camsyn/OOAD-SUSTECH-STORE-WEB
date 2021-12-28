@@ -16,8 +16,9 @@ export default {
       st = JSON.parse(st);
       st.userInfos = new Map(Object.entries(st.userInfos));
       Object.assign(this.$store.state.user, this.$store.state.user, st);
+      this.$store.dispatch("setupChat");
+      this.$store.dispatch("renew");
     }
-
 
     //在页面刷新时将vuex里的信息保存到sessionStorage里
     window.addEventListener('beforeunload', () => {

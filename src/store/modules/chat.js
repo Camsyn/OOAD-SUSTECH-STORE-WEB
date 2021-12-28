@@ -102,7 +102,8 @@ const chatter = {
     },
 
     actions: {
-        setupChat(context, sid){
+        setupChat(context){
+            let sid = context.state.name;
             context.commit("SET_UP", {context, sid});
         },
         //取得每个用户发来的最后一条消息, 顺便获取相关用户信息
