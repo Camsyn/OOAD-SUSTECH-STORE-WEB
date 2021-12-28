@@ -70,7 +70,7 @@
                             sm="6"
                         >
                           <v-text-field
-                              label="Dynamic-ID"
+                              label="动态-ID"
                               hint="请输入动态ID"
                               persistent-hint
                               required
