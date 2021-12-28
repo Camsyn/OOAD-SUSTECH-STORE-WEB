@@ -1,4 +1,4 @@
-import {post,postComment,Delete,commentDelete,AllgetLatest, sbGetLast} from '../../api/circle'
+import {post, postComment, Delete, commentDelete, AllgetLatest, sbGetLast, sbGetPage} from '../../api/circle'
 
 const circle = {
   state: {
@@ -1032,6 +1032,16 @@ const circle = {
     sbGetLatest(context, {sid, count}) {
       return new Promise((resolve, reject)=>{
         sbGetLast(sid, count).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
+    },
+
+    sbGetPage(context, {sid, page, limit}) {
+      return new Promise((resolve, reject)=>{
+        sbGetPage(sid, page, limit).then(res=>{
           resolve(res.data);
         }).catch(err=>{
           reject(err);

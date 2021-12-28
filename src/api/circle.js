@@ -48,3 +48,11 @@ export function sbGetLast(sid, count){
         params:{sid, count},
     })
 }
+
+export function sbGetPage(sid, page, limit){
+    return service({
+        method: 'get',
+        url: 'chat/circle/sid/page',
+        params:{sid, page, limit},
+    })
+}
