@@ -5,7 +5,7 @@
         class="mx-auto"
       >
         <v-list two-line>
-          <template v-for="(item, index) in this.followDetails">
+          <template v-for="(item, index) in FollowInfo">
             <v-list-item
               :key="index"
             >
@@ -53,7 +53,6 @@ import user from "../../../../store/modules/user";
 export default {
   name: "ObservingNow",
   data:()=>({
-    followDetails: [],
   }),
   methods:{
     observeClick(item){
@@ -64,10 +63,10 @@ export default {
       }).then(() => {
         let data2 = []
         let data_id = []
-        for (let i = 0; i <this.followDetails.length ; i++) {
-          if(this.followDetails[i] !== item) {
-            data2.push(this.followDetails[i])
-            data_id.push(this.followDetails[i].sid)
+        for (let i = 0; i < circle.state.followList.length ; i++) {
+          if( circle.state.followList[i] !== item) {
+            data2.push( circle.state.followList[i])
+            data_id.push( circle.state.followList[i].sid)
           }
         }
         let data = {
@@ -82,7 +81,7 @@ export default {
           follow : data_id
         }
         this.$store.dispatch('update',data).then(() => {
-          this.followDetails = data2
+          circle.state.followList = data2
           this.$message({
             type: 'success',
             message: '已取消关注'
@@ -101,17 +100,21 @@ export default {
 
   },
   created() {
-    this.followDetails = []
+    circle.state.followList = []
     this.$store.dispatch('getMyInfo').then(() => {
       for (let i = 0; i <user.state.follow.length ; i++) {
         this.$store.dispatch('getInfoOf',user.state.follow[i]).then((data1) => {
-          this.followDetails.push(data1)
+          circle.state.followList.push(data1)
         })
       }
-      return this.followDetails
+      return circle.state.followList
     })
+  },
+  computed:{
+    FollowInfo(){
+      return circle.state.followList
+    }
   }
-
 };
 </script>
 
