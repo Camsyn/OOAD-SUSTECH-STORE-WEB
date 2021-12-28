@@ -29,7 +29,7 @@ export default {
         return;
       }
 
-      let sid = this.$store.state.user.name;
+      let sid = this.$store.state.ObserverId
       let page = this.page, limit = this.limit;
       this.$store.dispatch("sbGetPage", {sid, page, limit}).then(res=>{
         if (res.length!==0){

@@ -49,7 +49,7 @@ export default {
     all_evaluations(){
       this.$store.dispatch('getMyInfo').then(() => {
         let data10 = {
-          sid : user.state.name,
+          sid : user.state.ObserverId,
           page: 0,
           limit: 10,
           sort : false

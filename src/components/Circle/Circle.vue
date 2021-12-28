@@ -161,7 +161,7 @@
                   :key="key"
                 >
                   <v-list-item-avatar>
-                    <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage"></el-image>
+                    <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage" @click = 'clickIn(item)'></el-image>
                   </v-list-item-avatar>
                   <v-list-item-title v-html="item.nickname"></v-list-item-title>
                   <v-spacer></v-spacer>
@@ -249,6 +249,9 @@ export default {
     ]
   }),
   methods: {
+    clickIn() {
+      // this.$router.push('/PersonalPage')
+    },
     toHome() {
       this.$router.push("/");
     },
@@ -322,7 +325,6 @@ export default {
             if (data[i].nickname == null) {
               data[i].nickname = data[i].sid
             }
-            console.log(user.state.name)
             for (let j = 0; j <user.state.follow.length ; j++) {
               if(data[i].sid == user.state.follow[j]){
                 test = false

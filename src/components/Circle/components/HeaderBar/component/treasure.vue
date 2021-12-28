@@ -54,7 +54,7 @@ export default {
       searchStrategy: 0,
       firstOrder: "update_time",
       isAmbiguous: false,
-      publishers: [user.state.name],
+      publishers: [user.state.ObserverId],
     };
     this.$store.dispatch("search",my).then((data) => {
       this.goods = data

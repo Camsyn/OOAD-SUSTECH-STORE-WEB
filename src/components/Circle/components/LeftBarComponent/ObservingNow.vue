@@ -1,6 +1,6 @@
 <template>
   <div id="observingnow">
-    <div v-if="followDetails" style="padding: 10px">
+    <div  style="padding: 10px">
       <v-card
         class="mx-auto"
       >
@@ -10,7 +10,7 @@
               :key="index"
             >
               <v-list-item-avatar>
-                <img :src="item.headImage" alt="CC">
+                <img :src="item.headImage" alt="CC" >
               </v-list-item-avatar>
               <v-list-item-content>
                 <v-list-item-title v-html="item.nickname"></v-list-item-title>
@@ -55,6 +55,7 @@ export default {
   data:()=>({
   }),
   methods:{
+    Details(item) {},
     observeClick(item){
       this.$confirm('是否取消对该用户的关注', '提示', {
         confirmButtonText: '确定',
@@ -112,6 +113,7 @@ export default {
   },
   computed:{
     FollowInfo(){
+      console.log(circle.state.followList)
       return circle.state.followList
     }
   }
