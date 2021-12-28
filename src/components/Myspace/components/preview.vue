@@ -19,6 +19,46 @@
         <v-img v-else :src="item.image" contain></v-img>
       </div>
     </v-card-text>
+
+    <v-expansion-panels flat popout>
+      <v-expansion-panel>
+        <v-expansion-panel-header class="pa-0">
+          评论
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-container class="px-0">
+            <div style="padding: 6px">
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 12}"
+                placeholder="快速回复"
+                class=""
+              >
+              </el-input>
+            </div>
+            <v-spacer></v-spacer>
+            <div style="padding: 10px">
+              <el-button type="primary" @click="">发送</el-button>
+            </div>
+
+            <v-list three-line>
+              <template v-for="(item, index) in comments">
+                <v-list-item :key="index">
+                  <v-list-item-avatar>
+                    <v-img :src="item.headImage"></v-img>
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-item-title v-text="item.nickname"></v-list-item-title>
+                    <v-list-item-subtitle v-text="item.content"></v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+              </template>
+            </v-list>
+          </v-container>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </v-card>
 </template>
 
@@ -32,6 +72,8 @@ export default {
     sender: null,
     nickname:"",
     headImage:null,
+    comments: [],
+    comment: "",
   }),
   computed:{
     show(){
@@ -47,7 +89,7 @@ export default {
         this.headImage = res.headImage;
       });
       return this.circle.sendId;
-    }
+    },
   },
   watch:{
     sd: function (){
@@ -55,6 +97,35 @@ export default {
     }
   },
   methods:{
+    getComment(){
+      let cmId = this.circle.id;
+      let count = 99;
+      this.$store.dispatch("getComment", {cmId, count}).then(res=>{
+        res.forEach(cm=>{
+          this.$store.dispatch("getInfoOf", cm.sendId).then(res=>{
+            cm.nickname = res.nickname;
+            cm.headImage = res.headImage;
+            this.comments.push(cm);
+          }).catch(err=>{
+            console.log(err);
+          });
+        });
+
+      }).catch(err=>{
+        console.log(err);
+      });
+    },
+    sendComment(){
+      let cmt = {
+        cmId: this.circle.id,
+        content: this.comment,
+      }
+      this.$store.dispatch("postComment", cmt).then(res=>{
+        this.comments.unshift(res);
+      }).catch(err=>{
+
+      });
+    },
     parse(con){
       let pos = 0;
       let sps = [];
@@ -86,6 +157,9 @@ export default {
         return res;
       }
     }
+  },
+  created() {
+    this.getComment();
   }
 }
 </script>

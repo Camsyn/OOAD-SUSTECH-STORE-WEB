@@ -181,9 +181,6 @@
         </div>
       </v-form>
     </div>
-<!--    <div>-->
-<!--      {{pre}}-->
-<!--    </div>-->
   </v-card>
 </template>
 
