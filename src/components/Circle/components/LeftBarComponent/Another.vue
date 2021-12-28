@@ -141,11 +141,10 @@ export default {
     currentPage: 1,
     PageSize:1,
     totalCount: 15,
-    data:[],
-    grassList:[
+    data:[
       {
-       // avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
-      //  img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
+        // avatar_src:"https://tse2-mm.cn.bing.net/th/id/OIP-C.l-lpk0LiE1aXYTsyZNnSogHaEo?pid=ImgDet&rs=1",
+        //  img_src:"https://img2.baidu.com/it/u=4042668463,1760762779&fm=26&fmt=auto",
         username:"Tifa",
         topic:"《最终幻想7重制版》",
         content:"在塔罗牌里，Tiferet的图案是红心，而有时则是天使（Tifa的酒吧是“Seventh Heaven”），" +
@@ -172,46 +171,6 @@ export default {
             icon: 'mdi-account' ,
             message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
                 '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-        ],
-      },
-      {
-        //avatar_src:"https://img0.baidu.com/it/u=223280774,3532649295&fm=26&fmt=auto",
-        img_src:"https://img1.baidu.com/it/u=1753918686,2222541224&fm=26&fmt=auto",
-        username:"2B",
-        titel:"《尼尔：机械纪元》",
-        content:"外星人突然入侵地球，他们制造了名为“机械生命体”的军队。在外星人势不可挡的力量面前，人类逃往月球。为了重新夺回地球，" +
-            "人类建立了由“战斗型机器人”所组成的战斗抵抗组织。为了打破战场的僵局，人类设计了“尤尔哈（另译：寄叶）”作战单位——最新型的先进的机器人战士。" +
-            "在一片贫瘠荒凉、渺无人烟的地球上，机械生命体与机器人战士展开了大战，这场战争将会成为打开未知奥秘的关键",
-        show1:false,
-        heatColor:"gray",
-        heartNum:333,
-        show2: false,
-        messageColor:"gray",
-        messageNum:677,
-        show3:false,
-        sharingColor:"gray",
-        sharingNum:499,
-        textarea:'',
-        repy_items: [
-          {
-            text: 'Tom',
-            icon: 'mdi-account' ,
-            message:'为什么读史，是一个情怀问题。为了明得失，为了咨诹善道，为了有资于治道，为了八卦，为了让自己显得有文化',
-          },
-          {
-            text: 'Kelly',
-            icon: 'mdi-account' ,
-            message:'没有破绽的走位。不知道大家看过脚本第一视角没有，只要技能一出手那个技能的范围轮廓就显示出来了，所有的假动作、预判等一系列操作全部失效。' +
-                '在移速允许的范围内只要是非指向性技能就必定中不了。',
-          },
-          {
-            text: 'Tina',
-            icon: 'mdi-account' ,
-            message:'EDG夺冠的当天晚上，冰岛的绿色极光里闪过一阵及其诡异的橘色光芒。\n' +
-                '\n' +
-                '“即使是目前代表英雄联盟最高水准的S赛，也有如此夸张数量的失误”，' +
-                '一个脑子插满管子身体全部泡在培养池中的外星生物说到。',
           },
         ],
       },
@@ -283,42 +242,10 @@ export default {
         this.data[i].textarea=''
         this.data[i].reply_items=[]
       }
-      console.log(this.grassList)
-      console.log(this.data)
     }).catch(err => {
       console.log(err);
     });
   },
-  computed:{
-    AnotherList(){
-      let count = 10;
-      console.log("哲学")
-      this.$store.dispatch("AllgetLatest", count).then(res => {
-        this.data = res.filter(item=>item.tag===null)
-        this.totalCount=this.data.length
-        console.log("data:", this.data)
-        for(let i=0;i<this.data.length;i++){
-          console.log("sid:",this.data[i]['sendId'])
-          this.data[i]['username']='Tom'
-          console.log("username:",this.data[i]['username'])
-          this.data[i]['show1']=false
-          this.data[i]['heartColor']='gray'
-          this.data[i]['heartNum']=322
-          this.data[i].show2=true
-          this.data[i]['messageColor']='gray'
-          this.data[i]['messageNum']=677
-          this.data[i]['show3']=false
-          this.data[i]['sharingColor']='gray'
-          this.data[i]['sharingNum']=499
-          this.data[i]['textarea']=''
-          this.data[i]['reply_items']=[]
-        }
-      }).catch(err => {
-        console.log(err);
-      });
-
-    }
-  }
 
 };
 </script>
