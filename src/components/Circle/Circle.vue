@@ -192,6 +192,8 @@
 import image1 from '../../assets/lemon.png'
 import circle from "../../store/modules/circle";
 import {mapGetters,mapMutations } from "vuex";
+import head from '../../assets/head.jpeg';
+import user from "../../store/modules/user";
 export default {
   name: "myCircle",
   data: () => ({
@@ -264,21 +266,77 @@ export default {
       this.currentPage = pageNumber;
     },
     observeClick(item){
-      this.$store.commit('FAdd', { item });
+      let data_follow = []
+      let data3 = []
+      let data_id = []
+      for (let i = 0; i < circle.state.followList.length ; i++) {
+        data_id.push(circle.state.followList[i].sid)
+        data_follow.push(circle.state.followList[i])
+      }
+      for (let i = 0; i <circle.state.unfollowList.length ; i++) {
+        if(circle.state.unfollowList[i] !== item){
+          data3.push(circle.state.unfollowList[i])
+        }
+        else {
+          data_id.push(circle.state.unfollowList[i].sid)
+          this.$store.dispatch('getInfoOf',circle.state.unfollowList[i].sid).then((data1) => {
+            data_follow.push(data1)
+          })
+        }
+      }
+      circle.state.followList = data_follow
+      circle.state.unfollowList = data3
+      let data = {
+        sid: user.state.sid,
+        email: user.state.email,
+        nickname : user.state.nickname,
+        description: user.state.description,
+        credit: user.state.credit,
+        liyuan : user.state.liyuan,
+        headImage : user.state.avatar,
+        payCode : user.state.paycode,
+        follow : data_id
+      }
+      this.$store.dispatch('update',data).then(() => {
+      })
     }
   },
-  computed:{
-    all_unfollowers(){
+  computed: {
+    all_unfollowers() {
+
+      return circle.state.unfollowList
+    }
+  },
+  created(){
+    // all_unfollowers
       let data = {
-        size : 4
+        size : 6
       }
       this.$store.dispatch('getRandomUser',data).then((data) => {
-        circle.state.unfollowList = data
-        this.totalCount = data.length
-        return circle.state.unfollowList
-      })
+        let data3 = []
+        for (let i = 0; i <data.length ; i++) {
+          let test = true
+          if(data[i].headImage == null) {
+            data[i].headImage = head
+          }
+          if (data[i].nickname == null) {
+            data[i].nickname = data[i].sid
+          }
+          console.log(data[i].sid)
+          for (let j = 0; j <user.state.follow.length ; j++) {
+            if(data[i].sid === user.state.name | data[i].sid === user.state.follow[j].sid){
+              console.log('?')
+              test = false
+            }
+          }
+          if (test) {
+            data3.push(data[i])
+          }
+        }
+        circle.state.unfollowList = data3
+        this.totalCount = data3.length
 
-    },
+      })
   }
 
 
