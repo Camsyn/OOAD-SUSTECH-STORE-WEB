@@ -4,7 +4,7 @@
     <div style="padding: 10px">
       <v-card
         class="mx-auto"
-        v-for="(item,i) in GameList"
+        v-for="(item,i) in GameList.slice((currentPage-1)*PageSize,currentPage*PageSize)"
         :key="i"
       >
         <v-col>
@@ -123,6 +123,23 @@
           </div>
         </v-expand-transition>
       </v-card>
+      <v-row>
+        <div style="padding: 20px">
+
+          <el-pagination
+              @current-change="handleCurrentChange"
+              v-model:currentPage="currentPage"
+              :page-size="PageSize"
+              :total="totalCount"
+              background
+              layout="prev, pager, next"
+              class="paging"
+          >
+          </el-pagination>
+
+        </div>
+
+      </v-row>
     </div>
 
   </div>
@@ -134,6 +151,9 @@ import circle from "../../../../store/modules/circle";
 export default {
   name: "game",
   data: () => ({
+    currentPage: 1,
+    PageSize:1,
+    totalCount: 15,
   }),
   methods:{
     handleClick(item){
@@ -147,11 +167,16 @@ export default {
     },
     reply_click(item){
       this.$store.commit('dynamicreply_click',{item})
-    }
+    },
+    handleCurrentChange(pageNumber) {
+      // 改变默认的页数
+      this.currentPage = pageNumber;
+    },
   },
   computed:{
     GameList(){
-      return circle.state.dynamicPool.filter(item=>item.tag==="游戏")
+      this.totalCount=circle.state.dynamicPool.filter(item=>item.tag==="game").length
+      return circle.state.dynamicPool.filter(item=>item.tag==="game")
     }
   }
 };
