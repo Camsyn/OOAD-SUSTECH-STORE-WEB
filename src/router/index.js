@@ -40,7 +40,7 @@ import delicious_food from "../components/Circle/components/LeftBarComponent/del
 import game from "../components/Circle/components/LeftBarComponent/game";
 import philosophizing from "../components/Circle/components/LeftBarComponent/philosophizing";
 import tour from "../components/Circle/components/LeftBarComponent/tour";
-import Another from "../components/Circle/components/LeftBarComponent/Another";
+
 
 
 import Demo from "../components/Business/Demo";
@@ -222,11 +222,6 @@ const routes = [
             path:"/circle/tour",
             name:"tour",
             component: tour,
-          },
-          {
-            path:"/circle/another",
-            name:"another",
-            component: Another,
           },
 
         ]

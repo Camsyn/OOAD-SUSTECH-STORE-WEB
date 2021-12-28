@@ -309,34 +309,34 @@ export default {
     }
   },
   created(){
-    // all_unfollowers
       let data = {
         size : 6
       }
-      this.$store.dispatch('getRandomUser',data).then((data) => {
-        let data3 = []
-        for (let i = 0; i <data.length ; i++) {
-          let test = true
-          if(data[i].headImage == null) {
-            data[i].headImage = head
-          }
-          if (data[i].nickname == null) {
-            data[i].nickname = data[i].sid
-          }
-          console.log(data[i].sid)
-          for (let j = 0; j <user.state.follow.length ; j++) {
-            if(data[i].sid === user.state.name | data[i].sid === user.state.follow[j].sid){
-              console.log('?')
-              test = false
+      this.$store.dispatch('getMyInfo').then(() => {
+        this.$store.dispatch('getRandomUser',data).then((data) => {
+          let data3 = []
+          for (let i = 0; i <data.length ; i++) {
+            let test = true
+            if(data[i].headImage == null) {
+              data[i].headImage = head
+            }
+            if (data[i].nickname == null) {
+              data[i].nickname = data[i].sid
+            }
+            console.log(user.state.name)
+            for (let j = 0; j <user.state.follow.length ; j++) {
+              if(data[i].sid == user.state.follow[j]){
+                test = false
+              }
+            }
+            if (test) {
+              data3.push(data[i])
             }
           }
-          if (test) {
-            data3.push(data[i])
-          }
-        }
-        circle.state.unfollowList = data3
-        this.totalCount = data3.length
+          circle.state.unfollowList = data3
+          this.totalCount = data3.length
 
+        })
       })
   }
 
