@@ -1,7 +1,6 @@
 import chat from "../../utils/chat";
 import {parseTime, sortUp} from "@/utils/date";
 import {getLastOfEach} from "@/api/chat";
-import router from "../../router";
 
 const chatter = {
     state:{
@@ -68,19 +67,34 @@ const chatter = {
             state.tracer++;
         },
         UPDATE_SHORT(state, {msg, id}){
-            state.messagesShort.delete(id);
-            let tmp = Array.from(state.messagesShort);
-            tmp.unshift([id, msg]);
-            state.messagesShort = new Map(tmp.map((i)=>[i[0], i[1]]));
+            let ex = state.messagesShort.has(id);
+            if (!(ex&&msg==="")){
+                state.messagesShort.delete(id);
+                let tmp = Array.from(state.messagesShort);
+                tmp.unshift([id, msg]);
+                state.messagesShort = new Map(tmp.map((i)=>[i[0], i[1]]));
+            }
+            // if (ex){
+            //     if (msg!=="")
+            //         state.messagesShort.delete(id);
+            //     let tmp = Array.from(state.messagesShort);
+            //     if (msg!=="")
+            //         tmp.unshift([id, msg]);
+            //     state.messagesShort = new Map(tmp.map((i)=>[i[0], i[1]]));
+            // }else{
+            //     let tmp = Array.from(state.messagesShort);
+            //     tmp.unshift([id, msg]);
+            //     state.messagesShort = new Map(tmp.map((i)=>[i[0], i[1]]));
+            // }
         },
 
         REV_MSG(state, msg){
             let {sendId, sendTime, recvTime, type, content} = msg;
             this.commit("STORE_MSG", {msg, id: sendId});
             this.commit("UPDATE_SHORT", {msg, id: msg.sendId});
-            let pt = router.path.split("/")[0];
-            if (pt!=="message")
-                state.uncheck = true;
+            // let pt = router.path.split("/")[0];
+            // if (pt!=="message")
+            //     state.uncheck = true;
             state.tracer++;
         },
         STORE_MSG(state, {msg, id}){
@@ -138,10 +152,6 @@ const chatter = {
             })
         },
 
-        test(context){
-            console.log(1)
-            context.dispatch("test1").then(r => {});
-        },
     }
 }
 

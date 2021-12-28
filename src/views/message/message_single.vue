@@ -1,7 +1,9 @@
 <template>
   <v-card class="d-flex align-center" :class="{'flex-row-reverse':msg.sendId===myId}" elevation="0">
     <v-col cols="1" class="ml-0 mr-2 py-0 px-0 d-flex flex-column" style="height: 100%">
-      <v-avatar color="grey darken-1" size="54"></v-avatar>
+      <v-avatar color="grey darken-1" size="54">
+        <v-img :src="head"></v-img>
+      </v-avatar>
     </v-col>
     <v-col cols="11" class="py-0" :class="['d-flex', {'flex-row-reverse':msg.sendId===myId}]">
       <div
@@ -18,8 +20,6 @@
             :href="msg.content"
         ></v-img>
       </a>
-      
-
     </v-col>
   </v-card>
 </template>
@@ -34,9 +34,12 @@ export default {
   }),
   computed: {
     myId(){
-      return parseInt(this.$store.getters.name);
+      return parseInt(this.$store.state.user.name);
+    },
+    head(){
+      return this.$store.getters.infoOf(this.msg.sendId).headImage;
     }
-  }
+  },
 }
 </script>
 

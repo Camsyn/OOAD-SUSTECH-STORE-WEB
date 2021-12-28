@@ -114,7 +114,7 @@ export default {
   },
   computed: {
     gouwuche(){
-      return "购物车 (第"+this.page+"页)";
+      return "我发布的 (第"+this.page+"页)";
     }
   },
 

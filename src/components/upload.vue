@@ -265,7 +265,7 @@ export default {
     upload() {
       if (this.uploadInfo.desc_===""||this.uploadInfo.exactPrice==null
           ||this.uploadInfo.originalPrice==null||this.uploadInfo.category==null
-          ||this.uploadInfo.tradeType==null
+          ||this.uploadInfo.tradeType==null||this.uploadInfo.type==null
       ){
         console.log("info needed")
         return ;
@@ -274,9 +274,10 @@ export default {
       this.uploadInfo.tradeType = this.trade.indexOf(this.uploadInfo.tradeType);
       this.uploadInfo.labels = this.user_defined_label.concat(this.label_all);
       this.uploadInfo.type = this.type.indexOf(this.uploadInfo.type);
+      console.log(this.uploadInfo)
       if (this.uploadInfo.id){
         this.$store.dispatch("updateRq", this.uploadInfo).then(res=>{
-          this.clear();
+          // this.clear();
           this.$emit("close");
         }).catch(err=>{
           console.log(err);
@@ -304,11 +305,12 @@ export default {
     cancel(){
       if (this.uploadInfo.id){
         this.$store.dispatch("open", this.uploadInfo.id).then(res=>{
-
         }).catch(err=>{
           console.log(err);
         });
       }
+      this.clear();
+      this.$emit('close');
     },
 
     clear(){

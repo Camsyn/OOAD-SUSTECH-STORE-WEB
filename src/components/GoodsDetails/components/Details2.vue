@@ -51,7 +51,7 @@
             </el-rate>
           </div>
           <div class="credit"></div>
-          <el-button type="success" round class="button8" @click="chat">
+          <el-button type="success" round class="button8" @click="chatWith(User.sid)">
               <i class="el-icon-chat-line-round"></i>
               聊天
             </el-button>
@@ -110,6 +110,13 @@ export default {
 
     chat(){
       this.$store.dispatch("test").then(res=>{});
+    },
+
+    chatWith(sid){
+      if (this.$route.params.sid !== sid.toString()){
+        this.$store.commit("UPDATE_SHORT", {msg: "", id: sid})
+        this.$router.push({path: "/message/"+sid});
+      }
     },
   },
   data(){

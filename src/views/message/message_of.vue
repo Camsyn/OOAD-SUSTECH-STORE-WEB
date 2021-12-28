@@ -1,7 +1,7 @@
 <template>
   <v-container class="justify-center d-flex flex-column-reverse py-0">
     <v-row class="flex-row-reverse mt-1 mb-0" style="max-height: 40px">
-      <v-btn class="primary mr-3" @click="send()">发送</v-btn>
+      <v-btn class="primary mr-3" @click="send">发送</v-btn>
       <v-file-input
           style="max-width: 40px"
           @change="sendFile"
@@ -31,13 +31,11 @@
       <v-row style="height: 50px" class="align-content-md-center">
         <span class="mx-auto">{{oppositeId}}</span>
       </v-row>
-
       <v-divider class="my-1"></v-divider>
-
       <v-row dense>
         <v-col cols="12"
-               v-for="(msg, index) in messages"
-               :key="index"
+          v-for="(msg, index) in messages"
+          :key="index"
         >
           <message_single :msg="msg"></message_single>
         </v-col>
@@ -105,7 +103,7 @@ export default {
       return parseInt(this.$route.params.sid);
     },
     myId(){
-      return this.$store.getters.name;
+      return this.$store.state.user.name;
     },
   },
   created() {

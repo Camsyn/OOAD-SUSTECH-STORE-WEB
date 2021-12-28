@@ -8,7 +8,7 @@
           <template v-for="(item, index) in messagesShort">
             <v-list-item :key="index" @click="chatWith(item[0])">
               <v-list-item-avatar size="50">
-                <v-img :src="item"></v-img>
+                <v-img :src="getInfo(item[0]).headImage"></v-img>
               </v-list-item-avatar>
 
               <v-list-item-content>
@@ -30,10 +30,11 @@
 </template>
 
 <script>
+import head from "../../assets/head.jpeg";
 export default {
   name: "message_all",
   data: () => ({
-
+    infos: new Map(),
   }),
   computed: {
     myId(){
@@ -41,11 +42,29 @@ export default {
     },
 
     messagesShort(){
-      console.log(this.$store.getters.msgEach);
       return this.$store.getters.msgEach;
     },
+
+    getInfo(){
+      return (sid)=>{
+        let res = this.$store.getters.infoOf(sid);
+        if (res)
+          return res;
+        else{
+          this.$store.dispatch("getInfoOf", sid);
+          return {headImage: head};
+        }
+      }
+    }
+
   },
   methods: {
+    // infoOf(sid){
+    //   if ()
+    //   this.$store.dispatch("getInfoOf", sid).then(res=>{
+    //
+    //   });
+    // },
     chatWith(sid){
       if (this.$route.params.sid !== sid.toString())
         this.$router.push({path: "/message/"+sid});
