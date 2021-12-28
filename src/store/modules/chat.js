@@ -79,7 +79,6 @@ const chatter = {
             this.commit("STORE_MSG", {msg, id: sendId});
             this.commit("UPDATE_SHORT", {msg, id: msg.sendId});
             let pt = router.path.split("/")[0];
-            console.log("rev!!!",msg)
             if (pt!=="message")
                 state.uncheck = true;
             state.tracer++;
@@ -140,8 +139,9 @@ const chatter = {
         },
 
         test(context){
-            context.state.chat.test();
-        }
+            console.log(1)
+            context.dispatch("test1").then(r => {});
+        },
     }
 }
 
