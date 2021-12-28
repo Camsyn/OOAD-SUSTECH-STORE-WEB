@@ -240,7 +240,6 @@ export default {
     },
 
     regist(){
-
       this.$store.dispatch("Register", this.register).then(
           (res) => {
             const msg = res.resp_msg;
@@ -260,7 +259,19 @@ export default {
         captcha : this.reset.Vcode,
         newPassword: this.reset.password
       }
-      this.$store.dispatch('')
+      this.$store.dispatch('forgetPwd',data).then(() => {
+        this.$message({
+          showClose: true,
+          message: '修改成功',
+          type: 'success'
+        });
+      }).catch((err) => {
+        this.$message({
+          showClose: true,
+          message: err,
+          type: 'warning'
+        });
+      })
     }
   },
 }

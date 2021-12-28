@@ -128,7 +128,13 @@ const user = {
     },
 
     forgetPwd(context, data){
-      return forgetPwd(data);
+      return new Promise((resolve, reject)=>{
+        forgetPwd(data).then(res=>{
+          resolve(res.data);
+        }).catch(err=>{
+          reject(err);
+        });
+      });
     },
 
     modifyPwd(context,data) {
