@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import user from "../../../../../store/modules/user";
 export default {
   name: "treasure",
   data:()=>({
@@ -53,7 +54,7 @@ export default {
       searchStrategy: 0,
       firstOrder: "update_time",
       isAmbiguous: false,
-      publishers: [this.$store.getters.name],
+      publishers: [user.state.name],
     };
     this.$store.dispatch("search",my).then((data) => {
       this.goods = data

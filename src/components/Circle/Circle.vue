@@ -161,9 +161,9 @@
                   :key="key"
                 >
                   <v-list-item-avatar>
-                    <el-image style="width: 50px; height: 50px" :key="item.avatar" :src="item.avatar"></el-image>
+                    <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage"></el-image>
                   </v-list-item-avatar>
-                  <v-list-item-title v-html="item.name"></v-list-item-title>
+                  <v-list-item-title v-html="item.nickname"></v-list-item-title>
                   <v-spacer></v-spacer>
                   <span class="font-weight-bold" style= "display:inline">
 
@@ -269,8 +269,13 @@ export default {
   },
   computed:{
     all_unfollowers(){
-      this.totalCount = circle.state.unfollowList.length
-      return circle.state.unfollowList
+      let data = {
+        size : 4
+      }
+      this.$store.dispatch('getRandomUser',data).then((data) => {
+        this.totalCount = data.length
+        return data
+      })
     },
   }
 

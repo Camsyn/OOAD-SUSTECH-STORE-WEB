@@ -52,4 +52,11 @@ export function updateMyInfo(info){
   });
 }
 
+export function randomUser(data) {
+  return service({
+    url: "/auth/user/getRandom",
+    method: "get",
+    params: data,
+  });
+}
 

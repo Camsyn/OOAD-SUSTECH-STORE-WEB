@@ -1,4 +1,4 @@
-import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo} from "../../api/user";
+import {forgetPwd, getUserInfo,getMyInfo, login, updateMyInfo,randomUser} from "../../api/user";
 import {register, exist} from "../../api/register";
 import head from "../../assets/head.jpeg";
 
@@ -19,6 +19,7 @@ const user = {
     paycode:null,
     userInfos: new Map(),
     tracer: 0,
+    ObserverId:11910215
   },
 
   getters:{
@@ -157,6 +158,18 @@ const user = {
             console.log(err);
           });
         }
+      });
+    },
+
+    getRandomUser(context,size){
+      return new Promise((resolve, reject) => {
+        randomUser(size)
+            .then((res) => {
+              resolve(res.data);
+            })
+            .catch((error) => {
+              reject(error);
+            });
       });
     },
 
