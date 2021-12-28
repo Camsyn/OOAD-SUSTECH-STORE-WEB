@@ -4,8 +4,9 @@
     <div style="padding: 10px">
       <v-card
         class="mx-auto"
-        v-for="(item,i) in HotSharingList"
+        v-for="(item,i) in HotSharingList.slice((currentPage-1)*PageSize,currentPage*PageSize)"
         :key="i"
+        flat
       >
         <v-col>
           <v-avatar>
@@ -32,7 +33,7 @@
 
         <div style="padding: 10px 20px;">
           <v-img
-            max-height="800px"
+            max-height="600px"
             max-width="600px"
             v-bind:src="item.img_src"
           ></v-img>
@@ -123,6 +124,24 @@
           </div>
         </v-expand-transition>
       </v-card>
+      <v-row>
+        <div style="padding: 20px">
+
+          <el-pagination
+              @current-change="handleCurrentChange"
+              v-model:currentPage="currentPage"
+              :page-size="PageSize"
+              :total="totalCount"
+              background
+              layout="prev, pager, next"
+              class="paging"
+          >
+          </el-pagination>
+
+        </div>
+
+      </v-row>
+
     </div>
 
 
@@ -137,6 +156,9 @@ import circle from "../../../../store/modules/circle";
 export default {
   name: "HotSharing",
   data: () => ({
+    currentPage: 1,
+    PageSize:1,
+    totalCount: 15,
   }),
   methods:{
     handleClick(item){
@@ -150,10 +172,16 @@ export default {
     },
     reply_click(item){
       this.$store.commit('Hotreply_click',{item})
-    }
+    },
+    handleCurrentChange(pageNumber) {
+      // 改变默认的页数
+      this.currentPage = pageNumber;
+    },
+
   },
   computed:{
     HotSharingList(){
+      this.totalCount=circle.state.hotsharingList.length
       return circle.state.hotsharingList
     }
   }
