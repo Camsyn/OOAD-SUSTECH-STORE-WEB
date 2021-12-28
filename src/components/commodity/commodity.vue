@@ -45,7 +45,7 @@
             <v-icon left>
               mdi-server-plus
             </v-icon>
-            {{credit}}
+            {{request.pusherInfo.credit}}
           </v-chip>
         </v-col>
         <v-col class="px-0 pt-1">
