@@ -10,6 +10,10 @@
             <i class="el-icon-shopping-cart-full"></i>
             {{ icon_info }}
           </button>
+          <button class="Action2" @click = ReportGood>
+            <i class="el-icon-error"></i>
+            {{ icon_info1 }}
+          </button>
         </div>
       </div>
       <div class="information">
@@ -71,6 +75,20 @@ import user from "../../../store/modules/user";
 export default {
   name: "Details2",
   methods:{
+    ReportGood() {
+      this.$confirm('是否举报该商品', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    },
     Personpage(){
       user.state.ObserverId = goods.state.current.request.pusherInfo.sid
       this.$router.push('/PersonalPage')
@@ -156,6 +174,7 @@ export default {
         credit:0
       },
       icon_info:"加入购物车",
+      icon_info1: '举报'
     }
   },
   computed: {

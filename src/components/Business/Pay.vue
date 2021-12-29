@@ -33,9 +33,6 @@
             私下交易
           </v-btn>
 
-          <v-btn value="第三方支付"  @click= 'changepay4'>
-            第三方支付
-          </v-btn>
         </v-btn-toggle>
       </div>
 
@@ -68,6 +65,8 @@ export default {
   },
   data () {
     return {
+      dialogVisible : false,
+      number : 0,
       text:'',
       liyuan:0,
       headers: [
@@ -87,6 +86,13 @@ export default {
     }
   },
   methods: {
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+          .then(_ => {
+            done();
+          })
+          .catch(_ => {});
+    },
     changepay1(){
       let table2 = []
       for (let i = 0; i < goods.state.payList.length; i++) {
@@ -129,8 +135,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-
-          let data = [1]
+          let data = []
           if(this.desserts[0].cartItemId !== null) {
             for (let i = 0; i < this.desserts.length; i++) {
               data.push(this.desserts[i].cartItemId)
@@ -142,11 +147,26 @@ export default {
               count: 1,
             }
             this.$store.dispatch('buy',data).then((data) => {
-              this.$message({
-                type: 'success',
-                message: '订单成功!',
-              })
-              this.$router.push('/home')
+              if (this.text === '平台代币'){
+                this.$message({
+                  type: 'success',
+                  message: '订单成功!',
+                })
+                this.$router.push('/home')
+              }
+              if (this.text === '个人收款码') {
+                this.dialogVisible = true
+                this.$message({
+                  type: 'success',
+                  message: '订单已成功下单，请尽快支付!',
+                })
+              }
+              if (this.text === '私下交易') {
+                this.$message({
+                  type: 'success',
+                  message: '订单已成功下单，请尽快联系卖家',
+                })
+              }
             }).catch(err=>{
               this.$message({
                 type: 'warning',
@@ -156,10 +176,26 @@ export default {
           }
           else {
             this.$store.dispatch('satisfy',data).then((data) => {
-              this.$message({
-                type: 'success',
-                message: '订单成功!'
-              })
+              if (this.text === '平台代币'){
+                this.$message({
+                  type: 'success',
+                  message: '订单成功!',
+                })
+                this.$router.push('/home')
+              }
+              if (this.text === '个人收款码') {
+                this.dialogVisible = true
+                this.$message({
+                  type: 'success',
+                  message: '订单已成功下单，请尽快支付!',
+                })
+              }
+              if (this.text === '私下交易') {
+                this.$message({
+                  type: 'success',
+                  message: '订单已成功下单，请尽快联系卖家',
+                })
+              }
               this.$router.push('/home')
             }).catch(err=>{
               this.$message({
@@ -167,7 +203,6 @@ export default {
                 message: err
               })
             });
-            this.$router.push('/home')
           }
       }).catch(() => {
         this.$message({
@@ -185,9 +220,6 @@ export default {
       }
       return sum4
     },
-
-
-
     Now_sum : function(){
       let sum2 = 0;
       for (let i = 0; i < this.desserts.length ; i++) {
@@ -199,6 +231,7 @@ export default {
   created() {
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
+    this.number = goods.state.payList.length
     if(goods.state.payList[0].cartItemId == null) {
       this.desserts[0].cartItemCount = 1
     }
