@@ -8,7 +8,7 @@ const service = axios.create({
 //发送请求前
 service.interceptors.request.use(
   (config) => {
-      let token = sessionStorage.getItem("token");
+      let token = localStorage.getItem("token");
       if (token !== null && token !== undefined){
           config.headers["Authorization"] = token;
       }

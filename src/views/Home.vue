@@ -242,6 +242,7 @@ export default {
         isFirstOrderAsc: true,
         after: null,
         before: null,
+        openState: 2,
         page: 1,
         limit: this.limit,
         searchStrategy: 2,
