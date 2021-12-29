@@ -96,7 +96,7 @@ export default {
     },
     Personpage(){
       user.state.ObserverId = goods.state.current.request.pusherInfo.sid
-      this.$router.push('/PersonalPage')
+      this.$router.push('/PersonalPage/treasure')
     },
     follow() {
       let add = true
