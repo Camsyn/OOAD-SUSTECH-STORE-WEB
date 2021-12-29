@@ -2,115 +2,107 @@ import request from "../utils/request";
 import service from "../utils/request";
 
 
-export function selectReportRecord(data) {
-    if (data===-1 || data ===null){
-        return service({
-            url: "/review/selectReportRecord",
-            method: "get",
-        });
-    }
-    else{
-        return service({
-            url: "/review/selectReportRecord",
-            method: "get",
-            params:data,
-        });
-    }
+export function selectReportRecord(i_id) {
+  return service({
+      url: "/review/review/selectReportRecord",
+      method: "get",
+      params: {i_id},
+  });
 }
 
-export function selectReportsAboutUser(data) {
+export function selectReportsAboutUser(t_id) {
     return service({
-        url: "/review/selectReportsAboutUser",
+        url: "/review/review/selectReportsAboutUser",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectReportsAboutRequest(data) {
+export function selectReportsAboutRequest(t_id) {
     return service({
-        url: "/review/selectReportsAboutRequest",
+        url: "/review/review/selectReportsAboutRequest",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectReportsAboutOrder(data) {
+export function selectReportsAboutOrder(t_id) {
     return service({
-        url: "/review/selectReportsAboutOrder",
+        url: "/review/review/selectReportsAboutOrder",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectReportsAboutChat(data) {
+export function selectReportsAboutChat(t_id) {
     return service({
-        url: "/review/selectReportsAboutChat",
+        url: "/review/review/selectReportsAboutChat",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectReportsAboutCircle(data) {
+export function selectReportsAboutCircle(t_id) {
     return service({
-        url: "/review/selectReportsAboutCircle",
+        url: "/review/review/selectReportsAboutCircle",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectReportsAboutComment(data) {
+export function selectReportsAboutComment(t_id) {
     return service({
-        url: "/review/selectReportsAboutComment",
+        url: "/review/review/selectReportsAboutComment",
         method: "get",
-        params:data,
+        params: {t_id},
     });
 }
 
-export function selectSendingAboutUser(data) {
+export function selectSendingAboutUser(t_id) {
     return service({
-        url: "/review/selectSendingAboutUser",
+        url: "/review/review/selectSendingAboutUser",
         method: "get",
-        params:data,
+        params: {t_id},
     });
 }
 
-export function selectSendingAboutRequest(data) {
+export function selectSendingAboutRequest(t_id) {
     return service({
-        url: "/review/selectSendingAboutRequest",
+        url: "/review/review/selectSendingAboutRequest",
         method: "get",
-        params:data,
+        params: {t_id},
     });
 }
 
-export function selectSendingAboutOrder(data) {
+export function selectSendingAboutOrder(t_id) {
     return service({
-        url: "/review/selectSendingAboutOrder",
+        url: "/review/review/selectSendingAboutOrder",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectSendingAboutChat (data) {
+export function selectSendingAboutChat (t_id) {
     return service({
-        url: "/review/selectSendingAboutChat",
+        url: "/review/review/selectSendingAboutChat",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectSendingAboutCircle (data) {
+export function selectSendingAboutCircle (t_id) {
     return service({
-        url: "/review/selectSendingAboutCircle",
+        url: "/review/review/selectSendingAboutCircle",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
-export function selectSendingAboutComment (data) {
+export function selectSendingAboutComment (t_id) {
     return service({
-        url: "/review/selectSendingAboutComment",
+        url: "/review/review/selectSendingAboutComment",
         method: "get",
-        params:data,
+        params:{t_id},
     });
 }
 
@@ -118,56 +110,56 @@ export function selectSendingAboutComment (data) {
 
 export function reportCircle(data) {
     return service({
-        url: "/review/reportCircle",
+        url: "/review/review/reportCircle",
         method: "post",
         params: data,
     });
 }
 
-export function reportComment(data) {
+export function reportComment(t_id, desc) {
     return request({
-        url: "/review/reportComment",
+        url: "/review/review/reportComment",
         method: "post",
-        params: data,
+        params: {t_id, desc},
     });
 }
 
-export function reportUser(data) {
+export function reportUser(t_id, desc) {
     return service({
-        url: "/review/reportUser",
+        url: "/review/review/reportUser",
         method: "post",
-        params: data,
+        params: {t_id, desc},
     });
 }
 
-export function reportRequest(data) {
+export function reportRequest(t_id, desc) {
     return service({
-        url: "/review/reportRequest",
+        url: "/review/review/reportRequest",
         method: "post",
-        params: data,
+        params: {t_id, desc},
     });
 }
 
-export function reportOrder(data) {
+export function reportOrder(t_id, desc) {
     return service({
-        url: "/review/reportOrder",
+        url: "/review/review/reportOrder",
         method: "post",
-        params: data,
+        params: {t_id, desc},
     });
 }
 
-export function reportChat(data) {
+export function reportChat(t_id, desc) {
     return service({
-        url: "/review/reportChat",
+        url: "/review/review/reportChat",
         method: "post",
-        params: data,
+        params: {t_id, desc},
     });
 }
 
-export function Argue(info) {
+export function Argue(R_id, desc) {
     return service({
-        url: "/review/argue",
+        url: "/review/review/argue",
         method: "put",
-        data: info,
+        data: {R_id, desc},
     });
 }
