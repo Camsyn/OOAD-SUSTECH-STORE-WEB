@@ -55,7 +55,14 @@ export default {
     info(){
       this.$store.dispatch("getInfoOf", this.id).then(res=>{
         this.payCode = res.paycodePath;
-      })
+      });
+      return this.payCode
+    },
+
+    watch:{
+      info: function () {
+
+      }
     }
   }
 }
