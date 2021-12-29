@@ -57,64 +57,97 @@
         </template>
       </el-table-column>
 
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
-        <template slot-scope="scope">
-          <el-button
-              @click="confirm(scope.row)"
-              size="mini"
-              type="primary">
-            确认
-          </el-button>
 
-        </template>
-      </el-table-column>
+
+
+
+
+<!--      Test-->
+
+
 
       <el-table-column
           fixed="right"
           label="操作"
           width="120">
         <template slot-scope="scope">
-          <el-button
-              @click="report(scope.row.id)"
-              size="mini"
-              type="danger">
-            举报
-          </el-button>
+          <el-col :span="12">
+            <el-dropdown>
+      <span class="el-dropdown-link">
+        执行<i class="el-icon-arrow-down el-icon--right"></i>
+      </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="el-icon-check" @click="confirm(scope.row)">确认</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-service" @click="report(scope.row.id)">举报</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-bank-card" @click="pay(scope.row)">支付</el-dropdown-item>
+                <el-dropdown-item icon="el-icon-circle-close" @click="rollback(scope.row.id)">撤回</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
+          </el-col>
+
         </template>
       </el-table-column>
 
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
-        <template slot-scope="scope">
-          <el-button
-              @click="pay(scope.row)"
-              size="mini"
-              type="danger">
-            支付
-          </el-button>
-        </template>
 
-      </el-table-column>
 
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
-        <template slot-scope="scope">
-          <el-button
-              @click="rollback(scope.row.id)"
-              size="mini"
-              type="danger">
-            撤回
-          </el-button>
-        </template>
+<!--      <el-table-column-->
+<!--          fixed="right"-->
+<!--          label="操作"-->
+<!--          width="120">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-button-->
+<!--              @click="confirm(scope.row)"-->
+<!--              size="mini"-->
+<!--              type="primary">-->
+<!--            确认-->
+<!--          </el-button>-->
 
-      </el-table-column>
+<!--        </template>-->
+<!--      </el-table-column>-->
+
+<!--      <el-table-column-->
+<!--          fixed="right"-->
+<!--          label="操作"-->
+<!--          width="120">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-button-->
+<!--              @click="report(scope.row.id)"-->
+<!--              size="mini"-->
+<!--              type="danger">-->
+<!--            举报-->
+<!--          </el-button>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+
+<!--      <el-table-column-->
+<!--          fixed="right"-->
+<!--          label="操作"-->
+<!--          width="120">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-button-->
+<!--              @click="pay(scope.row)"-->
+<!--              size="mini"-->
+<!--              type="danger">-->
+<!--            支付-->
+<!--          </el-button>-->
+<!--        </template>-->
+
+<!--      </el-table-column>-->
+
+<!--      <el-table-column-->
+<!--          fixed="right"-->
+<!--          label="操作"-->
+<!--          width="120">-->
+<!--        <template slot-scope="scope">-->
+<!--          <el-button-->
+<!--              @click="rollback(scope.row.id)"-->
+<!--              size="mini"-->
+<!--              type="danger">-->
+<!--            撤回-->
+<!--          </el-button>-->
+<!--        </template>-->
+
+<!--      </el-table-column>-->
     </el-table>
     <div class="d-flex justify-center">
       <v-pagination v-model="page" @input="more" :length="length">
@@ -310,5 +343,17 @@ export default {
 </script>
 
 <style scoped>
-
+.el-dropdown-link {
+  cursor: pointer;
+  color: #409EFF;
+}
+.el-icon-arrow-down {
+  font-size: 12px;
+}
+.demonstration {
+  display: block;
+  color: #8492a6;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
 </style>
