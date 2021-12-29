@@ -32,11 +32,15 @@
                  <v-col cols="12" md="3" sm="3">
                    <v-btn
                        depressed
-                       color="error"
+                       color="red darken-1"
                        right
                        @click="observeClick(item)"
                    >
-                     取消关注
+                     <div
+                         class="font-weight-medium"
+                         style="color: white"
+                         v-text="button_text"
+                     ></div>
                    </v-btn>
                  </v-col>
 
@@ -45,6 +49,7 @@
               </v-list-item-content>
 
             </v-list-item>
+            <v-divider></v-divider>
           </template>
         </v-list>
       </v-card>
@@ -61,6 +66,7 @@ import user from "../../../../store/modules/user";
 export default {
   name: "ObservingNow",
   data:()=>({
+    button_text:"取消关注",
   }),
   methods:{
     PersonPage(item) {
