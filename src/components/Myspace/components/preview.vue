@@ -1,5 +1,6 @@
 <template>
   <v-card elevation="1">
+    <report :dialog="repo" :id="circle.id" type="reportCircle" v-on:close="repo=false"></report>
     <v-card-subtitle class="py-2">
       <v-row dense>
         <div style="padding: 4px">
@@ -19,6 +20,11 @@
             <v-icon small>mdi-alarm</v-icon> &nbsp;{{ date }}
           </div>
 
+        </v-col>
+        <v-col cols="1" class="d-flex flex-column-reverse flex-row-reverse">
+          <v-btn class="mb-2 pa-0" @click ="ReportCircle" small text>
+            举报
+          </v-btn>
         </v-col>
       </v-row>
     </v-card-subtitle>
@@ -75,7 +81,9 @@
 </template>
 
 <script>
+import report from "../../report";
 export default {
+  components:{report},
   props:["circle"],
   name: "preview",
   data:()=>({
@@ -86,6 +94,7 @@ export default {
     headImage:null,
     comments: [],
     comment: "",
+    repo:false,
   }),
   computed:{
     show(){
@@ -109,6 +118,20 @@ export default {
     }
   },
   methods:{
+    ReportCircle() {
+      this.$confirm('是否举报该动态', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.repo = true
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    },
     getComment(){
       let cmId = this.circle.id;
       let count = 99;

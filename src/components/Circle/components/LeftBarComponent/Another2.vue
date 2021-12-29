@@ -55,10 +55,11 @@ export default {
             let pt = this.paths[ind];
             this.circles[pt].push(item);
 
+            console.log(item.sendId, this.$store.getters.isFollow(item.sendId))
             if (this.$store.getters.isFollow(item.sendId))
               this.circles.Grass.push(item);
 
-            if (this.page>=this.length&&res.length===this.limit){
+            if (this.page>=this.length){
               this.length++;
             }
           });
