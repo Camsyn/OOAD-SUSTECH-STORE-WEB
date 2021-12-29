@@ -163,7 +163,6 @@
                   <v-btn
                   icon
                   x-large
-                  v-on="on"
                   @click = 'PersonPage(item)'
                   >
                     <v-list-item-avatar>

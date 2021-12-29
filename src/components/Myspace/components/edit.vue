@@ -70,10 +70,10 @@
 
               <div class="text-h6 font-weight-black" v-text="code"></div>
               <div style="padding: 10px">
-                <el-input placeholder="请输入密码" v-model="input1" show-password></el-input>
+                <el-input placeholder="请输入原始密码" v-model="input1" show-password></el-input>
               </div>
               <div style="padding: 10px">
-                <el-input placeholder="请再次输入密码" v-model="input2" show-password></el-input>
+                <el-input placeholder="请输入新密码" v-model="input2" show-password></el-input>
               </div>
               <v-row>
                 <v-col class="d-flex justify-center" >
@@ -156,19 +156,31 @@ export default {
       });
     },
     updateCode(){
-
-      if (this.input1 !== this.input2)
-        return;
-
-      let sid=this.$store.state.name
-
-      let userinfo={'sid':sid,'code':this.input2}
-
-      this.$store.dispatch("updateCode", userinfo).then(res=>{
-        // this.$store.dispatch("")
-        console.log("updateCode");
-      }).catch(err=>{
-        console.log(err);
+      let data = {
+        oldPassword: this.input1,
+        newPassword: this.input2
+      }
+      this.$confirm('是否确定修改?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch("modifyPwd2",data).then((data) => {
+          this.$message({
+            type: 'success',
+            message: '修改密码成功!',
+          })
+        }).catch(err=>{
+          this.$message({
+            type: 'warning',
+            message: err
+          })
+        });
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
       });
     }
   },

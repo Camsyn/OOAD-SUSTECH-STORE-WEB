@@ -40,7 +40,7 @@ import delicious_food from "../components/Circle/components/LeftBarComponent/del
 import game from "../components/Circle/components/LeftBarComponent/game";
 import philosophizing from "../components/Circle/components/LeftBarComponent/philosophizing";
 import tour from "../components/Circle/components/LeftBarComponent/tour";
-import Another from "../components/Circle/components/LeftBarComponent/Another2";
+import Another from "../components/Circle/components/LeftBarComponent/Another";
 
 
 
