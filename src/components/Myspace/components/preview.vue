@@ -122,6 +122,8 @@ export default {
         content: this.comment,
       }
       this.$store.dispatch("postComment", cmt).then(res=>{
+        res.headImage = this.$store.state.user.avatar;
+        res.nickname = this.$store.state.user.nickname;
         this.comments.unshift(res);
       }).catch(err=>{
 
