@@ -90,6 +90,7 @@ export default {
   computed: {
     messages(){
       let msgs = this.$store.getters.msgOf(this.oppositeId);
+      console.log(msgs)
       return msgs;
     },
     oppositeId(){

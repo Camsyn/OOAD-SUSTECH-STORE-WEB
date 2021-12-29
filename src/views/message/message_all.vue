@@ -59,12 +59,6 @@ export default {
 
   },
   methods: {
-    // infoOf(sid){
-    //   if ()
-    //   this.$store.dispatch("getInfoOf", sid).then(res=>{
-    //
-    //   });
-    // },
     chatWith(sid){
       if (this.$route.params.sid !== sid.toString())
         this.$router.push({path: "/message/"+sid});

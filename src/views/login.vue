@@ -223,6 +223,7 @@ export default {
               this.$store.dispatch("renew");
             });
             this.$store.commit("SET_NAME", this.loginn.username);
+
             this.$router.push({name: "Home"});
             this.$store.dispatch("getMyInfo").then(res=>{
               this.storeUser();

@@ -242,7 +242,7 @@ export default {
         isFirstOrderAsc: true,
         after: null,
         before: null,
-        openState: 2,
+        openState: 0,
         page: 1,
         limit: this.limit,
         searchStrategy: 2,
@@ -295,7 +295,9 @@ export default {
     this.height = document.documentElement.clientHeight;
     window.addEventListener("scroll", this.addMore);
 
+    this.commoditiesAll=[]
     let hot = this.$route.params.hot;
+
     if (hot){
       this.searchInfo.labels.push(hot);
       this.search();
@@ -349,6 +351,7 @@ export default {
       let tmp = {
         page: this.page,
         limit: this.limit,
+        openState: 0,
       }
       this.$store.commit("setSearch", false);
       this.$store.dispatch("search", tmp).then(res=>{
@@ -443,6 +446,7 @@ export default {
       if (windowRelativeBottom > this.height + 100)
         return;
       // 添加更多数据
+      console.log(this.more)
 
       this.more = false;
       if (this.isSearch)
