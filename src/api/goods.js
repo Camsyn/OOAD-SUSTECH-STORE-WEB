@@ -48,3 +48,10 @@ export function withdraw(requestId){
         params: {requestId}
     });
 }
+export function pullRequest(data) {
+    return service({
+        method: 'put',
+        url:"request/request/pull",
+        params: data
+    })
+}
