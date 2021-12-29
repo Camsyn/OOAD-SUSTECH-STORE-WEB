@@ -1,4 +1,4 @@
-import {search, push, close, open, update, withdraw} from "../../api/goods";
+import {search, push, close, open, update, withdraw,pullRequest} from "../../api/goods";
 import logo from "../../assets/logo/default.png";
 const goods = {
     state:{
@@ -104,6 +104,15 @@ const goods = {
                 });
             });
         },
+        pull(context, data) {
+            return new Promise((resolve, reject)=>{
+                pullRequest(data).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        }
     }
 }
 
