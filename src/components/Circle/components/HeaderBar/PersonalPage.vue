@@ -3,7 +3,7 @@
     <v-card
       class="mx-auto"
     >
-      <report :dialog="repo" :id="this.$store.state.user.ObserverId" type="reportUser" v-on:close="repo=false"></report>
+      <report :dialog="repo" :id="$store.state.user.ObserverId" type="reportUser" v-on:close="repo=false"></report>
       <div>
           <v-img
             class="white--text align-end"

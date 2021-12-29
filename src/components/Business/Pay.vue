@@ -2,10 +2,16 @@
   <div class="main10">
     <Pay_header></Pay_header>
 
+
+    <div class="header-title" style="padding-left: 500px;font-size: 20px;font-family: 'Droid Sans Mono Slashed',sans-serif">
+      订单复核
+    </div>
+
+
+
     <div class="Goodsdetails">
-      <div class="title">
-        订单复核
-      </div>
+
+
       <v-data-table
           :headers="headers"
           :items="desserts"
@@ -13,8 +19,11 @@
           class="elevation-1 details2"
       ></v-data-table>
 
+
       <div class="PayMethod">
-        <div class="title3">支付方式 :</div>
+        <div class="title3" style="color: #747172">应付总金额:&emsp;￥{{Now_sum}}&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;支付方式 :</div>
         <v-btn-toggle
             v-model="text"
             tile
@@ -22,35 +31,27 @@
             group
         >
           <v-btn value="平台代币" @click = 'changepay1'>
-            平台代币
+            <div style="color: #747172">平台代币</div>
           </v-btn>
 
           <v-btn value="个人收款码" @click = 'changepay2'>
-            个人收款码
+            <div style="color: #747172">个人收款码</div>
           </v-btn>
 
           <v-btn value="私下交易" @click = 'changepay3'>
-            私下交易
+            <div style="color: #747172">私下交易</div>
           </v-btn>
 
         </v-btn-toggle>
+
+
       </div>
 
-      <div class="price">
-        <div class="pricetitle">商品原价:</div>
-        <div class="OldPrice">￥{{Ori_sum}}</div>
 
-        <div class="pricetitle">商品现价:</div>
-        <div class="OldPrice">
-          ￥{{Now_sum}}
-        </div>
-
-        <div class="pricetitle">应付总金额:</div>
-        <div class="payPrice">￥{{Now_sum}}</div>
+      <div style="padding-bottom: 80px">
+        <el-button type="danger" round class="button3"  @click = 'buy'>购买</el-button>
       </div>
-
-      <el-button type="danger" round class="button3"  @click = 'buy'>购买</el-button>
-      <pay_dialog :dialog ='this.dialogVisible' :info = 'this.desserts[0].pusherInfo' v-on:close="this.dialogVisible = false"></pay_dialog>
+      <pay_dialog :dialog ='dialogVisible' :id = 'desserts[0].pusherInfo.sid' v-on:close="dialogVisible = false"></pay_dialog>
     </div>
   </div>
 </template>
@@ -68,6 +69,7 @@ export default {
   },
   data () {
     return {
+      reveal: false,
       userList:[],
       dialogVisible : false,
       number : 0,
@@ -82,7 +84,7 @@ export default {
         },
         { text: '原价', value: 'originalPrice' },
         { text: '现价', value: 'exactPrice' },
-        { text: '收款方', value: 'Object' },
+        { text: '发布者', value: 'pusherInfo.nickname' },
         { text: '购买数量' ,value: 'cartItemCount'},
         { text: '支付方式' , value: 'tradeMethod'}
       ],
@@ -140,75 +142,77 @@ export default {
         type: 'warning'
       }).then(() => {
         let data = []
-          if(this.desserts[0].cartItemId !== null) {
-            for (let i = 0; i < this.desserts.length; i++) {
-              data.push(this.desserts[i].cartItemId)
-            }
+        if(this.desserts[0].cartItemId !== null) {
+          for (let i = 0; i < this.desserts.length; i++) {
+            data.push(this.desserts[i].cartItemId)
           }
-          if (this.desserts[0].cartItemId == null) {
-            data = {
-              requestId:this.desserts[0].id,
-              count: 1,
-            }
-            this.$store.dispatch('buy',data).then((data) => {
-              if (this.text === '平台代币'){
-                this.$message({
-                  type: 'success',
-                  message: '订单成功!',
-                })
-              }
-              if (this.text === '个人收款码') {
-                this.dialogVisible = true
-                this.$message({
-                  type: 'success',
-                  message: '订单已成功下单，请尽快支付!',
-                })
-              }
-              if (this.text === '私下交易') {
-                this.$message({
-                  type: 'success',
-                  message: '订单已成功下单，请尽快联系卖家',
-                })
-              }
-
-            }).catch(err=>{
+        }
+        if (this.desserts[0].cartItemId == null) {
+          data = {
+            requestId:this.desserts[0].id,
+            count: 1,
+          }
+          this.$store.dispatch('buy',data).then((data) => {
+            if (this.text === '平台代币'){
               this.$message({
-                type: 'warning',
-                message: err
+                type: 'success',
+                message: '订单成功!',
               })
-            });
-          }
-          else {
+            }
+            if (this.text === '个人收款码') {
+              console.log('>>>')
+              this.dialogVisible = true
+              this.$message({
+                type: 'success',
+                message: '订单已成功下单，请尽快支付!',
+              })
 
-            this.$store.dispatch('satisfy',data).then((data) => {
-              if (this.text === '平台代币'){
-                this.$message({
-                  type: 'success',
-                  message: '订单成功!',
-                })
-                this.$router.push('/home')
-              }
-              if (this.text === '个人收款码') {
-                this.dialogVisible = true
-                this.$message({
-                  type: 'success',
-                  message: '订单已成功下单，请尽快支付!',
-                })
-              }
-              if (this.text === '私下交易') {
-                this.$message({
-                  type: 'success',
-                  message: '订单已成功下单，请尽快联系卖家',
-                })
-              }
+            }
+            if (this.text === '私下交易') {
+              this.$message({
+                type: 'success',
+                message: '订单已成功下单，请尽快联系卖家',
+              })
+            }
+
+          }).catch(err=>{
+            this.$message({
+              type: 'warning',
+              message: err
+            })
+          });
+        }
+        else {
+
+          this.$store.dispatch('satisfy',data).then((data) => {
+            if (this.text === '平台代币'){
+              this.$message({
+                type: 'success',
+                message: '订单成功!',
+              })
               this.$router.push('/home')
-            }).catch(err=>{
+            }
+            if (this.text === '个人收款码') {
+              this.dialogVisible = true
               this.$message({
-                type: 'warning',
-                message: err
+                type: 'success',
+                message: '订单已成功下单，请尽快支付!',
               })
-            });
-          }
+            }
+            if (this.text === '私下交易') {
+              this.$message({
+                type: 'success',
+                message: '订单已成功下单，请尽快联系卖家',
+              })
+            }
+            this.$router.push('/home')
+          }).catch(err=>{
+            this.$message({
+              type: 'warning',
+              message: err
+            })
+          });
+        }
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -221,7 +225,7 @@ export default {
     Ori_sum : function () {
       let sum4 = 0;
       for (let i = 0; i < this.desserts.length ; i++) {
-          sum4= sum4 + this.desserts[i].originalPrice * this.desserts[i].cartItemCount
+        sum4= sum4 + this.desserts[i].originalPrice * this.desserts[i].cartItemCount
       }
       return sum4
     },
@@ -234,10 +238,12 @@ export default {
     },
   },
   created() {
-    this.dialogVisible = false
+    this.dialogVisible = true
+    console.log(goods.state.payList)
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
     this.number = goods.state.payList.length
+    this.desserts[0].cartItemId == null
     if(goods.state.payList[0].cartItemId == null) {
       this.desserts[0].cartItemCount = 1
     }
