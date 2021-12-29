@@ -23,19 +23,6 @@
           <div style="font-size: x-small;color: #e17d63;padding-bottom: 10px;display: flex">
             {{ item.title }}
           </div>
-          <div style="font-size: small;color: #80848a;">
-
-            <v-icon color="green">mdi-drupal</v-icon> &nbsp;
-            <v-btn
-                @click="toCustomer"
-                color="white"
-                text
-                depressed
-            >
-              叛逆的鲁鲁修
-            </v-btn>
-          </div>
-
         </v-col>
       </v-row>
     </v-container>
