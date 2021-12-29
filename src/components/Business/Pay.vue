@@ -241,7 +241,6 @@ export default {
     if(goods.state.payList[0].cartItemId == null) {
       this.desserts[0].cartItemCount = 1
     }
-    console.log(this.desserts)
   }
 };
 </script>

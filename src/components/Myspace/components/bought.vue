@@ -92,7 +92,7 @@
           width="120">
         <template slot-scope="scope">
           <el-button
-              @click="pay(scope.row.requestId)"
+              @click="pay(scope.row)"
               size="mini"
               type="danger">
             支付
@@ -127,6 +127,7 @@
 <script>
 import report from '../../../components/report'
 import goods from "../../../store/modules/goods";
+import user from "../../../store/modules/user";
 export default {
   name: "bought",
   data() {
@@ -184,12 +185,19 @@ export default {
 
     },
     pay(id) {
+      let data3 = 0
+      if (user.state.name == id.puller) {
+        data3 = id.pusher
+      }
+      else {
+        data3 = id.puller
+      }
       let data = {
-        requestId: id,
+        requestId: id.id,
       }
       this.$store.dispatch('getRequest',data).then((res) => {
         res = res.data
-        this.$store.dispatch('getInfoOf',res.pusher).then((data) => {
+        this.$store.dispatch('getInfoOf',data3).then((data) => {
           res.pusherInfo = data
           if (res.tradeType == 0) {
             res.tradeMethod = '第三方支付'
@@ -204,6 +212,7 @@ export default {
             res.tradeMethod = '私下交易'
           }
           goods.state.payList = [res]
+          console.log(res)
           this.$router.push('/pay')
         })
       }).catch((err) => {
