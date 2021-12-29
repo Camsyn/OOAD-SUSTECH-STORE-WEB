@@ -172,61 +172,61 @@ const routes = [
             name:"publishcircle",
             component: PublishCircle,
           },
-          {
-            path:"/circle/ObservingNow",
-            name:"observingnow",
-            component: ObservingNow,
-          },
-          {
-            path:"/circle/HotSharing",
-            name:"HotSharing",
-            component: HotSharing,
-          },
-          {
-            path:"/circle/Grass",
-            name:"Grass",
-            component: Grass,
-          },
-          {
-            path:"/circle/PublishCircle",
-            name:"PublishCircle",
-            component: PublishCircle,
-          },
-          {
-            path:"/circle/Customer",
-            name:"Customer",
-            component: Customer,
-          },
-          {
-            path:"/circle/carton",
-            name:"carton",
-            component: carton,
-          },
-          {
-            path:"/circle/cute_pet",
-            name:"cute_pet",
-            component: cute_pet,
-          },
-          {
-            path:"/circle/delicious_food",
-            name:"delicious_food",
-            component: delicious_food,
-          },
-          {
-            path:"/circle/game",
-            name:"game",
-            component: game,
-          },
-          {
-            path:"/circle/philosophizing",
-            name:"philosophizing",
-            component: philosophizing,
-          },
-          {
-            path:"/circle/tour",
-            name:"tour",
-            component: tour,
-          },
+          // {
+          //   path:"/circle/ObservingNow",
+          //   name:"observingnow",
+          //   component: ObservingNow,
+          // },
+          // {
+          //   path:"/circle/HotSharing",
+          //   name:"HotSharing",
+          //   component: HotSharing,
+          // },
+          // {
+          //   path:"/circle/Grass",
+          //   name:"Grass",
+          //   component: Grass,
+          // },
+          // {
+          //   path:"/circle/PublishCircle",
+          //   name:"PublishCircle",
+          //   component: PublishCircle,
+          // },
+          // {
+          //   path:"/circle/Customer",
+          //   name:"Customer",
+          //   component: Customer,
+          // },
+          // {
+          //   path:"/circle/carton",
+          //   name:"carton",
+          //   component: carton,
+          // },
+          // {
+          //   path:"/circle/cute_pet",
+          //   name:"cute_pet",
+          //   component: cute_pet,
+          // },
+          // {
+          //   path:"/circle/delicious_food",
+          //   name:"delicious_food",
+          //   component: delicious_food,
+          // },
+          // {
+          //   path:"/circle/game",
+          //   name:"game",
+          //   component: game,
+          // },
+          // {
+          //   path:"/circle/philosophizing",
+          //   name:"philosophizing",
+          //   component: philosophizing,
+          // },
+          // {
+          //   path:"/circle/tour",
+          //   name:"tour",
+          //   component: tour,
+          // },
           {
             path:"/circle/another",
             name:"another",

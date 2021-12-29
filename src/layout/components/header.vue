@@ -36,9 +36,6 @@
     <v-badge color="pink" dot overlap :value="uncheck">
       <menu-btn icon="mdi-forum"></menu-btn>
     </v-badge>
-
-<!--    <span>&nbsp;&nbsp;&nbsp;</span>-->
-
     <upload-btn></upload-btn>
   </v-app-bar>
 </template>
@@ -79,12 +76,6 @@ export default {
 
   }),
   computed:{
-    newMsg(){
-
-    },
-    newNotify(){
-
-    },
     uncheck(){
       return this.$store.getters.uncheck;
     }
@@ -102,7 +93,7 @@ export default {
         this.$router.push('/PersonalPage/treasure')
       }
       if(item.index === 3){
-        this.$router.push('/myspace')
+        this.$router.push('/myspace/publish')
       }
     },
   },
