@@ -102,7 +102,7 @@ export default {
     },
 
     more(){
-      if (this.page<this.length-1){
+      if (this.page<this.length){
         return;
       }
 

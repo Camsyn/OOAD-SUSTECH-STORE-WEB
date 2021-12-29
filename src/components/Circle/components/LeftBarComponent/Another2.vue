@@ -14,7 +14,6 @@
 import preview from "../../../Myspace/components/preview";
 export default {
   components:{preview},
-  props:["type"],
   name: "Another",
   data: () => ({
     currentPage: 1,
@@ -36,7 +35,7 @@ export default {
   }),
   methods:{
     more(){
-      if (this.page<this.length-1){
+      if (this.page<this.length){
         return;
       }
 
@@ -44,35 +43,11 @@ export default {
         if (res.length!==0){
           res.forEach(item=>{
             this.circles.all.push(item);
-            let ind = this.Tags.indexOf(item.tag);
+            let ind = this.tags.indexOf(item.tag);
             if (ind===-1)
               ind = this.paths.length-1;
-
             let pt = this.paths[ind];
             this.circles[pt].push(item);
-
-            // switch (item.tag) {
-            //   case "动漫":
-            //     this.carton.push(res);
-            //     break;
-            //   case "游戏":
-            //     this.game.push(res);
-            //     break;
-            //   case "旅游":
-            //     this.tour.push(res);
-            //     break;
-            //   case "美食":
-            //     this.delicious_food.push(res);
-            //     break;
-            //   case "萌宠":
-            //     this.cute_pet.push(res);
-            //     break;
-            //   case "哲思":
-            //     this.philosophizing.push(res);
-            //     break;
-            //   default:
-            //     this.another.push(res);
-            // }
             if (this.page>=this.length&&res.length===this.limit){
               this.length++;
             }
