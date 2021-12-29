@@ -1059,6 +1059,11 @@ const circle = {
       });
     },
 
+    reportDynamic(context,{}){
+
+
+    }
+
   }
 }
 

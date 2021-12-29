@@ -64,7 +64,9 @@ export default {
           this.search.isRandom = true
           this.$store.dispatch('search',this.search).then((data) => {
             this.MoreProduct = data
+
           })
+
         }
       })
 
@@ -104,12 +106,14 @@ export default {
   created() {
     this.search.queryStr = goods.state.current.request.title
     this.$store.dispatch('search',this.search).then((data) => {
+      console.log(data)
       this.MoreProduct = data
       if (this.MoreProduct.length < 3) {
         this.search.searchStrategy = 0
         this.search.isRandom = true
         this.$store.dispatch('search',this.search).then((data) => {
           this.MoreProduct = data
+          console.log(data)
         })
       }
     })

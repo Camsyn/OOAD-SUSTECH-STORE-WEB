@@ -306,7 +306,7 @@ export default {
 }
 .shop_bottom {
   z-index: 99;
-  margin-left: 250px;
+  margin-left: 100px;
   display: inline-block;
   width: 60%;
   height: 50px;

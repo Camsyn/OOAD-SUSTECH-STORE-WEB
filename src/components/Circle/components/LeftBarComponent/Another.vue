@@ -15,20 +15,50 @@
               {{item.username}}
             </span>
           <span style="float:right">
-<!--              <el-dropdown trigger="click">-->
-<!--              <span class="el-dropdown-link">-->
-<!--              <i class="el-icon-arrow-down el-icon&#45;&#45;right" style="font-size: 20px"></i>-->
-<!--              </span>-->
-<!--              <el-dropdown-menu slot="dropdown">-->
-<!--                <el-dropdown-item>帮上头条</el-dropdown-item>-->
-<!--                <el-dropdown-item>收藏</el-dropdown-item>-->
-<!--                <el-dropdown-item>屏蔽此条信息</el-dropdown-item>-->
-<!--                <el-dropdown-item>屏蔽该博主</el-dropdown-item>-->
-<!--                <el-dropdown-item @click="">投诉</el-dropdown-item>-->
-<!--              </el-dropdown-menu>-->
-<!--            </el-dropdown>-->
+              <div style="font-size: medium;color: #80848a">&nbsp;&nbsp;&nbsp;&nbsp;
+                <v-icon >mdi-alarm</v-icon> &nbsp;刚刚发布
+              </div>
 
-               <div style="position: absolute;right:20px;padding-top: 20px">
+            </span>
+        </v-col>
+
+        <div v-if="item.img_src" style="padding: 10px 20px;">
+          <v-img
+              max-height="800px"
+              max-width="600px"
+              v-bind:src="item.img_src"
+          ></v-img>
+        </div>
+
+
+
+        <v-card-title>
+          {{item.topic}}
+        </v-card-title>
+
+        <v-card-subtitle>
+          {{item.content}}
+        </v-card-subtitle>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <div style="padding-right: 20px">
+
+            <v-btn
+                icon
+                @click="handleClick2(item)"
+                :color="item.messageColor"
+            >
+              <v-icon>
+                mdi-message-text
+              </v-icon>
+            </v-btn>
+            <span class="subheading">评论区</span>
+          </div>
+
+
+
+          <div>
 
             <v-row justify="center">
               <v-dialog
@@ -37,17 +67,21 @@
                   max-width="600px"
               >
                 <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                      color="white"
-                      depressed
-                      v-bind="attrs"
-                      v-on="on"
-                  >
-                    <v-icon left>
-                      mdi-pencil
-                    </v-icon>
-                    举报
-                  </v-btn>
+                  <div style="padding-right: 10px">
+                    <v-btn
+                        color="white"
+                        depressed
+                        v-bind="attrs"
+                        v-on="on"
+                        max-width="2px"
+                    >
+                      <v-icon left>
+                        mdi-pencil
+                      </v-icon>
+
+                    </v-btn>
+                  </div>
+
                 </template>
                 <v-card>
                   <v-card-title>
@@ -78,13 +112,13 @@
                         </v-col>
 
 
-                       <v-col cols="12">
-                        <v-text-field
-                            label="Description"
-                            outlined
-                            height="200px"
-                        ></v-text-field>
-                       </v-col>
+                        <v-col cols="12">
+                          <v-text-field
+                              label="Description"
+                              outlined
+                              height="200px"
+                          ></v-text-field>
+                        </v-col>
                       </v-row>
                     </v-container>
                     <small>请勿恶意诽谤~</small>
@@ -111,56 +145,7 @@
             </v-row>
 
           </div>
-            </span>
-        </v-col>
 
-        <div v-if="item.img_src" style="padding: 10px 20px;">
-          <v-img
-              max-height="800px"
-              max-width="600px"
-              v-bind:src="item.img_src"
-          ></v-img>
-        </div>
-
-
-
-        <v-card-title>
-          {{item.topic}}
-        </v-card-title>
-
-        <v-card-subtitle>
-          {{item.content}}
-        </v-card-subtitle>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-<!--          <v-btn-->
-<!--              icon-->
-<!--              @click="handleClick(item)"-->
-<!--              :color="item.heartColor"-->
-<!--          >-->
-<!--            <v-icon>mdi-heart</v-icon>-->
-<!--          </v-btn>-->
-<!--          <span class="subheading mr-2">{{item.heartNum}}</span>-->
-          <v-btn
-              icon
-              @click="handleClick2(item)"
-              :color="item.messageColor"
-          >
-            <v-icon>
-              mdi-message-text
-            </v-icon>
-          </v-btn>
-          <span class="subheading">评论区</span>
-
-<!--          <v-btn-->
-<!--              icon-->
-<!--              @click="handleClick3(item)"-->
-<!--              :color="item.sharingColor"-->
-<!--          >-->
-<!--            <v-icon>mdi-share-variant</v-icon>-->
-<!--          </v-btn>-->
-<!--          <span class="subheading">{{ item.sharingNum }}</span>-->
 
 
         </v-card-actions>
