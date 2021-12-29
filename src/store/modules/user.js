@@ -29,7 +29,7 @@ const user = {
     paycode:null,
     userInfos: new Map(),
     tracer: 0,
-    ObserverId:11910215
+    // ObserverId:11910215,
   },
 
   getters:{
@@ -72,6 +72,7 @@ const user = {
       state.payCode = payCode;
       state.description = description;
       state.follow = follow
+      state.ObserverId = sid
     },
     SET_TOKEN: (state, token) => {
       state.token = token;

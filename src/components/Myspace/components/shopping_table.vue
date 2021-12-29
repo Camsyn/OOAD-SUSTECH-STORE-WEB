@@ -63,7 +63,7 @@
                         <el-image
                             style="width: 80px; height: 80px;border-radius: 50%;display: inline-block;float: left"
                             :src="scope.row.pusherInfo.headImage"
-                            @click="mycircle"
+                            @click="mycircle(scope.$index,tableData)"
                         ></el-image>
                       </a>
                       <div class="UserDetails">
@@ -152,6 +152,7 @@
 
 <script>
 import goods from "../../../store/modules/goods";
+import user from "../../../store/modules/user";
 export default {
   name: "shopping_table",
   data() {
@@ -177,8 +178,9 @@ export default {
       goods.state.current.request = rows[index]
       this.$router.push('/GoodsDetails');
     },
-    mycircle(){
-      this.$router.push({name: "Circle"});
+    mycircle(index,rows){
+      user.state.ObserverId = rows[index].pusher
+      this.$router.push('/PersonalPage/treasure')
     },
     toggleSelection(rows) {
       if (rows) {
@@ -262,7 +264,6 @@ export default {
           data[i].tradeMethod = '私下交易'
         }
         this.$store.dispatch("getInfoOf", data[i].pusher).then(rees=>{
-          console.log(rees)
           data[i].pusherInfo = rees;
           data[i].pusherInfo.credit =  data[i].pusherInfo.credit * 5/ 100;
           this.tableData.push(data[i]);

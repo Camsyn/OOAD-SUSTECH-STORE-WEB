@@ -1,5 +1,6 @@
 <template>
    <div class="details3">
+     <report :dialog="repo" :id="this.Product.id" type="reportRequest" v-on:close="repo=false"></report>
     <div class="details1">
       <div class="Title">
         <h2 class="Title2">
@@ -72,8 +73,12 @@
 <script>
 import goods from "../../../store/modules/goods";
 import user from "../../../store/modules/user";
+import report from '../../report'
 export default {
   name: "Details2",
+  components: {
+    report
+  },
   methods:{
     ReportGood() {
       this.$confirm('是否举报该商品', '提示', {
@@ -81,7 +86,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-
+        this.repo = true
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -168,6 +173,7 @@ export default {
   },
   data(){
     return{
+      repo: false,
       Product: {
       },
       User: {
@@ -206,7 +212,6 @@ export default {
     }
   },
   created() {
-    console.log(goods.state.current.request.pusherInfo.credit)
     this.Product = goods.state.current.request
     this.Product.tradeMethod = ''
     if (this.Product.tradeType == 0) {
@@ -226,7 +231,8 @@ export default {
     this.User = Object.assign({},goods.state.current.request.pusherInfo)
 
     this.User.credit = this.User.credit/100 * 5
-    console.log(goods.state.current.request.pusherInfo)
+    this.repo = false
+    console.log(this.Product)
   }
 }
 </script>

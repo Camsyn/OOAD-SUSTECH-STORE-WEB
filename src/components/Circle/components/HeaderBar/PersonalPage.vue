@@ -3,6 +3,7 @@
     <v-card
       class="mx-auto"
     >
+      <report :dialog="repo" :id="this.$store.state.user.ObserverId" type="reportUser" v-on:close="repo=false"></report>
       <div>
           <v-img
             class="white--text align-end"
@@ -86,9 +87,14 @@
 <script>
 import circle from "../../../../store/modules/circle";
 import user from "../../../../store/modules/user";
+import report from  '../../../report'
 export default {
   name: "PersonalPage",
+  components: {
+    report
+  },
   data: () => ({
+    repo: false,
     Info: {},
     url0:"https://img2.baidu.com/it/u=1952865035,3731780482&fm=26&fmt=auto",
     show1:false,
@@ -136,7 +142,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-
+        this.repo = true
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -156,6 +162,7 @@ export default {
         this.Info = data
         this.url0 = data.headImage
       })
+    this.repo = false
   }
 };
 </script>

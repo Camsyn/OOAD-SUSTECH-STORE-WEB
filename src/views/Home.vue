@@ -1,7 +1,5 @@
 <template>
   <v-sheet min-height="70vh" rounded="lg">
-    <report :dialog="repo" :id="123" :type="123123" v-on:close="repo=false"></report>
-    <v-btn @click="repo=true"></v-btn>
     <v-container
       style="
         z-index: 1;
