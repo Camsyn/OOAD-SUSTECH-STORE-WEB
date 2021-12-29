@@ -40,3 +40,11 @@ export function open(requestId) {
         params: {requestId}
     });
 }
+
+export function withdraw(requestId){
+    return service({
+        method: "put",
+        url: "request/request/withdraw",
+        params: {requestId}
+    });
+}

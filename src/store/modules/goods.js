@@ -1,4 +1,4 @@
-import {search, push, close, open, update} from "../../api/goods";
+import {search, push, close, open, update, withdraw} from "../../api/goods";
 
 const goods = {
     state:{
@@ -59,6 +59,16 @@ const goods = {
         close(context, id) {
             return new Promise((resolve, reject)=>{
                 close(id).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+
+        withdraw(context, id) {
+            return new Promise((resolve, reject)=>{
+                withdraw(id).then(res=>{
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);

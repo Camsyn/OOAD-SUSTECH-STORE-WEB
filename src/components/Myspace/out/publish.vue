@@ -80,7 +80,7 @@
             width="120">
           <template slot-scope="scope">
             <el-button
-                @click.native.prevent="deleteRow(scope.$index,all)"
+                @click.native.prevent="deleteRow(scope.$index)"
                 size="mini"
                 type="danger">
               移除
@@ -137,11 +137,12 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        this.$store.dispatch("")
         this.$message({
           type: 'success',
           message: '删除成功!'
         })
-        rows.splice(index, 1)
+        this.all.splice(index, 1)
         this.$store.dispatch('deleteItem',{})
       }).catch(() => {
         this.$message({
