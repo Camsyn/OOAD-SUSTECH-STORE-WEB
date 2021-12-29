@@ -10,7 +10,7 @@ export default {
 
   created() {
     //在页面加载时读取sessionStorage里的状态信息
-    let user = sessionStorage.getItem("user");
+    let user = localStorage.getItem("user");
     let goods = sessionStorage.getItem("goods");
 
     if (user) {
@@ -35,7 +35,7 @@ export default {
 
       Object.assign(goods, this.$store.state.goods);
 
-      sessionStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
       sessionStorage.setItem('goods', JSON.stringify(goods));
     });
   },
