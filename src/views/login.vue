@@ -100,9 +100,12 @@
 
           <v-text-field
               v-model="loginn.password"
+              :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+              :type="show1 ? 'text' : 'password'"
               label="Password"
-              clearable
+              name="input-10-1"
               :rules="[rules.required]"
+              @click:append="show1 = !show1"
           ></v-text-field>
 
           <v-row justify="center">
@@ -122,6 +125,7 @@ export default {
   data () {
     return {
       show: true,
+      show1:false,
       count: '',
       timer: null,
       st: 0,
