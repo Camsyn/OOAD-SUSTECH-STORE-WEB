@@ -53,6 +53,7 @@ export default {
   }),
   methods: {
     GoodDetails(item) {
+      console.log('?')
       this.$store.dispatch('getInfoOf',item.pusher).then((data) => {
         goods.state.current.request = item
         goods.state.current.request.pusherInfo = data

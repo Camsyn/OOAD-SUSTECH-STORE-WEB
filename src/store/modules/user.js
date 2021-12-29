@@ -55,6 +55,9 @@ const user = {
     TRACE: (state)=>{
       state.tracer++;
     },
+    OBSERVE: (state, id)=>{
+      state.ObserverId = id;
+    },
     SET_NAME: (state, name) => {
       state.name = parseInt(name);
       // console.log(state.name)

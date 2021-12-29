@@ -27,6 +27,8 @@
           <v-avatar
               class="pb-3"
               size="50"
+              @click = 'PersonPage'
+              style="cursor: pointer"
           >
             <img :src="request.pusherInfo.headImage" alt="aver">
           </v-avatar>
@@ -84,6 +86,10 @@ export default {
     }
   },
   methods: {
+    PersonPage() {
+      this.$store.commit("OBSERVE", this.request.pusher);
+      this.$router.push('/PersonalPage')
+    },
     detile(){
       this.$store.commit("setCur", {request: this.request});
       this.$router.push({name: "GoodsDetails"});
