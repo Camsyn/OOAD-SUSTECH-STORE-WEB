@@ -12,8 +12,7 @@
               <v-btn
                   icon
                   x-large
-                  v-on="on"
-                  @click = 'PersonPage(item)'
+                  @click = 'new PersonPage(item)'
               >
                 <v-list-item-avatar>
                   <img :src="item.headImage" alt="CC" >
@@ -44,6 +43,7 @@
                 </v-row>
 
               </v-list-item-content>
+
             </v-list-item>
           </template>
         </v-list>
