@@ -17,6 +17,7 @@
             :key="item[1].id"
             transition="dialog-bottom-transition"
             width="50%"
+            style="overflow-y: hidden"
           >
             <template v-slot:activator="{ on, attrs }">
               <v-list-item v-bind="attrs" v-on="on">
@@ -32,7 +33,7 @@
             </template>
             <template v-slot:default>
               <v-card>
-                <messages :oppo = item[0]></messages>
+                <messages :oppo = item[0] style="overflow-y: visible"></messages>
               </v-card>
             </template>
           </v-dialog>
