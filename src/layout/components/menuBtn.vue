@@ -78,6 +78,7 @@ export default {
   }),
   computed: {
     messages(){
+      console.log(123, this.$store.getters.msgEach)
       return this.$store.getters.msgEach;
     }
   },
