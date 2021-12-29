@@ -38,7 +38,9 @@
     <v-avatar class="mx-2">
       <v-img :src="$store.state.user.avatar"></v-img>
     </v-avatar>
-    <span v-text="$store.state.user.nickname"></span>
+    <div style="width: 100px">
+      <span v-text="$store.state.user.nickname"></span>
+    </div>
   </v-app-bar>
 </template>
 

@@ -23,7 +23,8 @@ const chatter = {
 
         msgOf: state => sid => {
             let _ = state.tracer;
-            return state.messages.get(sid);
+            if (state.messages)
+                return state.messages.get(sid);
         },
 
         msgEach: state=>{
