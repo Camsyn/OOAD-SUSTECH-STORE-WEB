@@ -1,37 +1,50 @@
+
 <template>
-  <v-container class="grey lighten-3 pt-0">
-    <v-row>
-      <v-col cols="12" sm="2">
-        <v-sheet
-          rounded="lg"
-          min-height="268"
-        >
-          <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title class="text-h6">
-                首页
-              </v-list-item-title>
-              <v-list-item-subtitle>
-              </v-list-item-subtitle>
-            </v-list-item-content>
-          </v-list-item>
-          <v-divider></v-divider>
-          <v-list dense nav>
-            <v-list-item
+  <div id="Circle">
+    <v-container class="pt-0">
+      <v-container class="grey lighten-3 pt-0" >
+        <v-container class="grey lighten-3 pt-0">
+          <v-row>
+            <v-col
+              cols="12"
+              sm="2"
+            >
+              <v-sheet
+                rounded="lg"
+                min-height="268"
+              >
+                <v-list-item>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h6">
+                      首页
+                    </v-list-item-title>
+                    <v-list-item-subtitle>
+                    </v-list-item-subtitle>
+                  </v-list-item-content>
+                </v-list-item>
+
+                <v-divider></v-divider>
+
+                <v-list
+                  dense
+                  nav
+                >
+                  <v-list-item
                     v-for="item in items_1"
                     :key="item.title"
                     link
                     :to="item.route"
                   >
-              <v-list-item-icon>
+                    <v-list-item-icon>
                       <v-icon>{{ item.icon }}</v-icon>
                     </v-list-item-icon>
 
-              <v-list-item-content>
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
+                    <v-list-item-content>
+                      <v-list-item-title>{{ item.title }}</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+
                 <!--        左下方分组检索-->
                 <v-list-item>
                   <v-list-item-content>
@@ -42,7 +55,9 @@
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
+
                 <v-divider></v-divider>
+
                 <v-list
                   dense
                   nav
@@ -62,16 +77,33 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
+
+
               </v-sheet>
             </v-col>
-      <v-col cols="12" sm="7">
-        <v-sheet min-height="70vh" rounded="lg">
-          <router-view></router-view>
-        </v-sheet>
-      </v-col>
-      <v-col cols="12" sm="3">
-        <v-sheet rounded="lg" min-height="268">
-          <v-list-item>
+
+            <!--          main区域-->
+            <v-col
+              cols="12"
+              sm="7"
+            >
+              <v-sheet
+                min-height="70vh"
+                rounded="lg"
+              >
+                <router-view></router-view>
+              </v-sheet>
+            </v-col>
+
+            <v-col
+              cols="12"
+              sm="3"
+            >
+              <v-sheet
+                rounded="lg"
+                min-height="268"
+              >
+                <v-list-item>
                   <v-list-item-content>
                     <v-list-item-title class="text-h6">
                       热搜榜
@@ -80,63 +112,88 @@
                     </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
-          <v-divider></v-divider>
-          <v-list dense nav>
-            <v-list-item
+
+                <v-divider></v-divider>
+
+                <v-list
+                  dense
+                  nav
+                >
+                  <v-list-item
                     v-for="(item, index) in items_4"
                     :key="item.title"
                     dense
                     :href="item.route"
                   >
+
                     <v-list-item-content>
                       <v-list-item-title>{{ index+1 }} - {{ item.title }} </v-list-item-title>
 
                     </v-list-item-content>
                   </v-list-item>
-          </v-list>
-          <v-list-item>
-            <v-list-item-content>
+                </v-list>
+
+                <v-list-item>
+                  <v-list-item-content>
                     <v-list-item-title class="text-h6">
                       你可能感兴趣的人
                     </v-list-item-title>
                     <v-list-item-subtitle>
                     </v-list-item-subtitle>
                   </v-list-item-content>
-          </v-list-item>
-          <v-divider></v-divider>
-          <!--          分页-->
-          <el-pagination
-              @current-change="handleCurrentChange"
-              v-model:currentPage="currentPage"
-              :page-size="PageSize"
-              :total="totalCount"
-              layout="prev,next"
-              class="paging"
-          >
-          </el-pagination>
-          <v-list-item v-for="(item,key) in all_unfollowers.slice((currentPage-1)*PageSize,currentPage*PageSize)" :key="key">
-            <v-btn icon x-large @click = 'PersonPage(item)'>
-              <v-list-item-avatar>
+                </v-list-item>
+
+                <v-divider></v-divider>
+
+                <!--          分页-->
+                <el-pagination
+                  @current-change="handleCurrentChange"
+                  v-model:currentPage="currentPage"
+                  :page-size="PageSize"
+                  :total="totalCount"
+                  layout="prev,next"
+                  class="paging"
+                >
+                </el-pagination>
+
+                <v-list-item
+                  v-for="(item,key) in all_unfollowers.slice((currentPage-1)*PageSize,currentPage*PageSize)"
+                  :key="key"
+                >
+                  <v-btn
+                  icon
+                  x-large
+                  @click = 'PersonPage(item)'
+                  >
+                    <v-list-item-avatar>
                       <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage"></el-image>
                     </v-list-item-avatar>
-            </v-btn>
-            <v-list-item-title v-html="item.nickname"></v-list-item-title>
-            <v-spacer></v-spacer>
-            <span class="font-weight-bold" style= "display:inline">
-              <v-btn
-                  depressed
-                  color="primary"
-                  right
-                  @click="observeClick(item)"
+
+                  </v-btn>
+
+                  <v-list-item-title v-html="item.nickname"></v-list-item-title>
+                  <v-spacer></v-spacer>
+                  <span class="font-weight-bold" style= "display:inline">
+
+                 <v-btn
+                     depressed
+                     color="primary"
+                     right
+                     @click="observeClick(item)"
                  >
                   +关注
-              </v-btn>
+                </v-btn>
             </span>
-          </v-list-item>
-        </v-sheet>
-      </v-col>
-    </v-row>
-  </v-container>
+                </v-list-item>
+              </v-sheet>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-container>
+
+    </v-container>
+  </div>
+
 </template>
 
 <script>
@@ -178,6 +235,11 @@ export default {
       { icon: "mdi-flower-tulip", title: "种草动态", route: "/circle/Grass" },
       { icon: "mdi-fire-circle", title: "热门分享", route: "/circle/HotSharing" },
 
+    ],
+    items_3: [
+      { icon: "mdi-checkbox-blank-circle", title: "旅游", route: "/circle/PublishCircle" },
+      { icon: "mdi-checkbox-blank-circle", title: "动漫", route: "/circle/Grass" },
+      { icon: "mdi-checkbox-blank-circle", title: "车世界", route: "/circle/HotSharing" },
     ],
     items_4: [
       { title: "淘宝双十一促销活动，快来抢大额优惠券", route: "https://world.taobao.com/" },
@@ -283,12 +345,29 @@ export default {
           }
           circle.state.unfollowList = data3
           this.totalCount = data3.length
+
         })
       })
   }
+
+
+
 }
 </script>
 
 <style >
+.MyInput .el-input{
+  border-radius: 100px;
+  color: #eea57e;
+}
+.myPicShowDialogClass .el-dialog {
+  border-radius: 15px;
+}
+
+.myPicShowDialogClass .el-dialog__title {
+  float: left;
+  font-weight:bold;
+}
+
 </style>
 
