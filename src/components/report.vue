@@ -55,7 +55,7 @@ export default {
       console.log(this.desc,this.id)
       if (this.desc===""||!this.id)
         return;
-      this.$store.dispatch("reportUser", {t_id: this.id, desc:this.desc}).then(res=>{
+      this.$store.dispatch(this.type, {t_id: this.id, desc:this.desc}).then(res=>{
         this.desc="";
         this.$emit("close");
         console.log(res);
