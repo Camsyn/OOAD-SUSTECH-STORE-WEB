@@ -23,7 +23,7 @@
             <el-image class="logo"
                       style="width: 100px; height: 100px"
                       :src="scope.row.images[0]"
-                      @click="detile"
+                      @click="detile(scope.row)"
             ></el-image>
           </template>
         </el-table-column>
@@ -98,6 +98,7 @@
 
 <script>
 import upload from "../../upload";
+import goods from "../../../store/modules/goods";
 export default {
   components:{upload},
   name: "publish",
@@ -119,8 +120,12 @@ export default {
   },
 
   methods: {
-    detile(){
-      this.$router.push({name: "GoodsDetails"});
+    detile(index){
+      this.$store.dispatch('getInfoOf',index.pusher).then((data) => {
+        goods.state.current.request = index
+        goods.state.current.request.pusherInfo = data
+        this.$router.push('/GoodsDetails')
+      })
     },
     mycircle(){
       this.$router.push({name: "Circle"});
