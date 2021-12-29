@@ -29,4 +29,18 @@ export function confirmPull(orderId) {
         params: {orderId},
     });
 }
+export function rollback(orderId) {
+    return service({
+        method: "put",
+        url: "order/order/rollback",
+        params: orderId,
+    });
+}
 
+export function getRequest(requestId) {
+    return service({
+        method: 'get',
+        url:'request/rpc/request/get',
+        params: requestId,
+    })
+}

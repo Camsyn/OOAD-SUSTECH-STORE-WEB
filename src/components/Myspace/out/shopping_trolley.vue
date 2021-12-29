@@ -1,6 +1,5 @@
 <template>
   <div>
-    <shopping_Header></shopping_Header>
     <shopping_table></shopping_table>
   </div>
 </template>
