@@ -61,6 +61,8 @@ export default {
         console.log(res);
       }).catch(err=>{
         console.log(err);
+        this.desc="";
+        this.$emit("close");
       })
     },
     cancel(){

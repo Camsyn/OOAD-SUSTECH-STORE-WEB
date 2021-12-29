@@ -160,7 +160,7 @@ export default {
         searchStrategy: 0,
         firstOrder: "update_time",
         isAmbiguous: false,
-        publishers: [this.$store.getters.name],
+        publishers: [this.$store.state.user.name],
       };
       this.$store.dispatch("search",my).then((res) => {
         if (res.length!==0){
