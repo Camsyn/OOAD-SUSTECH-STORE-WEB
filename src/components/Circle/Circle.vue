@@ -78,13 +78,12 @@
           <v-divider></v-divider>
           <v-list dense nav>
             <v-list-item
-                    v-for="(item, index) in items_4"
-                    :key="item.title"
+                    v-for="(item, index) in LabelList"
+                    :key="index"
                     dense
-                    :href="item.route"
                   >
                     <v-list-item-content>
-                      <v-list-item-title>{{ index+1 }} - {{ item.title }} </v-list-item-title>
+                      <v-list-item-title>{{ index+1 }} - {{ item.labelName }} </v-list-item-title>
 
                     </v-list-item-content>
                   </v-list-item>
@@ -111,9 +110,9 @@
           </el-pagination>
           <v-list-item v-for="(item,key) in all_unfollowers.slice((currentPage-1)*PageSize,currentPage*PageSize)" :key="key">
             <v-btn icon x-large @click = 'PersonPage(item)'>
-              <v-list-item-avatar>
-                      <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage"></el-image>
-                    </v-list-item-avatar>
+              <v-list-item-avatar size="50">
+                <v-img style="width: 50px; height: 50px" :key="item.sid" :src="item.headImage"></v-img>
+              </v-list-item-avatar>
             </v-btn>
             <v-list-item-title v-html="item.nickname"></v-list-item-title>
             <v-spacer></v-spacer>
@@ -145,6 +144,7 @@ export default {
   data: () => ({
     tmp:'',
     lemon:image1,
+    LabelList:[],
     loading: false,
     centerDialogVisible: false,
     selectCircle: "公开",
@@ -248,6 +248,19 @@ export default {
   computed: {
     all_unfollowers() {
       return circle.state.unfollowList
+    },
+    HotLabel(){
+      let pages=1
+      let pagesize=6
+      let isPush=true
+      this.$store.dispatch("ReturnFreqLabel",{pages,pagesize,isPush}).then((res)=>{
+        res.forEach(item=>{
+          this.LabelList.push(item)
+        })
+        for(let i=0;i<this.LabelList.length;i++){
+          console.log("this.LabelList:",this.LabelList[i])
+        }
+      })
     }
   },
   created(){

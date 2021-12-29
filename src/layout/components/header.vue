@@ -31,9 +31,6 @@
 
     <v-spacer></v-spacer>
 
-    <v-badge color="pink" dot overlap>
-      <notif-btn icon="mdi-mail"></notif-btn>
-    </v-badge>
     <v-badge color="pink" dot overlap :value="uncheck">
       <menu-btn icon="mdi-forum"></menu-btn>
     </v-badge>
@@ -43,12 +40,11 @@
 
 <script>
 import menuBtn from "@/layout/components/menuBtn";
-import NotifBtn from "@/layout/components/notifBtn";
 import UploadBtn from "@/layout/components/uploadBtn";
 import image_lemon from '../asserts/lemon.png'
 import user from '../../store/modules/user';
 export default {
-  components: {UploadBtn, NotifBtn, menuBtn },
+  components: {UploadBtn, menuBtn },
   name: "myHeader",
   data: () => ({
     lemon:image_lemon,

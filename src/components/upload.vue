@@ -260,28 +260,36 @@ export default {
       this.images=[];
     },
     upload() {
-      if (this.uploadInfo.desc_===""||this.uploadInfo.exactPrice==null
-          ||this.uploadInfo.originalPrice==null||this.uploadInfo.category==null
-          ||this.uploadInfo.tradeType==null||this.uploadInfo.type==null
+      let tmp = Object.assign({}, this.uploadInfo)
+      if (tmp.desc_===""||tmp.exactPrice==null
+          ||tmp.originalPrice==null||tmp.category==null
+          ||tmp.tradeType==null||tmp.type==null
       ){
         console.log("info needed")
         return ;
       }
-      this.uploadInfo.category = this.cata.indexOf(this.uploadInfo.category);
-      this.uploadInfo.tradeType = this.trade.indexOf(this.uploadInfo.tradeType);
-      this.uploadInfo.labels = this.user_defined_label.concat(this.label_all);
-      this.uploadInfo.type = this.type.indexOf(this.uploadInfo.type);
-      console.log(this.uploadInfo)
-      if (this.uploadInfo.id){
-        this.$store.dispatch("updateRq", this.uploadInfo).then(res=>{
-          // this.clear();
+      tmp.category = this.cata.indexOf(tmp.category);
+      tmp.tradeType = this.trade.indexOf(tmp.tradeType);
+      tmp.labels = this.user_defined_label.concat(this.label_all);
+      tmp.type = this.type.indexOf(tmp.type);
+
+      if (tmp.id){
+        this.$store.dispatch("updateRq", tmp).then(res=>{
+          this.$message({
+            type: 'info',
+            message: '发布成功，正在审核'
+          });
           this.$emit("close");
         }).catch(err=>{
           console.log(err);
         });
       }
       else {
-        this.$store.dispatch("push", this.uploadInfo).then(res=>{
+        this.$store.dispatch("push", tmp).then(res=>{
+          this.$message({
+            type: 'info',
+            message: '更新成功，正在审核'
+          });
           this.$emit("close");
         }).catch(err=>{
           console.log(err);

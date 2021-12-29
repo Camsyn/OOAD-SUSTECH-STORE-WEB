@@ -29,7 +29,7 @@ const user = {
     paycode:null,
     userInfos: new Map(),
     tracer: 0,
-    // ObserverId:11910215,
+    ObserverId: 0,
   },
 
   getters:{
@@ -104,7 +104,7 @@ const user = {
             context.commit("SET_TOKEN", data.token);
             context.commit("SET_TOKEN_HEAD", data.tokenHead);
             context.commit("SET_REFRESH_TOKEN", data.refreshToken);
-            sessionStorage.setItem("token", context.state.tokenHead+context.state.token);
+            localStorage.setItem("token", context.state.tokenHead+context.state.token);
             resolve();
           })
           .catch((error) => {
