@@ -115,7 +115,7 @@ export default {
           credit: user.state.credit,
           liyuan : user.state.liyuan,
           headImage : user.state.avatar,
-          payCode : user.state.paycode,
+          paycodePath : user.state.paycodePath,
           follow : user.state.follow
         }
         this.$store.dispatch('update',data).then(() => {

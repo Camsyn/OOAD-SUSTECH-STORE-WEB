@@ -26,7 +26,7 @@ const user = {
     credit: 0,
     description: null,
     nickname: null,
-    paycode:null,
+    paycodePath:null,
     userInfos: new Map(),
     tracer: 0,
     ObserverId: 0,
@@ -65,14 +65,14 @@ const user = {
       state.name = parseInt(name);
       // console.log(state.name)
     },
-    SET_USER_INFO: (state, {sid, liyuan, credit, email, headImage, payCode, description, nickname , follow})=>{
+    SET_USER_INFO: (state, {sid, liyuan, credit, email, headImage, paycodePath, description, nickname , follow})=>{
       state.name = sid;
       state.nickname = nickname;
       state.liyuan = liyuan;
       state.credit = credit;
       state.email = email;
       state.avatar = headImage;
-      state.payCode = payCode;
+      state.paycodePath = paycodePath;
       state.description = description;
       state.follow = follow
       state.ObserverId = sid

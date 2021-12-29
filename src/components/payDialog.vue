@@ -8,7 +8,7 @@
         <span class="text-h6" style="margin-left: auto; margin-right: auto">请扫二维码支付</span>
       </v-card-title>
       <v-card-text>
-        <v-img :src="info.payCode"></v-img>
+        <v-img :src="info.paycodePath"></v-img>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
