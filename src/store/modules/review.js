@@ -77,7 +77,7 @@ const order = {
 
         reportComment (context, {t_id, desc}) {
             return new Promise((resolve, reject)=>{
-                reportCircle(t_id, desc).then(res=>resolve(res)).catch(err=> {
+                reportComment(t_id, desc).then(res=>resolve(res)).catch(err=> {
                     console.log(err);
                     reject(err);
                 });
@@ -86,7 +86,7 @@ const order = {
 
         argue(context, {R_id, desc}) {
             return new Promise((resolve, reject)=>{
-                reportCircle(R_id, desc).then(res=>resolve(res)).catch(err=> {
+                Argue(R_id, desc).then(res=>resolve(res)).catch(err=> {
                     console.log(err);
                     reject(err);
                 });

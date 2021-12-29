@@ -108,11 +108,11 @@ export function selectSendingAboutComment (t_id) {
 
 
 
-export function reportCircle(data) {
+export function reportCircle(t_id, desc) {
     return service({
         url: "/review/reportCircle",
         method: "post",
-        params: data,
+        params: {t_id, desc},
     });
 }
 
