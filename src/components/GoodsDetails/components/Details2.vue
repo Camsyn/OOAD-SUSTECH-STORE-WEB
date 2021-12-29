@@ -153,6 +153,7 @@ export default {
       Product: {
       },
       User: {
+        credit:0
       },
       icon_info:"加入购物车",
     }
@@ -178,12 +179,15 @@ export default {
       if (this.Product.tradeType == 3) {
         this.Product.tradeMethod = '私下交易'
       }
-      this.Product.updateTime = this.Product.updateTime.substr(0,10)
-      this.User = goods.state.current.request.pusherInfo
-      this.User.credit = this.User.credit/100 * 5
+
+      this.Product.updateTime = this.Product.updateTime.substr(0, 10)
+      this.User = Object.assign({}, newVal.pusherInfo)
+
+      this.User.credit = this.User.credit / 100 * 5
     }
   },
   created() {
+    console.log(goods.state.current.request.pusherInfo.credit)
     this.Product = goods.state.current.request
     this.Product.tradeMethod = ''
     if (this.Product.tradeType == 0) {
@@ -200,8 +204,10 @@ export default {
     }
 
     this.Product.updateTime = this.Product.updateTime.substr(0,10)
-    this.User = goods.state.current.request.pusherInfo
+    this.User = Object.assign({},goods.state.current.request.pusherInfo)
+
     this.User.credit = this.User.credit/100 * 5
+    console.log(goods.state.current.request.pusherInfo)
   }
 }
 </script>
