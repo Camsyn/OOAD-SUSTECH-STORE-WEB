@@ -5,7 +5,7 @@
       <div class="logo2">结算页面</div>
       <div class="progress2">
         <el-steps :active="1">
-          <el-step title="购物车" icon="el-icon-shopping-cart-2" style=""></el-step>
+          <el-step title="订单" icon="el-icon-shopping-cart-2" style=""></el-step>
           <el-step title="支付" icon="el-icon-s-finance"></el-step>
           <el-step title="完成" icon="el-icon-check"></el-step>
         </el-steps>

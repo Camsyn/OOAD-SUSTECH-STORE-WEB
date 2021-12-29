@@ -136,18 +136,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        for (let i = 0; i <this.desserts.length ; i++) {
-          let test =true
-          for (let j = 0; j < this.userList.length; j++) {
-            if(this.userList[j] === this.desserts[i].pusher){
-              test = false
-            }
-          }
-          if(test) {
-            this.userList.push(this.desserts[i].pusher)
-          }
-        }
-          let data = []
+        let data = []
           if(this.desserts[0].cartItemId !== null) {
             for (let i = 0; i < this.desserts.length; i++) {
               data.push(this.desserts[i].cartItemId)
@@ -241,6 +230,7 @@ export default {
     },
   },
   created() {
+    console.log(goods.state.payList)
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
     this.number = goods.state.payList.length

@@ -1,4 +1,4 @@
-import {getPush, confirmPush, confirmPull, getPull} from "../../api/order";
+import {getPush, confirmPush, confirmPull, getPull,rollback,getRequest} from "../../api/order";
 
 const order = {
     state:{
@@ -29,6 +29,12 @@ const order = {
         confirmPull(context, id) {
             return confirmPull(id);
         },
+        rollbackOrder(context,id) {
+            return rollback(id)
+        },
+        getRequest(context,id){
+            return  getRequest(id)
+        }
     }
 }
 
