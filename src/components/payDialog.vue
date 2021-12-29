@@ -8,7 +8,7 @@
         <span class="text-h6" style="margin-left: auto; margin-right: auto">请扫二维码支付</span>
       </v-card-title>
       <v-card-text>
-        <v-img :src="info.paycodePath"></v-img>
+        <v-img :src="payCode"></v-img>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
@@ -33,10 +33,10 @@
 
 <script>
 export default {
-  props:["dialog","info"],
+  props:["dialog","id"],
   name: "payDialog",
   data: () => ({
-    desc: "",
+    payCode: null,
   }),
 
   methods:{
@@ -49,6 +49,13 @@ export default {
         message: '请尽快联系买家确认'
       });
       this.$emit("close");
+    }
+  },
+  computed:{
+    info(){
+      this.$store.dispatch("getInfoOf", this.id).then(res=>{
+        this.payCode = res.paycodePath;
+      })
     }
   }
 }
