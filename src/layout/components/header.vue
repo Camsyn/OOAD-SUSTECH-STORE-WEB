@@ -1,6 +1,5 @@
 <template>
   <v-app-bar app color="white" flat height="60">
-
     <div class="lemon">
       <div class="block" >
         <el-image
@@ -35,6 +34,11 @@
       <menu-btn icon="mdi-forum"></menu-btn>
     </v-badge>
     <upload-btn></upload-btn>
+    <v-spacer class="mx-4"></v-spacer>
+    <v-avatar class="mx-2">
+      <v-img :src="$store.state.user.avatar"></v-img>
+    </v-avatar>
+    <span v-text="$store.state.user.nickname"></span>
   </v-app-bar>
 </template>
 

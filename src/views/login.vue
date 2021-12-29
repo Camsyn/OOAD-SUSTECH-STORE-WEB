@@ -47,9 +47,6 @@
                 :rules="[rules.required, rules.pwdConfirm]"
             ></v-text-field>
 
-
-
-
             <v-row justify="center">
               <v-btn plain @click="resetPwd" class="px-0">确认</v-btn>
               <v-btn plain @click="trans(0)" class="ml-4">取消</v-btn>
@@ -228,7 +225,7 @@ export default {
             this.$store.commit("SET_NAME", this.loginn.username);
             this.$router.push({name: "Home"});
             this.$store.dispatch("getMyInfo").then(res=>{
-
+              this.storeUser();
             });
           }).catch((err) => {
             console.log(err)
@@ -268,6 +265,13 @@ export default {
           type: 'warning'
         });
       })
+    },
+
+    storeUser(){
+      let user = {};
+      Object.assign(user, this.$store.state.user);
+      user.userInfos = Object.fromEntries(user.userInfos);
+      localStorage.setItem('user', JSON.stringify(user));
     }
   },
 }

@@ -36,7 +36,7 @@
               </v-card>
             </template>
           </v-dialog>
-          <v-divider v-if="index < items.length - 1" :key=index></v-divider>
+          <v-divider v-if="index < messages.length - 1" :key=index></v-divider>
         </template>
       </v-list-item-group>
       <v-list-item-subtitle class="d-flex flex-row-reverse my-0 py-0">
@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     toMsgAll(){
-      this.$router.push({ path: "message" });
+      this.$router.push({ path: "/message" });
       this.$store.commit("CHECK");
     },
   },
