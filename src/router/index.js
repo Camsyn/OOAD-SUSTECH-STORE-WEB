@@ -55,6 +55,8 @@ import taint from "../components/taint";
 import store from "@/store";
 import edit from "../components/Myspace/components/edit";
 
+import HotLabel from "../components/Circle/components/LeftBarComponent/HotLabel";
+
 
 
 Vue.use(VueRouter);
@@ -66,6 +68,13 @@ const routes = [
     component: Demo
 
   },
+  {
+    path:"/HotLabel",
+    name:"HotLabel",
+    component: HotLabel
+
+  },
+
 
   {
     path: "/testdialog",
