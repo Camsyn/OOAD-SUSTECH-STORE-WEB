@@ -321,24 +321,23 @@ export default {
     },
 
     show(res, clear, change = false){
-      this.more = true;
-      this.page++;
-      this.addMore();
+      if (!change)
+        this.page++;
 
+      this.commodities0 = [];
+      this.commodities1 = [];
+      this.commodities2 = [];
       if (clear){
-        this.commodities0 = [];
-        this.commodities1 = [];
-        this.commodities2 = [];
         this.commoditiesAll = res;
       }else{
         this.commoditiesAll = this.commoditiesAll.concat(res);
       }
 
-      if (change){
-        this.commodities0 = [];
-        this.commodities1 = [];
-        this.commodities2 = [];
-      }
+      // if (change){
+      //   this.commodities0 = [];
+      //   this.commodities1 = [];
+      //   this.commodities2 = [];
+      // }
 
       let tmp = [];
 
@@ -346,21 +345,22 @@ export default {
         this.commoditiesAll.forEach(item=>{
           if (item.category===this.buySellInd)
             tmp.push(item);
-        })
+        });
       }else {
         tmp = this.commoditiesAll;
       }
 
+      console.log(tmp)
       for (let i=0;i<tmp.length;i++){
         let s = (i%3).toString();
-        let cm = res[i];
-        if (!cm)
-          continue;
+        let cm = tmp[i];
         this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
           cm.pusherInfo = rees;
           this["commodities"+s].push(cm);
         });
       }
+      this.more = true;
+      this.addMore();
     },
 
     random(){
@@ -454,7 +454,7 @@ export default {
 
     buySellChange() {
       this.buySellInd = (this.buySellInd+1)%3;
-      this.show([], false);
+      this.show([], false, true);
       // let cm = this.commodities0.concat(this.commodities1).concat(this.commodities2);
       // if (this.buySellInd!==2){
       //   let nw = [];
