@@ -178,7 +178,6 @@ export default {
       if (this.Product.tradeType == 3) {
         this.Product.tradeMethod = '私下交易'
       }
-      console.log(goods.state.current.request.pusherInfo)
       this.Product.updateTime = this.Product.updateTime.substr(0,10)
       this.User = goods.state.current.request.pusherInfo
       this.User.credit = this.User.credit/100 * 5
