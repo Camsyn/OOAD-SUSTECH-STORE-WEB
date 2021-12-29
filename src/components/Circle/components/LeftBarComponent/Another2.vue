@@ -1,7 +1,7 @@
 <template>
   <div id="main">
     <div style="padding: 10px">
-      <preview v-for="(item, index) in all[page-1]" :key="index" :circle="item"></preview>
+      <preview v-for="(item, index) in all[page-1]" :key="index" :circle="item" class="my-3"></preview>
     </div>
     <div class="d-flex justify-center">
       <v-pagination v-model="page" @input="more" :length="length">

@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="2">
+  <v-card elevation="1">
     <v-card-subtitle class="py-2">
       <v-row dense>
         <v-col class="d-flex justify-start">
@@ -30,15 +30,16 @@
             <div style="padding: 6px">
               <el-input
                 type="textarea"
-                :autosize="{ minRows: 2, maxRows: 12}"
-                placeholder="快速回复"
-                class=""
+                :autosize="{ minRows: 1, maxRows: 12}"
+                placeholder="评论"
+                v-model="comment"
+                @click=""
               >
               </el-input>
             </div>
             <v-spacer></v-spacer>
             <div style="padding: 10px">
-              <el-button type="primary" @click="">发送</el-button>
+              <el-button type="primary" @click="sendComment">发送</el-button>
             </div>
 
             <v-list three-line>
