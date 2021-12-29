@@ -10,7 +10,6 @@
             src="https://images.pexels.com/photos/844297/pexels-photo-844297.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             height="200px"
           >
-            <v-card-title>Top 10 Australian beaches</v-card-title>
           </v-img>
 
         <button class="Action3" @click = ReportUser>
