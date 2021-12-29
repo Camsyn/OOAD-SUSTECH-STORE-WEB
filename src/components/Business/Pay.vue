@@ -65,7 +65,7 @@ export default {
   },
   data () {
     return {
-      subtable: [],
+      userList:[],
       dialogVisible : false,
       number : 0,
       text:'',
@@ -136,6 +136,17 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        for (let i = 0; i <this.desserts.length ; i++) {
+          let test =true
+          for (let j = 0; j < this.userList.length; j++) {
+            if(this.userList[j] === this.desserts[i].pusher){
+              test = false
+            }
+          }
+          if(test) {
+            this.userList.push(this.desserts[i].pusher)
+          }
+        }
           let data = []
           if(this.desserts[0].cartItemId !== null) {
             for (let i = 0; i < this.desserts.length; i++) {
@@ -153,10 +164,8 @@ export default {
                   type: 'success',
                   message: '订单成功!',
                 })
-                this.$router.push('/home')
               }
               if (this.text === '个人收款码') {
-                this.dialogVisible = true
                 this.$message({
                   type: 'success',
                   message: '订单已成功下单，请尽快支付!',
@@ -168,6 +177,7 @@ export default {
                   message: '订单已成功下单，请尽快联系卖家',
                 })
               }
+
             }).catch(err=>{
               this.$message({
                 type: 'warning',
@@ -176,6 +186,7 @@ export default {
             });
           }
           else {
+
             this.$store.dispatch('satisfy',data).then((data) => {
               if (this.text === '平台代币'){
                 this.$message({
