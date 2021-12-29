@@ -151,7 +151,7 @@
               mdi-message-text
             </v-icon>
           </v-btn>
-          <span class="subheading">{{ 0 }}</span>
+          <span class="subheading">评论区</span>
 
 <!--          <v-btn-->
 <!--              icon-->
@@ -288,15 +288,15 @@ export default {
       item.content = '??'
       item.content = a
     },
-    handleClick3(item){
-      item.show3=!item.show3
-      if(item.show3){
-        item.sharingColor="blue";
-      }
-      else{
-        item.sharingColor="gray";
-      }
-    },
+    // handleClick3(item){
+    //   item.show3=!item.show3
+    //   if(item.show3){
+    //     item.sharingColor="blue";
+    //   }
+    //   else{
+    //     item.sharingColor="gray";
+    //   }
+    // },
     reply_click(item){
       item.repy_items.push({
         message:item.textarea,
@@ -319,15 +319,15 @@ export default {
       for(let i=0;i<this.buffer.length;i++){
         // console.log("sid:",this.data[i]['sendId'])
         this.buffer[i]['username']='Tom'
-        this.buffer[i].show1=false
-        this.buffer[i].heartColor='gray'
-        this.buffer[i].heartNum=322
+        // this.buffer[i].show1=false
+        // this.buffer[i].heartColor='gray'
+        // this.buffer[i].heartNum=322
         this.buffer[i].show2=false
         this.buffer[i].messageColor='gray'
-        this.buffer[i].messageNum=677
-        this.buffer[i].show3=false
-        this.buffer[i].sharingColor='gray'
-        this.buffer[i].sharingNum=499
+        // this.buffer[i].messageNum=677
+        // this.buffer[i].show3=false
+        // this.buffer[i].sharingColor='gray'
+        // this.buffer[i].sharingNum=499
         this.buffer[i].textarea=''
         this.buffer[i].reply_items=[]
       }
@@ -339,12 +339,6 @@ export default {
       console.log(err);
     });
   },
-
-  computed:{
-    ReplyLength(item){
-      return item.repy_items.length
-    }
-  }
 
 };
 </script>
