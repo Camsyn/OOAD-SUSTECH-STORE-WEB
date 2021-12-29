@@ -27,7 +27,7 @@
     <v-row>
       <router-view></router-view>
     </v-row>
-    <v-container class="pa-0">
+    <v-container class="pa-0" style="overflow-y: scroll; overflow-x: hidden; margin-bottom: 30px">
       <v-row style="height: 50px" class="align-content-md-center">
         <span class="mx-auto">{{oppositeId}}</span>
       </v-row>
