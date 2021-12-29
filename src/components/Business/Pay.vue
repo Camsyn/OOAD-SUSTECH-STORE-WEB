@@ -50,18 +50,21 @@
       </div>
 
       <el-button type="danger" round class="button3"  @click = 'buy'>购买</el-button>
+      <pay_dialog :dialog ='this.dialogVisible' :info = 'this.desserts[0].pusherInfo' v-on:close="this.dialogVisible = false"></pay_dialog>
     </div>
   </div>
 </template>
 
 <script>
+import pay_dialog from '../../components/payDialog'
 import Pay_header from "./Pay_header";
 import user from "../../store/modules/user";
 import goods from "../../store/modules/goods";
 export default {
   name: "Pay",
   components: {
-    Pay_header
+    Pay_header,
+    pay_dialog
   },
   data () {
     return {
@@ -79,7 +82,7 @@ export default {
         },
         { text: '原价', value: 'originalPrice' },
         { text: '现价', value: 'exactPrice' },
-        { text: '发布者', value: 'pusherInfo.nickname' },
+        { text: '收款方', value: 'Object' },
         { text: '购买数量' ,value: 'cartItemCount'},
         { text: '支付方式' , value: 'tradeMethod'}
       ],
@@ -155,6 +158,7 @@ export default {
                 })
               }
               if (this.text === '个人收款码') {
+                this.dialogVisible = true
                 this.$message({
                   type: 'success',
                   message: '订单已成功下单，请尽快支付!',
@@ -230,13 +234,14 @@ export default {
     },
   },
   created() {
-    console.log(goods.state.payList)
+    this.dialogVisible = false
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
     this.number = goods.state.payList.length
     if(goods.state.payList[0].cartItemId == null) {
       this.desserts[0].cartItemCount = 1
     }
+    console.log(this.desserts)
   }
 };
 </script>

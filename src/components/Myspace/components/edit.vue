@@ -40,7 +40,7 @@
                   >
                   </v-file-input>
                 </v-overlay>
-                <img :src="myInfo.payCode?myInfo.payCode:payCode" alt="请上传收款码" />
+                <img :src="myInfo.paycodePath?myInfo.paycodePath:paycodePath" alt="请上传收款码" />
               </v-avatar>
             </template>
           </v-hover>
@@ -108,7 +108,7 @@ export default {
         description: null,
       },
       headImage: null,
-      payCode: null,
+      paycodePath: null,
 
       head: null,
       pay: null,
@@ -120,7 +120,7 @@ export default {
       console.log(file, fileList);
     },
     upLoadPay(file) {
-      this.info.payCode = file.url;
+      this.info.paycodePath = file.url;
       this.dialogVisible = true;
     },
     upLoad(head) {
@@ -129,8 +129,8 @@ export default {
           this.headImage = data[0].fileDownloadUri.replace("/downloadFile", "");
           this.$store.dispatch("update", {headImage: this.headImage});
         }else {
-          this.payCode = data[0].fileDownloadUri.replace("/downloadFile", "");
-          this.$store.dispatch("update", {payCode: this.payCode});
+          this.paycodePath = data[0].fileDownloadUri.replace("/downloadFile", "");
+          this.$store.dispatch("update", {paycodePath: this.paycodePath});
         }
       }).catch(err => {
         console.log(err);
