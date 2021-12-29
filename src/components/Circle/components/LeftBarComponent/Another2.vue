@@ -20,11 +20,12 @@ export default {
     page:1,
     limit: 3,
     length: 1,
-    more:true,
+    moree:true,
     tags: ["动漫","游戏","旅游","美食","萌宠","哲思"],
     paths: ["carton","game","tour","delicious_food","cute_pet","philosophizing", "another"],
     circles:{
-      all:[],
+      HotSharing:[],
+      Grass: [],
       carton:[],
       game: [],
       tour: [],
@@ -36,22 +37,27 @@ export default {
   }),
   methods:{
     more(){
-      if (this.page<this.length||!this.more){
+      if (this.page<this.length||!this.moree){
         return;
       }
 
       let limi = 99;
-      this.$store.dispatch("AllgetPage",{page: this.page, limi: 99}).then((res) => {
+      this.$store.dispatch("AllgetPage",{page: this.page, limit: limi}).then((res) => {
         if (res.length!==0){
           if (res.length<limi)
-            this.more = false;
+            this.moree = false;
           res.forEach(item=>{
-            this.circles.all.push(item);
+            this.circles.HotSharing.push(item);
             let ind = this.tags.indexOf(item.tag);
-            if (ind===-1)
+            if (ind===-1){
               ind = this.paths.length-1;
+            }
             let pt = this.paths[ind];
             this.circles[pt].push(item);
+
+            if (this.$store.getters.isFollow(item.sendId))
+              this.circles.Grass.push(item);
+
             if (this.page>=this.length&&res.length===this.limit){
               this.length++;
             }

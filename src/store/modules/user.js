@@ -33,6 +33,9 @@ const user = {
   },
 
   getters:{
+    isFollow: state=>id => {
+      return state.follow.indexOf(id)!==-1;
+    },
     token: state => {
     return state.token;
   },

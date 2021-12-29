@@ -42,7 +42,7 @@
               <el-button type="primary" @click="sendComment">发送</el-button>
             </div>
 
-            <v-list three-line>
+            <v-list two-line>
               <template v-for="(item, index) in comments">
                 <v-list-item :key="index">
                   <v-list-item-avatar>
@@ -54,6 +54,7 @@
                     <v-list-item-subtitle v-text="item.content"></v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
+                <v-divider></v-divider>
               </template>
             </v-list>
           </v-container>

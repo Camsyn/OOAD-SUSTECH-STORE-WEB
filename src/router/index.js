@@ -180,12 +180,12 @@ const routes = [
           {
             path:"/circle/HotSharing",
             name:"HotSharing",
-            component: HotSharing,
+            component: Another,
           },
           {
             path:"/circle/Grass",
             name:"Grass",
-            component: Grass,
+            component: Another,
           },
           {
             path:"/circle/PublishCircle",
