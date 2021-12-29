@@ -88,7 +88,7 @@ export default {
   methods: {
     PersonPage() {
       this.$store.commit("OBSERVE", this.request.pusher);
-      this.$router.push('/PersonalPage')
+      this.$router.push('/PersonalPage/treasure')
     },
     detile(){
       this.$store.commit("setCur", {request: this.request});
