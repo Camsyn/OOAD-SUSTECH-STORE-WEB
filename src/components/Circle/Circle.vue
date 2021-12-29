@@ -76,18 +76,41 @@
                   </v-list-item-content>
                 </v-list-item>
           <v-divider></v-divider>
-          <v-list dense nav>
-            <v-list-item
-                    v-for="(item, index) in LabelList"
-                    :key="index"
-                    dense
-                  >
-                    <v-list-item-content>
-                      <v-list-item-title>{{ index+1 }} - {{ item.labelName }} </v-list-item-title>
+<!--          <v-list dense nav>-->
+<!--            <v-list-item-->
+<!--                    v-for="(item, index) in LabelList"-->
+<!--                    :key="index"-->
+<!--                    dense-->
+<!--                  >-->
+<!--                    <v-list-item-content>-->
+<!--                      <v-list-item-title>{{ index+1 }} - {{ item.labelName }} </v-list-item-title>-->
 
-                    </v-list-item-content>
-                  </v-list-item>
-          </v-list>
+<!--                    </v-list-item-content>-->
+<!--                  </v-list-item>-->
+<!--          </v-list>-->
+
+          <div class="pa-4">
+            <v-chip-group
+                active-class="primary--text"
+                column
+            >
+              <v-chip
+                  v-for="(item, index) in LabelList"
+                  :key="index"
+                  color="green darken-2"
+                  draggable
+              >
+                <div style="color: white">
+                  {{ item.labelName }}
+                </div>
+
+              </v-chip>
+            </v-chip-group>
+          </div>
+
+
+
+
           <v-list-item>
             <v-list-item-content>
                     <v-list-item-title class="text-h6">
@@ -249,21 +272,21 @@ export default {
     all_unfollowers() {
       return circle.state.unfollowList
     },
-    HotLabel(){
-      let pages=1
-      let pagesize=6
-      let isPush=true
-      this.$store.dispatch("ReturnFreqLabel",{pages,pagesize,isPush}).then((res)=>{
-        res.forEach(item=>{
-          this.LabelList.push(item)
-        })
-        for(let i=0;i<this.LabelList.length;i++){
-          console.log("this.LabelList:",this.LabelList[i])
-        }
-      })
-    }
   },
   created(){
+    let pages=1
+    let pagesize=6
+    let isPush=true
+    this.$store.dispatch("ReturnFreqLabel",{pages,pagesize,isPush}).then((res)=>{
+      res.forEach(item=>{
+        this.LabelList.push(item)
+      })
+      for(let i=0;i<this.LabelList.length;i++){
+        console.log("this.LabelList:",this.LabelList[i])
+      }
+    })
+
+
       let data = {
         size : 6
       }
