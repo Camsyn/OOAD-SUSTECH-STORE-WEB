@@ -22,7 +22,8 @@
       <v-tab
         v-for="item in links"
         :key="item.index"
-        @click=info(item)
+        :to="item.to"
+
       >
         {{item.name}}
       </v-tab>
@@ -55,22 +56,22 @@ export default {
       {
         index:0,
         name:"Home",
-        to:"Home",
+        to:"/home",
       },
       {
         index:1,
-        name:"myCircle",
-        to:"myCircle",
+        name:"Circle",
+        to:"/circle",
       },
       {
         index:2,
         name:"PersonalPage",
-        to:"PersonalPage",
+        to:"/PersonalPage/treasure",
       },
       {
         index:3,
         name:"Myspace",
-        to: "publish"
+        to: "/myspace/publish"
       },
     ],
 

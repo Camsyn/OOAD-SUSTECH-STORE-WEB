@@ -14,13 +14,13 @@
 import preview from "../../../Myspace/components/preview";
 export default {
   components:{preview},
-  props:["type"],
   name: "Another",
   data: () => ({
     currentPage: 1,
     page:1,
     limit: 3,
     length: 1,
+    more:true,
     tags: ["动漫","游戏","旅游","美食","萌宠","哲思"],
     paths: ["carton","game","tour","delicious_food","cute_pet","philosophizing", "another"],
     circles:{
@@ -36,43 +36,22 @@ export default {
   }),
   methods:{
     more(){
-      if (this.page<this.length-1){
+      if (this.page<this.length||!this.more){
         return;
       }
 
-      this.$store.dispatch("AllgetPage",{page: this.page, limit: this.limit}).then((res) => {
+      let limi = 99;
+      this.$store.dispatch("AllgetPage",{page: this.page, limi: 99}).then((res) => {
         if (res.length!==0){
+          if (res.length<limi)
+            this.more = false;
           res.forEach(item=>{
             this.circles.all.push(item);
-            let ind = this.Tags.indexOf(item.tag);
+            let ind = this.tags.indexOf(item.tag);
             if (ind===-1)
               ind = this.paths.length-1;
-
             let pt = this.paths[ind];
             this.circles[pt].push(item);
-
-            // switch (item.tag) {
-            //   case "动漫":
-            //     this.carton.push(res);
-            //     break;
-            //   case "游戏":
-            //     this.game.push(res);
-            //     break;
-            //   case "旅游":
-            //     this.tour.push(res);
-            //     break;
-            //   case "美食":
-            //     this.delicious_food.push(res);
-            //     break;
-            //   case "萌宠":
-            //     this.cute_pet.push(res);
-            //     break;
-            //   case "哲思":
-            //     this.philosophizing.push(res);
-            //     break;
-            //   default:
-            //     this.another.push(res);
-            // }
             if (this.page>=this.length&&res.length===this.limit){
               this.length++;
             }

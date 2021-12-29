@@ -108,7 +108,7 @@ export default {
     },
 
     more(){
-      if (this.page<this.length-1){
+      if (this.page<this.length){
         return;
       }
       this.$store.dispatch("getPull", {page: this.page, size: this.limit}).then((res) => {

@@ -1,5 +1,7 @@
 <template>
   <v-sheet min-height="70vh" rounded="lg">
+    <report :dialog="repo" :id="123" :type="123123" v-on:close="repo=false"></report>
+    <v-btn @click="repo=true"></v-btn>
     <v-container
       style="
         z-index: 1;
@@ -11,7 +13,7 @@
       <v-row>
         <v-col class="col-1">
           <v-btn outlined fab color="black" @click="buySellChange()">
-            {{ buySell }}
+            {{ buySell[buySellInd] }}
           </v-btn>
         </v-col>
         <v-col cols="5" class="d-flex">
@@ -227,6 +229,8 @@
 
 <script>
 import commodity from "../components/commodity/commodity";
+import report from "../components/report";
+
 export default {
   name: "Home",
   data() {
@@ -257,18 +261,21 @@ export default {
       label_all: [],
       dialog: false,
       srt: 1,
-      buySell: "收",
+      buySellInd: 2,
+      buySell: ["商品","服务","不限"],
 
       page: 1,
       height: 0,
       commodities0: [],
       commodities1: [],
       commodities2: [],
+      commoditiesAll: [],
       type:["买","卖"],
       trade: ["第三方", "代币", "收款码", "线下"],
       dates: [],
       menu: false,
       more: true,
+      repo: false,
 
       rules: {
         required: value => !!value || 'Required',
@@ -288,7 +295,7 @@ export default {
     };
   },
   components: {
-    commodity,
+    commodity,report,
   },
   computed: {
     isSearch(){
@@ -313,27 +320,40 @@ export default {
       }
     },
 
-    show(res, clear = false){
-      // if (res.length <= this.limit){
-      //   this.more = false;
-      // }else {
-      //   res.pop();
-      // }
+    show(res, clear, change=false){
       this.more = true;
       this.page++;
       this.addMore();
+
       if (clear){
-        this.commodities0 = [];
-        this.commodities1 = [];
-        this.commodities2 = [];
+        this.commoditiesAll = res;
+      }else{
+        this.commoditiesAll.concat(res);
       }
-      for (let i=0;i<res.length;i++){
+
+      this.commodities0 = [];
+      this.commodities1 = [];
+      this.commodities2 = [];
+
+      let tmp = [];
+
+      if (this.buySellInd!==2){
+        this.commoditiesAll.forEach(item=>{
+          if (item.category===this.buySellInd)
+            tmp.push(item);
+        })
+      }else {
+        tmp = this.commoditiesAll;
+      }
+
+      for (let i=0;i<tmp.length;){
         let s = (i%3).toString();
         let cm = res[i];
         this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
           cm.pusherInfo = rees;
           this["commodities"+s].push(cm);
         });
+        i++;
       }
     },
 
@@ -347,7 +367,7 @@ export default {
           this.more = false;
           return;
         }
-        this.show(res);
+        this.show(res, false);
       }).catch(err=>{
         console.log(err);
       });
@@ -427,7 +447,20 @@ export default {
     },
 
     buySellChange() {
-      this.buySell = this.buySell == "收" ? "出" : "收";
+      this.buySellInd = (this.buySellInd+1)%3;
+      this.show([], false);
+      // let cm = this.commodities0.concat(this.commodities1).concat(this.commodities2);
+      // if (this.buySellInd!==2){
+      //   let nw = [];
+      //   cm.forEach(item=>{
+      //     if (item.category===this.buySellInd)
+      //       nw.push(item);
+      //   });
+      //   this.show(nw);
+      // }else {
+      //   this.show(cm);
+      // }
+      // this.more=false;
     },
   },
 };
