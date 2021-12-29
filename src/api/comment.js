@@ -8,3 +8,11 @@ export function getUserComment(data) {
             data,
     });
 }
+
+export function push(toSid, content) {
+    return service({
+        url: "/auth/comment/push",
+        method: "post",
+        data:{toSid, content},
+    });
+}
