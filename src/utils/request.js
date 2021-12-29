@@ -22,7 +22,9 @@ service.interceptors.request.use(
 // //发送请求后
 service.interceptors.response.use(
   (response) => {
-      // console.log(response);
+      if (response.config.url.search("review")!==-1){
+          return Promise.resolve(response.data);
+      }
       const res = response.data;
       const resp_code = res.resp_code;
       const resp_msg = res.resp_msg;

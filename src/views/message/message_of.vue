@@ -29,7 +29,7 @@
         <span class="mx-auto">{{oppositeId}}</span>
       </v-row>
       <v-divider class="my-1"></v-divider>
-      <v-row dense style="margin-bottom: 30px; max-height: 800px; overflow-y: scroll; overflow-x: hidden">
+      <v-row dense style="margin-bottom: 10px; max-height: 400px; overflow-y: scroll; overflow-x: hidden">
         <v-col cols="12"
           v-for="(msg, index) in messages"
           :key="index"

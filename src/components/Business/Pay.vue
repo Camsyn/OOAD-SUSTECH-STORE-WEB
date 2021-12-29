@@ -30,16 +30,8 @@
             color="deep-purple accent-3"
             group
         >
-          <v-btn value="平台代币" @click = 'changepay1'>
-            <div style="color: #747172">平台代币</div>
-          </v-btn>
-
-          <v-btn value="个人收款码" @click = 'changepay2'>
-            <div style="color: #747172">个人收款码</div>
-          </v-btn>
-
-          <v-btn value="私下交易" @click = 'changepay3'>
-            <div style="color: #747172">私下交易</div>
+          <v-btn value="平台代币">
+            <div style="color: #747172">{{this.text}}</div>
           </v-btn>
 
         </v-btn-toggle>
@@ -142,14 +134,13 @@ export default {
         type: 'warning'
       }).then(() => {
         let data = []
-        if(this.desserts[0].cartItemId !== null) {
-          for (let i = 0; i < this.desserts.length; i++) {
-            data.push(this.desserts[i].cartItemId)
-          }
-        }
-        if (this.desserts[0].cartItemId == null) {
+        // if(this.desserts[0].cartItemId !== null) {
+        //   for (let i = 0; i < this.desserts.length; i++) {
+        //     data.push(this.desserts[i].cartItemId)
+        //   }
+        // }
           data = {
-            requestId:this.desserts[0].id,
+            requestId: this.desserts[0].id,
             count: 1,
           }
           this.$store.dispatch('buy',data).then((data) => {
@@ -160,13 +151,7 @@ export default {
               })
             }
             if (this.text === '个人收款码') {
-              console.log('>>>')
               this.dialogVisible = true
-              this.$message({
-                type: 'success',
-                message: '订单已成功下单，请尽快支付!',
-              })
-
             }
             if (this.text === '私下交易') {
               this.$message({
@@ -181,38 +166,36 @@ export default {
               message: err
             })
           });
-        }
-        else {
-
-          this.$store.dispatch('satisfy',data).then((data) => {
-            if (this.text === '平台代币'){
-              this.$message({
-                type: 'success',
-                message: '订单成功!',
-              })
-              this.$router.push('/home')
-            }
-            if (this.text === '个人收款码') {
-              this.dialogVisible = true
-              this.$message({
-                type: 'success',
-                message: '订单已成功下单，请尽快支付!',
-              })
-            }
-            if (this.text === '私下交易') {
-              this.$message({
-                type: 'success',
-                message: '订单已成功下单，请尽快联系卖家',
-              })
-            }
-            this.$router.push('/home')
-          }).catch(err=>{
-            this.$message({
-              type: 'warning',
-              message: err
-            })
-          });
-        }
+        // else {
+        //   this.$store.dispatch('satisfy',data).then((data) => {
+        //     if (this.text === '平台代币'){
+        //       this.$message({
+        //         type: 'success',
+        //         message: '订单成功!',
+        //       })
+        //       this.$router.push('/home')
+        //     }
+        //     if (this.text === '个人收款码') {
+        //       this.dialogVisible = true
+        //       this.$message({
+        //         type: 'success',
+        //         message: '订单已成功下单，请尽快支付!',
+        //       })
+        //     }
+        //     if (this.text === '私下交易') {
+        //       this.$message({
+        //         type: 'success',
+        //         message: '订单已成功下单，请尽快联系卖家',
+        //       })
+        //     }
+        //     this.$router.push('/home')
+        //   }).catch(err=>{
+        //     this.$message({
+        //       type: 'warning',
+        //       message: err
+        //     })
+        //   });
+        // }
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -238,12 +221,14 @@ export default {
     },
   },
   created() {
-    this.dialogVisible = true
+
+    this.dialogVisible = false
     console.log(goods.state.payList)
     this.liyuan = user.state.liyuan
     this.desserts = goods.state.payList
     this.number = goods.state.payList.length
     this.desserts[0].cartItemId == null
+    this.text = this.desserts[0].tradeMethod
     if(goods.state.payList[0].cartItemId == null) {
       this.desserts[0].cartItemCount = 1
     }

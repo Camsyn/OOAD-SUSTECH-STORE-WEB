@@ -52,7 +52,6 @@ export default {
   }),
   methods:{
     report(){
-      console.log(this.desc,this.id)
       if (this.desc===""||!this.id)
         return;
       this.$store.dispatch(this.type, {t_id: this.id, desc:this.desc}).then(res=>{

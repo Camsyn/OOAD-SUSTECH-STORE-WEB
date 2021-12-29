@@ -21,10 +21,13 @@ const order = {
     },
 
     actions: {
+
         selectReportRecord(context, t_id=null) {
             return new Promise((resolve, reject)=>{
-                selectReportRecord(t_id).then(res=>resolve(res)).catch(err=> {
-                    console.log(err);
+                selectReportRecord(t_id).then(res=> {
+                    resolve(res)
+                }).catch(err=> {
+                    console.log(123, err);
                     reject(err);
                 });
             });
@@ -57,6 +60,14 @@ const order = {
             });
         },
 
+        reportRequest(context,{t_id,desc}) {
+            return new Promise((resolve, reject)=>{
+                reportRequest(t_id, desc).then(res=>resolve(res)).catch(err=> {
+                    console.log(err);
+                    reject(err);
+                });
+            });
+        },
         reportChat(context, {t_id, desc}) {
             return new Promise((resolve, reject)=>{
                 reportChat(t_id, desc).then(res=>resolve(res)).catch(err=> {

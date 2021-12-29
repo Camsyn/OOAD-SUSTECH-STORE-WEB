@@ -174,6 +174,11 @@ export default {
 
   },
   created() {
+    this.$store.dispatch('selectReportRecord').then((data) => {
+      console.log(data)
+    }).catch((err) => {
+      console.log(err)
+    })
     this.more();
   }
 }
