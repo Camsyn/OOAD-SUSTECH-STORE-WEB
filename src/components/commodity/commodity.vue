@@ -50,16 +50,6 @@
             {{request.pusherInfo.credit}}
           </v-chip>
         </v-col>
-        <v-col class="px-0 pt-1">
-          <v-btn
-              icon
-              color="deep-orange"
-              @click="click_like"
-          >
-            <v-icon>mdi-thumb-up</v-icon>
-            <div>{{like}}</div>
-          </v-btn>
-        </v-col>
       </v-row>
     </v-card-actions>
 
