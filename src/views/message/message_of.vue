@@ -107,7 +107,7 @@ export default {
     },
   },
   created() {
-    console.log(this.$route.path);
+    // console.log(this.$route.path);
   }
 }
 </script>

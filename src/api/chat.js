@@ -7,7 +7,7 @@ export function getLastOfEach(){
         params: {
             pageSize: 30,
             page: 1,
-            count: 5,
+            count: 99,
         }
     })
 }

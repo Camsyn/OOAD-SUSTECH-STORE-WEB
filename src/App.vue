@@ -18,8 +18,9 @@ export default {
       user.userInfos = new Map(Object.entries(user.userInfos));
       Object.assign(this.$store.state.user, this.$store.state.user, user);
 
-      this.$store.dispatch("setupChat");
-      this.$store.dispatch("renew");
+      this.$store.dispatch("setupChat").then(()=>{
+        this.$store.dispatch("renew");
+      });
     }
     if (goods){
       goods = JSON.parse(goods);
