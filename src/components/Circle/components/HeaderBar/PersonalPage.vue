@@ -11,6 +11,13 @@
           >
             <v-card-title>Top 10 Australian beaches</v-card-title>
           </v-img>
+
+        <button class="Action3" @click = ReportUser>
+          <i class="el-icon-error"></i>
+           举报
+        </button>
+
+
         <v-card
           class="d-flex pa-2"
           flat
@@ -123,6 +130,20 @@ export default {
     dialog: false,
   }),
   methods:{
+    ReportUser() {
+      this.$confirm('是否举报该用户', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        });
+      });
+    },
     toCustomer() {
       this.$router.push("/circle/Customer");
     },
@@ -141,5 +162,10 @@ export default {
 
 <style scoped>
 
-
+.Action3 {
+  font-size: 20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  float: right;
+}
 </style>
