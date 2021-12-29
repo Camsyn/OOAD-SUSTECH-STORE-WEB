@@ -99,6 +99,7 @@
                   :key="index"
                   color="green darken-2"
                   draggable
+                  @click="hotSearch(item.labelName)"
               >
                 <div style="color: white">
                   {{ item.labelName }}
@@ -107,10 +108,6 @@
               </v-chip>
             </v-chip-group>
           </div>
-
-
-
-
           <v-list-item>
             <v-list-item-content>
                     <v-list-item-title class="text-h6">
@@ -211,6 +208,9 @@ export default {
     ]
   }),
   methods: {
+    hotSearch(name){
+      this.$router.push({name: "Home", params:{hot: name}});
+    },
     PersonPage(item) {
       user.state.ObserverId = item.sid
       this.$router.push('/PersonalPage')

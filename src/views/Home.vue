@@ -294,7 +294,12 @@ export default {
   created() {
     this.height = document.documentElement.clientHeight;
     window.addEventListener("scroll", this.addMore);
-    if (this.more)
+
+    let hot = this.$route.params.hot;
+    if (hot){
+      this.searchInfo.labels.push(hot);
+      this.search();
+    }else if (this.more)
       this.random();
   },
   methods: {

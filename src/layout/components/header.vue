@@ -63,7 +63,7 @@ export default {
       {
         index:1,
         name:"Circle",
-        to:"/circle",
+        to:"/circle/PublishCircle",
       },
       {
         index:2,
