@@ -20,17 +20,18 @@
             label="图片"
             width="120" >
           <template slot-scope="scope">
-            <el-image class="logo"
-                      style="width: 100px; height: 100px"
+            <v-img class="logo"
+                      style="width: 100px; height: 100px;cursor: pointer"
                       :src="scope.row.images[0]"
                       @click="detile(scope.row)"
-            ></el-image>
+
+            ></v-img>
           </template>
         </el-table-column>
         <el-table-column
             label="商品名称"
             width="150">
-          <template slot-scope="scope">{{ scope.row.title }}</template>
+          <template slot-scope="scope"  >{{ scope.row.title }}</template>
         </el-table-column>
 
         <el-table-column
