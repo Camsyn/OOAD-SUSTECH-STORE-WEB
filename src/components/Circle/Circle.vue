@@ -111,9 +111,9 @@
           </el-pagination>
           <v-list-item v-for="(item,key) in all_unfollowers.slice((currentPage-1)*PageSize,currentPage*PageSize)" :key="key">
             <v-btn icon x-large @click = 'PersonPage(item)'>
-              <v-list-item-avatar>
-                      <el-image style="width: 50px; height: 50px" :key="item.headImage" :src="item.headImage"></el-image>
-                    </v-list-item-avatar>
+              <v-list-item-avatar size="50">
+                <v-img style="width: 50px; height: 50px" :key="item.sid" :src="item.headImage"></v-img>
+              </v-list-item-avatar>
             </v-btn>
             <v-list-item-title v-html="item.nickname"></v-list-item-title>
             <v-spacer></v-spacer>

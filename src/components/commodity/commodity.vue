@@ -25,7 +25,7 @@
       <v-row class="pt-5">
         <v-col class="pa-0" offset="1" cols="2">
           <v-avatar
-              class="pb-3"
+              class="mb-3"
               size="50"
               @click = 'PersonPage'
               style="cursor: pointer"
@@ -34,13 +34,13 @@
           </v-avatar>
         </v-col>
         <v-col cols="4" class="pa-0">
-          <v-card-text class="pt-3 px-0">
-            {{request.pusherInfo.nickname}}
+          <v-card-text class="px-0">
+            <div v-text="request.pusherInfo.nickname" class="text-h6"></div>
           </v-card-text>
         </v-col>
-        <v-col class="pa-0" cols="3">
+        <v-col class="pa-0" cols="2">
           <v-chip
-              class="ma-2"
+              class="mt-3"
               color="success"
               outlined
           >
@@ -49,6 +49,9 @@
             </v-icon>
             {{request.pusherInfo.credit}}
           </v-chip>
+        </v-col>
+        <v-col class="pb-4 mt-1">
+          {{'￥ ' + request.exactPrice}}
         </v-col>
       </v-row>
     </v-card-actions>
@@ -65,14 +68,11 @@ export default {
   data(){
     return{
       title: "",
-      description: "test for a description text. This is a default description.test for a description text. This is a default description",
-      credit: 100,
-      like: 0,
-      liked: false,
       pusherInfo: {
         headImage: null,
         nickname: null,
       },
+      buySell: ["买","卖"],
     }
   },
   methods: {
@@ -84,10 +84,6 @@ export default {
       this.$store.commit("setCur", {request: this.request});
       this.$router.push({name: "GoodsDetails"});
     },
-    click_like(){
-      this.liked?this.like--:this.like++;
-      this.liked = !this.liked;
-    }
   },
   computed: {
 

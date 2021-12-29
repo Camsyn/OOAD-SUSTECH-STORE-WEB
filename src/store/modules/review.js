@@ -75,7 +75,7 @@ const order = {
             });
         },
 
-        reportComment (context, {t_id, desc}) {
+        reportComment(context, {t_id, desc}) {
             return new Promise((resolve, reject)=>{
                 reportComment(t_id, desc).then(res=>resolve(res)).catch(err=> {
                     console.log(err);
