@@ -31,15 +31,6 @@
                 <span v-show="show" @click="getCode" class="getCode">获取验证码</span>
                 <span v-show="!show" class="count">{{count}}s后重新获取</span>
               </v-col>
-
-
-<!--              <v-col>-->
-<!--                <v-btn>-->
-<!--                  Send-->
-<!--                </v-btn>-->
-
-<!--              </v-col>-->
-
             </v-row>
 
             <v-text-field

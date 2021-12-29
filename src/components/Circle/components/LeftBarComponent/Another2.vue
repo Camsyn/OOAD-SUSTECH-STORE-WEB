@@ -20,6 +20,7 @@ export default {
     page:1,
     limit: 3,
     length: 1,
+    more:true,
     tags: ["动漫","游戏","旅游","美食","萌宠","哲思"],
     paths: ["carton","game","tour","delicious_food","cute_pet","philosophizing", "another"],
     circles:{
@@ -35,12 +36,15 @@ export default {
   }),
   methods:{
     more(){
-      if (this.page<this.length){
+      if (this.page<this.length||!this.more){
         return;
       }
 
-      this.$store.dispatch("AllgetPage",{page: this.page, limit: this.limit}).then((res) => {
+      let limi = 99;
+      this.$store.dispatch("AllgetPage",{page: this.page, limi: 99}).then((res) => {
         if (res.length!==0){
+          if (res.length<limi)
+            this.more = false;
           res.forEach(item=>{
             this.circles.all.push(item);
             let ind = this.tags.indexOf(item.tag);
