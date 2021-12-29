@@ -65,6 +65,7 @@ export default {
   },
   data () {
     return {
+      subtable: [],
       dialogVisible : false,
       number : 0,
       text:'',

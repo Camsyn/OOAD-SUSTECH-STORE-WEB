@@ -11,6 +11,7 @@ const cartItem = {
         getCart(context) {
             return new Promise((resolve, reject)=>{
                 getItem().then(res=>{
+                    console.log(res.data)
                     let url = "https://img1.baidu.com/it/u=1034833325,3625066472&fm=26&fmt=auto"
                     for (let i = 0; i <res.data.length ; i++) {
                         if(res.data[i].images.length == 0) {

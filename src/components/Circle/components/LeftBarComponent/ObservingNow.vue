@@ -12,7 +12,7 @@
               <v-btn
                   icon
                   x-large
-                  @click = 'new PersonPage(item)'
+                  @click = 'PersonPage(item)'
               >
                 <v-list-item-avatar>
                   <img :src="item.headImage" alt="CC" >
@@ -65,7 +65,7 @@ export default {
   methods:{
     PersonPage(item) {
       user.state.ObserverId = item.sid
-      this.$router.push('/PersonalPage')
+      this.$router.push('/PersonalPage/treasure')
     },
     Details(item) {},
     observeClick(item){
