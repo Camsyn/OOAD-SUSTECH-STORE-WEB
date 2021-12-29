@@ -5,7 +5,7 @@
 <!--        <message_single :msg="messages[1]"></message_single>-->
 <!--      </v-col>-->
 <!--    </v-row>-->
-    <v-row dense>
+    <v-row dense style="margin-bottom: 20px; max-height: 700px; overflow-y: scroll; overflow-x: hidden">
       <v-col cols="12"
         v-for="(msg, index) in messages"
         :key="index"
