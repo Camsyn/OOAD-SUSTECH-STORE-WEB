@@ -15,7 +15,7 @@
       </el-table-column>
 
       <el-table-column
-          prop="puller"
+          prop="showUser"
           label="买家"
           width="120">
       </el-table-column>
@@ -152,21 +152,22 @@ export default {
       }).then(() => {
         if(item.type == 1) {
           this.$store.dispatch("confirmPush", item.id).then(res=>{
+            this.more();
           }).catch(err=>{
-            console.log(err);
           });
         }
         else  {
           this.$store.dispatch('confirmPull',item.id).then(res => {
-
+            this.more();
           }).catch((err) => {
             console.log(err)
           })
           this.$message({
-            type: 'info',
+            type: 'success',
             message: '已确认'
           });
         }
+        this.more()
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -216,6 +217,7 @@ export default {
         let data = []
         for (let i = 0; i < res.length; i++) {
           if(res[i].type == 1) {
+            res[i].showUser = res[i].puller
             data.push(res[i])
           }
         }
@@ -223,11 +225,11 @@ export default {
           res = res.data;
           for (let i = 0; i <res.length ; i++) {
             if(res[i].type == 0) {
+              res[i].showUser = res[i].pusher
               data.push(res[i])
             }
           }
           this.all = data
-          console.log(data)
         })
       });
 

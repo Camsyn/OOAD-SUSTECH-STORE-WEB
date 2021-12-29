@@ -1,4 +1,4 @@
-import {search, push, close, open, update, withdraw} from "../../api/goods";
+import {search, push, close, open, update, withdraw,pullRequest} from "../../api/goods";
 
 const goods = {
     state:{
@@ -85,7 +85,6 @@ const goods = {
                 });
             });
         },
-
         sbPushed(context, name){
             let my = {
                 page: 0,
@@ -98,6 +97,16 @@ const goods = {
             console.log(my)
             return new Promise((resolve, reject)=>{
                 search(my).then(res=>{
+                    resolve(res.data);
+                }).catch(err=>{
+                    reject(err);
+                });
+            });
+        },
+
+        pull(context,data) {
+            return new Promise((resolve, reject)=>{
+                pullRequest(data).then(res=>{
                     resolve(res.data);
                 }).catch(err=>{
                     reject(err);
