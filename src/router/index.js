@@ -41,9 +41,6 @@ import game from "../components/Circle/components/LeftBarComponent/game";
 import philosophizing from "../components/Circle/components/LeftBarComponent/philosophizing";
 import tour from "../components/Circle/components/LeftBarComponent/tour";
 import Another from "../components/Circle/components/LeftBarComponent/Another";
-
-
-
 import Demo from "../components/Business/Demo";
 import Pay from "../components/Business/Pay";
 import testStore from "../test/testStore";

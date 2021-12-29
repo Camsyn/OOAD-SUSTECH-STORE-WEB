@@ -136,16 +136,9 @@
               class="paging"
           >
           </el-pagination>
-
         </div>
-
       </v-row>
     </div>
-
-
-
-
-
   </div>
 </template>
 
