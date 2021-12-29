@@ -1,5 +1,7 @@
 <template>
   <v-sheet min-height="70vh" rounded="lg">
+<!--    <report :dialog="repo" v-on:close="repo=false" :id="123" :type="123123" ></report>-->
+<!--    <v-btn @click="repo=true"></v-btn>-->
     <v-container
       style="
         z-index: 1;
@@ -318,20 +320,25 @@ export default {
       }
     },
 
-    show(res, clear, change=false){
+    show(res, clear, change = false){
       this.more = true;
       this.page++;
       this.addMore();
 
       if (clear){
+        this.commodities0 = [];
+        this.commodities1 = [];
+        this.commodities2 = [];
         this.commoditiesAll = res;
       }else{
-        this.commoditiesAll.concat(res);
+        this.commoditiesAll = this.commoditiesAll.concat(res);
       }
 
-      this.commodities0 = [];
-      this.commodities1 = [];
-      this.commodities2 = [];
+      if (change){
+        this.commodities0 = [];
+        this.commodities1 = [];
+        this.commodities2 = [];
+      }
 
       let tmp = [];
 
@@ -344,14 +351,15 @@ export default {
         tmp = this.commoditiesAll;
       }
 
-      for (let i=0;i<tmp.length;){
+      for (let i=0;i<tmp.length;i++){
         let s = (i%3).toString();
         let cm = res[i];
+        if (!cm)
+          continue;
         this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
           cm.pusherInfo = rees;
           this["commodities"+s].push(cm);
         });
-        i++;
       }
     },
 
@@ -382,7 +390,7 @@ export default {
 
       this.convertInfo();
 
-      console.log(this.searchInfo);
+      // console.log(this.searchInfo);
       this.$store.dispatch("search", this.searchInfo).then(res=>{
         if (res.length===0){
           this.more = false;
