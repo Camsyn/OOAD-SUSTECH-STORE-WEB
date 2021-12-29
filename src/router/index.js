@@ -14,6 +14,7 @@ import MySpace from "../components/Myspace/MySpace";
 import settings from "../components/Myspace/components/settings";
 import collection from "../components/Myspace/components/collection";
 import nextsell from "../components/Myspace/components/nextsell";
+import reportpage from "../components/Myspace/components/reportpage";
 
 import sold from "../components/Myspace/components/sold";
 import trail from "../components/Myspace/components/trail";
@@ -137,6 +138,11 @@ const routes = [
             path: "/myspace/fans",
             redirect:'/myspace',
             component: publish,
+          },
+          {
+            path: "/myspace/reportpage",
+            name:'/reportpage',
+            component: reportpage,
           },
         ],
       },

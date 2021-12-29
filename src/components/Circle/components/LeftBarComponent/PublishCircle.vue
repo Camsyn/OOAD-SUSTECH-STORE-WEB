@@ -1,6 +1,6 @@
 <template>
   <v-card elevation="0" class="mx-auto">
-    <div style="padding: 20px">
+    <div style="padding: 30px">
       <v-row align="center">
         <v-col cols="12" md="6" sm="6">
           <v-text-field
@@ -12,7 +12,6 @@
         </v-col>
       </v-row>
     </div>
-    <div class="text-h6 font-weight-black pl-4" v-text="yulan"></div>
     <div v-for="(item, index) in contents" :key="index">
       <v-textarea
           append-icon="mdi-comment"
@@ -37,76 +36,88 @@
     </div>
 
     <v-card-text>
-      <v-row cols="auto">
-        <v-textarea
-              label="编辑"
+      <div style="padding: 20px">
+        <v-row cols="auto">
+
+          <v-textarea
+              label="Content"
+              name="input-7-4"
               auto-grow
               outlined
               dense
-              rows="2"
-              row-height="10"
+              rows="5"
+              row-height="25"
               shaped
               v-model="edit"
-            ></v-textarea>
-      </v-row>
-      <v-row dense class="d-flex justify-center">
-        <v-btn
-            class="ma-0" @click="clear"
-            plain
-            fab
-        >
-          清空
-        </v-btn>
-      </v-row>
+          ></v-textarea>
+        </v-row>
+      </div>
 
-      <v-row>
-        <v-file-input
-                accept="image/*"
-                prepend-icon="mdi-camera"
-                show-size
-                counter
-                multiple
-                label="上传图片"
-                v-model="images"
-            >
-            </v-file-input>
-        <v-btn
-                class="mb-3 mx-4" @click="addImage"
-                plain
-                fab
-            >
-              <v-icon dark>
-                mdi-cloud-upload
-              </v-icon>
-            </v-btn>
-      </v-row>
+      <div style="padding: 20px">
+        <v-row>
+
+          <v-file-input
+              accept="image/*"
+              show-size
+              counter
+              multiple
+              outlined
+              color="blue accent-4"
+              label="File input"
+              v-model="images"
+          >
+          </v-file-input>
+          <v-btn
+              class="mb-1 mx-2" @click="addImage"
+              plain
+              fab
+          >
+            <v-icon dark>
+              mdi-cloud-upload
+            </v-icon>
+          </v-btn>
+        </v-row>
+      </div>
+
     </v-card-text>
 
     <v-card-actions>
-      <v-row>
-        <v-col cols="6">
-          <v-select
-              v-model="dynamic.tag"
-              :items="Tags"
-              :rules="[rules.required]"
-              menu-props="auto"
-              label="Select"
-              hide-details
-              prepend-icon="mdi-map"
-              single-line
-          ></v-select>
-        </v-col>
-        <v-col cols="6" class="d-flex justify-center">
-          <v-btn
-              class="mt-3"
-              text
-              elevation="1"
-              @click="publish"
-          >
-            发布
-          </v-btn>
-        </v-col>
-      </v-row>
+      <div style="padding: 20px">
+        <v-row>
+
+            <v-select
+                v-model="dynamic.tag"
+                :items="Tags"
+                :rules="[rules.required]"
+                menu-props="auto"
+                label="Select"
+                hide-details
+                prepend-icon="mdi-map"
+                single-line
+            ></v-select>
+
+         <v-spacer></v-spacer>
+            <v-btn
+                class="mt-3" @click="clear"
+                text
+                depressed
+            >
+              Clear
+            </v-btn>
+          <v-spacer></v-spacer>
+
+            <v-btn
+                class="mt-3"
+                text
+                depressed
+                @click="publish"
+            >
+              publish
+            </v-btn>
+
+        </v-row>
+      </div>
+
     </v-card-actions>
   </v-card>
 </template>
@@ -119,8 +130,6 @@ export default {
     textarea:"",
     files: [],
     Tags: ["动漫","游戏","旅游","美食","萌宠","哲思"],
-    yulan: "预览",
-
     dynamic:  {
       tag:"",
       topic:"",

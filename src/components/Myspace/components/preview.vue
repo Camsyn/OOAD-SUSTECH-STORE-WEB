@@ -3,14 +3,23 @@
     <report :dialog="repo" :id="circle.id" type="reportCircle" v-on:close="repo=false"></report>
     <v-card-subtitle class="py-2">
       <v-row dense>
-        <v-col class="d-flex justify-start">
-          <v-avatar size="50">
-            <v-img :src="headImage"></v-img>
-          </v-avatar>
-          <span v-text="nickname" class="text-h5 mt-2 ml-2"></span>
-        </v-col>
+        <div style="padding: 4px">
+          <v-col class="d-flex justify-start">
+            <v-avatar size="50">
+              <v-img :src="headImage"></v-img>
+            </v-avatar>
+            <div style="font-size: medium;color: #80848a;padding: 10px">
+              &nbsp;{{ nickname }}
+            </div>
+          </v-col>
+        </div>
+
         <v-col class="d-flex justify-end">
-          <span v-text="date" class="text-h5 mt-2 ml-2"></span>
+
+          <div style="font-size: small;color: #80848a;padding: 20px">
+            <v-icon small>mdi-alarm</v-icon> &nbsp;{{ date }}
+          </div>
+
         </v-col>
         <v-col cols="1" class="d-flex flex-column-reverse flex-row-reverse">
           <v-btn class="mb-2 pa-0" @click ="ReportCircle" small text>
@@ -20,15 +29,16 @@
       </v-row>
     </v-card-subtitle>
     <v-card-text>
-      <div v-for="item in show" :key="item.ind">
-        <div v-if="item.text" v-text="item.text" class="pl-1" style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap;"></div>
-        <v-img v-else :src="item.image" contain></v-img>
+      <div v-for="item in show" :key="item.ind" style="padding: 10px">
+        <div v-if="item.text" v-text="item.text"  style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap; padding-left: 20px"></div>
+
+        <v-img max-width="600px" max-height="800px" v-else :src="item.image" contain></v-img>
       </div>
     </v-card-text>
 
     <v-expansion-panels flat popout>
       <v-expansion-panel>
-        <v-expansion-panel-header class="pa-0">
+        <v-expansion-panel-header>
           评论
         </v-expansion-panel-header>
         <v-expansion-panel-content>
