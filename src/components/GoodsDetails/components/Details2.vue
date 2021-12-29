@@ -123,10 +123,42 @@ export default {
       }
     },
     buyGood(){
-      let lista = []
-      lista.push(goods.state.current.request)
-      this.$store.commit('setpayList',lista)
-      this.$router.push('/pay')
+      if(goods.state.current.request.type == 0) {
+        this.$confirm('是否拉取该订单', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          let data = {
+            requestId:0,
+            count:1
+          }
+          data.requestId = goods.state.current.request.id
+          this.$store.dispatch('pull',data).then(() => {
+            this.$message({
+              type: 'success',
+              message:'成功拉取'
+            });
+          }).catch((err) => {
+            this.$message({
+              type: 'warning',
+              message: err
+            });
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消'
+          });
+        });
+      }
+      else {
+        let lista = []
+        lista.push(goods.state.current.request)
+        this.$store.commit('setpayList',lista)
+        this.$router.push('/pay')
+      }
+
     },
     AddToCartitem(){
       let addInfo = {
@@ -139,8 +171,8 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$store.dispatch("addInfo",addInfo).then((data) => {
-          if (this.icon_info==='加入购物车'){
-            this.icon_info='已加入购物车'
+          if (this.icon_info==='加入收藏'){
+            this.icon_info='已加入收藏'
           }
           this.$message({
             type: 'success',
@@ -179,7 +211,7 @@ export default {
       User: {
         credit:0
       },
-      icon_info:"加入购物车",
+      icon_info:"加入收藏",
       icon_info1: '举报'
     }
   },

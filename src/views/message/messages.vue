@@ -1,17 +1,14 @@
 <template>
   <v-container class="px-6" style="max-height: 80%">
-    <v-row>
-      <v-col cols="12">
-        <message_single
-            :msg="messages[1]"
-        >
-        </message_single>
-      </v-col>
-    </v-row>
+<!--    <v-row>-->
+<!--      <v-col cols="12">-->
+<!--        <message_single :msg="messages[1]"></message_single>-->
+<!--      </v-col>-->
+<!--    </v-row>-->
     <v-row dense>
       <v-col cols="12"
-             v-for="(msg, index) in messages"
-             :key="index"
+        v-for="(msg, index) in messages"
+        :key="index"
       >
         <message_single :msg="msg"></message_single>
       </v-col>
@@ -25,7 +22,7 @@
       ></v-textarea>
     </v-row>
     <v-row class="flex-row-reverse mt-0">
-      <v-btn class="primary mb-2">发送</v-btn>
+      <v-btn class="primary mb-2" @click="send">发送</v-btn>
       <v-file-input
           style="max-width: 40px"
           @change="sendFile"
@@ -44,7 +41,6 @@
 <script>
 import Message_single from "./message_single";
 export default {
-  props:["oppo"],
   name: "messages",
   components: {Message_single},
   data(){
@@ -71,7 +67,6 @@ export default {
     sendFile(){
       if (!this.files)
         return;
-
       this.$store.dispatch("upload", {files: this.files, mul: true}).then((data)=>{
         for (let fl of data) {
           let uri = fl.fileDownloadUri.replace("/downloadFile", "");
@@ -94,9 +89,19 @@ export default {
   },
   computed: {
     messages(){
-      return this.$store.getters.msgOf(this.oppo);
+      let msgs = this.$store.getters.msgOf(this.oppositeId);
+      return msgs;
+    },
+    oppositeId(){
+      return parseInt(this.$route.params.sid);
+    },
+    myId(){
+      return this.$store.state.user.name;
     },
   },
+  created() {
+    // console.log(this.$route.path);
+  }
 };
 </script>
 

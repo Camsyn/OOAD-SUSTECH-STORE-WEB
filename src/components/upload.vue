@@ -275,6 +275,10 @@ export default {
 
       if (tmp.id){
         this.$store.dispatch("updateRq", tmp).then(res=>{
+          this.$message({
+            type: 'info',
+            message: '发布成功，正在审核'
+          });
           this.$emit("close");
         }).catch(err=>{
           console.log(err);
@@ -282,6 +286,10 @@ export default {
       }
       else {
         this.$store.dispatch("push", tmp).then(res=>{
+          this.$message({
+            type: 'info',
+            message: '更新成功，正在审核'
+          });
           this.$emit("close");
         }).catch(err=>{
           console.log(err);

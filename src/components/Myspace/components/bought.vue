@@ -18,13 +18,13 @@
       </el-table-column>
 
       <el-table-column
-          label="发布者"
+          label="买家"
           width="120"
       >
         <template slot-scope="scope">
-          <i @click="PersonIn(scope.row.pusher)"
+          <i @click="PersonIn(scope.row.showUser)"
           style="cursor: pointer">
-            {{ scope.row.pusher }}
+            {{ scope.row.showUser }}
           </i>
         </template>
       </el-table-column>
@@ -187,10 +187,8 @@ export default {
       let data = {
         requestId: id,
       }
-      console.log('?')
       this.$store.dispatch('getRequest',data).then((res) => {
         res = res.data
-        console.log(res)
         this.$store.dispatch('getInfoOf',res.pusher).then((data) => {
           res.pusherInfo = data
           if (res.tradeType == 0) {
@@ -240,24 +238,26 @@ export default {
     },
 
     confirm(item){
-      this.$confirm('是否确认收款', '提示', {
+      this.$confirm('是否确认收货', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         if(item.type == 0) {
           this.$store.dispatch("confirmPush", item.id).then(res=>{
+            this.more()
           }).catch(err=>{
             console.log(err);
           });
         }
         else  {
           this.$store.dispatch('confirmPull',item.id).then(res => {
-
+            this.more()
           }).catch((err) => {
             console.log(err)
           })
         }
+
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -276,6 +276,7 @@ export default {
         let data = []
         for (let i = 0; i < res.length; i++) {
           if(res[i].type == 0) {
+            res[i].showUser = res[i].puller
             data.push(res[i])
           }
         }
@@ -283,11 +284,12 @@ export default {
           res = res.data;
           for (let i = 0; i <res.length ; i++) {
             if(res[i].type == 1) {
+              res[i].showUser = res[i].pusher
               data.push(res[i])
             }
           }
           this.all = data
-          console.log(data)
+          console.log(this.all)
         })
       });
     },
