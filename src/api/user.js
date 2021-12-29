@@ -18,17 +18,17 @@ export function forgetPwd(data) {
   });
 }
 
-export function modifyPwd(data) {
+export  function  modifyPwdIn(data) {
   return service({
-    url: "/auth/verify/modify/password",
+    url: "/auth/account/modify/password/oldPassword",
     method: "post",
     params:data,
   });
-}
 
-export function modifyPwdIn(data) {
+}
+export function modifyPwd(data) {
   return service({
-    url: "/auth/verify/modify/oldPassword",
+    url: "/auth/verify/modify/password",
     method: "post",
     params:data,
   });
