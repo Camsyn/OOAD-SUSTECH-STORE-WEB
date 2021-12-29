@@ -1,8 +1,7 @@
 <template>
   <div class="table" style="padding: 20px">
-
+    <user-comment :dialog="userCmt" :id="cmtId" v-on:close="userCmt=false;cmtId=0" ></user-comment>
     <v-row>
-
       <span v-text="maidaode" class="my-4 mx-auto"></span>
     </v-row>
     <el-table
@@ -60,7 +59,7 @@
       <el-table-column
           fixed="right"
           label="操作"
-          width="120">
+          width="80">
         <template slot-scope="scope">
           <el-button
               @click="confirm(scope.row)"
@@ -75,21 +74,7 @@
       <el-table-column
           fixed="right"
           label="操作"
-          width="120">
-        <template slot-scope="scope">
-          <el-button
-              @click="report(scope.row.id)"
-              size="mini"
-              type="danger">
-            举报
-          </el-button>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
+          width="80">
         <template slot-scope="scope">
           <el-button
               @click="pay(scope.row)"
@@ -104,7 +89,7 @@
       <el-table-column
           fixed="right"
           label="操作"
-          width="120">
+          width="80">
         <template slot-scope="scope">
           <el-button
               @click="rollback(scope.row.id)"
@@ -114,6 +99,20 @@
           </el-button>
         </template>
 
+      </el-table-column>
+
+      <el-table-column
+          fixed="right"
+          label="操作"
+          width="80">
+        <template slot-scope="scope">
+          <el-button
+              @click="report(scope.row.id)"
+              size="mini"
+              type="danger">
+            举报
+          </el-button>
+        </template>
       </el-table-column>
     </el-table>
     <div class="d-flex justify-center">
@@ -128,8 +127,11 @@
 import report from '../../../components/report'
 import goods from "../../../store/modules/goods";
 import user from "../../../store/modules/user";
+import userComment from "../../userComment";
+import UserComment from "../../userComment";
 export default {
   name: "bought",
+  comments:{userComment},
   data() {
     return {
       order_id : 0,
@@ -141,10 +143,13 @@ export default {
       length: 1,
       dialog: false,
       edit: null,
-      stats:["准备中","已发布","已完成","审核中","拉取者撤回","发布者撤回"]
+      stats:["准备中","已发布","已完成","审核中","拉取者撤回","发布者撤回"],
+      userCmt: false,
+      cmtId: 0,
     }
   },
   components : {
+    UserComment,
     report
   },
   computed: {
@@ -252,6 +257,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        this.userCmt = true;
+        if (item.type===0){
+          this.cmtId = item.puller;
+        }else{
+          this.cmtId = item.pusher;
+        }
+
         if(item.type == 0) {
           this.$store.dispatch("confirmPush", item.id).then(res=>{
             this.more()
