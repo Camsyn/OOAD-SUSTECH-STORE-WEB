@@ -226,8 +226,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.repo = true
-        this.id = id
-        console.log(this.repo)
+        this.order_id = id
       }).catch(() => {
         this.$message({
           type: 'info',

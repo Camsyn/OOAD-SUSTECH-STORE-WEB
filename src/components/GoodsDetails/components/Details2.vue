@@ -62,7 +62,7 @@
             </el-button>
           <el-button type="primary" round class="button9" @click = 'follow'>
               <i class="el-icon-plus"></i>
-              关注
+              {{context}}
             </el-button>
         </div>
       </div>
@@ -99,6 +99,9 @@ export default {
       this.$router.push('/PersonalPage/treasure')
     },
     follow() {
+      if(this.context === '关注') {
+        this.context = '已关注'
+      }
       let add = true
       for (let i = 0; i <user.state.follow.length ; i++) {
         if(user.state.follow[i] == goods.state.current.request.pusherInfo.sid){
@@ -205,6 +208,7 @@ export default {
   },
   data(){
     return{
+      context : '关注',
       repo: false,
       Product: {
       },
@@ -223,6 +227,18 @@ export default {
   watch: {
     test: function (newVal,oldVal) {
       this.Product = newVal
+      let add = true
+      for (let i = 0; i <user.state.follow.length ; i++) {
+        if(user.state.follow[i] == goods.state.current.request.pusherInfo.sid){
+          add = false
+        }
+      }
+      if(add) {
+        this.context = '关注'
+      }
+      else {
+        this.context = '已关注'
+      }
       this.Product.tradeMethod = ''
       if (this.Product.type == 0) {
         this.Product.tradeTypeofgood = '买'
@@ -250,6 +266,18 @@ export default {
     }
   },
   created() {
+    let add = true
+    for (let i = 0; i <user.state.follow.length ; i++) {
+      if(user.state.follow[i] == goods.state.current.request.pusherInfo.sid){
+        add = false
+      }
+    }
+    if(add) {
+      this.context = '关注'
+    }
+    else {
+      this.context = '已关注'
+    }
     this.Product = goods.state.current.request
     this.Product.tradeMethod = ''
     if (this.Product.type == 0) {
