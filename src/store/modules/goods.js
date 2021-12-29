@@ -1,5 +1,5 @@
 import {search, push, close, open, update, withdraw} from "../../api/goods";
-
+import logo from "../../assets/logo/default.png";
 const goods = {
     state:{
         current: {
@@ -35,7 +35,7 @@ const goods = {
         search(context, searchInfo) {
             return new Promise((resolve, reject)=>{
                 search(searchInfo).then(res=>{
-                    let url = "https://img1.baidu.com/it/u=1034833325,3625066472&fm=26&fmt=auto"
+                    let url = logo
                     for (let i = 0; i <res.data.length ; i++) {
                         if(res.data[i].images.length === 0) {
                             res.data[i].images = [url]

@@ -23,7 +23,7 @@
           <el-descriptions-item label="已售数量"><div class="information1">{{Product.saleCount}}</div></el-descriptions-item>
           <el-descriptions-item label="发布日期"><div class="information1">{{Product.updateTime}}</div></el-descriptions-item>
           <el-descriptions-item label="标签"><el-tag size="small"><div class="information1">{{Product.labels[0]}}</div></el-tag></el-descriptions-item>
-          <el-descriptions-item label="预估价格"><div class="information1">{{Product.originalPrice}}</div></el-descriptions-item>
+          <el-descriptions-item label="商品交易类型"><div class="information1">{{Product.tradeTypeofgood}}</div></el-descriptions-item>
           <el-descriptions-item label="付款方式"><div class="information1">{{Product.tradeMethod}}</div></el-descriptions-item>
 
         </el-descriptions>
@@ -36,7 +36,7 @@
       <div class="Buy">
         <div class="Now">{{Product.exactPrice}}</div>
         <div class="Old">{{Product.originalPrice}}</div>
-        <button> <div class="Buy_buttion" @click = 'buyGood'>Buy</div></button>
+        <button> <div class="Buy_buttion" @click = 'buyGood'>get!</div></button>
       </div>
     </div>
     <div class="details2">
@@ -192,6 +192,12 @@ export default {
     test: function (newVal,oldVal) {
       this.Product = newVal
       this.Product.tradeMethod = ''
+      if (this.Product.type == 0) {
+        this.Product.tradeTypeofgood = '买'
+      }
+      if (this.Product.type == 1) {
+        this.Product.tradeTypeofgood = '卖'
+      }
       if (this.Product.tradeType == 0) {
         this.Product.tradeMethod = '第三方支付'
       }
@@ -214,6 +220,12 @@ export default {
   created() {
     this.Product = goods.state.current.request
     this.Product.tradeMethod = ''
+    if (this.Product.type == 0) {
+      this.Product.tradeTypeofgood = '买'
+    }
+    if (this.Product.type == 1) {
+      this.Product.tradeTypeofgood = '卖'
+    }
     if (this.Product.tradeType == 0) {
       this.Product.tradeMethod = '第三方支付'
     }

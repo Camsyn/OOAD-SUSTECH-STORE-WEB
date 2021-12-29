@@ -19,7 +19,7 @@
         <v-col cols="5" class="d-flex">
           <v-text-field flat hide-details rounded solo-inverted
                         v-model="searchInfo.queryStr"></v-text-field>
-          <v-btn icon class="mt-2" @click="search">
+          <v-btn icon class="mt-2" @click="search(true)">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
         </v-col>
@@ -213,14 +213,8 @@
     </v-container>
     <v-container>
       <v-row>
-        <v-col cols="4">
-          <commodity v-for="request in commodities0" :key="request.id" :request="request"></commodity>
-        </v-col>
-        <v-col cols="4">
-          <commodity v-for="request in commodities1" :key="request.id" :request="request"></commodity>
-        </v-col>
-        <v-col cols="4">
-          <commodity v-for="request in commodities2" :key="request.id" :request="request"></commodity>
+        <v-col cols="4" v-for="request in toShow" :key="request.id">
+          <commodity  :request="request"></commodity>
         </v-col>
       </v-row>
     </v-container>
@@ -246,10 +240,6 @@ export default {
         publishers: null,
         firstOrder: null,
         isFirstOrderAsc: true,
-        secondOrder: null,
-        isSecondOrderAsc: true,
-        thirdOrder: null,
-        isThirdOrderAsc: null,
         after: null,
         before: null,
         page: 1,
@@ -266,10 +256,8 @@ export default {
 
       page: 1,
       height: 0,
-      commodities0: [],
-      commodities1: [],
-      commodities2: [],
       commoditiesAll: [],
+      toShow: [],
       type:["买","卖"],
       trade: ["第三方", "代币", "收款码", "线下"],
       dates: [],
@@ -300,7 +288,7 @@ export default {
   computed: {
     isSearch(){
       return this.$store.getters.search;
-    }
+    },
   },
   created() {
     this.height = document.documentElement.clientHeight;
@@ -309,6 +297,19 @@ export default {
       this.random();
   },
   methods: {
+    filter(){
+      if (this.buySellInd===2)
+        this.toShow = this.commoditiesAll;
+      else {
+        let res = [];
+        this.commoditiesAll.forEach(item=>{
+          if (item.category===this.buySellInd)
+            res.push(item)
+        });
+        this.toShow = res;
+      }
+    },
+
     del_label(index) {
       this.user_defined_label.splice(index, 1);
     },
@@ -320,45 +321,20 @@ export default {
       }
     },
 
-    show(res, clear, change = false){
-      if (!change)
-        this.page++;
-
-      this.commodities0 = [];
-      this.commodities1 = [];
-      this.commodities2 = [];
+    show(res, clear){
+      this.page++;
       if (clear){
-        this.commoditiesAll = res;
-      }else{
-        this.commoditiesAll = this.commoditiesAll.concat(res);
+        this.commoditiesAll = [];
       }
 
-      // if (change){
-      //   this.commodities0 = [];
-      //   this.commodities1 = [];
-      //   this.commodities2 = [];
-      // }
-
-      let tmp = [];
-
-      if (this.buySellInd!==2){
-        this.commoditiesAll.forEach(item=>{
-          if (item.category===this.buySellInd)
-            tmp.push(item);
+      res.forEach(item=>{
+        this.$store.dispatch("getInfoOf", item.pusher).then(rees=>{
+          item.pusherInfo = rees;
+          this.commoditiesAll.push(item)
         });
-      }else {
-        tmp = this.commoditiesAll;
-      }
+      });
 
-      console.log(tmp)
-      for (let i=0;i<tmp.length;i++){
-        let s = (i%3).toString();
-        let cm = tmp[i];
-        this.$store.dispatch("getInfoOf", cm.pusher).then(rees=>{
-          cm.pusherInfo = rees;
-          this["commodities"+s].push(cm);
-        });
-      }
+      this.filter()
       this.more = true;
       this.addMore();
     },
@@ -368,6 +344,7 @@ export default {
         page: this.page,
         limit: this.limit,
       }
+      this.$store.commit("setSearch", false);
       this.$store.dispatch("search", tmp).then(res=>{
         if (res.length===0){
           this.more = false;
@@ -380,18 +357,18 @@ export default {
     },
 
     search(clear = true){
-      if (this.searchInfo.queryStr==""){
+      if (!this.canSearch()){
         return;
       }
-      if (!this.isSearch){
-        this.page = 0;
+      if (!this.isSearch||clear){
+        this.page = 1;
         this.$store.commit("setSearch", true);
       }
 
-      this.convertInfo();
+      let tmp = Object.assign({}, this.searchInfo);
+      this.convertInfo(tmp);
 
-      // console.log(this.searchInfo);
-      this.$store.dispatch("search", this.searchInfo).then(res=>{
+      this.$store.dispatch("search", tmp).then(res=>{
         if (res.length===0){
           this.more = false;
           return;
@@ -402,38 +379,54 @@ export default {
       });
     },
 
-    convertInfo(){
-      this.searchInfo.isFirstOrderAsc = true;
+    convertInfo(toConv){
+      toConv.isFirstOrderAsc = true;
       switch (this.srt) {
         case 0:
-          this.searchInfo.firstOrder = "pusher";
+          toConv.firstOrder = "pusher";
           break;
         case 1:
-          this.searchInfo.firstOrder = "update_time";
+          toConv.firstOrder = "update_time";
           break;
         case 2:
-          this.searchInfo.firstOrder = "exact_price";
+          toConv.firstOrder = "exact_price";
           break;
         case 3:
-          this.searchInfo.firstOrder = "exact_price";
-          this.searchInfo.isFirstOrderAsc = false;
+          toConv.firstOrder = "exact_price";
+          toConv.isFirstOrderAsc = false;
       }
 
-      this.searchInfo.labels = this.searchInfo.labels.concat(this.user_defined_label);
+      toConv.labels = toConv.labels.concat(this.user_defined_label);
 
-      this.searchInfo.tradeTypes = this.searchInfo.tradeTypes.map(item=>this.trade.indexOf(item));
-      this.searchInfo.types = this.searchInfo.types.map(item=>this.type.indexOf(item));
+      toConv.tradeTypes = toConv.tradeTypes.map(item=>this.trade.indexOf(item));
+      toConv.types = toConv.types.map(item=>this.type.indexOf(item));
       if (this.dates.length>0){
-        this.searchInfo.after = this.dates[0];
+        toConv.after = this.dates[0];
         if (this.dates.length>1)
-          this.searchInfo.before = this.dates[1];
+          toConv.before = this.dates[1];
       }
 
-      if (this.searchInfo.publishers)
-        this.searchInfo.publishers = [this.searchInfo.publishers];
+      if (!toConv.priceFrom) toConv.priceFrom = 0;
+      if (!toConv.priceTo) toConv.priceTo = 9007199254740991;
 
-      this.searchInfo.page = this.page;
-      // this.searchInfo.limit = this.limit;
+      if (!toConv.queryStr){
+        toConv.searchStrategy = 0;
+      }
+
+      if (toConv.publishers)
+        toConv.publishers = [toConv.publishers];
+
+      toConv.page = this.page;
+      toConv.limit = this.limit;
+    },
+
+    canSearch(){
+      if (this.searchInfo.searchStrategy === 0)
+        return 0;
+      else {
+        return this.searchInfo.queryStr||this.searchInfo.labels||this.searchInfo.tradeTypes
+        ||this.searchInfo.types||this.searchInfo.publishers;
+      }
     },
 
     addMore() {
@@ -454,19 +447,7 @@ export default {
 
     buySellChange() {
       this.buySellInd = (this.buySellInd+1)%3;
-      this.show([], false, true);
-      // let cm = this.commodities0.concat(this.commodities1).concat(this.commodities2);
-      // if (this.buySellInd!==2){
-      //   let nw = [];
-      //   cm.forEach(item=>{
-      //     if (item.category===this.buySellInd)
-      //       nw.push(item);
-      //   });
-      //   this.show(nw);
-      // }else {
-      //   this.show(cm);
-      // }
-      // this.more=false;
+      this.filter();
     },
   },
 };

@@ -4,7 +4,7 @@
     <v-card-subtitle class="py-2">
       <v-row dense>
         <div style="padding: 4px">
-          <v-col class="d-flex justify-start">
+          <v-col class="d-flex justify-start pa-0">
             <v-avatar size="50">
               <v-img :src="headImage"></v-img>
             </v-avatar>
@@ -21,7 +21,7 @@
           </div>
 
         </v-col>
-        <v-col cols="1" class="d-flex flex-column-reverse flex-row-reverse">
+        <v-col cols="1" class="d-flex align-center flex-row-reverse">
           <v-btn class="mb-2 pa-0" @click ="ReportCircle" small text>
             举报
           </v-btn>
@@ -29,9 +29,8 @@
       </v-row>
     </v-card-subtitle>
     <v-card-text>
-      <div v-for="item in show" :key="item.ind" style="padding: 10px">
+      <div v-for="item in show" :key="item.ind" style="padding: 5px">
         <div v-if="item.text" v-text="item.text"  style="max-width: max-content; word-wrap: break-word; white-space: pre-wrap; padding-left: 20px"></div>
-
         <v-img max-width="600px" max-height="800px" v-else :src="item.image" contain></v-img>
       </div>
     </v-card-text>

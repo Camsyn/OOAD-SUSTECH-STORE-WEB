@@ -1,16 +1,11 @@
 <template>
   <div class="table">
-    <p class="p_text">购物车 ({{tableData.length}})</p>
+    <p class="p_text">收藏 ({{tableData.length}})</p>
     <el-table
-        ref="multipleTable"
         :data="tableData"
         tooltip-effect="dark"
         style="width: 100%"
         @selection-change="handleSelectionChange">
-      <el-table-column
-          type="selection"
-          width="55">
-      </el-table-column>
       <el-table-column
           width="120" >
         <template slot-scope="scope">
@@ -47,7 +42,7 @@
       </el-table-column>
       <el-table-column
           prop="cartItemCreateTime"
-          label="加入购物车时间"
+          label="加入时间"
           width="120"
           show-overflow-tooltip>
       </el-table-column>
@@ -55,7 +50,6 @@
 
       <el-table-column
           label="发布者"
-
           width="300">
         <template slot-scope="scope">
                     <div class="User">
@@ -96,17 +90,6 @@
           <div class="Now">{{scope.row.exactPrice}}</div>
         </template>
       </el-table-column>
-
-      <el-table-column
-          label="数目"
-          width="150">
-
-        <template slot-scope="scope">
-          <el-input-number v-model="scope.row.cartItemCount" @change="handleChange" :min="1" :max='scope.row.count - scope.row.saleCount' label="描述文字"
-          size="small"></el-input-number>
-        </template>
-      </el-table-column>
-
       <el-table-column
           prop="tradeMethod"
           label="支付方式"
@@ -129,23 +112,6 @@
       </el-table-column>
 
     </el-table>
-    <div style="margin-top: 20px">
-      <el-button @click="toggleSelection(tableData)">全选</el-button>
-      <el-button @click="toggleSelection()">取消选择</el-button>
-    </div>
-    <div class="shop_bottom">
-      <button class="buy" @click ="PayFor">
-        结算
-      </button>
-      <div class="price">共计:
-        <strong class="price_text">{{sum}}</strong>
-      </div>
-      <div class="number">
-        已选商品
-        <strong class="number_text">{{multipleSelection.length}}</strong>
-        件
-      </div>
-    </div>
   </div>
 
 </template>
