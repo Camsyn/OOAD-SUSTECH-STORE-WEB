@@ -84,12 +84,12 @@
       <v-pagination v-model="page" @input="more" :length="length">
       </v-pagination>
     </div>
-    <report :dialog="repo" :id="this.order_id" type="reportOrder" v-on:close="repo=false"></report>
+    <reportArgue :dialog="repo" :id="this.order_id"  v-on:close="repo=false"></reportArgue>
   </div>
 </template>
 
 <script>
-import report from '../../../components/report'
+import reportArgue from '../../../components/reportArgue'
 export default {
   name: "reportpage",
   data() {
@@ -108,7 +108,7 @@ export default {
     }
   },
   components : {
-    report
+    reportArgue
   },
   computed: {
     maidaode(){
@@ -118,7 +118,8 @@ export default {
 
   methods: {
     argue(item) {
-
+      this.repo = true
+      this.order_id = item.r_id
     },
 
     more(){
@@ -139,7 +140,7 @@ export default {
             this.all[i].content = this.all[i].description
           }
         }
-        console.log(this.all)
+
       }).catch((err) => {
         console.log(err)
       })
