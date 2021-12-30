@@ -88,7 +88,7 @@
           <el-button
               @click="ReportOrder(scope.row)"
               size="mini"
-              type="primary">
+              type="danger">
             举报
           </el-button>
         </template>

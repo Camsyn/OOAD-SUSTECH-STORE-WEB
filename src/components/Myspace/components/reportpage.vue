@@ -128,6 +128,7 @@ export default {
         return;
       }
       this.$store.dispatch('selectReportRecord').then((data) => {
+        console.log(data)
         this.all = data
         for (let i = 0; i <this.all.length ; i++) {
           this.all[i].type = this.types[this.all[i].category]
