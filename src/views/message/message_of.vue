@@ -29,7 +29,7 @@
         <span class="mx-auto">{{oppositeId}}</span>
       </v-row>
       <v-divider class="my-1"></v-divider>
-      <v-row dense style="margin-bottom: 10px; max-height: 400px; overflow-y: scroll; overflow-x: hidden">
+      <v-row dense style="margin-bottom: 10px; max-height: 400px; overflow-y: scroll; overflow-x: hidden" id="dw">
         <v-col cols="12"
           v-for="(msg, index) in messages"
           :key="index"
@@ -89,7 +89,10 @@ export default {
         console.log(err);
       });
       this.files=[];
-    }
+    },
+    down(){
+
+    },
   },
   computed: {
     messages(){

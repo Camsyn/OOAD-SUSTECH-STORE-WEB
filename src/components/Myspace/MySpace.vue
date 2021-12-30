@@ -22,7 +22,6 @@
           <transition name="fade">
             <router-view></router-view>
           </transition>
-
         </v-sheet>
       </v-col>
     </v-row>

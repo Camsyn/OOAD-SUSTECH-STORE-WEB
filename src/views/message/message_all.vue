@@ -10,7 +10,6 @@
               <v-list-item-avatar size="50">
                 <v-img :src="getInfo(item[0]).headImage"></v-img>
               </v-list-item-avatar>
-
               <v-list-item-content>
                   <v-list-item-title v-html="item[0]"></v-list-item-title>
                   <v-list-item-subtitle
@@ -63,6 +62,7 @@ export default {
       if (this.$route.params.sid !== sid.toString())
         this.$router.push({path: "/message/"+sid});
     },
+
   },
 
   created() {

@@ -268,10 +268,19 @@ export default {
         console.log("info needed")
         return ;
       }
+
       tmp.category = this.cata.indexOf(tmp.category);
       tmp.tradeType = this.trade.indexOf(tmp.tradeType);
       tmp.labels = this.user_defined_label.concat(this.label_all);
       tmp.type = this.type.indexOf(tmp.type);
+      
+      if (tmp.type===0&&tmp.tradeType===1&&tmp.exactPrice>this.$store.state.user.liyuan){
+        this.$message({
+          type: 'warning',
+          message: '余额不足'
+        });
+        return;
+      }
 
       if (tmp.id){
         this.$store.dispatch("updateRq", tmp).then(res=>{
