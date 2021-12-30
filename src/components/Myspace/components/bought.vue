@@ -261,7 +261,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.userCmt = true;
-        if (item.type===0){
+        if (item.type===1){
           this.cmtId = item.puller;
         }else{
           this.cmtId = item.pusher;

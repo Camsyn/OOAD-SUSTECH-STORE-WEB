@@ -1,5 +1,6 @@
 <template>
   <div class="table" style="padding: 20px">
+    <user-comment :dialog="userCmt" :id="cmtId" v-on:close="userCmt=false;cmtId=0" ></user-comment>
     <p class="p_text">我卖出的 ({{all.length}})</p>
     <report :dialog="repo" :id="this.repoId" type="reportOrder" v-on:close="repo=false"></report>
     <el-table
@@ -56,8 +57,9 @@
           <el-button
               @click="confirm(scope.row)"
               size="mini"
+              :disabled="confirmed(scope.row)"
               type="primary">
-            确认
+            {{ confirmed(scope.row)?"已确认":"确认" }}
           </el-button>
         </template>
       </el-table-column>
@@ -70,8 +72,9 @@
           <el-button
               @click="rollback(scope.row.id)"
               size="mini"
+              :disabled="!canWithdraw(scope.row)"
               type="primary">
-            撤回
+            {{ canWithdraw(scope.row)?"撤回":"不可撤回" }}
           </el-button>
         </template>
       </el-table-column>
@@ -96,10 +99,12 @@
 
 <script>
 import report from '../../../components/report'
+import userComment from "../../userComment";
 export default {
   name: "sold",
   components: {
-    report
+    report,
+    userComment
   },
   data() {
     return {
@@ -112,7 +117,9 @@ export default {
       length: 1,
       dialog: false,
       edit: null,
-      stats:["准备中","已发布","已完成","审核中","拉取者撤回","发布者撤回"]
+      stats:["准备中","已发布","已完成","审核中","拉取者撤回","发布者撤回"],
+      userCmt: false,
+      cmtId: 0,
     }
   },
   computed: {
@@ -151,7 +158,12 @@ export default {
         type: 'warning'
       }).then(() => {
         if(item.type == 1) {
-          this.$store.dispatch("confirmPush", item.id).then(res=>{
+          this.$store.dispatch("confirmPush", item.id).then(res=>{this.userCmt = true;
+            if (item.type===0){
+              this.cmtId = item.puller;
+            }else{
+              this.cmtId = item.pusher;
+            }
             this.more();
           }).catch(err=>{
           });
@@ -205,6 +217,16 @@ export default {
         });
       });
 
+    },
+    confirmed(item){
+      if (item.pusher===this.$store.state.user.name&&item.pusherConfirm!==0)
+        return true;
+      if (item.puller===this.$store.state.user.name&&item.pullerConfirm!==0)
+        return true;
+    },
+
+    canWithdraw(item){
+      return item.state === 1;
     },
 
     more(){
