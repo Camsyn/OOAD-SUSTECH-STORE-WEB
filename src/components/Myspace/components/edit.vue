@@ -47,6 +47,7 @@
         </v-row>
         <v-row>
           <div style="margin-left: 35px; margin-top: 20px" v-text="'余额: ￥'+$store.state.user.liyuan"></div>
+          <div style="margin-left: 35px; margin-top: 20px" v-text="'信誉: ￥'+$store.state.user.credit"></div>
         </v-row>
       </v-col>
       <v-col cols="6">
