@@ -229,7 +229,11 @@ export default {
               this.storeUser();
             });
           }).catch((err) => {
-            console.log(err)
+        this.$message({
+          showClose: true,
+          message: err,
+          type: 'warning'
+        });
           });
     },
 
