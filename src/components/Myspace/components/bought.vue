@@ -17,7 +17,7 @@
       </el-table-column>
 
       <el-table-column
-          label="买家"
+          label="卖家"
           width="120"
       >
         <template slot-scope="scope">
@@ -64,8 +64,10 @@
           <el-button
               @click="confirm(scope.row)"
               size="mini"
-              type="primary">
-            确认
+              type="primary"
+              :disabled="confirmed(scope.row)"
+          >
+            {{ confirmed(scope.row)?"已确认":"确认"}}
           </el-button>
 
         </template>
@@ -94,8 +96,9 @@
           <el-button
               @click="rollback(scope.row.id)"
               size="mini"
+              :disabled="!canWithdraw(scope.row)"
               type="danger">
-            撤回
+            {{ canWithdraw(scope.row)?"撤回":"不可撤回" }}
           </el-button>
         </template>
 
@@ -285,6 +288,17 @@ export default {
           message: '已取消确认'
         });
       });
+    },
+
+    confirmed(item){
+      if (item.pusher===this.$store.state.user.name&&item.pusherConfirm!==0)
+        return true;
+      if (item.puller===this.$store.state.user.name&&item.pullerConfirm!==0)
+        return true;
+    },
+
+    canWithdraw(item){
+      return item.state === 1;
     },
 
     more(){

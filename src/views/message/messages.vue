@@ -42,6 +42,7 @@
 import Message_single from "./message_single";
 export default {
   name: "messages",
+  props:["oppo"],
   components: {Message_single},
   data(){
     return{
@@ -55,7 +56,7 @@ export default {
         return;
       let msg = {
         sendId: this.myId,
-        recvId: this.oppositeId,
+        recvId: this.oppo,
         content: this.msg,
         type: 0,
       }
@@ -89,7 +90,8 @@ export default {
   },
   computed: {
     messages(){
-      let msgs = this.$store.getters.msgOf(this.oppositeId);
+      let msgs = this.$store.getters.msgOf(this.oppo);
+      // console.log(this.oppo, msgs)
       return msgs;
     },
     oppositeId(){
