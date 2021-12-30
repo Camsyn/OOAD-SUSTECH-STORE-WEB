@@ -1,86 +1,81 @@
 <template>
   <div class="table" style="padding: 20px">
 
-    <v-row>
-      <span v-text="maidaode" class="my-4 mx-auto"></span>
-    </v-row>
+<!--    <v-row>-->
+<!--      <span v-text="maidaode" class="my-4 mx-auto"></span>-->
+<!--    </v-row>-->
     <el-table
         empty-text="暂无数据"
-        :data="all[page-1]"
+        :data='all'
         tooltip-effect="dark"
         style="width: 100%"
     >
       <el-table-column
-          label="商品名称"
+          prop="type"
+          label="被举报类型"
           width="150">
-        <template slot-scope="scope">{{ scope.row.requestTitle }}</template>
       </el-table-column>
 
       <el-table-column
-          label="被投诉商家"
-          width="120"
-      >
-        <template slot-scope="scope">
-          <i @click="new PersonIn(scope.row.pusher)"
-             style="cursor: pointer">
-            {{ scope.row.pusher }}
-          </i>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-          prop="tradeCnt"
-          label="数量"
-          width="120">
-      </el-table-column>
-
-      <el-table-column
-          prop="updateTime"
-          label="交易时间"
-          width="120">
-      </el-table-column>
-
-      <el-table-column
-          label="价格"
+          prop="target"
+          label="被举报对象编号"
           width="150">
-        <template slot-scope="scope">
-          <div class="Now">{{scope.row.singlePrice}}</div>
-        </template>
+      </el-table-column>
+
+<!--      <el-table-column-->
+<!--          label="被投诉商家"-->
+<!--          width="120"-->
+<!--      >-->
+<!--        <template slot-scope="scope">-->
+<!--          <i @click="new PersonIn(scope.row.pusher)"-->
+<!--             style="cursor: pointer">-->
+<!--            {{ scope.row.pusher }}-->
+<!--          </i>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+
+<!--      <el-table-column-->
+<!--          prop="tradeCnt"-->
+<!--          label="数量"-->
+<!--          width="120">-->
+<!--      </el-table-column>-->
+
+      <el-table-column
+          prop="time"
+          label="举报时间"
+          width="150">
+      </el-table-column>
+
+<!--      <el-table-column-->
+<!--          label="价格"-->
+<!--          width="150">-->
+<!--        <template slot-scope="scope">-->
+<!--          <div class="Now">{{scope.row.singlePrice}}</div>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
+
+      <el-table-column
+          prop="states"
+          label="举报状态"
+          width="150">
       </el-table-column>
 
       <el-table-column
-          label="投诉原因"
-          width="150">
-        <template slot-scope="scope">
-          <div>{{stats[scope.row.state]}}</div>
-        </template>
+          prop="content"
+          label="举报内容"
+          width="200">
       </el-table-column>
 
       <el-table-column
           fixed="right"
           label="操作"
-          width="120">
+          width="250">
         <template slot-scope="scope">
           <el-button
-              @click="confirm(scope.row.id)"
-              size="mini"
-              type="primary">
-            撤销举报
-          </el-button>
-
-        </template>
-      </el-table-column>
-
-      <el-table-column
-          fixed="right"
-          label="操作"
-          width="120">
-        <template slot-scope="scope">
-          <el-button
-              @click="report(scope.row.id)"
+              @click="argue(scope.row)"
               size="mini"
               type="danger">
-            再次举报
+            申诉
           </el-button>
         </template>
       </el-table-column>
@@ -89,12 +84,12 @@
       <v-pagination v-model="page" @input="more" :length="length">
       </v-pagination>
     </div>
-    <report :dialog="repo" :id="this.order_id" type="reportOrder" v-on:close="repo=false"></report>
+    <reportArgue :dialog="repo" :id="this.order_id"  v-on:close="repo=false"></reportArgue>
   </div>
 </template>
 
 <script>
-import report from '../../../components/report'
+import reportArgue from '../../../components/reportArgue'
 export default {
   name: "reportpage",
   data() {
@@ -108,11 +103,12 @@ export default {
       length: 1,
       dialog: false,
       edit: null,
-      stats:["准备中","已发布","已完成","审核中","已中断"],
+      stats:["审核中","过审","不过审","申诉审核中","申诉失败，确认不过审"],
+      types:["用户","请求","订单","动态",'评论'],
     }
   },
   components : {
-    report
+    reportArgue
   },
   computed: {
     maidaode(){
@@ -121,39 +117,9 @@ export default {
   },
 
   methods: {
-    report(id){
-      this.$confirm('是否举报该订单', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.repo = true
-        this.id = id
-        console.log(this.repo)
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消'
-        });
-      });
-    },
-    PersonIn(id) {
-      this.$store.state.user.ObserverId = id
-      this.$router.push('/PersonalPage/treasure')
-    },
-    detile(){
-      this.$router.push({name: "GoodsDetails"});
-    },
-    mycircle(){
-      this.$router.push({name: "Circle"});
-    },
-
-    confirm(id){
-      this.$store.dispatch("confirmPull", id).then(res=>{
-
-      }).then(err=>{
-        console.log(err);
-      });
+    argue(item) {
+      this.repo = true
+      this.order_id = item.r_id
     },
 
     more(){
@@ -161,24 +127,28 @@ export default {
       if (this.page<this.length){
         return;
       }
-      this.$store.dispatch("getPull", {page: this.page, size: this.limit}).then((res) => {
-        res = res.data;
-        if (res.length!==0){
-          this.all.push(res);
-          if (this.page>=this.length&&res.length===this.limit){
-            this.length++;
+      this.$store.dispatch('selectReportRecord').then((data) => {
+        this.all = data
+        for (let i = 0; i <this.all.length ; i++) {
+          this.all[i].type = this.types[this.all[i].category]
+          this.all[i].time = this.all[i].time.substr(0,10)
+          this.all[i].states = this.stats[this.all[i].state]
+          if(this.all[i].description.length >=15) {
+            this.all[i].content = this.all[i].description.substr(0,15) + "....."
+          }
+          else {
+            this.all[i].content = this.all[i].description
           }
         }
-      });
+
+      }).catch((err) => {
+        console.log(err)
+      })
     },
 
   },
   created() {
-    this.$store.dispatch('selectReportRecord').then((data) => {
-      console.log(data)
-    }).catch((err) => {
-      console.log(err)
-    })
+
     this.more();
   }
 }

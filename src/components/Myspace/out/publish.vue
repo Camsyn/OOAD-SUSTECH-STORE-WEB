@@ -80,7 +80,7 @@
             width="120">
           <template slot-scope="scope">
             <el-button
-                @click.native.prevent="deleteRow(scope.$index)"
+                @click.native.prevent="deleteRow(scope.$index,scope.row)"
                 size="mini"
                 type="danger">
               移除
@@ -131,19 +131,21 @@ export default {
     mycircle(){
       this.$router.push({name: "Circle"});
     },
-    deleteRow(index, rows) {
+    deleteRow(index, row) {
       this.$confirm('确定删除吗?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$store.dispatch("")
-        this.$message({
-          type: 'success',
-          message: '删除成功!'
-        })
-        this.all.splice(index, 1)
-        this.$store.dispatch('deleteItem',{})
+        this.$store.dispatch("withdraw", row.id).then(res=>{
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.all.splice(index, 1);
+        }).catch(err=>{
+          console.log(err);
+        });
       }).catch(() => {
         this.$message({
           type: 'info',
