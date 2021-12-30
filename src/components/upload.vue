@@ -250,7 +250,6 @@ export default {
     addFile() {
         this.$store.dispatch("upload", {files: this.images, mul: true}).then(res=>{
           console.log(res)
-          // res = res[0];
           for (let fl of res) {
             this.uploadInfo.images.push(fl.fileDownloadUri.replace("/downloadFile", ""));
           }
@@ -273,7 +272,7 @@ export default {
       tmp.tradeType = this.trade.indexOf(tmp.tradeType);
       tmp.labels = this.user_defined_label.concat(this.label_all);
       tmp.type = this.type.indexOf(tmp.type);
-      
+
       if (tmp.type===0&&tmp.tradeType===1&&tmp.exactPrice>this.$store.state.user.liyuan){
         this.$message({
           type: 'warning',
@@ -286,7 +285,7 @@ export default {
         this.$store.dispatch("updateRq", tmp).then(res=>{
           this.$message({
             type: 'info',
-            message: '发布成功，正在审核'
+            message: '更新成功，正在审核'
           });
           this.$emit("close");
         }).catch(err=>{
@@ -297,7 +296,7 @@ export default {
         this.$store.dispatch("push", tmp).then(res=>{
           this.$message({
             type: 'info',
-            message: '更新成功，正在审核'
+            message: '发布成功，正在审核'
           });
           this.$emit("close");
         }).catch(err=>{
