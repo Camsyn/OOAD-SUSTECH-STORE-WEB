@@ -47,13 +47,12 @@ export default {
   }),
   computed:{
     all_evaluations(){
-      this.$store.dispatch('getMyInfo').then(() => {
-        let data10 = {
-          sid : user.state.ObserverId,
-          page: 0,
-          limit: 10,
-          sort : false
-        }
+      let data10 = {
+        sid : user.state.ObserverId,
+        page: 0,
+        limit: 10,
+        sort : false
+      }
         this.$store.dispatch('getUserComment', data10).then((data) => {
           for (let i = 0; i <data.length ; i++) {
             this.$store.dispatch("getInfoOf" , data[i].fromSid).then((data3) => {
@@ -63,7 +62,6 @@ export default {
           }
           this.commentData = data
         })
-      })
       return this.commentData
     }
   }
