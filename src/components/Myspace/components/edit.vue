@@ -203,6 +203,9 @@ export default {
     myInfo(){
       return this.$store.getters.myInfo;
     }
+  },
+  created() {
+    this.$store.dispatch('getMyInfo')
   }
 }
 </script>
