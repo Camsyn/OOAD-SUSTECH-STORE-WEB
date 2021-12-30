@@ -38,7 +38,7 @@ export default {
       { icon: "mdi-purse-outline", title: "我发布的", route: "/myspace/publish" },
       { icon: "mdi-cart-arrow-up", title: "我卖出的", route: "/myspace/sold" },
       { icon: "mdi-cart-arrow-down", title: "我买到的", route: "/myspace/bought" },
-      { icon: "mdi-cart-variant", title: "购物车", route: "/myspace/nextsell" },
+      { icon: "mdi-cart-variant", title: "我收藏的", route: "/myspace/nextsell" },
       { title: "编辑", route: "/myspace/edit" },
       { title: "申诉", route: "/myspace/reportpage" },
     ],
