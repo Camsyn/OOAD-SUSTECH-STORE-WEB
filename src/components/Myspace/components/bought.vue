@@ -202,7 +202,7 @@ export default {
         data3 = id.puller
       }
       let data = {
-        requestId: id.id,
+        requestId: id.requestId,
       }
       this.$store.dispatch('getRequest',data).then((res) => {
         res = res.data
@@ -221,7 +221,6 @@ export default {
             res.tradeMethod = '私下交易'
           }
           goods.state.payList = [res]
-          console.log(res)
           this.$router.push('/pay')
         })
       }).catch((err) => {
@@ -302,7 +301,7 @@ export default {
       return item.state === 1;
     },
     canPay(item){
-      return item.type===0&&item.type!==2;
+      return item.tradeType!==1 && item.type !==1;
     },
 
     more(){

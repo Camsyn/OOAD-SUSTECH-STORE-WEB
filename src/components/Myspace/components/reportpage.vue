@@ -119,7 +119,8 @@ export default {
   methods: {
     argue(item) {
       this.repo = true
-      this.order_id = item.r_id
+      this.order_id = item.id
+      this.more()
     },
 
     more(){
@@ -128,6 +129,7 @@ export default {
         return;
       }
       this.$store.dispatch('selectReportRecord').then((data) => {
+        console.log(data)
         this.all = data
         for (let i = 0; i <this.all.length ; i++) {
           this.all[i].type = this.types[this.all[i].category]
