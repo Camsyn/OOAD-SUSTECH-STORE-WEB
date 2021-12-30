@@ -52,6 +52,7 @@ export default {
   }),
   methods:{
     report(){
+      console.log(this.id)
       if (this.desc===""||!this.id)
         return;
       this.$store.dispatch('argue', {R_id: this.id, desc:this.desc}).then(res=>{
