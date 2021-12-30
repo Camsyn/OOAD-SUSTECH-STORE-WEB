@@ -160,6 +160,6 @@ export function Argue(R_id, desc) {
     return service({
         url: "/review/argue",
         method: "put",
-        data: {R_id, desc},
+        params: {R_id, desc},
     });
 }

@@ -134,22 +134,12 @@ export default {
         type: 'warning'
       }).then(() => {
         let data = []
-        // if(this.desserts[0].cartItemId !== null) {
-        //   for (let i = 0; i < this.desserts.length; i++) {
-        //     data.push(this.desserts[i].cartItemId)
-        //   }
-        // }
           data = {
             requestId: this.desserts[0].id,
             count: 1,
           }
-          this.$store.dispatch('buy',data).then((data) => {
-            if (this.text === '平台代币'){
-              this.$message({
-                type: 'success',
-                message: '订单成功!',
-              })
-            }
+
+          if(this.desserts[0].state !== 2) {
             if (this.text === '个人收款码') {
               this.dialogVisible = true
             }
@@ -159,13 +149,33 @@ export default {
                 message: '订单已成功下单，请尽快联系卖家',
               })
             }
+          }
+          else {
+            this.$store.dispatch('buy',data).then((data) => {
+              if (this.text === '平台代币'){
+                this.$message({
+                  type: 'success',
+                  message: '订单成功!',
+                })
+              }
+              if (this.text === '个人收款码') {
+                this.dialogVisible = true
+              }
+              if (this.text === '私下交易') {
+                this.$message({
+                  type: 'success',
+                  message: '订单已成功下单，请尽快联系卖家',
+                })
+              }
 
-          }).catch(err=>{
-            this.$message({
-              type: 'warning',
-              message: err
-            })
-          });
+            }).catch(err=>{
+              this.$message({
+                type: 'warning',
+                message: err
+              })
+            });
+          }
+
         // else {
         //   this.$store.dispatch('satisfy',data).then((data) => {
         //     if (this.text === '平台代币'){
