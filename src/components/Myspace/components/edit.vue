@@ -45,6 +45,9 @@
             </template>
           </v-hover>
         </v-row>
+        <v-row>
+          <div style="margin-left: 35px; margin-top: 20px" v-text="'余额: ￥'+$store.state.user.liyuan"></div>
+        </v-row>
       </v-col>
       <v-col cols="6">
         <v-row>
@@ -67,7 +70,6 @@
         <v-row>
           <v-col>
             <v-form>
-
               <div class="text-h6 font-weight-black" v-text="code"></div>
               <div style="padding: 10px">
                 <el-input placeholder="请输入原始密码" v-model="input1" show-password></el-input>
@@ -83,6 +85,13 @@
                 </v-col>
               </v-row>
             </v-form>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="d-flex justify-center">
+            <v-btn text outlined color="error" rounded @click="logout">
+              退出登录
+            </v-btn>
           </v-col>
         </v-row>
       </v-col>
@@ -182,6 +191,11 @@ export default {
           message: '已取消'
         });
       });
+    },
+
+    logout(){
+      this.$store.commit("LOG_OUT");
+      this.$router.push({path:"/login"});
     }
   },
   computed:{

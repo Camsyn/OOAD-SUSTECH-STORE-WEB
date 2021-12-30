@@ -81,8 +81,9 @@
           <el-button
               @click="pay(scope.row)"
               size="mini"
+              :disabled="!canPay(scope.row)"
               type="danger">
-            支付
+            {{ canPay(scope.row)?"支付":"已支付" }}
           </el-button>
         </template>
 
@@ -299,6 +300,9 @@ export default {
 
     canWithdraw(item){
       return item.state === 1;
+    },
+    canPay(item){
+      return item.type===0&&item.type!==2;
     },
 
     more(){

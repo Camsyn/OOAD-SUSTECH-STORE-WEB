@@ -242,7 +242,7 @@ export default {
         isFirstOrderAsc: true,
         after: null,
         before: null,
-        // openState: 0,
+        openState: 1,
         page: 1,
         limit: this.limit,
         searchStrategy: 2,
@@ -351,7 +351,7 @@ export default {
       let tmp = {
         page: this.page,
         limit: this.limit,
-        // openState: 0,
+        openState: 1,
       }
       this.$store.commit("setSearch", false);
       this.$store.dispatch("search", tmp).then(res=>{

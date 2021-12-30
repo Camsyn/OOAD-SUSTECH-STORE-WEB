@@ -90,6 +90,10 @@ const user = {
       state.userInfos.set(info.sid.toString(), info)
       state.tracer++;
     },
+    LOG_OUT: (state)=>{
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+    }
   },
 
   actions: {
